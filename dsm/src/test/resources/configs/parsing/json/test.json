@@ -1,0 +1,29 @@
+{
+  "product1": {
+    "id": 234,
+    "name": "asdfa",
+    "price": 423454
+  },
+  "product2": {
+    "id": 234,
+    "name": "asdfa",
+    "price": 423454
+  },
+  "list": [
+    {
+      "id": 234,
+      "name": "asdfa",
+      "price": 423454
+    },
+    {
+      "id": 234,
+      "name": "asdfa",
+      "price": 423454
+    }
+  ],
+  "simpleList": [
+    123,
+    123,
+    123
+  ]
+}

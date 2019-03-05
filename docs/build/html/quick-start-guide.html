@@ -1,0 +1,474 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="specification/index.html" />
+    <link rel="prev" title="Declarative Stream Mapping (DSM)" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Declarative Stream Mapping (DSM)
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#simple-example">Simple Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sample-config-file">Sample Config File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Specification:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html#definitions">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html#format">Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html#document-structure">Document Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html#schema">Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html#expression">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html#property-assignment-order">Property Assignment Order</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Declarative Stream Mapping (DSM)</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/quick-start-guide.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Declarative Stream Mapping(DSM) is a stream deserializer library that works for both XML and JSON. DSM allows you to make custom parsing, filtering, transforming, aggregating, grouping on any JSON or XML document at stream time(read only once). There is no need to writing custom parser. DSM use yaml or json configuration file to parse data. Processed data can be deserialized to java classes.</p>
+</div>
+<div class="section" id="simple-example">
+<h1>Simple Example<a class="headerlink" href="#simple-example" title="Permalink to this headline">¶</a></h1>
+<p><strong>Lets Parse below simple JSON and XML file with DSM</strong></p>
+<p>File contents are taken from <a class="reference external" href="https://editor.swagger.io/">Swagger Petstore example</a>. Slightly changed.</p>
+<p><strong>Source file</strong></p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-tab1">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Van Kedisi&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;sold&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;createDate&quot;</span><span class="p">:</span> <span class="s2">&quot;01/24/2019&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Cats&quot;</span><span class="p">},</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Cute&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Popular&quot;</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;photoUrls&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;url1&quot;</span><span class="p">,</span><span class="s2">&quot;url2&quot;</span> <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab2">
+<p class="tab-title">XML</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+
+<span class="nt">&lt;Pet</span> <span class="na">id=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;name&gt;</span>Van Kedisi<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;status&gt;</span>sold<span class="nt">&lt;/status&gt;</span>
+    <span class="nt">&lt;createDate&gt;</span>01/24/2019<span class="nt">&lt;/createDate&gt;</span>
+    <span class="nt">&lt;category&gt;</span>
+        <span class="nt">&lt;id&gt;</span>1<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;name&gt;</span>Cats<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;/category&gt;</span>
+    <span class="nt">&lt;tags&gt;</span>
+        <span class="nt">&lt;tag&gt;</span>
+            <span class="nt">&lt;id&gt;</span>1<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Cute<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;/tag&gt;</span>
+        <span class="nt">&lt;tag&gt;</span>
+            <span class="nt">&lt;id&gt;</span>2<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Popular<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;/tag&gt;</span>
+    <span class="nt">&lt;/tags&gt;</span>
+    <span class="nt">&lt;photoUrls&gt;</span>
+        <span class="nt">&lt;photoUrl&gt;</span>url1<span class="nt">&lt;/photoUrl&gt;</span>
+        <span class="nt">&lt;photoUrl&gt;</span>url2<span class="nt">&lt;/photoUrl&gt;</span>
+     <span class="nt">&lt;/photoUrls&gt;</span>
+<span class="nt">&lt;/Pet&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Those are rules that we want to apply during parsing</strong>.</p>
+<ul class="simple">
+<li>exclude “photoUrls” tag.</li>
+<li>read only “name” field of “tags” tag.</li>
+<li>read only  “name” field of “category” tag.</li>
+<li>add new the “isPopular” field that it’s value is true, if “tag.name” has “Popular” value</li>
+</ul>
+<p><strong>DSM config file</strong></p>
+<p>[YAML]</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">MM/dd/yyyy</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+   <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+   <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pet</span>
+   <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.status==&#39;sold&#39;</span>
+   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+       <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+         <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">attribute</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+       <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+       <span class="l l-Scalar l-Scalar-Plain">status</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">status</span>
+       <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>
+       <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+           <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">category/name</span>
+       <span class="l l-Scalar l-Scalar-Plain">isPopular</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.tags.contains(&quot;Popular&quot;)</span>
+       <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>
+             <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+             <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/name |tags/tag/name</span>    <span class="c1"># its regex expression. works for both JSON and XML</span>
+</pre></div>
+</div>
+<p><strong>Class to deserialize</strong></p>
+<p>[JAVA]</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pet</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">isPopular</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">status</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">category</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">Date</span> <span class="n">createDate</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">tags</span><span class="o">;</span>
+
+        <span class="c1">// getter/setter</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><strong>Read Data</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">ElekBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ElekBuilder</span><span class="o">(</span><span class="s">&quot;sdp-config-file.yaml&quot;</span><span class="o">);</span>
+<span class="n">Elek</span> <span class="n">elek</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+
+<span class="n">Pet</span> <span class="n">pet</span> <span class="o">=</span> <span class="n">elek</span><span class="o">.</span><span class="na">toObject</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;path/to/xmlFile.xml&quot;</span><span class="o">),</span><span class="n">Pet</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>  <span class="c1">// read data from xml file</span>
+
+<span class="n">pet</span> <span class="o">=</span> <span class="n">elek</span><span class="o">.</span><span class="na">toObject</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;path/to/jsonFile.json&quot;</span><span class="o">),</span><span class="n">Pet</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>  <span class="c1">// read data from json file</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="features">
+<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><strong>Work</strong> for both <strong>XML</strong> and <strong>JSON</strong></li>
+<li><strong>Custom stream parsing</strong></li>
+<li><strong>Filtering</strong> by value on any field with very <strong>low cognitive complexity</strong></li>
+<li>Flexible value <strong>transformation</strong>.</li>
+<li><strong>Default value assignment</strong></li>
+<li>Custom <strong>function calling</strong> during parsing</li>
+<li><strong>Powerful expression</strong> support(EL and JXEL is supported)</li>
+<li><strong>Multiple inheritance</strong> between  DSM config file (DSM file can <strong>extends to another config file</strong>)</li>
+<li><strong>Reusable fragments support</strong></li>
+<li>Very <strong>short learning curve</strong></li>
+<li><strong>Memory</strong> and <strong>CPU</strong> efficient</li>
+<li><strong>Partial data extraction</strong> from JSON or XML</li>
+<li><strong>String manipulation</strong> with expression</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>DSM can work both with GSON and JSON. you must add CORE and one of GSON or JSON dependency.</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-tab1">
+<p class="tab-title">Maven</p>
+<p><strong>Jackson</strong></p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>test<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>test<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</div>
+<p><strong>GSON</strong></p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>test<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>test<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-tab2">
+<p class="tab-title">Gradle</p>
+<p><strong>Jackson</strong></p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span>compile group: &#39;test&#39;, name: &#39;test&#39;, version: &#39;1&#39;
+</pre></div>
+</div>
+<p><strong>GSON</strong></p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span>compile group: &#39;test&#39;, name: &#39;test&#39;, version: &#39;1&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="sample-config-file">
+<h1>Sample Config File<a class="headerlink" href="#sample-config-file" title="Permalink to this headline">¶</a></h1>
+<p>Detailed documentation and all option is <a class="reference external" href="specification/main.html">here</a>.</p>
+<p>This config file contains some possible option and their short description.</p>
+<p>[header.yaml]</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">MM/dd/yyyy</span>                 <span class="c1"># define date format for &quot;date&quot; data type</span>
+<span class="l l-Scalar l-Scalar-Plain">transformations</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">SOLD_STATUS</span><span class="p p-Indicator">:</span>                           <span class="c1"># value transformation for &quot;isAvailable&quot; property</span>
+      <span class="l l-Scalar l-Scalar-Plain">map</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">sold</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+         <span class="l l-Scalar l-Scalar-Plain">pending</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+         <span class="l l-Scalar l-Scalar-Plain">available</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+         <span class="l l-Scalar l-Scalar-Plain">DEFAULT</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="l l-Scalar l-Scalar-Plain">SOLD_STATUS_SKIP</span><span class="p p-Indicator">:</span>
+       <span class="l l-Scalar l-Scalar-Plain">$ref</span><span class="p p-Indicator">:</span>   <span class="l l-Scalar l-Scalar-Plain">$transformations.SOLD_STATUS</span>   <span class="c1"># extends to &quot;SOLD_STATUS&quot; transformation.</span>
+       <span class="l l-Scalar l-Scalar-Plain">map</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">DEFAULT</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">exclude</span>                  <span class="c1"># exclude default value</span>
+       <span class="l l-Scalar l-Scalar-Plain">onlyIfExist</span><span class="p p-Indicator">:</span>                         <span class="c1"># make transformation only source value exist in transformation map other wise return as it is</span>
+<span class="l l-Scalar l-Scalar-Plain">functions</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">insertPet</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">com.example.InsertPet</span>        <span class="c1"># declare a function to declare at Parsing Element.</span>
+
+<span class="l l-Scalar l-Scalar-Plain">fragments</span><span class="p p-Indicator">:</span>                                  <span class="c1"># create reusable fragment</span>
+    <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+      <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+         <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</pre></div>
+</div>
+<p>[main.yaml]</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$extends</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">header.yaml</span>                       <span class="c1"># extends to header.yaml config.</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>                          <span class="c1"># result is an array</span>
+    <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/ | /Pets/Pet</span>                 <span class="c1"># start reading form beginning for json. tagPath is a regex. we can define both for xml and json same time. or we can declare for xml in XML field.</span>
+    <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pets/Pet</span>                    <span class="c1"># start reading from /Pets/Pet for xml</span>
+
+    <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.isAvailable</span>          <span class="c1"># filter by &quot;isAvailable&quot; property. &quot;self&quot; key word refers to current Node. self.parent refers to parent Node. self.data refers to current node data</span>
+
+    <span class="l l-Scalar l-Scalar-Plain">function</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">insertPet</span>                     <span class="c1"># call &quot;insertPet&quot; function for every element of &quot;result&quot; array</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>                          <span class="c1"># read name as string.</span>
+      <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>                           <span class="c1"># read id as int</span>
+        <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">attribute</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>                   <span class="c1"># id is an attribute on /Pets/Pet tag.</span>
+      <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>                      <span class="c1"># use dateFormat in params then convert string to date</span>
+      <span class="l l-Scalar l-Scalar-Plain">isAvailable</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">status</span>              <span class="c1"># read isAvailable as string from &quot;status&quot; tag</span>
+          <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+          <span class="l l-Scalar l-Scalar-Plain">transformationCode</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">SOLD_STATUS</span>    <span class="c1"># user &quot;SOLD_STATUS&quot; transformation to map from &quot;status&quot; to &quot;isAvailable&quot;</span>
+      <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">$ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$fragments.category</span>          <span class="c1"># extends to &quot;fragment.category&quot;</span>
+          <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+             <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">exclude</span>                  <span class="c1"># exclude &quot;type&quot; field from &quot;category&quot; fragment</span>
+             <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+                 <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="s">&#39;Animal&#39;</span>            <span class="c1">#set default value to &#39;Animal&#39; if &quot;category/name&quot; tag not exist in source document</span>
+      <span class="l l-Scalar l-Scalar-Plain">isPopular</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.tags.contains(&quot;Popular&quot;)</span>   <span class="c1"># set default value of &quot;isPopular&quot; property</span>
+
+      <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+          <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/name</span>
+          <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$value.length&gt;15</span>      <span class="c1"># filter by length of value.</span>
+          <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/tag/name</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="specification/index.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Declarative Stream Mapping (DSM)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, M.Fatih Ercik
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

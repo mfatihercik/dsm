@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <product>
+        <name>Computer</name>
+        <price>255</price>
+        <description>description</description>
+        <url>url</url>
+        <createDate>2014-07-12T07:55:06Z</createDate>
+    </product>
+</root>

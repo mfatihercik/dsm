@@ -1,0 +1,2600 @@
+
+=============================
+Declarative Stream Mapping(DSM)
+=============================
+
+.. contents:: Table of Contents
+   :depth: 2
+
+Intruduction
+=============
+
+Declarative Stream Mapping(DSM) is a stream deserializer library that works for both XML and JSON. DSM allows you to make custom parsing, filtering, transforming, aggregating, grouping on any JSON or XML document at stream time(read onece). There is no need to writing custom parser. DSM use yaml or json configuration file to parse data. Processed data can be deserialized to java classes.
+
+
+Definitions
+============
+
+
+_`DSM Document`:
+ A document (or set of documents) that defines or describes parsing  element definition uses and conforms to the DSM Specification.   
+ 
+_`Source Document`:
+   Document(File, Stream, String, HTTP Request Payload) contains JSON or XML data.
+   
+
+==============
+Specifications
+==============
+
+Format
+======
+DSM document is a JSON object, which maybe reperesented either in JSON or YAML format. 
+All field names in the specification are case sensitive. This includes all fields that are used as keys in a map, except where explicitly noted that keys are case insensitive.
+
+Document Structure
+==================
+DSM document may be made up single document or  dividen into multiple connected  parts at the discretion of the user. 
+In later case, `$extends`_ fields must be used to reference those parts.  
+
+======
+Schema
+======
+In the following description, if a field is not explicitly REQUIRED or described with a MUST or SHALL, it can be considered OPTIONAL.
+
+
+DSM Object
+==========
+
+This is the root document object of the DSM document.
+
+Fields:
+    .. csv-table::
+      :header: Field Name, Type, Description
+      :stub-columns: 1
+      :delim: |
+
+      version | string | **REQUIRED**. This string MUST be the semantic version number of the DSM Specification version that the DSM document uses. The DSM field SHOULD be used by tooling specifications and clients to interpret the DSM document
+      params_ | Map[string,any] | **params_** field is a map that contains parameter definition to configure DSM document and `Parsing Element`_s. 
+      transformations_ | Map[string,`Transfromation Element`_] | Deceleration of Map contaions  transformationCode_ as key, and TransformationElement_ as value. TransformationElement_ holds lookup table to transform value from `Source Document`_ to destination document. 
+      functions_ | Map[string,Function_] | Decleration of Map contains function_ name  as key, and  `function decleration <functions_>`_ as value.  functions are  used for custom parsing or calling services with parsed data. Functions implements FunctionExecutor interface.
+      fragments_ | Map [String, `Parsing Element`_ ] |  A map contains declaration of reusable `Parsing Element`_. The fragment definition can be referenced with $ref_ field while defining `Parsing Element`_.
+      result_ | `Parsing Element`_ | **REQUEIRED**. The entry point of `Parsing Element`_ declarations. The result field defines structure of the output.  
+      `$extends`_  | string | **`$extends`_** field is used for import external DSM document.
+
+
+
+
+
+
+_`params`
+----------
+
+-------------------------
+
+
+**params_** field is a map that contains parameter definition to configure DSM document and `Parsing Element`_. The key of params map is string and case sensitive. The value of params map can be any type of json object(int, boolean, object, array) accepted by JSON and YAML specification. 
+
+Example DSM document that contains params.
+
+[YAML]
+
+.. code-block:: yaml
+
+   version: 1.0
+   params: 
+     dateFormat: dd.MM.yyyy
+     rootPath: fooBar/foo
+     category: 
+        foo: bar
+     acceptedCountryCode: [TR,US,FR]
+
+[JSON]
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "params":{
+             "dateFormat":"dd.MM.yyyy",
+             "rootPath":"fooBar/foo",
+             "category":{
+               "foo":"bar"
+             },
+             "acceptedCountryCode": ["TR","US","FR"]
+      }
+    } 
+
+
+_`transformations`
+-------------------
+
+-------------------------------
+
+
+Deceleration of Map contaions  transformationCode_ as key, and TransformationElement_ as value. TransformationElement_ holds lookup table to transform value from `Source Document`_ to destination document. 
+ 
+Example CF document that contains transformations
+
+[YAML]
+
+.. code-block:: yaml
+
+   version: 1.0
+   transformations:
+       COUNTRY_CODE_TO_NAME:  
+           map:
+             DEFAULT: Other
+             TR: Turkey
+             US: United States
+  
+  
+[JSON]
+   
+.. code-block:: json
+
+   {
+
+      "version": 1.0,
+      "transformations":{
+         "COUNTRY_CODE_TO_NAME":{
+          "map":{
+            "TR":"Turkey",
+            "US":"United States",
+            "DEFAULT":"Other"
+          }
+         }
+      }
+
+    } 
+
+
+
+_`functions`
+-------------
+
+----------------------------
+
+Decleration of Map contains function_ name  as key, and  `function decleration <functions_>`_ as value.  functions are  used for custom parsing or calling services with parsed data. Functions implements FunctionExecutor interface.
+           
+Example CF document that contains functions
+ 
+
+.. code-block:: yaml
+
+   version: 1.0
+   functions:
+      insertProduct: com.example.InsertProduct
+      approveOrder: com.example.AproveOrder 
+ 
+   JSON
+.. code-block:: json
+
+   {
+
+      "version": 1.0,
+      "functions":{
+         "insertProduct":"com.example.InsertProduct",
+         "approveORder":"com.example.AproveOrder"
+      }
+
+    } 
+      
+
+_`fragments`
+-------------
+
+----------------------------
+
+A map contains declaration of reusable `Parsing Element`_. The fragment definition can be referenced with `$ref`_ field while defining `Parsing Element`_.
+   
+Example CF document that contains functions
+ 
+[YAML]
+
+.. code-block:: yaml
+
+   version: 1.0
+   fragments:
+      product: 
+        fields:
+           id: string
+           name: string           
+           price: double
+	   
+[JSON]
+
+.. code-block:: json
+
+   {
+
+      "version": 1.0,
+      "fragments":{
+         "product":{
+            "fields":{
+               "id":"string",
+               "name":"double",
+               "price":"double"
+            }            
+         }
+      }
+
+    } 
+
+           
+           
+_`result`
+------------
+
+-------------------------------
+
+**REQUEIRED**. The entry point of `Parsing Element`_ declarations. The result field defines structure of the output.  
+
+Example CF document that contains result
+
+[YAML]
+.. code-block:: yaml
+
+   version: 1.0
+   result: 
+     tagType: object
+     tagPath: /
+     fields:
+        id: string
+        name: string           
+        price: double
+
+[JSON]
+
+.. code-block:: json
+
+   {
+
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"         
+         "fields":{
+            "id":"string",
+            "name":"double",
+            "price":"double"
+          }
+      }
+
+    } 
+
+   
+_`$extends`
+---------------
+
+-----------------------------
+
+$extends field is used for import external DSM document to current DSM document. it's value is basicly relative path  or URI definition of  external DSM document.   if it's value start with "$" sing, it is accepted as an expression_ and resolved by expression resolver. External DSM document will merged_ into current DSM document. $extends can also be list of path or URI.  Merge_ process start from first element to last element. Firstly current DSM document merged_ with first element then result of merge_ process extended to second element etc..
+   
+Example CF document that contains extends
+
+
+[YAML]
+
+.. code-block:: yaml
+
+   version: 1.0
+   $extends: /foo/bar/external.yaml
+   
+or 
+
+.. code-block:: yaml
+
+   version: 1.0
+   params:
+      rootPath: /bar/foo/
+   $extends: 
+      - /foo/bar/external.yaml
+      - $params.rootPath.comcat("extarnalWithExpression.yaml") 
+
+[JSON]
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "$extends": "/foo/bar/external.json"
+    } 
+    
+or    
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "params":{
+      "rootPath":"/bar/foo/"
+      },
+      "$extends": ["/foo/bar/external.json","$params.rootPath.comcat('extarnalWithExpression.json')"]
+    } 
+    
+
+.. _`Parsing Element`:
+
+_`Parsing Element Object`
+=========================
+
+
+Parsing Element Object is basic object of DSM. Parsing Element Object  contains set of rules for parsing specific tag of `Source Document`_  
+
+Fields:
+
+.. csv-table::
+      :header: Field Name, Type, Description
+      :stub-columns: 1
+      :delim: |
+
+      fieldName_ | string | **REQUIRED**  fieldName_ define the name of the property to expose by current object. the fieldName is unique in object.
+      type_ | string | **REQUEIRED**. The data type of exposed field. it may have extra parameter provided with typeParams_
+      typeParams_ | Map[string,any] | extra parameters for type field need to convert. for example. dateFormat for date_ type
+      tagType_ | string | the name of the parsing strategy for the current field. the default is STD. 
+      tagTypeParams_ | Map[string,any] | it is used for passing extra parameter to type_ converter. tagTypeParams_ field extended_ to params_ field.
+      tagPath_ | string | The tagPath field specifies the location of a tag in the `source document`_ relative to the tagPath field of the higher-level Parsing Element definition. The default value is the value in the fieldName field.
+      tagParentPath_ | string |The tagParentPath_ field is used in a slightly more complex parsing definitions. it holds path to parent tag of the tag specified in the "tagPath_" field.
+      default_ | string,`Default Object`_ | default value of the field if tagPath_ not exist in the source document. if default value starts with "$" charcter it is accepted as expression_ and it is resolved by expression resolver.
+      filter_ | string | The Filter field determines whether the value of a `Parsing Element Object`_ (complex or simple tagType does not matter) is added to the object tree. The filter field is an expresion_ that returns true or false. 
+      transformationCode_ | string | this field refers to the definition of the transfromatation_ to be used to transform the tag value. 
+      function_ | string | name of the function in functions_ map. 
+      normalize_ | string| this field is used to normalize the value of tag_. İt is an expression. 
+      uniqueName_ | string | When "fieldName" fields of complex `Parsing Element Object`_ definitions are the same in the DSM document, these definitions are differentiated by using the "uniquKey" field.
+      xml_ |  Map[string,any] | XML related configuration goes under this tag.
+      attribute_ | boolean | it is indicates that the current `Parsing Element Object`_ is an attribute on the tag pointed to by the tagParentPath field in the xml.
+      overwriteByDefault_|  boolean | force using default_ field. Mostly used with filter field.
+      fields_ | Map[string,String - Parsing Element Object - [Parsing Element Object] ] | fields  of the current object. its only valid for object and array tagType_
+      $ref_ | string| $ref_ field is used to extends_ current config to given fragment_. it's value is an expression.
+      
+
+_`fieldName`
+--------------
+
+-------------------------------
+
+**REQUIRED** The fieldName_ define the name of the property to expose by current object. the fieldName is unique in object.. However, a fieldName may have multiple `Parsing Element`. The fieldName is not explicitly defined. it is defined with fields_ property.  The keys of fields_ map are the fieldName of the Parsing Element. 
+   
+In blow DSM document, id, name, and price are fieldName_ of the result object. The result_ object exposes id, name and price property
+
+
+[YAML]
+
+.. code-block:: yaml
+
+   version: 1.0
+   result:             # fieldName is result
+     tagType: object
+     tagPath: /
+     fields:
+        id: string    # fieldName is id
+        name: string  # fieldName is name         
+        price: double
+
+[JSON]
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"         
+         "fields":{
+            "id":"string",
+            "name":"double",
+            "price":"double"
+          }
+      }
+    } 
+
+   
+_`type`
+----------
+
+------------------------------
+
+The type field defines data type(string, int, boolean etc.) of the exposed property. it is basicly a converter from string to given data type.
+it may need extra parameters to convert a string to given data type. Extra parameters may be provided with params_ or typeParams_. 
+   
+Supported type name and their corresponding java class:
+   
+.. csv-table::
+    :header: Type Name, Java Type, Extra Parameters
+    :stub-columns: 1
+    :delim: |   
+     
+      int | int| 
+      float |  float |
+      short | short |
+      double | double |
+      long | long |
+      date | date | dateFormat(required)
+      boolean | boolean |
+      char | char |
+      BigDecimal | BigDecimal |
+      BigInteger | BigInteger |
+      
+
+
+.. _typeParamsExample:
+   
+    
+.. code-block:: yaml
+
+   version: 1.0
+   params:
+     dateFormat: dd.MM.yyyy  # default 'dateFormat' for all 'date' type
+   result:             
+     tagType: object
+     tagPath: /
+     fields:
+        id: string    
+        name: string       # implicitly defined type. type is string
+        price: 
+           type: double    # explicitly defined the type. type is double
+        createDate: date   # implicitly defined the date type. and 'dateFormat' is defined in params field.
+        modifiedTime: 
+          type: date       # explicitly defined the date type. and 'dateFormat' is defined in typeParams field.
+          typeParams:
+             dateFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'"
+             
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "params":{
+         "dateFormat": "dd.MM.yyyy"
+      },
+      "result":{
+         "tagType":"object",
+         "tagPath":"/",         
+         "fields":{
+            "id":"string",
+            "name":"double",
+            "price":{
+               "type": "double"
+            },
+            "createDate": "date",
+            "modifiedTime": {
+               "type": "date",
+               "typeParams": {
+                  "dateFormat":"yyyy-MM-dd'T'HH:mm:ss'Z'"
+               }
+            }
+            
+          }
+      }
+
+    } 
+    
+_`typeParams`
+----------------
+
+--------------------------------
+
+typeParams is used for passing extra parameters to a type_ converter. typeParams field extended_ to params_ field.
+   
+Check `example <typeParamsExample_>`_ here.
+   
+   
+
+
+
+_`tagType`
+-------------
+
+----------------------------------
+
+tagType defines how tags in the source document are parsed. it also defines the structure of the output object and hierarchy of the object tree. it may need extra parameters. Extra parameters are provided with tagTypeParams_ field that extended_ to params_ field.
+Basically, there are two main "tagType" categories which are "complex", and "simple". The complex category includes "tagTypes" which exposes complex data type such as object or arrays. the simple category includes tagTypes which expose data type in the type_ field.
+     
+     
+Supported tagType's:
+ 
+.. csv-table::
+    :header: Type Name, Category,Java Type, Extra Parameters
+    :stub-columns: 1
+    :delim: |   
+     
+      std_  | Simple  | type_ | default tagType if not defined explicitly
+      object_ | Complex | Map | 
+      array_  | Complex |  List<Map> - List<type_> |
+      sum_  | Simple | type_ | fields: array of fieldName of current object.
+      multiply_  | Simple | type_ | **fields**: array of fieldName of current object.
+      devide_  | Simple  | type_ | **fields**: array of fieldName of current object.
+      join_  | Simple  | type_ | **fields**: array of fieldName of current object , **seperator**: seperator string. default is comma(,)      
+      default_  | Simple  | type_ |  
+      
+
+_`std`
+^^^^^^^^
+
+------------------
+
+std is basic tagType_ which copy the value of the tag in the source document to the current object. std is the default value of the tagType_ field.  Data type_ is defined in the type_ field. 
+   
+.. code-block:: yaml
+
+   version: 1.0
+   result:             
+     tagType: object
+     tagPath: /
+     fields:
+        foo: string   # tag type is STD   
+        bar: int      # tag type is STD 
+        
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"  ,       
+         "fields":{
+            "foo":"string",
+            "bar":"int"
+         }
+      }
+   }
+   
+------------------------
+     
+
+_`object` 
+^^^^^^^^^^^^
+
+---------------
+
+object tagType_ is used to expose an object. `Parsing Element`_ which has "object" tagType_ must have 'fields_' field.
+
+.. code-block:: yaml
+
+   version: 1.0
+   result:             
+     tagType: object
+     tagPath: /
+     fields:
+        id: string    
+        name: string  
+        price: double
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"  ,       
+         "fields":{
+            "id":"string",
+            "name":"string",
+            "price":"double"
+          }
+      }
+
+    } 
+    
+Above DSM document generate following output(values are only example) :
+
+.. code-block:: json
+
+   {
+      "id":"11111",
+      "name":"foo",
+      "price":1111.111
+   }
+   
+
+ 
+
+_`array`
+^^^^^^^^^^^^
+
+---------------------------
+
+array tagType is used to expose an array. Items of the array may be a object or simple type_. if `Parsing Element`_  has "fields_" field then the array tagType_ exposes List<Object>.  if fields_ field is not defined, the data type of array item decided by type_ field.   
+ 
+
+.. code-block:: yaml
+
+   version: 1.0
+   result:             
+     tagType: array  # EXPOSE [Object] array of Object
+     tagPath: /
+     fields:
+        id: string    
+        name: string  
+        price: double
+        tags:                 # EXPOSE [string] array of string
+          tagType: array
+          tagPath: tag
+          type: string
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/",         
+         "fields":{
+            "id":"string",
+            "name":"string",
+            "price":"double",
+            "tags":{
+               "tagType": "array",
+               "tagPath": "tag",
+               "type": "string"
+            }
+          }
+      }
+
+    } 
+    
+Above DSM document generate following output(values are only example) :
+
+.. code-block:: json
+
+   [{
+      "id":"11111",
+      "name":"foo",
+      "price":1111.111,
+      "tags":["foo","bar"]
+   }]
+   
+
+
+
+_`sum`
+^^^^^^^^^^^^^^
+
+-----------------------------
+
+
+*sum* tagType is used to sum  properties defined with "fields" in **tagTypeParams_**. if one of the properties that defined in *fields* does not exist in the current object,   it is accepted as ZERO.
+
+
+
+if current property(`Parsing Element`_ that "*sum*" tagType_ is defined on) is defined in "fields" in **tagTypeParams_**,   current property value is added to total result.(sum with self)
+
+**(Explained with example below)**
+
+**tagTypeParams**: 
+ 
+.. csv-table::
+    :header: Name, Type,Description
+    :stub-columns: 1
+    :delim: |   
+    
+      fields | array | **REQUIRED** list of fieldName_ of the properties in parent `Parsing Element`_ to sum.
+    
+     
+.. code-block:: yaml
+
+   version: 1.0
+   result:             
+     tagType: object
+     tagPath: /
+     fields:
+        foo: int   
+        bar: bar  
+        fooAndBar: 
+            tagPath: \.  # when current object closed
+            tagType: sum    # decleare sum tagType to sum foo and bar field
+            type:int
+            tagTypeParams:
+               fields:[foo,bar]  # sum foo,and bar fields then set to fooAndBar property of current object.
+        sumWithSelf: 
+            tagType: sum    # decleare sum tagType to sum foo and bar field
+            type:int
+            tagTypeParams:
+               fields:[foo,bar,sumWithSelf]  # sum foo, bar and sumWithSelf(current field) fields then set sumWithSelf to total propert of current object.       
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"  ,       
+         "fields":{
+            "foo":"int",
+            "bar":"int",
+            "fooAndBar":{
+                "tagPath":"\.",
+                "tagType": "sum",
+                "tagTypeParams":{
+                     "fields":["foo","bar"]
+                }
+            },
+            "sumWithSelf":{ 
+               "tagType": "sum",
+               "type":"int",
+               "tagTypeParams":{
+                  "fields":["foo","bar","sumWithSelf"]
+               }
+            }
+          }
+      }
+
+    } 
+
+
+
+
+
+_`multiply`
+^^^^^^^^^^^^^^
+
+--------------------
+
+*multiply* tagType is used to multiply  properties defined with "fields" in **tagTypeParams_**. if one of the properties that defined in *fields* does not exist in the current object,   it is accepted as ONE.
+
+
+if current property(`Parsing Element`_ that "*multiply*" tagType_ is defined on) is defined in "fields" in **tagTypeParams_**,   current property value is multipled with total result. (multiply with self)
+
+**(Explained with example below)**
+
+ 
+.. csv-table::
+    :header: Name, Type,Description
+    :stub-columns: 1
+    :delim: |   
+    
+      fields | array | **REQUIRED** list of field name of the properties in **current object** to multiply.
+    
+     
+.. code-block:: yaml
+
+   version: 1.0
+   result:             
+     tagType: object
+     tagPath: /
+     fields:
+        foo: int   
+        bar: int  
+        fooAndBar: 
+            tagPath: \.  # when current object closed
+            tagType: multiply    # decleare multiply tagType to sum foo and bar field
+            type:int
+            tagTypeParams:
+               fields:[foo,bar]  # multiply foo,and bar fields then set it to fooAndBar propert of current object.
+        multiplyWithSelf: 
+            tagType: multiply    # decleare multiply tagType to sum foo and bar field
+            type:int
+            tagTypeParams:
+               fields:[foo,bar,multiplyWithSelf]  # multiply foo, bar and multiplyWithSelf(current field) fields then set it to multiplyWithSelf property of current object.       
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"  ,       
+         "fields":{
+            "foo":"int",
+            "bar":"int",
+            "fooAndBar":{
+                "tagPath":"\.",
+                "tagType": "multiply",
+                "tagTypeParams":{
+                     "fields":["foo","bar"]
+                }
+            },
+            "multiplyWithSelf":{ 
+               "tagType": "multiply"
+               "type":"int",
+               "tagTypeParams":{
+                  "fields":["foo","bar","multiplyWithSelf"]
+               }
+            }
+          }
+      }
+
+    } 
+    
+
+    
+_`devide`
+^^^^^^^^^^^^^^
+
+   this tagType is used, to devide, properties declared in "tagTypeParams_" fields with fields key.  if one of the property does not exist in the current object,   it is accepted as ONE.  if one of the property is current `Parsing Element Object`_ ,  then current property value included into calculation.
+
+**tagTypeParams**: 
+ 
+.. csv-table::
+    :header: Name, Type,Description
+    :stub-columns: 1
+    :delim: |   
+    
+      fields | array | **REQUIRED** list of field name of the properties in **current object** to devide.
+    
+     
+.. code-block:: yaml
+
+   version: 1.0
+   result:             
+     tagType: object
+     tagPath: /
+     fields:
+        foo: int   
+        bar: int  
+        fooAndBar: 
+            tagPath: \.  # when current object closed
+            tagType: devide    # decleare devide tagType to sum foo and bar field
+            type:int
+            tagTypeParams:
+               fields:[foo,bar]  # devide foo with bar (foo/bar) fields then set it to fooAndBar propert of current object.
+        devideWithSelf: 
+            tagType: devide    # decleare devide tagType to sum foo and bar field
+            type:int
+            tagTypeParams:
+               fields:[foo,bar,devideWithSelf]  # devide foo with bar then devide with devideWithSelf(current field) (foo/bar/devideWithSelf) fields then set it to sumWithSelf property of current object.       
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"  ,       
+         "fields":{
+            "foo":"int",
+            "bar":"int",
+            "fooAndBar":{
+                "tagPath":"\.",
+                "tagType": "devide",
+                "tagTypeParams":{
+                     "fields":["foo","bar"]
+                }
+            },
+            "devideWithSelf":{ 
+               "tagType": "devide",
+               "type":"int",
+               "tagTypeParams":{
+                  "fields":["foo","bar","devideWithSelf"]
+               }
+            }
+          }
+      }
+
+    } 
+    
+    
+    
+_`join`
+^^^^^^^^^^^^^^^^
+   this tagType is used, to joining, properties declared in "tagTypeParams_" with fields key.   if one of the property does not exist in the current object, it is skipped.  if one of the property is current `Parsing Element Object` _, then current property value included into joining. values are  separated by separator declaration in  "tagTypeParams_". default separator  is a comma(,)
+
+**tagTypeParams_**: 
+ 
+.. csv-table::
+    :header: Name, Type,Description
+    :stub-columns: 1
+    :delim: |   
+    
+      fields | array | **REQUIRED** list of field name of the properties in **current object** to join.
+      separator | string | separator string. default is comma(i)    
+     
+.. code-block:: yaml
+
+   version: 1.0
+   result:             
+     tagType: object
+     tagPath: /
+     fields:
+        foo: string   
+        bar: string  
+        fooAndBar: 
+            tagPath: \.  # when current object closed
+            tagType: join    # decleare join tagType to sum foo and bar field
+            type:int
+            tagTypeParams:
+               fields:[foo,bar]  # join foo and bar (foo,bar) fields then set it to fooAndBar propert of current object.
+        joinWithSelf: 
+            tagType: join    # decleare join tagType to sum foo and bar field
+            type:int
+            tagTypeParams:
+               seperator: &
+               fields:[foo,bar,sumWithSelf]  # join foo,bar, and joinWithSelf(current field) (foo&bar&joinWithSelf) fields then set it to joinWithSelf property of current object.       
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"  ,       
+         "fields":{
+            "foo":"string",
+            "bar":"string",
+            "fooAndBar":{
+                "tagPath":"\.",
+                "tagType": "join",
+                "tagTypeParams":{
+                     "fields":["foo","bar"]
+                }
+            },
+            "joinWithSelf":{ 
+               "tagType": "join",
+               "type":"int",
+               "tagTypeParams":{
+                  "seperator": "&",
+                  "fields":["foo","bar","joinWithSelf"]
+               }
+            }
+          }
+      }
+
+    } 
+
+
+_`tagTypeParams`
+----------------------
+   it is used for passing extra parameters to tagType_ field.  tagTypeParams field is  extended_ to params_ field. 
+   
+   Examples:
+
+.. code-block:: yaml
+
+   version: 1.0
+   result:             
+     tagType: object
+     tagPath: /
+     fields:
+        foo: string   
+        bar: string  
+        fooAndBar: 
+            tagPath: \.  # when current object closed
+            tagType: join    # decleare join tagType to sum foo and bar field
+            type:int
+            tagTypeParams:       # tagTypeParams is used to pass fields parammeter to tagType
+               fields:[foo,bar]  
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"  ,       
+         "fields":{
+            "foo":"string",
+            "bar":"string",
+            "fooAndBar":{
+                "tagPath":"\.",
+                "tagType": "join",
+                "tagTypeParams":{
+                     "fields":["foo","bar"]
+                }
+            }
+          }
+      }
+
+    } 
+   
+-----------------------------------
+
+   
+_`tagPath` and _`tagParentPath`
+-------------------------------
+
+The tagPath and tagParentPath fields indicate which tags are used in the source document during parsing.
+The value of those fields are regular expressions.
+
+The tagPath field specifies the location of a tag in the `source document`_ relative to the tagPath field of the higher-level Parsing Element definition. The default value is the value in the fieldName_ field.
+
+The tagParentPath field is used in a slightly more complex parsing definitions. it holds path to parent tag of the tag specified in the "tagPath" field.
+
+
+The tagPath_ and tagParentPath_ fields can be defined as the relative path as in unix. Relative paths are resolved according to the structure in the DSM document, not by the structure in the source file.
+
+Some exmpale of relative path:
+
+:current: ./
+
+:parrent: ../
+
+:parentOfparent: ../../
+
+:categorInParent: ../category
+
+:categorInresult: /category
+
+To find the exact tag path for the current `Parsing Element Object`_, starting from the result field, all the "tagParentPath" and "tagPath" fields from top to bottom are merged with the "/" character. 
+
+**tagParentAbsolutePath** and **tagAbsolutePath**  eveluated as follow:
+
+         **_`currentObject`** mean is `Parsing Element Object`_ that current tagPath and tagParentPath is defined
+         **_`parentObject`** mean is parent `Parsing Element Object`_ of currentObject      
+         
+         
+         
+         - parentObject = if (**tagParentPath+tagPath**) is relative path then find  parentObject by resolving relative path else currentObject.parent 
+
+         - **tagParentAbsolutePath** = parentObject.tagPath+"/"+currentObject.tagParentPath      
+
+         - **tagAbsolutePath** = absoluteTagParentPath+"/"+currentObject.tagPath
+         
+
+if **tagAbsolutePath**  regex match any  absolute_ path of tag, value of this tag evaluated by tagType_
+
+
+
+      
+To explain with exmple:
+
+.. code-block:: yaml
+
+   result:
+      tagPath: /orders/order                              #tagPath = orders/order
+                                                          #tagParentPath = ""  
+                                                          #tagAbsolutePath= /orders/order
+                                                          #tagParentAbsolutePath= /                                   
+      fileds:                       
+         defaultName:                                     #tagPath =defaultName (default value is fieldName)
+                                                          #tagParentPath = ""
+                                                          #tagParentAbsolutePath =/orders/order (parent(result) absoluteTagPath))
+                                                          #tagAbsolutePath =/orders/order/defaultName
+         tagPathDefined:                       
+            tagPath: status                               #tagPath =status
+                                                          #tagParentPath = ""
+                                                          #tagParentAbsolutePath =/orders/order (parent(result) absoluteTagPath))
+                                                          #tagAbsolutePath =/orders/order/status
+         tagPathAndTagParentPath:                    
+               tagPath: name                              #tagPath = name
+               tagParentPath: category                    #tagParentPath  = category
+                                                          #tagParentAbsolutePath =/orders/order/category
+                                                          #tagAbsolutePath =/orders/order/category/name
+                     
+         innerObject:             
+              tagType: object             
+              tagPath: foo                                #tagPath = "innerObject"   
+                                                          #tagParentPath = ""
+                                                          #tagParentAbsolutePath =/orders/order
+                                                          #tagAbsolutePath =/orders/order/innerObjcet
+              fields:     
+                 normalPathInInnerObject:                 #tagPath = "normalPathInInnerObject"
+                                                          #tagParentPath = ""
+                                                          #tagParentAbsolutePath =/orders/order/innerObjcet
+                                                          #tagAbsolutePath =/orders/order/innerObjcet/normalPathInInnerObject
+                 relativeTagPath:            
+                       tagPath:./defaultName              #tagPath = ../defaultName    (onle level up)
+                                                          #tagParentPath = ""
+                                                          #tagParentAbsolutePath =/orders/order
+                                                          #tagAbsolutePath =/orders/order/defaultName
+                 relativeTagParentPath:            
+                       tagPath:defaultName                #tagPath = defaultName    
+                       tagParentPath:../                  #tagParentPath = "../" (onle level up)
+                                                          #tagParentAbsolutePath =/orders/order
+                                                          #tagAbsolutePath =/orders/order/defaultName                                          relativeTagPathAndTagParentPath:                
+                       tagPath:../defaultName             #tagPath = defaultName    
+                       tagParentPath:../                  #tagParentPath = "../" (onle level up)  
+                                                          #tagParentAbsolutePath =/orders/order
+                                                          #tagAbsolutePath =/orders/order/../defaultName (relative path of tagParentPath important. tagPath considered as regex)
+
+                 relativePathFromresult:                
+                   tagPath:/orders/order/defaultName      #tagPath = /orders/order/defaultName    
+                                                          #tagParentPath = "" 
+                                                          #tagParentAbsolutePath =/orders/order/defaultName    
+                                                          #tagAbsolutePath =/orders/order     
+  
+  
+  
+  
+      
+**tagAbsolutePath and tagParentAbsolutePath**: 
+
+
+.. csv-table::
+    :header: fieldName, tagPath, tagParentPath,tagAbsolutePath, tagParentAbsolutePath
+    :stub-columns: 1
+    :delim: |   
+    
+      result | orders/order |  | order/simpleOrder | /
+      result | orders/order |  | order/simpleOrder | /
+      defaultName | defaultName(default value is fieldName) | order/simpleOrder/defaultName | order/simpleOrder
+      tagPathDefined | status | order/simpleOrder/status | order/simpleOrder
+      tagPathAndTagParentPath | status | order/simpleOrder/category/name | order/simpleOrder/category
+      innerObject | innerObject | order/simpleOrder/innerObject | order/simpleOrder
+      normalPathInInnerObject | normalPathInInnerObject | order/simpleOrder/innerObject/normalPathInInnerObject | order/simpleOrder/innerObject
+      relativeTagPath | defaultName | order/simpleOrder/defaultName | order/simpleOrder
+      relativeTagParentPath | defaultName | order/simpleOrder/defaultName | order/simpleOrder
+      relativeTagPathAndTagParentPath | defaultName | order/simpleOrder/..defaultName (relative path of tagParentPath important. tagPath considered as regex) | order/simpleOrder
+      relativePathFromresult | /orders/order/defaultName | order/simpleOrder/defaultName | order/simpleOrder
+   
+   
+   
+_`default`
+------------------------
+
+
+The default field holds the value to be assigned to a field  by default. The default value is assigned  when the tagPath_  does not match the absolute_ path of any tag in the `source document`_.  
+If the value of the default field is string, this value is accepted as the value_ field of the `Default Object`_.
+
+The default value assignment order is from the bottom up in an object.
+
+Examples:
+
+.. code-block:: yaml
+
+   version: 1.0
+   result:             
+     tagType: object
+     tagPath: /
+     fields:
+        name:    
+            - filter: $ self.data.categoryType=='foo'
+              default: 
+                 value: foo  # force set name to foo with filter
+                 force: true
+            - tagPath: name    
+        category: string          
+        productUnit:
+              default: $ self.data.categoryType=='foo'? 'LT': 'KG'    # default value is expression.  this default value is assigned after "categoryType" field assigned.
+        categoryType: 
+               default: "foo"   # default value a is a string. 
+               
+               
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"  ,       
+         "fields":{
+            "name":"string",
+            "category":"string",            
+            "productUnit":{
+               "default": " $self.data.categoryType=='foo'? 'LT': 'KG'"
+            },
+            "categoryType":{
+               "default": "foo"
+            }
+            
+          }
+      }
+
+    } 
+
+
+_`filter`
+------------------------
+
+ The Filter field determines whether the value of a Parsing Element (complex or simple tagType does not matter) is added to the object tree. filter field is an expresion_ that returns true or false. 
+
+
+The following objects are available in Expression Context.
+
+.. csv-table::
+    :header: Name, Data Type, Description, Example
+    :stub-columns: 1
+    :delim: |  
+    
+    params | Map<string,any> | params_ object. | **params.dateFormat**=='dd.MM.yyyy' 
+    self_ | Node_ | current node object that hold data of current complex tagType_ | **self.data.foo** => foo field of current node,  **self.parent.data.foo** => foo field of parent node, **self.data.bar.foo** => foo field of bar object in current node.
+    all_ | Map<string,Node_> | A map that stores all nodes by the "uniqueName_" of `Parsing Element Object`_  | **all.bar.data.foo** => foo field of **bar** node,  **all.barList.data[0].foo** => *foo* field of first item of *barList* node
+    value | string | value of the current tag in `source document`_ | **value=='Computer'**,**value.startWith('bar')**
+
+
+**Examples**:
+
+**Example 1**
+
+.. code-block:: yaml
+
+        version: 1.0 
+        result
+            tagType: array
+            tagPath:/
+            filter: $self.data.category=='Computer'  # collect all data that category field is 'Computer'  
+            fields:
+             name: string
+             category: string
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"array",
+         "tagPath":"/"  ,
+         "filter": "$self.data.category=='Computer'",         
+         "fields":{
+            "name":"string",
+            "category":"string"            
+          }
+      }
+
+    } 
+
+**Example 2**
+
+.. code-block:: yaml
+
+  version: 1.0 
+  result
+      tagType: array
+      tagPath:/
+      
+      fields:
+       name: string
+       category: 
+         filter: $value=='Computer' # only assign "category" if "category" is "computer".
+         
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"array",
+         "tagPath":"/"  ,              
+         "fields":{
+            "name":"string",
+            "category":{
+               "filter": "$value=='Computer'"
+            }
+          }
+      }
+
+    }
+    
+
+
+**Posible Output Of Example 2**
+
+.. code-block:: json
+
+  [{
+     "name":"foo",
+     "category":"Computer"
+   },
+  {
+     "name":"foo"
+  }]
+
+
+
+
+
+_`transformationCode`
+----------------------
+      this field refers to the definition of the transfromatation_ to be used to transform the tag value. 
+      
+Below definition work as follows:
+   
+   - value of tag "/country_code"  is read from `source document`_
+   - if this value exist in "COUNTRY_CODE_TO_NAME" transformation_ definition, get value that match.
+   - if not exist, get "DEFAULT" value of "COUNTRY_CODE_TO_NAME" transformation_ definition
+      
+      
+.. code-block:: yaml
+
+   version: 1.0
+   transformations:
+       COUNTRY_CODE_TO_NAME:             
+           map:
+             DEFAULT: Other
+             TR: Turkey
+             US: United States
+             
+    result:
+      tagType: object
+      tagPath: /
+      fields: 
+           country: 
+               tagPath: country_code
+               transformationCode: COUNTRY_CODE_TO_NAME
+
+.. code-block:: json
+
+   {
+
+      "version": 1.0,
+      "transformations":{
+         "COUNTRY_CODE_TO_NAME":{
+          "map":{
+            "TR":"Turkey",
+            "US":"United States",
+            "DEFAULT":"Other"
+          }
+         }
+      },
+      
+    "result":{
+      "tagType": "object",
+      "tagPath": "/",
+      "fields"{
+           "country":{
+               "tagPath": "country_code"
+               "transformationCode": "COUNTRY_CODE_TO_NAME"
+           }
+      }
+    }
+
+    } 
+
+
+_`function`
+-------------
+   The function field refers to the definition of functions_ to be used for the custom operation. For more detail about how functions_ works, look at functions_ sections.
+   
+Below definition work as follows:
+   
+   - all fields of product   are read from `source document`_
+   -  When the "/product" tag is closed, the "com.example.InsertProduct" function in the "insertProduct" definition is called.
+   
+   
+.. code-block:: yaml
+
+   version: 1.0
+   functions:
+      insertProduct: com.example.InsertProduct
+      
+    result:
+      tagType: object
+      tagPath: /product
+      function: insertProduct
+      fields: 
+           name: string
+           price: long
+           image: string
+               
+               
+ 
+   JSON
+.. code-block:: json
+
+   {
+
+      "version": 1.0,
+      "functions":{
+         "insertProduct":"com.example.InsertProduct",
+         
+      },
+      "result":{
+         "tagType": "object",
+         "tagPath": "/",
+         "function": "insertProduct",
+         "fields": {
+              "name": "string",
+              "price": "long",
+              "image": "string"
+        }
+      }
+        
+           
+
+    } 
+    
+    
+
+
+_`uniqueName`
+-------------
+
+When "fieldName" fields of complex `Parsing Element Object`_ definitions are the same in the DSM document, these definitions are differentiated by using the "uniquKey" field. this field is optional. the default value  is the value of the "fieldName" field. 
+This fiele may need in very complex 
+
+
+Example Case:
+
+In the following DSM document, both the users and the orders objects have a category field. and the category field is an object. The uniquName_ field is used to differentiate the category objects.
+  
+   
+.. code-block:: yaml
+
+   version: 1.0
+   result:
+      tagType: object
+      tagPath: /
+      fields: 
+           users:
+               tagType: array
+               fields:
+                   name: string
+                   email: string
+                   category:
+                        tagType: object
+                        uniquName: userCategory
+                        fields:
+                           categoryName: string
+                           
+           order:
+               tagType: object
+               fields:
+                   id: string
+                   category:
+                     tagType: object
+                     uniquName: orderCategory
+                     fields:
+                           categoryName: string
+                   
+               
+ 
+   JSON
+.. code-block:: json
+
+      {
+      "version": 1,
+      "result": {
+         "tagType": "object",
+         "tagPath": "/",
+         "fields": {
+            "users": {
+               "tagType": "array",
+               "fields": {
+                  "name": "string",
+                  "email": "string",
+                  "category": {
+                     "tagType": "object",
+                     "uniquName": "userCategory",
+                     "fields": {
+                        "categoryName": "string"
+                     }
+                  }
+               }
+            },
+            "order": {
+               "tagType": "object",
+               "fields": {
+                  "id": "string",
+                  "category": {
+                     "tagType": "object",
+                     "uniquName": "orderCategory",
+                     "fields": {
+                        "categoryName": "string"
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+
+
+_`normalize`
+--------------
+
+This field is used to normalize the value of the label being read. Changes can be made to the raw string value of the tag using this field. The value of this field is an expression. 
+
+The following objects are available in Expression Context.
+
+.. csv-table::
+    :header: Name, Data Type, Description, Example
+    :stub-columns: 1
+    :delim: |  
+    
+    params | Map<string,any> | params_ object. | **params.dateFormat**=='dd.MM.yyyy' 
+    self_ | Node_ | current node object that hold data of current complex tagType_ | **self.data.foo** => foo field of current node,  **self.parent.data.foo** => foo field of parent node, **self.data.bar.foo** => foo field of bar object in current node.
+    all_ | Map<string,Node_> | A map that stores all nodes by the "uniqueName_" of `Parsing Element Object`_  | **all.bar.data.foo** => foo field of **bar** node,  **all.barList.data[0].foo** => *foo* field of first item of *barList* node
+    value | string | raw string value of the current tag in `source document`_ | **value=='Computer'**,**value.startWith('bar')**
+    
+_`xml`
+--------------
+This field is used for xml format to make extra definitions and to change "tagPath" and "tagType" fields.
+
+check `XML Object` for more detail
+
+
+
+_`fields`
+-----------
+The fields field is used to define the fields of comlex objects. `Parsing Element Object`_  with tagType_ that has only an array_ or object_ can have the "fields" field.
+
+fields field is  a map that keys are fieldName of  `Parsing Element Object`_ , values are string, `Parsing Element Object`_ or list of `Parsing Element Object`_ 
+
+fields is a map, the value of the map is the `Parsing Element Object`_ , the key of the map is the fieldName_ of this `Parsing Element Object`_.
+
+
+type of value definiton
+^^^^^^^^^^^^^^^^^^^^^^^^
+value of the map can be empty, string, `Parsing Element Object`_ or array of `Parsing Element Object`_. 
+
+different value definitions create `Parsing Element Object`_ with some default value.
+
+Below defines these values and the default values of the `Parsing Element Object`_ that it creates.
+
+empty: 
+   
+      :fieldName_: key of the map.
+      :type_: string
+      :tagPath_: key of the map (fieldName)
+      :tagParentPath_: null
+
+string:
+      :fieldName_: key of the map.
+      :type_: value of the map
+      :tagPath_: key of the map (fieldName)
+      :tagParentPath_: null
+      
+`Parsing Element Object`_:
+      :fieldName_: key of the map.
+      
+      other fields are can be defined or initialized with default values.
+      
+Array of `Parsing Element Object`_:
+   some fields of objects can be read from the different tag in the source document.  By making multiple definitions for one field, the value of different tags can be read.
+   
+Example of different type of value definition:
+   
+.. code-block:: yaml
+
+   version: 1.0
+   result:             
+     tagType: object
+     tagPath: /
+     fields:
+        name:     # fieldName is "name" and type is  string and the tagPath is "/name"
+        category: 
+        price: long      # fieldName is "price" and type is  "long"  and the tagPath is "/price"
+        categoryType:   # fieldName is "categoryType" and it is  "string" value and the tagPath is "/categoryType" it has extra definiton (default)        
+               default: "foo"   # default value a is a string. 
+        productUnit:  # this field contains two definition. one  of that  will win depending on the structure of source document.
+              - tagPath: unit/unit_name      # fieldName is "productUnit" and type is  "long"  and the tagPath is "/unit/unit_name"
+                default: $ self.data.categoryType=='foo'? 'LT': 'KG'  
+                
+              - tagPath: mainUnit/unit_name  # fieldName is "productUnit" and type is  "long"  and the tagPath is "/mainUnit/unit_name"
+        
+               
+               
+       
+JSON
+
+.. code-block:: json
+
+   {
+      "version": 1.0,
+      "result":{
+         "tagType":"object",
+         "tagPath":"/"  ,       
+         "fields":{
+            "name":"",
+            "category":"", 
+            "price":"long",
+            "categoryType":{
+               "default": "foo"
+            },
+            "productUnit":[
+            {  "tagPath": "unit/unit_name",
+               "default": " $self.data.categoryType=='foo'? 'LT': 'KG'"
+            },
+            {
+               "tagPath": "mainUnit/unit_name",
+            },
+            ],
+            
+            
+          }
+      }
+
+    } 
+  
+      
+Field Assigment Order
+^^^^^^^^^^^^^^^^^^^^^^
+
+The order of property assignment is very important for the correct operation of the expressions in the filter or default fields.
+Referencing a not existing field in "self.data" can cause NullPointerException.
+
+DSM is read source document top to bottom in one pass as a stream. once it reads a tag, it checks wheteher absolute_ path of the current tag match with tagAboslutePath_ or taParentAbsolutePath_ of any of Parsing Element. if Parsing Element founds, value of current tag is assigned according to Parsing Element definitions.
+
+property assignment work as follows:
+
+let's name the tag that is pointed by tagPath in source document as **"_`current tag`"** and   the tag that is pointed by tagParentPath  as **"_`parent tag`"** 
+
+
+the propery is assigned when `current tag`_ is closed except attribute_ fields for the XML document. 
+
+Order of the property assignment as follows:
+ - the closing of  `current tag`_  is near to the document header(starting of _`parent tag`" for attribute )
+ - deeper `current tag`_
+ - field definition that close to parent Parsing Element.  (**assignment start from top to bottom** )
+
+The default_ value of a propery is assigned when current tag not exist in source document and  **"_`parent tag`"** is closed(for all property, include attribute_). default_ value is assigned only once except force_ field is true.
+
+Order of the default value of property assignment as follows:
+ - assure  the property is not assigned  and force field is not true
+ - the closing of  `parent tag`_  is near to the document header.
+ - deeper `parent tag`_
+ - field definition that far to parent Parsing Element.  (**assignment start bottom from top** )
+
+Example:
+
+.. code-block:: xml
+
+   <Pets>
+      <Pet>
+         <category>
+           <id>1</id>
+           <name>Cats</name>
+         </category>
+         <id>6598053714149410844</id>
+         <name>Van Kedisi</name>
+         <photoUrls>
+           <photoUrl>url1</photoUrl>
+           <photoUrl>url2</photoUrl>
+           <photoUrl>url3</photoUrl>
+         </photoUrls>
+         <status>sold</status>
+         <tags>
+           <tag>
+             <id>1</id>
+             <name>New</name>
+           </tag>
+           <tag>
+             <id>2</id>
+             <name>Cute</name>
+           </tag>
+           <tag>
+             <id>3</id>
+             <name>Popular</name>
+           </tag>
+         </tags>
+       </Pet>
+   </Pets>
+
+.. code-block:: yaml
+
+      result: 
+        tagType: array
+        tagPath: /
+        xml: 
+          tagPath: "/Pets/Pet"
+        fields:
+         id:long
+         name: 
+         status:
+         isPopular:
+            default $self.data.tags.stream().anyMatch(s->s.name=='Popular')
+         category: 
+             tagType: object
+             fields: 
+               name:
+               id: long
+         photoUrls: 
+              tagType: array
+              tagPath: photoUrls
+              xml: 
+                 tagPath: photoUrls/photoUrls
+         tags: 
+             tagType: array
+             tagPath: tags
+             xml: 
+               tagPath: tags/tag
+             fields: 
+                 id:int 
+                 name: 
+
+
+
+DSM read document  top to bottom.  
+
+- it founds /Pets/Pet absolute_ path that match with result Parsing element. Then create a array and put first item into the array.
+
+.. code-block:: json
+  
+  result=[{}]
+  
+- it founds   /Pets/Pet/category match with category Parsing Element. then it create a object and assing it to category property
+   
+.. code-block:: json
+  
+  result=[{
+   "category":{}
+   }]
+   
+
+- it founds   /Pets/Pet/category/id match with category.id Parsing Element. then it assing it to id of category. 
+   
+.. code-block:: json
+  
+  result=[{
+   "category":{
+     "id": 3
+   }
+   }] 
+- it founds   /Pets/Pet/category/name match with category.name Parsing Element. then the value is assigned
+   
+.. code-block:: json
+  
+  result=[{
+   "category":{
+     "id": 3,
+     "name": "Cats"
+   }
+   }] 
+   
+ 
+- it founds /Pets/Pet/id match with "id" then the value is assigned
+   
+.. code-block:: json
+  
+  result=[{
+   "category":{
+     "id": 3,
+     "name": "Cats"
+   }
+   "id":1
+   }] 
+
+
+- it founds /Pets/Pet/name match with "name" then the value is assigned
+   
+.. code-block:: json
+  
+  result=[{
+   "category":{
+     "id": 3,
+     "name": "Cats"
+   },
+   "id":1,
+   "name":"Van Kedisi",
+   }] 
+
+
+- it founds /Pets/Pet/photoUrls/photoUrl match with "photoUrls" then the new array is created and assigned
+   
+.. code-block:: json
+  
+  result=[{
+   "category":{
+     "id": 3,
+     "name": "Cats"
+   },
+   "id":1,
+   "name":"Van Kedisi",
+   "photoUrls":[]
+   }] 
+   
+- it founds /Pets/Pet/photoUrls/photoUrl match with "photoUrls" then  the value of photoUrls is assigned
+   
+.. code-block:: json
+  
+  result=[{
+   "category":{
+     "id": 3,
+     "name": "Cats"
+   },
+   "id":1,
+   "name":"Van Kedisi",
+   "photoUrls":["url1","url2","url3"]
+   }] 
+   
+after reading all fields under /Pets/Pet path follownig result generated.
+
+
+.. code-block:: json
+  
+  result=[{
+   "category":{
+     "id": 3,
+     "name": "Cats"
+   },
+   "id":1,
+   "name":"Van Kedisi",
+   "photoUrls":["url1","url2","url3"],
+   "status":"sold",
+   "tags":[
+         {
+            "id":1,
+            "name": "New"
+         },
+         {
+            "id":1,
+            "name": "Cute"
+         },
+         {
+            "id":1,
+            "name": "Popular"
+         }
+   ]
+   
+   }] 
+
+- it cant found /Pets/Pet/isPopular but isPopular propery has default value. when /Pets/Pet (`parent tag`_) tag is closed it's expression is evaluated.   result of expresssion is assigned to isPopular property.
+.. code-block:: json
+  
+ result=[{
+   "category":{
+     "id": 3,
+     "name": "Cats"
+   },
+   "id":1,
+   "name":"Van Kedisi",
+   "photoUrls":["url1","url2",url3"],
+   "status":"sold",
+   "tags":[
+         {
+            "id":1,
+            "name": "New"
+         },
+         {
+            "id":1,
+            "name": "Cute"
+         },
+         {
+            "id":1,
+            "name": "Popular"
+         }
+   ],
+   "isPopular": true
+   }] 
+   
+
+
+_`$ref'
+---------
+
+$ref_ field is used to extends_ Parsing Element to given fragments_. it's value is a Load Time Expression. 
+fragments_ can be extends_ another fragments_ but can not extends itself.  
+Sometimes we don't need parent properties. To exclude parent properties, define type_ as "exclude".  in example bellow category property is excluded.
+
+
+
+.. code-block:: yaml
+
+      version: 1.0
+      result: 
+        tagType: array
+        tagPath: /
+        xml: 
+          tagPath: "/Pets/Pet"
+        $ref: $fragments.pet
+        fields:
+            category: exclude     # import all properties of  fragments.pet except category property.
+            isPopular: 
+                  default $self.data.tags.stream().anyMatch(s->s.name=='Popular')
+      fragments:
+         tag:
+            tagType: object
+            fields:
+               id: int
+               name: string         
+         category:
+            tagType: object
+            fields:
+               id: int
+               name: string      
+         pet:
+           tagType: object
+           fields:
+               id: long
+               name: string
+               status: string         
+               category: 
+                  $ref: $fragments.category  
+               photoUrls: 
+                    tagType: array
+                    tagPath: photoUrls
+                    xml: 
+                       tagPath: photoUrls/photoUrls
+               tags: 
+                   tagType: array
+                   tagPath: tags
+                   xml: 
+                     tagPath: tags/tag
+                   $ref: $fragments.tag   
+   
+
+.. code-block:: json
+
+   {
+      "version": 1,
+      "result": {
+         "tagType": "array",
+         "tagPath": "/",
+         "xml": {
+            "tagPath": "/Pets/Pet"
+         },
+         "$ref": "$fragments.pet",
+         "fields": {
+            "category": "exclude",
+            "isPopular": "default $self.data.tags.stream().anyMatch(s->s.name=='Popular')"
+         }
+      },
+      "fragments": {
+         "tag": {
+            "tagType": "object",
+            "fields": {
+               "id": "int",
+               "name": "string"
+            }
+         },
+         "category": {
+            "tagType": "object",
+            "fields": {
+               "id": "int",
+               "name": "string"
+            }
+         },
+         "pet": {
+            "tagType": "object",
+            "fields": {
+               "id": "long",
+               "name": "string",
+               "status": "string",
+               "category": {
+                  "$ref": "$fragments.category"
+               },
+               "photoUrls": {
+                  "tagType": "array",
+                  "tagPath": "photoUrls",
+                  "xml": {
+                     "tagPath": "photoUrls/photoUrls"
+                  }
+               },
+               "tags": {
+                  "tagType": "array",
+                  "tagPath": "tags",
+                  "xml": {
+                     "tagPath": "tags/tag"
+                  },
+                  "$ref": "$fragments.tag"
+               }
+            }
+         }
+      }
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_`XML Object`
+==============
+This field is used for xml format to make extra definitions and to change "tagPath" and "tagType" fields.
+
+Fields:
+    .. csv-table::
+      :header: Field Name, Type, Description
+      :stub-columns: 1
+      :delim: |
+      
+      tagPath_ | string | xml specific tagPath_ defiition default value is tagPath_ field of `Parsing Element Object`_
+      tagParentPath_ | string | xml specific tagParentPath_ defiition. default value is tagParentPath_ field of `Parsing Element Object`_
+      attribute_ | boolean |  attribute field is indicates that the current `Parsing Element Object`_ is an attribute on the tag pointed to by the tagParentPath field in the xml.
+      
+      
+
+_`attribute`
+------------
+    attribute field is indicates that the current `Parsing Element Object`_ is an attribute on the tag pointed to by the tagParentPath field in the xml.
+    
+    
+Examples:
+   
+   
+ 
+.. code-block:: yaml
+
+   version: 1.0
+   result:
+      tagType: object
+      tagPath: / 
+      xml:
+         tagPath: /Pets/Pet    # xml specific tagPath definition
+      fields: 
+           id:
+              type: long
+              xml:
+                attribute: true   # id field is an atribute that is located at /Pets/Pet tag. 
+           name: string
+           price: long
+           image: string
+               
+               
+ 
+   JSON
+.. code-block:: json
+
+   {
+
+      "version": 1.0,      
+      "result":{
+         "tagType": "object",
+         "tagPath": "/" ,
+         "xml":{
+            "tagPath": "/Pets/Pet"
+          }
+         "fields": {
+              "id": {
+                  "type": "long",
+                  "xml":{
+                     "attribute": "true"
+                  }
+              },              
+              "name": "string",
+              "price": "long",
+              "image": "string"
+        }
+      }
+        
+           
+
+    } 
+
+
+
+_`Default Object`
+==================
+   Default Object determines how the default_ field is assigned.
+   
+Fields:
+    .. csv-table::
+      :header: Field Name, Type, Description
+      :stub-columns: 1
+      :delim: |
+      
+      value_ | string |  **REQUIRED** default value that is assigned to current field
+      force  | string | Use the default value, even if the tag specified in the "tagPath_" field is in the source file.
+
+_`value`
+------------
+ **REQUIRED**
+ it  holds default value that is assigned to current field
+ 
+if the value starts with the "$" character, it is treated as "expression" and is resolved by expression resolver.  
+
+The following objects are available in Expression Context.
+
+
+.. csv-table::
+    :header: Name, Data Type, Description, Example
+    :stub-columns: 1
+    :delim: |  
+    
+    params | Map<string,any> | params_ object. | **params.dateFormat**=='dd.MM.yyyy' 
+    self_ | Node_ | current node object that hold data of current complex tagType_ | **self.data.foo** => foo field of current node,  **self.parent.data.foo** => foo field of parent node, **self.data.bar.foo** => foo field of bar object in current node.
+    all_ | Map<string,Node_> | A map that stores all nodes by the "fieldName" of `Parsing Element Object`_  | **all.bar.data.foo** => foo field of **bar** node,  **all.barList.data[0].foo** => *foo* field of first item of *barList* node
+    
+_`force`
+----------------
+ if it's value is true, it means Use the default value, even if the tag specified in the "tagPath_" field is in the source file. if force value is true, default value is assigned both start and end of tagParentPath_. It is mostly used with filter field or with value in params_.
+ default value is false.
+ 
+ check default_ for detailed example.
+
+
+_`Transformation Element`:
+
+_`Transformation Element Object`
+===================================
+   Transformation is a very powerful feature that used to map value of a tag from the source document to destination document.
+   Transformation Element holds the mapping and how the mapping will be used with Parsing Elements.
+   We can consider, transformation as switch-case in programing language. Every record in the mapping table is a case and DEFAULT record is a default case fo switch-case statement. 
+   
+Fields:
+    .. csv-table::
+      :header: Field Name, Type, Description
+      :stub-columns: 1
+      :delim: |
+      
+      map_ | Map<String,Object> |  **REQUIRED** mapping table from source to destination
+      onlyIfExist  | boolean | transform source value only if exist in mapping table. if not exist use as is.
+      $ref | string | ref field is used to extends_ current Transfromation Elment to another Transformation Element. it is an expression.
+      
+      
+
+.. code-block:: yaml
+
+      
+   version: 1.0
+   transformations:
+       COUNTRY_CODE_TO_NAME:
+           map:
+             DEFAULT: Other
+             TR: Turkey
+             US: United States
+       COUNTRY_CODe_TO_NAME_IF_EXIST:
+            $ref: $transfromations.COUNTRY_CODE_TO_NAME
+            onlyIfExist: true
+           
+.. code-block:: json
+
+  {
+	"version": 1,
+	"transformations": {
+		"COUNTRY_CODE_TO_NAME": {
+			"map": {
+				"DEFAULT": "Other",
+				"TR": "Turkey",
+				"US": "United States"
+			}
+		},
+		"COUNTRY_CODe_TO_NAME_IF_EXIST": {
+			"$ref": "$transfromations.COUNTRY_CODE_TO_NAME",
+			"onlyIfExist": true
+		}
+	}
+}
+
+
+
+.. _Absolute:
+.. _absolute:
+
+
+Absolute Path Of Tag
+====================
+      
+      Below exmaple is json representaion of array of Pet object.
+      
+.. code-block:: json
+
+   [
+     {
+    "id": 1,
+    "category": {
+      "id": 1,
+      "name": "Cats"
+    },
+    "name": "PetNameForm",
+    "photoUrls": [
+      "url1",
+      "url2",
+      "url3"
+    ],
+    "tags": [
+      {
+        "id": 2,
+        "name": "New"
+      },
+      {
+        "id": 2,
+        "name": "Cute"
+      },      
+    ],
+    "status": "sold"
+   ]
+
+Absolute tag paths of all field in above json document are listed below. 
+
+.. csv-table::
+    :header: Field Name, Absolute Path
+    :stub-columns: 1
+    :delim: |   
+    
+      | /
+      Pet:id | /id
+      Pet:category | /category
+      Pet:category.id | /category/id
+      Pet:category.name | /category/name
+      Pet:name | /name
+      Pet:photoUrls | /photoUrls
+      Pet:photoUrls.(item) | /photoUrls
+      Pet:tags | /tags
+      Pet:tags.id | /tags/id
+      Pet.tags.name | /tags/name
+      Pet.status | /status
+      
+
+Same Example for XML:
+
+.. code-block:: json
+
+   <Pets>
+      <Pet>
+         <category>
+           <id>1589257917030308320</id>
+           <name>Cats</name>
+         </category>
+         <id>6598053714149410844</id>
+         <name>PetNameForm</name>
+         <photoUrls>
+           <photoUrl>url1</photoUrl>
+           <photoUrl>url2</photoUrl>
+           <photoUrl>url3</photoUrl>
+         </photoUrls>
+         <status>sold</status>
+         <tags>
+           <tag>
+             <id>4250197027829930927</id>
+             <name>New</name>
+           </tag>
+           <tag>
+             <id>8271965854563266871</id>
+             <name>Cute</name>
+           </tag>
+           <tag>
+             <id>3487705188883980239</id>
+             <name>Popular</name>
+           </tag>
+         </tags>
+       </Pet>
+   </Pets>
+      
+Absolute tag paths of all field in above XML document are listed below. 
+      
+.. csv-table::
+    :header: Field Name, Absolute Path
+    :stub-columns: 1
+    :delim: |   
+    
+         | /
+      Pets array |  /Pets  
+      Pets array item |  /Pets/Pet  
+      Pet:id | //Pets/Pet/id
+      Pet:category | /Pets/Pet/category
+      Pet:category.id | /Pets/Pet/category/id
+      Pet:category.name | /Pets/Pet/category/name
+      Pet:name | /name
+      Pet:photoUrls | /Pets/Pet/photoUrls
+      Pet:photoUrls.(item) | /Pets/Pet/photoUrls
+      Pet:tags | /Pets/Pet/tags
+      Pet:id | /Pets/Pet/tags/id
+      Pet:tags.name | /Pets/Pet/tags/name
+      Pet.status | /Pets/Pet/status
+      
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+_`Expressions`
+==============
+
+Expressions give flexibility  to DSM at source document parsing time and DSM document loading time.
+
+Expression allows a value to be filtered, manipulated, modified. Expressions can access the object specified in the expression context.
+
+There are two type of expression, Loading Time and Parsing Time expressions.
+
+Loading Time Expression
+------------------------
+
+Loading Time Expression is expressions that is only used during loading of DSM documents.  it allows you to  modify structure of  DSM document.  
+Loading Time Expressions are defined in the $extends_ and or $ref_ fields. For more detail check $extends_ and $ref_ field.
+   
+The following fields are available in the expression context.
+   
+.. csv-table::
+    :header: Name, Data Type, Description, Example
+    :stub-columns: 1
+    :delim: |  
+    
+    params_ | Map<string,Object> | params_ object. | **params.dateFormat**=='dd.MM.yyyy' 
+    
+    
+Parsing Time Expression
+------------------------
+Parsing Time Expression is expressions that is only used during parsing of source documents. It allows you to change the structure of the output, change the property value, import a specific portion of the source document, filter, and almost  all operations that can be done with custom coding.   
+
+The Parsing Time Expressions can be defined in the filter_, default_, and normalize_ fields.
+   
+   
+The following objects are available in the expression context.
+
+
+.. csv-table::
+    :header: Name, Data Type, Description, Example
+    :stub-columns: 1
+    :delim: | 
+    
+    params | Map<string,any> | params_ object. | **params.dateFormat**=='dd.MM.yyyy' 
+    self_ | Node_ | current node object that hold data of current complex tagType_ | **self.data.foo** => foo field of current node,     **self.parent.data.foo** => foo field of parent node, **self.data.bar.foo** => foo field of bar object in current node.
+    all_ | Map<string,Node_> | A map that stores all nodes by the "uniqueName_" of `Parsing Element Object`_  | **all.bar.data.foo** => foo field of **bar** node,  **all.barList.data[0].foo** => *foo* field of first item of *barList* node
+    value | string | (not available in default_ field) The raw string value of the current tag in `source document`_ | **value=='Computer'**,**value.startWith('bar')**
+    
+    
+
+_`all`
+-------
+Each complex tagtype_ creates a node. The created nodes can be accessed using the "all" object in the expressions. Each node is stored in all_ map with the uniquName_ of the Parsing Element that creates the node.  
+
+
+
+
+
+.. code-block:: yaml
+
+   result:
+        tagType: array
+        fields:
+            order: 
+                 tagType:  object
+                 fields:
+                    state: string
+                    createDate: date                         
+                    saleLines:
+                         tagType: array
+                         fields: 
+                            product:
+                                  tagType: object
+                                  fields: 
+                                      id: string
+                                      name: string
+                                      price: string
+                            quantity: long
+                            unit: string
+                    
+            company:
+                 tagType: object
+                 fields:
+                     id: string
+                     name: string
+                     price: string
+                     
+                     
+for configuration at above following all_ map is created.
+
+
+.. code-block:: yaml
+
+   result:
+         parent: null
+         data:
+            order: order.data        # contains data of the order node
+            company: company.data
+   order:
+           parent: result
+           data:
+              orderLines: orderLines.data
+   company:
+           parent: result
+           data: {}
+   orderLines: 
+        parent: order
+        data: [{ product:product.data  }]  # data is array. each item contains product data
+   product:
+         parent: orderLines
+         data: {}
+    
+Example usages:
+
+:product.parent:  is equals orderLine node
+:product.parent.data: is equals orderLine.data
+:product.parent.parent: is equals order
+:product.parent.parent.data: is equals order.data
+:product.parent.parent.parent: is equals result
+:order.data.orderLine: is equals orderLine.data
+:order.data.orderLine[lastIndex].product: is equals product.data 
+
+
+Node Object
+============
+    The node is a data structure used in the DSM to store data and create the hierarchy of the DSM document. Nodes are created with the complex tagType_ definition during parsing of source document. It can be used in the parsing time expressions
+    
+Fields:
+
+.. csv-table::
+      :header: Field Name, Type, Description
+      :stub-columns: 1
+      :delim: |
+      
+      parent | Node |  parent node.
+      data  | Map<String,Object>, List<Object> | holds the value of the current node.
+      
+    
+   
+parent
+-------
+  parent field holds parent of the current node. parent of the result node is null.  
+  
+  
+  Example usages:
+  
+  :self: point to current node
+  :self.parent: point to parent of current node.
+  :self.parent.parent: point to parent of current node.
+  :self.parent==null: is current node result node.
+  
+  
+data
+-----
+  The data field holds the value of the current node. 
+  
+  if tagType_ definition  of Parsing Element is an object_, data is a Map that contains properties of the current Parsing Element definitions.
+  
+  Example Usage:
+  
+  :self.data: data is map
+  :self.data.foo: foo property of current node
+  :self.parent.data.foo: foo property of parent node
+  :self.data.bar.foo: foo propert of the bar object in current node
+  
+If the tagType definition of the current Parsing Element is an array:
+ 
+If the parsing element definition has fields, data of one is  Array , data of other is Map , two node is created.  
+parent node holds array,  child nodes hold map.
+
+self.data is a Map
+self.parent.data is Array.
+
+Example Usage:
+  
+  :self.data: data is map
+  :self.data.foo: foo property of current node
+  :self.parent[0].data.foo: foo property of first element of current array
+  :self.parent[self.parent.size()-1].bar: last element of current array
+  
+
+
+If there are no fields in the parsing element definition,a node  which the data field is array is created. 
+
+self.data is Array
+
+
+Example Usage:
+  
+  :self.data: data is array
+  :self.data[0]: first property of array
+  :self.parent.data.foo: foo property of parent node
+  :self.parent[self.parent.size()-1].bar: last element of current array
+
+
+
+
+
+
+Merge of Two DSM Document
+=========================
+
+
+.. _Merge:
+.. _merge:
+.. _merged:
+.. _extended:
+
+Merge process work as follows:    
+   
+   for every field of external document do followings
+   
+   -  if field **not exist** in current DSM document, **copy** value to current DSM docuemnt.
+   
+   -  if field **exist** in current DSM document do followings     
+   
+      - if  **type** of fields  is **different** then **skip** this field.
+         
+      - if  **type** of fields  is **same** then do followings          
+         
+        - if **type** is **simple type** (string,number) then **skip** this field
+             
+        - if **type** is **array** then **add** field values to **start of** the field values of current DSM document. 
+             
+        - if **type** is **map** then **start Merge process** for those fields.
+             
+Example  merge process of CF documents:
+
+external DSM Docment:(external.yaml)
+
+.. code-block:: yaml
+
+   version: 1.0
+   params:
+     dateFormat: dd.MM.yyyy
+     rootPath: /foo/bar
+     acceptedCountryCode: [TR,US,FR]
+   transformations:
+       COUNTRY_CODE_TO_NAME:  
+           sourceSystem: SOURCE_SYSTEM_A
+           destinationSystem: MY_SYSTEM
+           map:
+             DEFAULT: Other
+             TR: Turkey
+             US: United States       
+   result: 
+     fields:
+        id: string
+        name: string           
+        price: double
+
+
+current DSM Docment:
+
+.. code-block:: yaml
+
+   version: 1.0
+   $extends: $params.rootPath.concat("external.yaml") # resolve expression 
+   params:
+     rootPath: /DSM/MAIN
+     acceptedCountryCode: [UK]
+   transformations:
+       COUNTRY_CODE_TO_NAME:  
+           map:
+             UK: United Kingdoom
+   result: 
+     tagType: object
+     tagPath: /
+     fields:
+        category: string
+        
+        
+After merge process following configuration will take effect:
+
+
+.. code-block:: yaml
+
+   version: 1.0
+   $extends: $params.rootPath.concat("external.yaml") 
+   params:
+     dateFormat: dd.MM.yyyy # imported from external document
+     rootPath: /DSM/MAIN  # overwritten by current DSM document
+     acceptedCountryCode: [TR,US,FR,UK] # external list element added to start off current list element(UK is only exist in current document and located at the end ) 
+   transformations:
+       COUNTRY_CODE_TO_NAME:  
+           sourceSystem: SOURCE_SYSTEM_A
+           destinationSystem: MY_SYSTEM   # imported from external document
+           map:
+             UK: United Kingdoom  # only exist in current DSM document
+             DEFAULT: Other     # imported from external document
+             TR: Turkey
+             US: United States
+             
+   result: 
+     tagType: object  # exist only current DSM document
+     tagPath: /
+     fields:
+        category: string  # exist only current DSM document
+        id: string        
+        name: string      # imported from external document     
+        price: double    
+        
+
+   
+   
+
+
+  
+  
+   
+   
+
+
+      
+      
+             

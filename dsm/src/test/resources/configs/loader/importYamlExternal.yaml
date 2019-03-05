@@ -1,0 +1,93 @@
+sourceSystem: "MRX"
+destinationSystem: "MRX"
+params:
+  dateFormat: yyyy.MM.dd
+functions:
+  insertProduct: "com.github.mfatihercik.dsb.functions.InsertProduct"
+transformations:
+  RATING:
+    map:
+      1: 1
+      2: 1
+      3: 2
+      4: 2
+      5: 3
+      6: 3
+      7: 4
+      8: 4
+      9: 5
+      10: 5
+  COLLECTION_METHOD:
+    map:
+      DEFAULT: Before
+      'after_fulfillment': After
+      'inFirst': First
+
+  COUNTRIES:
+    map:
+      US: United States
+      TR: Turkey
+      FR: France
+result:
+  tagType: object
+  tagPath: feed
+  fields:
+    #merchant list deleted:false
+    vendor:
+      - tagParentPath: merchants
+        $extends: "$params.basePath.concat('imporVendorExternal.yaml')"
+        fields:
+          isDeleted:
+            default: false
+
+      #deleted_merchant list deleted:true both included in same list
+      - tagType: array
+        tagPath: deleted_merchant
+        tagParentPath: deleted_merchants
+        function: insertVendor
+        fields:
+          id:
+            xml:
+              attribute: true
+          isDeleted:
+            default: true
+          lastModifiedTime:
+            tagPath: last_update_timestamp
+            type: date
+    reviews:
+      tagType: array
+      tagPath: review
+      tagParentPath: reviews
+      function: insertReview
+      fields:
+        id:
+          xml:
+            attribute: true
+        userName:
+          tagPath: reviewer_name
+        title:
+        content:
+        country:
+          tagPath: country_code
+          transformationCode: COUNTRIES
+        collectionMethod:
+          tagPath: collection_method
+          transformationCode: COLLECTION_METHOD
+        rating:
+          tagPath: overall
+          tagParentPath: ratings
+          transformationCode: RATING
+        isDeleted:
+          default: false
+        createTime:
+          tagPath: create_timestamp
+          type:
+            type: date
+            params:
+              dateFormat: dd.MM.yyyy
+        lastModifiedTime:
+          tagPath: last_update_timestamp
+          type: date
+        
+       
+          

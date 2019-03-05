@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Merge of DSM Document &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Declarative Stream Mapping (DSM)
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#simple-example">Simple Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#sample-config-file">Sample Config File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Specification:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#definitions">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#expression">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Declarative Stream Mapping (DSM)</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Merge of DSM Document</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/specification/MergeOfDocument.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="merge-of-dsm-document">
+<span id="extends"></span><span id="extend"></span><span id="extended"></span><span id="merged"></span><span id="merge"></span><h1>Merge of DSM Document<a class="headerlink" href="#merge-of-dsm-document" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p><a href="#id1"><span class="problematic" id="id2">`DSM document`_</span></a> can extends to another DSM document by using <a href="#id3"><span class="problematic" id="id4">`$extends`_</span></a> field.</p>
+<p><a href="#id5"><span class="problematic" id="id6">`Parsing Element`_</span></a> can extends to another Parsing Element by using <a href="#id7"><span class="problematic" id="id8">`$ref`_</span></a> field.</p>
+<p>DSM documents and Parsing Elements are merged with each other.</p>
+<p>Before going to explain merge process lets make some definition.</p>
+<dl class="docutils">
+<dt>source:</dt>
+<dd>DSM Document or Parsing Element that we want to extend to another.</dd>
+<dt>target:</dt>
+<dd>DSM Document or Parsing Element that we want to extend to.</dd>
+<dt>Merge process work as follows:</dt>
+<dd><dl class="first last docutils">
+<dt>for every field of target do followings:</dt>
+<dd><ol class="first last arabic">
+<li><p class="first">if field <strong>not exist</strong> in source, <strong>copy</strong> value of target to source.</p>
+</li>
+<li><p class="first">if field <strong>exist</strong> in source do followings</p>
+<p>2.1.  if  <strong>type</strong> of fields  is <strong>different</strong> then <strong>skip</strong> this field.</p>
+<p>2.2.  if  <strong>type</strong> of fields  is <strong>same</strong> then do followings</p>
+<blockquote>
+<div><p>2.2.1.  if <strong>type</strong> is <strong>simple type</strong> (string,number) then <strong>skip</strong> this field (do not copy target to source)</p>
+<p>2.2.2.  if <strong>type</strong> is <strong>array</strong> then <strong>add</strong> target values to <strong>start of</strong> the source values</p>
+<p>2.2.3.  if <strong>type</strong> is <strong>map</strong> then <strong>start Merge process</strong> for those two map.</p>
+</div></blockquote>
+</li>
+</ol>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Example  merge process of DSM documents:</p>
+<p>external DSM Document:(external.yaml)</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">dd.MM.yyyy</span>
+  <span class="l l-Scalar l-Scalar-Plain">rootPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/foo/bar</span>
+  <span class="l l-Scalar l-Scalar-Plain">acceptedCountryCode</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">TR</span><span class="p p-Indicator">,</span><span class="nv">US</span><span class="p p-Indicator">,</span><span class="nv">FR</span><span class="p p-Indicator">]</span>
+<span class="l l-Scalar l-Scalar-Plain">transformations</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">COUNTRY_CODE_TO_NAME</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">map</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">DEFAULT</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Other</span>
+          <span class="l l-Scalar l-Scalar-Plain">TR</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Turkey</span>
+          <span class="l l-Scalar l-Scalar-Plain">US</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">United States</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
+</pre></div>
+</div>
+<p>current DSM Document:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">$extends</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$params.rootPath.concat(&quot;external.yaml&quot;)</span> <span class="c1"># resolve expression</span>
+<span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">rootPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/DSM/MAIN</span>
+  <span class="l l-Scalar l-Scalar-Plain">acceptedCountryCode</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">UK</span><span class="p p-Indicator">]</span>
+<span class="l l-Scalar l-Scalar-Plain">transformations</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">COUNTRY_CODE_TO_NAME</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">map</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">UK</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">United Kingdom</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</pre></div>
+</div>
+<p>After merge process following configuration will take effect:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">$extends</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$params.rootPath.concat(&quot;external.yaml&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">dd.MM.yyyy</span> <span class="c1"># (rule 1) imported from external document</span>
+  <span class="l l-Scalar l-Scalar-Plain">rootPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/DSM/MAIN</span>  <span class="c1"># (rule 2.2.1)  overwritten by current DSM document</span>
+  <span class="l l-Scalar l-Scalar-Plain">acceptedCountryCode</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">TR</span><span class="p p-Indicator">,</span><span class="nv">US</span><span class="p p-Indicator">,</span><span class="nv">FR</span><span class="p p-Indicator">,</span><span class="nv">UK</span><span class="p p-Indicator">]</span> <span class="c1">#(rule 2.2.2)  external list element added to start off current list element(UK is only exist in current document and located at the end )</span>
+<span class="l l-Scalar l-Scalar-Plain">transformations</span><span class="p p-Indicator">:</span>    <span class="c1">#(rule 2.2.3)  transformations field exist in both source and target and type is MAP</span>
+    <span class="l l-Scalar l-Scalar-Plain">COUNTRY_CODE_TO_NAME</span><span class="p p-Indicator">:</span>   <span class="c1">#(rule 2.2.3)</span>
+        <span class="l l-Scalar l-Scalar-Plain">map</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">UK</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">United Kingdom</span>  <span class="c1"># only exist in current DSM document</span>
+          <span class="l l-Scalar l-Scalar-Plain">DEFAULT</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Other</span>     <span class="c1"># (rule 1) imported from external document</span>
+          <span class="l l-Scalar l-Scalar-Plain">TR</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Turkey</span>     <span class="c1"># (rule 1) imported from external document</span>
+          <span class="l l-Scalar l-Scalar-Plain">US</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">United States</span>  <span class="c1"># (rule 1) imported from external document</span>
+
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>  <span class="c1"># exist only current DSM document</span>
+  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>  <span class="c1"># exist only current DSM document</span>
+     <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>      <span class="c1"># imported from external document</span>
+     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, M.Fatih Ercik
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

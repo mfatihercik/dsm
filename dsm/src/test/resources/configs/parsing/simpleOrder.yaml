@@ -1,0 +1,34 @@
+sourceSystem: "ASD"
+destinationSystem: "ASDF"
+params:
+  dateFormat: yyyy-MM-dd'T'HH:mm:ss'Z'
+result:
+  tagType: array
+  tagPath: "orders/simpleOrder"
+  fields:
+    id:
+      type: long
+      xml:
+        attribute: true
+    mainProduct:
+      tagType: object
+      $ref: "definitions.product"
+    productList:
+      tagType: array
+      tagPath: "productList/product"
+      $ref: "definitions.product"
+
+
+definitions:
+  product:
+    fields:
+      id:
+        type: long
+      name:
+      url:
+      price:
+      description:
+      createDate:
+        type: date
+                             
+          

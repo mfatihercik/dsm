@@ -1,0 +1,159 @@
+params:
+  reviewFilterDate: 01.01.2010
+  basePath: ""
+functions:
+  insertVendor: "com.github.mfatihercik.dsb.functions.InsertProduct"
+  insertReview: "com.github.mfatihercik.dsb.functions.InsertProduct"
+$extends: "$params.basePath.concat('SaxParsingHandlerTestExternal.yaml')"
+result:
+  tagType: object
+  tagPath: feed
+  fields:
+    #merchant list deleted:false
+    collectionMethod:
+      tagType: array
+      xml:
+        tagPath: collection_methods/item
+      tagPath: collection_methods
+    vendor:
+      - tagType: array
+        tagPath: merchants
+        xml:
+          tagPath: merchants/merchant
+        function: insertVendor
+        fields:
+          name:
+          id:
+            type: int
+            xml:
+              attribute: true
+          vendorUrl:
+            tagPath: merchant_url
+          ratingUrl:
+            tagPath: rating_url
+          isDeleted:
+            type: boolean
+            default: false
+          vendorUniqueId:
+            tagPath: rating_url
+            tagType: join
+            tagTypeParams:
+              separator: "|"
+              fields: [id,name]
+          createTime:
+            type:
+              type: date
+              params:
+                dateFormat:  yyyy-MM-dd'T'HH:mm:ss'Z'
+            tagPath: create_timestamp
+          lastModifiedTime:
+            tagPath: last_update_timestamp
+            type: date
+          reviewerName:
+            tagPath: ../reviews/reviewer_name
+            xml:
+              tagPath: ../reviews/review/reviewer_name
+          hasReview:
+            default: true
+            tagParentPath: ../reviews/reviewer_name
+            xml:
+              tagParentPath: ../reviews/review/reviewer_name
+
+
+      #deleted_merchant list deleted:true both included in same list
+      - tagType: array
+        xml:
+          tagPath: deleted_merchants/deleted_merchant
+        tagPath: deleted_merchants
+        function: insertVendor
+        fields:
+          id:
+            type: int
+            xml:
+              attribute: true
+          isDeleted:
+            default: true
+          lastModifiedTime:
+            tagPath: last_update_timestamp
+            type: date
+    reviews:
+      tagType: array
+      class: mfe.Review
+      xml:
+        tagPath: reviews/review
+      tagPath: reviews
+      filter: >
+        $var isDateBigger=self.data.lastModifiedTime>self.data.reviewFilterDate;
+        if(not isDateBigger)
+           return false;
+        for(b :all.vendor.data){
+          if((b.id==self.data.vendorId and b.isDeleted==true)){
+            return false;
+          }
+        }
+        return true;
+
+      function: insertReview
+      fields:
+        id:
+          xml:
+            attribute: true
+        userName:
+          tagPath: reviewer_name
+        title:
+        content:
+        country:
+          tagPath: country_code
+          transformationCode: COUNTRIES
+        collectionMethod:
+          tagPath: collection_method
+          transformationCode: COLLECTION_METHOD
+        rating:
+          tagPath: overall
+          tagParentPath: ratings
+          transformationCode: RATING
+        isDeleted:
+          default: false
+        reviewFilterDate:
+          default: $params.reviewFilterDate
+          type:
+            type: date
+            params:
+              dateFormat: 'dd.MM.yyyy'
+        createTime:
+          tagPath: create_timestamp
+          type:
+            type: date
+            params:
+              dateFormat: yyyy-MM-dd'T'HH:mm:ss'Z'
+        lastModifiedTime:
+          tagPath: last_update_timestamp
+          type: date
+        vendorId:
+          tagPath: mid
+          xml:
+            attribute: true
+        vendorName:
+
+          default: >
+            $for(b:all.vendor.data){
+              if(b.id==self.data.vendorId){
+                  return b.name;
+              }
+            }
+            return null;
+
+        importance:
+          tagPath: "collection_method"
+          tagType: join
+          tagTypeParams:
+            fields: [rating,collectionMethod]
+            separator: "|"
+          transformationCode: REVIEW_IMPORTANCE
+
+
+
+            #default: "$all.vendor.parent.children[0].data.id"
+                 
+       
+          

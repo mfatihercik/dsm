@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tagPath and tagParentPath &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Declarative Stream Mapping (DSM)
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start-guide.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start-guide.html#simple-example">Simple Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start-guide.html#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start-guide.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start-guide.html#sample-config-file">Sample Config File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Specification:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#definitions">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#format">Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#document-structure">Document Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#schema">Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#expression">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#property-assignment-order">Property Assignment Order</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Declarative Stream Mapping (DSM)</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>tagPath and tagParentPath</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/specification/parsingElement/tagPathAndTagParentPath.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tagpath-and-tagparentpath">
+<h1><span class="target" id="tagpath">tagPath</span> and <span class="target" id="tagparentpath">tagParentPath</span><a class="headerlink" href="#tagpath-and-tagparentpath" title="Permalink to this headline">¶</a></h1>
+<p>The tagPath and tagParentPath fields indicate which tags are used in the <a href="#id1"><span class="problematic" id="id2">`source document`_</span></a>
+during parsing. The value of those fields are regular expressions.</p>
+<p>The <strong>tagPath</strong> field specifies the location of a tag in the <a href="#id3"><span class="problematic" id="id4">`source document`_</span></a>
+relative to the tagPath field of the higher-level <a href="#id5"><span class="problematic" id="id6">`Parsing Element`_</span></a> definition.
+The default value is the value in the <a href="#id7"><span class="problematic" id="id8">fieldName_</span></a> field.</p>
+<p>The <strong>tagParentPath</strong> field is used in a slightly more complex parsing definitions.
+it holds path to parent tag of the tag specified in the “tagPath” field.</p>
+<p>The <a class="reference internal" href="#tagpath">tagPath</a> and <a class="reference internal" href="#tagparentpath">tagParentPath</a> fields can be defined as the relative path as in unix.
+Relative paths are resolved according to the structure in the DSM document,
+not by the structure in the source file.</p>
+<p>Some example of relative path:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">current:</th><td class="field-body">./</td>
+</tr>
+<tr class="field-even field"><th class="field-name">parent:</th><td class="field-body">../</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">parentOfParent:</th><td class="field-body">../../</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">categoryInParent:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">../category</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">categoryInCurrent:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">./category</td>
+</tr>
+</tbody>
+</table>
+<p>To find the exact tag path for the current <a href="#id9"><span class="problematic" id="id10">`Parsing Element`_</span></a>, starting from the result field,
+all the <em>tagParentPath</em> and <em>tagPath</em> fields from top to bottom are merged with the “/” character.</p>
+<p><strong>tagParentAbsolutePath</strong> and <strong>tagAbsolutePath</strong>  evaluated as follow:</p>
+<blockquote>
+<div><p><strong>currentObject</strong> mean is <a href="#id11"><span class="problematic" id="id12">`Parsing Element`_</span></a> that current tagPath and tagParentPath is defined
+<strong>parentObject</strong> mean is parent <a href="#id13"><span class="problematic" id="id14">`Parsing Element`_</span></a> of currentObject</p>
+<ul class="simple">
+<li>parentObject = if (<strong>tagParentPath+tagPath</strong>) is relative path then find  parentObject by resolving relative path else currentObject.parent</li>
+<li><strong>tagParentAbsolutePath</strong> = parentObject.tagPath+”/”+currentObject.tagParentPath</li>
+<li><strong>tagAbsolutePath</strong> = absoluteTagParentPath+”/”+currentObject.tagPath</li>
+</ul>
+</div></blockquote>
+<p>if <strong>tagAbsolutePath</strong>  regex match any  <a href="#id15"><span class="problematic" id="id16">absolute_</span></a> path of tag, value of this tag evaluated by <a href="#id17"><span class="problematic" id="id18">tagType_</span></a></p>
+<p>To explain with example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/orders/order</span>                              <span class="c1">#tagPath = orders/order</span>
+                                                       <span class="c1">#tagParentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagAbsolutePath= /orders/order</span>
+                                                       <span class="c1">#tagParentAbsolutePath= /</span>
+   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">defaultName</span><span class="p p-Indicator">:</span>                                     <span class="c1">#tagPath =defaultName (default value is fieldName)</span>
+                                                       <span class="c1">#tagParentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order (parent(result) absoluteTagPath))</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/defaultName</span>
+      <span class="l l-Scalar l-Scalar-Plain">tagPathDefined</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">status</span>                               <span class="c1">#tagPath =status</span>
+                                                       <span class="c1">#tagParentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order (parent(result) absoluteTagPath))</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/status</span>
+      <span class="l l-Scalar l-Scalar-Plain">tagPathAndTagParentPath</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>                              <span class="c1">#tagPath = name</span>
+            <span class="l l-Scalar l-Scalar-Plain">tagParentPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>                    <span class="c1">#tagParentPath  = category</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order/category</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/category/name</span>
+
+      <span class="l l-Scalar l-Scalar-Plain">innerObject</span><span class="p p-Indicator">:</span>
+           <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+           <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">foo</span>                                <span class="c1">#tagPath = &quot;innerObject&quot;</span>
+                                                       <span class="c1">#tagParentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/innerObject</span>
+           <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+              <span class="l l-Scalar l-Scalar-Plain">normalPathInInnerObject</span><span class="p p-Indicator">:</span>                 <span class="c1">#tagPath = &quot;normalPathInInnerObject&quot;</span>
+                                                       <span class="c1">#tagParentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order/innerObject</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/innerObjcet/normalPathInInnerObject</span>
+              <span class="l l-Scalar l-Scalar-Plain">relativeTagPath</span><span class="p p-Indicator">:</span>
+                    <span class="l l-Scalar l-Scalar-Plain">tagPath:./defaultName</span>              <span class="c1">#tagPath = ../defaultName    (only level up)</span>
+                                                       <span class="c1">#tagParentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/defaultName</span>
+              <span class="l l-Scalar l-Scalar-Plain">relativeTagParentPath</span><span class="p p-Indicator">:</span>
+                    <span class="l l-Scalar l-Scalar-Plain">tagPath:defaultName</span>                <span class="c1">#tagPath = defaultName</span>
+                    <span class="l l-Scalar l-Scalar-Plain">tagParentPath:../</span>                  <span class="c1">#tagParentPath = &quot;../&quot; (only level up)</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/defaultName                                          relativeTagPathAndTagParentPath:</span>
+                    <span class="l l-Scalar l-Scalar-Plain">tagPath:../defaultName</span>             <span class="c1">#tagPath = defaultName</span>
+                    <span class="l l-Scalar l-Scalar-Plain">tagParentPath:../</span>                  <span class="c1">#tagParentPath = &quot;../&quot; (only level up)</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/../defaultName (relative path of tagParentPath important. tagPath considered as regex)</span>
+
+              <span class="l l-Scalar l-Scalar-Plain">relativePathFromResult</span><span class="p p-Indicator">:</span>
+                <span class="l l-Scalar l-Scalar-Plain">tagPath:/orders/order/defaultName</span>      <span class="c1">#tagPath = /orders/order/defaultName</span>
+                                                       <span class="c1">#tagParentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order/defaultName</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order</span>
+</pre></div>
+</div>
+<p><strong>tagAbsolutePath and tagParentAbsolutePath</strong>:</p>
+<table border="1" class="docutils align-left">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">fieldName</th>
+<th class="head">tagPath</th>
+<th class="head">tagParentPath</th>
+<th class="head">tagAbsolutePath</th>
+<th class="head">tagParentAbsolutePath</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">result</th>
+<td>orders/order</td>
+<td>&#160;</td>
+<td>order/simpleOrder</td>
+<td>/</td>
+</tr>
+<tr class="row-odd"><th class="stub">result</th>
+<td>orders/order</td>
+<td>&#160;</td>
+<td>order/simpleOrder</td>
+<td>/</td>
+</tr>
+<tr class="row-even"><th class="stub">defaultName</th>
+<td>defaultName(default value is fieldName)</td>
+<td>order/simpleOrder/defaultName</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">tagPathDefined</th>
+<td>status</td>
+<td>order/simpleOrder/status</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">tagPathAndTagParentPath</th>
+<td>status</td>
+<td>order/simpleOrder/category/name</td>
+<td>order/simpleOrder/category</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">innerObject</th>
+<td>innerObject</td>
+<td>order/simpleOrder/innerObject</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">normalPathInInnerObject</th>
+<td>normalPathInInnerObject</td>
+<td>order/simpleOrder/innerObject/normalPathInInnerObject</td>
+<td>order/simpleOrder/innerObject</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">relativeTagPath</th>
+<td>defaultName</td>
+<td>order/simpleOrder/defaultName</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">relativeTagParentPath</th>
+<td>defaultName</td>
+<td>order/simpleOrder/defaultName</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">relativeTagPathAndTagParentPath</th>
+<td>defaultName</td>
+<td>order/simpleOrder/..defaultName (relative path of tagParentPath important. tagPath considered as regex)</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">relativePathFromResult</th>
+<td>/orders/order/defaultName</td>
+<td>order/simpleOrder/defaultName</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, M.Fatih Ercik
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

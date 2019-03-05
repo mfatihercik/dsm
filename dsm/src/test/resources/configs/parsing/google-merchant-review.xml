@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://schemas.google.com/merchant_reviews/5.0">
+
+    <merchants>
+        <merchant id="2739">
+            <name>Google Store</name>
+            <merchant_url>http://store.google.com></merchant_url>
+            <rating_url>http://www.usefulreviews.com/merchant_2739.html</rating_url>
+            <create_timestamp>2010-07-12T07:55:06Z</create_timestamp>
+            <last_update_timestamp>2014-07-12T07:55:06Z</last_update_timestamp>
+        </merchant>
+        <merchant id="2738">
+            <name>teknosa</name>
+            <merchant_url>teknosa.com</merchant_url>
+            <rating_url>teknosa.com</rating_url>
+            <create_timestamp>2010-06-12T07:55:06Z</create_timestamp>
+            <last_update_timestamp>2014-06-12T07:55:06Z</last_update_timestamp>
+        </merchant>
+    </merchants>
+
+    <deleted_merchants>
+        <deleted_merchant id="321">
+            <last_update_timestamp>2014-07-12T07:55:06Z</last_update_timestamp>
+        </deleted_merchant>
+    </deleted_merchants>
+
+    <reviews>
+        <review id="156368" mid="2739">
+            <reviewer_name>Ada</reviewer_name>
+            <create_timestamp>2013-07-12T07:55:06Z</create_timestamp>
+            <last_update_timestamp>2014-07-12T07:55:06Z</last_update_timestamp>
+            <country_code>US</country_code>
+            <title>Great prices</title>
+            <content>My order arrived on time and I got a great price.</content>
+            <ratings>
+                <overall min="1" max="10">9</overall>
+                <customer_service min="1" max="10">10</customer_service>
+            </ratings>
+            <collection_method>after_fulfillment</collection_method>
+        </review>
+
+        <review id="156369" mid="2739">
+            <create_timestamp>2013-07-12T07:55:06Z</create_timestamp>
+            <last_update_timestamp>2014-08-12T07:55:06Z</last_update_timestamp>
+            <country_code>US</country_code>
+            <content/>
+            <ratings>
+                <overall min="1" max="10">9</overall>
+            </ratings>
+            <collection_method>unsolicited</collection_method>
+        </review>
+        <review id="156369" mid="2739">
+            <create_timestamp>2010-07-12T07:55:06Z</create_timestamp>
+            <last_update_timestamp>2009-08-12T07:55:06Z</last_update_timestamp>
+            <country_code>US</country_code>
+            <content>old comment</content>
+            <ratings>
+                <overall min="1" max="10">9</overall>
+            </ratings>
+            <collection_method>unsolicited</collection_method>
+        </review>
+
+        <review id="156369" mid="321">
+            <create_timestamp>2010-07-12T07:55:06Z</create_timestamp>
+            <last_update_timestamp>20015-08-12T07:55:06Z</last_update_timestamp>
+            <country_code>US</country_code>
+            <content>vendor deleted</content>
+            <ratings>
+                <overall min="1" max="10">9</overall>
+            </ratings>
+            <collection_method>unsolicited</collection_method>
+        </review>
+    </reviews>
+
+    <deleted_reviews>
+        <deleted_review id="5214">
+            <last_update_timestamp>2014-07-12T07:55:06Z</last_update_timestamp>
+        </deleted_review>
+    </deleted_reviews>
+    <collection_methods>
+        <item>unsolicited</item>
+        <item>point_of_sale</item>
+        <item>after_fulfillment</item>
+    </collection_methods>
+
+
+</feed>

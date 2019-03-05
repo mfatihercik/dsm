@@ -1,0 +1,26 @@
+tagType: array
+tagPath: merchant
+tagParentPath: merchants
+function: insertVendor
+filter:
+  isDelted: true
+  "$parent.name": $parent.surname
+fields:
+  id:
+    xml:
+      attribute: true
+  vendorUrl:
+    tagPath: merchant_url
+  ratingUrl:
+    tagPath: rating_url
+  isDeleted:
+    default: false
+  createTime:
+    tagPath: create_timestamp
+    type:
+      type: date
+      params:
+        dateFormat: dd.MM.yyyy
+  lastModifiedTime:
+    tagPath: last_update_timestamp
+    type: date

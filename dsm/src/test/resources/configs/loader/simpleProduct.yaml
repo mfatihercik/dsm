@@ -1,0 +1,11 @@
+sourceSystem: "MRX"
+destinationSystem: "MRX"
+result:
+  tagType: object
+  tagPath: root
+  fields:
+    product:
+      autoMaping: true
+      tagType: object
+      class: com.github.mfatihercik.dsb.model.Product
+          

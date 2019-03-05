@@ -1,0 +1,508 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Expressions &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Declarative Stream Mapping (DSM)
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#simple-example">Simple Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#sample-config-file">Sample Config File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Specification:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#definitions">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#expression">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Declarative Stream Mapping (DSM)</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Expressions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/specification/Expressions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="expression">
+<span id="id1"></span><h1><span class="target" id="expressions">Expressions</span><a class="headerlink" href="#expression" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Expressions make DSM very flexible. Expression allows a value to be filtered, manipulated, modified etc.
+Expressions can access objects in the expression context and do operations by using these objects.</p>
+<p>Expressions can be used at both <a href="#id5"><span class="problematic" id="id6">`source document`_</span></a> parsing time and <a href="#id7"><span class="problematic" id="id8">`DSM document`_</span></a> loading time.</p>
+<p>There are two type of expression, <strong>Loading Time</strong> and <strong>Parsing Time</strong> expressions.</p>
+<div class="section" id="loading-time-expression">
+<h2>Loading Time Expression<a class="headerlink" href="#loading-time-expression" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<p>Loading Time Expression is expressions that is <strong>only used during loading of `DSM document`.</strong>
+It allows you to <strong>modify structure of  DSM document.</strong></p>
+<p>Loading Time Expressions are defined in the <a href="#id9"><span class="problematic" id="id10">`$extends`_</span></a> and or <a href="#id11"><span class="problematic" id="id12">`$ref`_</span></a> fields. For more detail check <a href="#id13"><span class="problematic" id="id14">`$extends`_</span></a> and or <a href="#id15"><span class="problematic" id="id16">`$ref`_</span></a> field.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a href="#id17"><span class="problematic" id="id18">`$extends`_</span></a></p>
+<p class="last"><a href="#id19"><span class="problematic" id="id20">`$ref`_</span></a></p>
+</div>
+<p>The following fields are available in the expression context.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub"><a href="#id21"><span class="problematic" id="id22">params_</span></a></th>
+<td>Map&lt;string,Object&gt;</td>
+<td><a href="#id23"><span class="problematic" id="id24">params_</span></a> object.</td>
+<td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example">
+<h3><strong>Example</strong><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">rootPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/bar/foo/</span>
+<span class="l l-Scalar l-Scalar-Plain">$extends</span><span class="p p-Indicator">:</span>
+   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/foo/bar/external.yaml</span>
+   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">$params.rootPath.concat(&quot;externalWithExpression.yaml&quot;)</span> <span class="c1"># use &quot;params&quot; object in expression context to get &quot;rootPath&quot; property</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;params&quot;</span><span class="p">:{</span>
+   <span class="nt">&quot;rootPath&quot;</span><span class="p">:</span><span class="s2">&quot;/bar/foo/&quot;</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;$extends&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;/foo/bar/external.json&quot;</span><span class="p">,</span><span class="s2">&quot;$params.rootPath.concat(&#39;externalWithExpression.json&#39;)&quot;</span><span class="p">]</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="parsing-time-expression">
+<h2>Parsing Time Expression<a class="headerlink" href="#parsing-time-expression" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<p>Parsing Time Expression is expressions that is <strong>only used during parsing of `source document`.</strong>
+It allows you to change the structure of the output, change the property value, import a specific part of the <a href="#id25"><span class="problematic" id="id26">`source document`_</span></a>, filter by property , transform a property, and almost  all operations that can be done with custom coding.</p>
+<p>The Parsing Time Expressions can be defined in the <a href="#id27"><span class="problematic" id="id28">filter_</span></a>, <a href="#id29"><span class="problematic" id="id30">default_</span></a>, and <a href="#id31"><span class="problematic" id="id32">normalize_</span></a> fields.</p>
+<p>The following objects are available in the expression context.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub"><a href="#id33"><span class="problematic" id="id34">params_</span></a></th>
+<td>Map&lt;string,any&gt;</td>
+<td><a href="#id35"><span class="problematic" id="id36">params_</span></a> object.</td>
+<td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#all">all</a></th>
+<td>Map&lt;string,Node_&gt;</td>
+<td>A map that stores all nodes by the “<a href="#id37"><span class="problematic" id="id38">uniqueName_</span></a>” of <a href="#id39"><span class="problematic" id="id40">`Parsing Element Object`_</span></a></td>
+<td><strong>all.bar.data.foo</strong> =&gt; foo field of <strong>bar</strong> node,  <strong>all.barList.data[0].foo</strong> =&gt; <em>foo</em> field of first item of <em>barList</em> node</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#self">self</a></th>
+<td><a href="#id41"><span class="problematic" id="id42">Node_</span></a></td>
+<td>current node object that hold data of current complex <a href="#id43"><span class="problematic" id="id44">tagType_</span></a></td>
+<td><strong>self.data.foo</strong> =&gt; foo field of current node,     <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
+</tr>
+<tr class="row-odd"><th class="stub">value</th>
+<td>string</td>
+<td>(not available in <a href="#id45"><span class="problematic" id="id46">default_</span></a> field) The raw string value of the current tag in <a href="#id47"><span class="problematic" id="id48">`source document`_</span></a></td>
+<td><strong>value==’Computer’</strong>,**value.startWith(‘bar’)**</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a href="#id49"><span class="problematic" id="id50">Node_</span></a>  ,  <a href="#id51"><span class="problematic" id="id52">default_</span></a>,  <a href="#id53"><span class="problematic" id="id54">filter_</span></a>,   <a href="#id55"><span class="problematic" id="id56">normalize_</span></a>,  <a href="#id57"><span class="problematic" id="id58">`$extends`_</span></a>,  <a href="#id59"><span class="problematic" id="id60">`$ref`_</span></a></p>
+</div>
+<div class="section" id="id2">
+<h3><span class="target" id="all">all</span><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>Each complex <a href="#id61"><span class="problematic" id="id62">tagType_</span></a> creates a <a href="#id63"><span class="problematic" id="id64">node_</span></a>. The created nodes can be accessed using the “all” object in the expressions.
+Each node is stored in <a class="reference internal" href="#all">all</a> map with the <a href="#id65"><span class="problematic" id="id66">uniqueName_</span></a> of the <a href="#id67"><span class="problematic" id="id68">`Parsing Element`_</span></a> that creates the node.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">order</span><span class="p p-Indicator">:</span>
+              <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">object</span>
+              <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+                 <span class="l l-Scalar l-Scalar-Plain">state</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                 <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>
+                 <span class="l l-Scalar l-Scalar-Plain">saleLines</span><span class="p p-Indicator">:</span>
+                      <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+                      <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+                         <span class="l l-Scalar l-Scalar-Plain">product</span><span class="p p-Indicator">:</span>
+                               <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+                               <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+                                   <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                                   <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                                   <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                         <span class="l l-Scalar l-Scalar-Plain">quantity</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>
+                         <span class="l l-Scalar l-Scalar-Plain">unit</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+         <span class="l l-Scalar l-Scalar-Plain">company</span><span class="p p-Indicator">:</span>
+              <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+              <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+                  <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                  <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</pre></div>
+</div>
+<p>for configuration at above following <a class="reference internal" href="#all">all</a> map is created.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">parent</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+      <span class="l l-Scalar l-Scalar-Plain">data</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">order</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">order.data</span>        <span class="c1"># contains data of the order node</span>
+         <span class="l l-Scalar l-Scalar-Plain">company</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">company.data</span>
+<span class="l l-Scalar l-Scalar-Plain">order</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">parent</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">result</span>
+        <span class="l l-Scalar l-Scalar-Plain">data</span><span class="p p-Indicator">:</span>
+           <span class="l l-Scalar l-Scalar-Plain">orderLines</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">orderLines.data</span>
+<span class="l l-Scalar l-Scalar-Plain">company</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">parent</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">result</span>
+        <span class="l l-Scalar l-Scalar-Plain">data</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{}</span>
+<span class="l l-Scalar l-Scalar-Plain">orderLines</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">parent</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">order</span>
+     <span class="l l-Scalar l-Scalar-Plain">data</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[{</span> <span class="nv">product</span><span class="p p-Indicator">:</span><span class="nv">product.data</span>  <span class="p p-Indicator">}]</span>  <span class="c1"># data is array. each item contains product data</span>
+<span class="l l-Scalar l-Scalar-Plain">product</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">parent</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">orderLines</span>
+      <span class="l l-Scalar l-Scalar-Plain">data</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">{}</span>
+</pre></div>
+</div>
+<p>Example usages:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">product.parent:</th><td class="field-body">is equals orderLine node</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">product.parent.data:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">is equals orderLine.data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">product.parent.parent:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">is equals order</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">product.parent.parent.data:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">is equals order.data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">product.parent.parent.parent:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">is equals result</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">order.data.orderLine:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">is equals orderLine.data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">order.data.orderLine[lastIndex].product:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">is equals product.data</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h3><span class="target" id="self">self</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>current node object that hold data of current complex tagType.</p>
+<p>Example usages:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">self.parent:</th><td class="field-body">parent node</td>
+</tr>
+<tr class="field-even field"><th class="field-name">self.data.foo:</th><td class="field-body">foo field of current object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">self.data[0]:</th><td class="field-body">First element of current array</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h3><strong>Example</strong><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$ self.data.categoryType==&#39;foo&#39;</span>     <span class="c1"># filter expression.</span>
+           <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+              <span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">foo</span>  <span class="c1"># force set name to foo with filter</span>
+              <span class="l l-Scalar l-Scalar-Plain">force</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
+     <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+        <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+           <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+           <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+             <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">self.parent.data.categoryType==&#39;foo&#39;? &#39;Foo&#39;:&#39;Bar&#39;</span>  <span class="c1"># default value is expression.</span>
+           <span class="l l-Scalar l-Scalar-Plain">categoryType</span><span class="p p-Indicator">:</span>
+               <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">all.data.categoryType==&#39;foo&#39;? &#39;Foo&#39;:&#39;Bar&#39;</span>  <span class="c1"># default value is expression. and its is equivalent of expression in category.name property.</span>
+     <span class="l l-Scalar l-Scalar-Plain">productUnit</span><span class="p p-Indicator">:</span>
+           <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$ self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;</span><span class="p p-Indicator">:</span> <span class="s">&#39;KG&#39;</span>    <span class="c1"># default value is expression.</span>
+     <span class="l l-Scalar l-Scalar-Plain">categoryType</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="s">&quot;foo&quot;</span>   <span class="c1"># default value a is a string.</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<blockquote>
+<div><div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;category&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;self.parent.data.categoryType==&#39;foo&#39;? &#39;Foo&#39;:&#39;Bar&#39;&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;categoryType&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;default: all.data.categoryType==&#39;foo&#39;? &#39;Foo&#39;:&#39;Bar&#39;&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;productUnit&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot; $self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;: &#39;KG&#39;&quot;</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;categoryType&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, M.Fatih Ercik
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+sourceSystem: "MRX"
+destinationSystem: "MRX"
+params:
+  dateFormat: yyyyMMdd
+functions:
+  kamil: "mfe.com.ServiceCall"

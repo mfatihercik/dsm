@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Absolute Tag Path &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Declarative Stream Mapping (DSM)
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#simple-example">Simple Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#sample-config-file">Sample Config File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Specification:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#definitions">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#expression">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Declarative Stream Mapping (DSM)</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Absolute Tag Path</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/specification/AbsoluteTagPath.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="absolute-tag-path">
+<span id="absolute"></span><h1>Absolute Tag Path<a class="headerlink" href="#absolute-tag-path" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Absolute Tag Path  is found by <strong>joining all tag name from top to bottom with “/”</strong> character until specified tag.</p>
+<p>Below example is json representation of array of Pet object.</p>
+<p>Absolute tag paths are listed below.</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span>[
+  {
+ &quot;id&quot;: 1,
+ &quot;category&quot;: {
+   &quot;id&quot;: 1,
+   &quot;name&quot;: &quot;Cats&quot;
+ },
+ &quot;name&quot;: &quot;PetNameForm&quot;,
+ &quot;photoUrls&quot;: [
+   &quot;url1&quot;,
+   &quot;url2&quot;,
+   &quot;url3&quot;
+ ],
+ &quot;tags&quot;: [
+   {
+     &quot;id&quot;: 2,
+     &quot;name&quot;: &quot;New&quot;
+   },
+   {
+     &quot;id&quot;: 2,
+     &quot;name&quot;: &quot;Cute&quot;
+   },
+ ],
+ &quot;status&quot;: &quot;sold&quot;
+]
+</pre></div>
+</div>
+<p>Absolute tag paths of all field in above json document are listed below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Field Name</th>
+<th class="head">Absolute Path</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">&#160;</th>
+<td>/</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet:id</th>
+<td>/id</td>
+</tr>
+<tr class="row-even"><th class="stub">Pet:category</th>
+<td>/category</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet:category.id</th>
+<td>/category/id</td>
+</tr>
+<tr class="row-even"><th class="stub">Pet:category.name</th>
+<td>/category/name</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet:name</th>
+<td>/name</td>
+</tr>
+<tr class="row-even"><th class="stub">Pet:photoUrls</th>
+<td>/photoUrls</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet:photoUrls.(item)</th>
+<td>/photoUrls</td>
+</tr>
+<tr class="row-even"><th class="stub">Pet:tags</th>
+<td>/tags</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet:tags.id</th>
+<td>/tags/id</td>
+</tr>
+<tr class="row-even"><th class="stub">Pet.tags.name</th>
+<td>/tags/name</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet.status</th>
+<td>/status</td>
+</tr>
+</tbody>
+</table>
+<p>Same Example for XML:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span>&lt;Pets&gt;
+   &lt;Pet&gt;
+      &lt;category&gt;
+        &lt;id&gt;1589257917030308320&lt;/id&gt;
+        &lt;name&gt;Cats&lt;/name&gt;
+      &lt;/category&gt;
+      &lt;id&gt;6598053714149410844&lt;/id&gt;
+      &lt;name&gt;PetNameForm&lt;/name&gt;
+      &lt;photoUrls&gt;
+        &lt;photoUrl&gt;url1&lt;/photoUrl&gt;
+        &lt;photoUrl&gt;url2&lt;/photoUrl&gt;
+        &lt;photoUrl&gt;url3&lt;/photoUrl&gt;
+      &lt;/photoUrls&gt;
+      &lt;status&gt;sold&lt;/status&gt;
+      &lt;tags&gt;
+        &lt;tag&gt;
+          &lt;id&gt;4250197027829930927&lt;/id&gt;
+          &lt;name&gt;New&lt;/name&gt;
+        &lt;/tag&gt;
+        &lt;tag&gt;
+          &lt;id&gt;8271965854563266871&lt;/id&gt;
+          &lt;name&gt;Cute&lt;/name&gt;
+        &lt;/tag&gt;
+        &lt;tag&gt;
+          &lt;id&gt;3487705188883980239&lt;/id&gt;
+          &lt;name&gt;Popular&lt;/name&gt;
+        &lt;/tag&gt;
+      &lt;/tags&gt;
+    &lt;/Pet&gt;
+&lt;/Pets&gt;
+</pre></div>
+</div>
+<p>Absolute tag paths of all field in above XML document are listed below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Field Name</th>
+<th class="head">Absolute Path</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">&#160;</th>
+<td>/</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pets array</th>
+<td>/Pets</td>
+</tr>
+<tr class="row-even"><th class="stub">Pets array item</th>
+<td>/Pets/Pet</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet:id</th>
+<td>//Pets/Pet/id</td>
+</tr>
+<tr class="row-even"><th class="stub">Pet:category</th>
+<td>/Pets/Pet/category</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet:category.id</th>
+<td>/Pets/Pet/category/id</td>
+</tr>
+<tr class="row-even"><th class="stub">Pet:category.name</th>
+<td>/Pets/Pet/category/name</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet:name</th>
+<td>/name</td>
+</tr>
+<tr class="row-even"><th class="stub">Pet:photoUrls</th>
+<td>/Pets/Pet/photoUrls</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet:photoUrls.(item)</th>
+<td>/Pets/Pet/photoUrls</td>
+</tr>
+<tr class="row-even"><th class="stub">Pet:tags</th>
+<td>/Pets/Pet/tags</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet:id</th>
+<td>/Pets/Pet/tags/id</td>
+</tr>
+<tr class="row-even"><th class="stub">Pet:tags.name</th>
+<td>/Pets/Pet/tags/name</td>
+</tr>
+<tr class="row-odd"><th class="stub">Pet.status</th>
+<td>/Pets/Pet/status</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a href="#id1"><span class="problematic" id="id2">tagPath_</span></a></p>
+<p class="last"><a href="#id3"><span class="problematic" id="id4">tagParentPath_</span></a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, M.Fatih Ercik
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

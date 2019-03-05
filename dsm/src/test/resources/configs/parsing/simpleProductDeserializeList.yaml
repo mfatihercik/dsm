@@ -1,0 +1,17 @@
+sourceSystem: "ASD"
+destinationSystem: "ASDF"
+params:
+  dateFormat: yyyy-MM-dd'T'HH:mm:ss'Z'
+result:
+  tagType: array
+  tagPath: "root/products/product"
+  fields:
+    id:
+    name:
+    url:
+    price:
+    description:
+    createDate:
+      type: date
+                             
+          

@@ -1,0 +1,76 @@
+sourceSystem: "ASD"
+destinationSystem: "ASDF"
+params:
+  dateFormat: yyyy-MM-dd'T'HH:mm:ss'Z'
+result:
+  tagType: object
+  tagPath: data
+  fields:
+    order:
+      tagType: object
+      filter: $self.data.model=='sale.order'
+      tagPath: record
+      fields:
+        id:
+          xml:
+            attribute: true
+        model:
+          xml:
+            attribute: true
+        fieldName:
+          tagPath: name
+          tagParentPath: field
+          xml:
+            attribute: true
+        partnerId:
+          tagParentPath: field
+          filter: $self.data.fieldName=='partner_id'
+          tagPath: ref
+          xml:
+            attribute: true
+        partnerInvoiceId:
+          tagParentPath: field
+          filter: $self.data.fieldName=='partner_invoice_id'
+          tagPath: ref
+          xml:
+            attribute: true
+
+    saleLines:
+      tagType: array
+      tagPath: record
+      filter: $self.data.model=='sale.order.line'
+      fields:
+        model:
+          xml:
+            attribute: true
+        fieldName:
+          tagPath: name
+          tagParentPath: field
+          xml:
+            attribute: true
+        orderId:
+          tagParentPath: field
+          filter: $self.data.fieldName=='order_id'
+          tagPath: ref
+          xml:
+            attribute: true
+        productId:
+          tagParentPath: field
+          filter: $self.data.fieldName=='product_id'
+          tagPath: ref
+          xml:
+            attribute: true
+        name:
+          tagPath: field
+          filter: $self.data.fieldName=='name'
+        productUomQty:
+          tagPath: field
+          filter: $self.data.fieldName=='product_uom_qty'
+        priceUnit:
+          type: float
+          tagPath: field
+          filter: $self.data.fieldName=='price_unit'
+            
+        
+          
+          

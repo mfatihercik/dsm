@@ -1,0 +1,58 @@
+sourceSystem: "ASD"
+destinationSystem: "ASDF"
+params:
+  dateFormat: yyyy-MM-dd'T'HH:mm:ss'Z'
+result:
+  tagType: array
+  tagPath: ..../
+  #  filter: $self.index%3==0
+  xml:
+    tagPath: "/pets/Pet"
+  fields:
+    category:
+      tagType: object
+      fields:
+        id:
+          type: long
+        name:
+    #          tagId:
+    #             tagType: object
+    #             filter: $self.index==3
+    #             tagPath: ../tags
+    ##             tagParentPath: ../tags
+    #             xml:
+    #               tagPath: /pets/Pet/tags/tag
+    #             fields:
+    #               id: int
+    #               name:
+    #
+    tagIds:
+      type: long
+      tagType: array
+      tagPath: tags/id
+      xml:
+        tagPath: tags/tag/id
+
+    id:
+      type: long
+    name:
+    status:
+    photoUrls:
+      tagType: array
+      tagPath: photoUrls
+      xml:
+        tagPath: photoUrls/photoUrls
+    tags:
+      tagType: array
+      tagPath: tags
+      xml:
+        tagPath: tags/tag
+      fields:
+        id:
+          type: long
+        name:
+         
+       
+          
+   
+         

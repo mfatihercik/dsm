@@ -1,0 +1,28 @@
+params:
+  dateFormat: yyyyMMdd
+  testTrue: true
+  testFalse: no
+functions:
+  insertProduct: "com.github.mfatihercik.dsb.functions.InsertProduct"
+transformations:
+  PRODUCT_TYPE:
+    onlyIfExist: true
+    map:
+      DEFAULT: BND
+      NULL: null
+      FOREIGN: FXC
+      DERIVATIVE: DRV
+  PRODUCT_CATEGORY:
+    #if not exist throw exception
+    map:
+      'Operation Systems': Software
+      Monitor: Computer
+      Printer: Electronics
+result:
+  tagType: object
+  tagPath: product
+  fields:
+    name:
+    price:
+  
+    

@@ -1,0 +1,78 @@
+- company:
+    name: A
+    id: 1
+    currency: TRY
+  orderLine:
+    - id: 1
+      quantity: 2
+      totalPrice: 1
+      currency: TL
+      product:
+        name: Wather
+        id: 1
+        category:
+          name: Drinks
+          id: 1
+          description: Drinks
+          image: 'url/to/drink.png'
+        unitPrice: 0.5
+        image: 'url/to/weather.jpg'
+        unit:
+          category: LT
+          name: MLT
+          value: 500
+          baseValue: 1
+          id: 1
+    - id: 2
+      quantity: 3
+      totalPrice: 15
+      currency: TL
+      exchageRate: 1
+      product:
+        name: Banana
+        id: 1
+        category:
+          name: Fruit
+          id: 2
+          description: fruit
+          image: 'url/to/fruit.png'
+        unitPrice: 5
+        image: 'url/to/Banana.jpg'
+        unit:
+          category: KG
+          name: KG
+          value: 1000
+          baseValue: 1
+          id: 1
+    - id: 3
+      quantity: 3
+      totalPrice: 0.9
+      currency: EUR
+      exchangeRate: 6
+      product:
+        name: Onion
+        id: 1
+        category:
+          name: vegetables
+          id: 2
+          description: vegetables
+          image: 'url/to/vegetables.png'
+        unitPrice: 0.3
+        image: 'url/to/Banana.jpg'
+        unit:
+          category: KG
+          name: KG
+          value: 1000
+          baseValue: 1
+          id: 1
+
+  paymentLine:
+    - id: 1
+      paymentType: cash
+      amount: 2
+      currency: TRY
+    - id: 2
+      paymentType: debit-card
+      currency: TRY
+      amount: 5
+        

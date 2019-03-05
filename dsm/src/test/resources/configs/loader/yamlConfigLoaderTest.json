@@ -1,0 +1,208 @@
+{
+  "sourceSystem": "MRX",
+  "destinationSystem": "MRX",
+  "params": {
+    "reviewFilterDate": "01.01.2010",
+    "basePath": "/configs/parsing/",
+    "dateFormat": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+  },
+  "functions": {
+    "insertProduct": "mfe.com.InsertProduct"
+  },
+  "transformations": {
+    "RATING": {
+      "map": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 2,
+        "5": 3,
+        "6": 3,
+        "7": 4,
+        "8": 4,
+        "9": 5,
+        "10": 5
+      }
+    },
+    "COLLECTION_METHOD": {
+      "map": {
+        "DEFAULT": "Before",
+        "after_fulfillment": "After"
+      }
+    },
+    "REVIEW_IMPORTANCE": {
+      "map": {
+        "DEFAULT": "Bronze",
+        "3|After": "Silver",
+        "4|After": "Silver",
+        "5|After": "Gold"
+      }
+    },
+    "COUNTRIES": {
+      "map": {
+        "US": "United States",
+        "TR": "Turkey",
+        "FR": "France"
+      }
+    }
+  },
+  "result": {
+    "tagType": "object",
+    "tagPath": "feed",
+    "fields": {
+      "vendor": [
+        {
+          "tagType": "array",
+          "tagPath": "merchant",
+          "tagParentPath": "merchants",
+          "function": "insertVendor",
+          "fields": {
+            "name": null,
+            "id": {
+              "type": "int",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "vendorUrl": {
+              "tagPath": "merchant_url"
+            },
+            "ratingUrl": {
+              "tagPath": "rating_url"
+            },
+            "isDeleted": {
+              "type": "boolean",
+              "default": false
+            },
+            "vendorUniqueId": {
+              "tagPath": "rating_url",
+              "tagType": {
+                "type": "join",
+                "params": {
+                  "separator": "|",
+                  "fields": [
+                    "id",
+                    "name"
+                  ]
+                }
+              }
+            },
+            "createTime": {
+              "type": {
+                "type": "date",
+                "params": {
+                  "dateFormat": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                }
+              },
+              "tagPath": "create_timestamp"
+            },
+            "lastModifiedTime": {
+              "tagPath": "last_update_timestamp",
+              "type": "date"
+            }
+          }
+        },
+        {
+          "tagType": "array",
+          "tagPath": "deleted_merchant",
+          "tagParentPath": "deleted_merchants",
+          "function": "insertVendor",
+          "fields": {
+            "id": {
+              "type": "int",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "isDeleted": {
+              "default": true
+            },
+            "lastModifiedTime": {
+              "tagPath": "last_update_timestamp",
+              "type": "date"
+            }
+          }
+        }
+      ],
+      "reviews": {
+        "tagType": "array",
+        "class": "mfe.Review",
+        "tagPath": "review",
+        "tagParentPath": "reviews",
+        "filter": "$self.data.lastModifiedTime>self.data.reviewFilterDate and not all.vendor.parent.children.stream().filter(b->b.data.id==self.data.vendorId and b.data.isDeleted==true).findFirst().isPresent()",
+        "function": "insertReview",
+        "fields": {
+          "id": {
+            "xml": {
+              "attribute": true
+            }
+          },
+          "userName": {
+            "tagPath": "reviewer_name"
+          },
+          "title": null,
+          "content": null,
+          "country": {
+            "tagPath": "country_code",
+            "transformationCode": "COUNTRIES"
+          },
+          "collectionMethod": {
+            "tagPath": "collection_method",
+            "transformationCode": "COLLECTION_METHOD"
+          },
+          "rating": {
+            "tagPath": "overall",
+            "tagParentPath": "ratings",
+            "transformationCode": "RATING"
+          },
+          "isDeleted": {
+            "default": false
+          },
+          "reviewFilterDate": {
+            "default": "$params.reviewFilterDate",
+            "type": {
+              "type": "date",
+              "params": {
+                "dateFormat": "dd.MM.yyyy"
+              }
+            }
+          },
+          "createTime": {
+            "tagPath": "create_timestamp",
+            "type": {
+              "type": "date",
+              "params": {
+                "dateFormat": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+              }
+            }
+          },
+          "lastModifiedTime": {
+            "tagPath": "last_update_timestamp",
+            "type": "date"
+          },
+          "vendorId": {
+            "tagPath": "mid",
+            "xml": {
+              "attribute": true
+            }
+          },
+          "vendorName": {
+            "default": "$all.vendor.parent.children.stream().filter(b->b.data.id==self.data.vendorId).findFirst().orElse({'data':{'name':null}}).data.name"
+          },
+          "importance": {
+            "tagPath": "collection_method",
+            "tagType": "join",
+            "tagTypeParams": {
+              "fields": [
+                "rating",
+                "collectionMethod"
+              ],
+              "separator": "|"
+            },
+            "transformationCode": "REVIEW_IMPORTANCE"
+          }
+        }
+      }
+    }
+  }
+}

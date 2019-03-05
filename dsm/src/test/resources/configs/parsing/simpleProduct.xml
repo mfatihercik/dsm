@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+    <products>
+        <product>
+            <id>1234</id>
+            <name>Google Store</name>
+            <url>url</url>
+            <description>description</description>
+            <createDate>2010-07-12T07:55:06Z</createDate>
+            <price>123</price>
+        </product>
+        <product>
+            <id>123</id>
+            <name>Google Store</name>
+            <url>url</url>
+            <description>description</description>
+            <createDate>2010-07-12T07:55:06Z</createDate>
+            <price>123</price>
+        </product>
+
+
+    </products>
+
+</root>

@@ -1,0 +1,98 @@
+{
+  "feed": {
+    "merchants": [
+      {
+        "id": 2739,
+        "name": "Google Store",
+        "merchant_url": "http://store.google.com",
+        "rating_url": "http://www.usefulreviews.com/merchant_2739.html",
+        "create_timestamp": "2010-07-12T07:55:06Z",
+        "last_update_timestamp": "2014-07-12T07:55:06Z"
+      },
+      {
+        "id": 2738,
+        "name": "teknosa",
+        "merchant_url": "teknosa.com",
+        "rating_url": "teknosa.com",
+        "create_timestamp": "2010-06-12T07:55:06Z",
+        "last_update_timestamp": "2014-06-12T07:55:06Z"
+      }
+    ],
+    "deleted_merchants": [
+      {
+        "id": 321,
+        "name": "teknosa",
+        "merchant_url": "teknosa.com",
+        "rating_url": "teknosa.com",
+        "create_timestamp": "2010-06-12T07:55:06Z",
+        "last_update_timestamp": "2014-07-12T07:55:06Z"
+      }
+    ],
+    "reviews": [
+      {
+        "id": 156368,
+        "mid": 2739,
+        "reviewer_name": "Ada",
+        "create_timestamp": "2013-07-12T07:55:06Z",
+        "last_update_timestamp": "2014-07-12T07:55:06Z",
+        "country_code": "US",
+        "title": "Great prices",
+        "content": "My order arrived on time and I got a great price.",
+        "ratings": {
+          "overall": 10,
+          "customer_service": 10
+        },
+        "collection_method": "after_fulfillment"
+      },
+      {
+        "id": 156369,
+        "mid": 2739,
+        "create_timestamp": "2013-07-12T07:55:06Z",
+        "last_update_timestamp": "2014-08-12T07:55:06Z",
+        "country_code": "US",
+        "content": null,
+        "ratings": {
+          "overall": 9
+        },
+        "collection_method": "unsolicited"
+      },
+      {
+        "id": 156369,
+        "mid": 2739,
+        "create_timestamp": "2010-07-12T07:55:06Z",
+        "last_update_timestamp": "2009-08-12T07:55:06Z",
+        "country_code": "US",
+        "content": "old comment",
+        "ratings": {
+          "overall": 10
+        },
+        "collection_method": "unsolicited"
+      },
+      {
+        "id": 156369,
+        "mid": 321,
+        "create_timestamp": "2010-07-12T07:55:06Z",
+        "last_update_timestamp": "20015-08-12T07:55:06Z",
+        "country_code": "US",
+        "content": "vendor deleted",
+        "ratings": {
+          "overall": 9
+        },
+        "collection_method": "unsolicited"
+      }
+    ],
+    "deleted_reviews": [
+      {
+        "id": 5214,
+        "last_update_timestamp": "2014-07-12T07:55:06Z"
+      }
+    ],
+    "collection_methods": [
+      "unsolicited",
+      "point_of_sale",
+      "after_fulfillment"
+    ]
+  }
+}
+
+

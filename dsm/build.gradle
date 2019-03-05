@@ -1,0 +1,64 @@
+gradle.startParameter.showStacktrace = org.gradle.api.logging.configuration.ShowStacktrace.ALWAYS
+buildscript {
+	repositories {
+		maven { url "https://repo.spring.io/plugins-release" }
+	}
+	dependencies {
+		classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
+	}
+}
+
+configure(allprojects) {
+		apply plugin: 'propdeps-maven'
+		apply plugin: 'propdeps'
+		apply plugin: 'propdeps-idea'
+		apply plugin: 'propdeps-eclipse'
+		apply plugin: 'java'
+		apply plugin: 'groovy'
+}
+
+jar{
+	archiveBaseName="dsm"
+	archiveVersion="0.1"
+}
+
+
+
+repositories {
+	jcenter()
+	mavenCentral()
+}
+
+dependencies {
+
+	compile("org.apache.commons:commons-jexl3:3.1")
+	compile("org.yaml:snakeyaml:1.23")
+//	compile group: 'org.codehaus.groovy', name: 'groovy', version: '2.5.6'
+    optional group: 'org.codehaus.groovy', name: 'groovy-jsr223', version: '2.5.6'
+
+	
+
+    optional "org.mozilla:rhino:1.7.10"
+	optional("com.google.code.gson:gson:2.8.5")
+	optional("com.fasterxml.jackson.core:jackson-databind:2.9.7")
+	optional("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.4")
+	
+	testCompile("junit:junit:4.12")
+	testCompile("org.mockito:mockito-core:2.23.0")
+	
+	testCompile "cglib:cglib:3.2.10"
+	testCompile "org.codehaus.groovy:groovy-all:2.5.6"
+	testCompile 'org.spockframework:spock-core:1.2-groovy-2.5'
+
+
+    // Use JUnit test framework
+    testImplementation('junit:junit:4.12')
+}
+test {
+	useJUnit()
+	testLogging {
+		showStandardStreams = true
+	}
+	maxHeapSize = '1G'
+}
+

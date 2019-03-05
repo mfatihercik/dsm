@@ -1,0 +1,34 @@
+params:
+  dateFormat: yyyy-MM-dd
+  basePath: "/configs/loader/"
+functions:
+  insertProduct: "com.github.mfatihercik.dsb.functions.InsertProduct"
+  insertReview: "com.github.mfatihercik.dsb.functions.InsertProduct"
+$extends: "$params.basePath.concat('importYamlExternal.yaml')"
+transformations:
+  COLLECTION_METHOD:
+    map:
+      'before_fulfillment': After
+  COUNTRIES:
+    map:
+      UK: United Kingdom
+      TR: Turkiye
+result:
+  tagType: object
+  fields:
+    reviews:
+      - tagType: array
+        tagPath: deleted_review
+        tagParentPath: deleted_reviews
+        function: insertReview
+        fields:
+          id:
+            isAtribute: true
+          isDeleted:
+            default: true
+          lastModifiedTime:
+            tagPath: last_update_timestamp
+            type: date
+                 
+       
+          
