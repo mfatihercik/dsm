@@ -18,8 +18,9 @@ configure(allprojects) {
 }
 
 jar{
-	archiveBaseName="dsm"
-	archiveVersion="0.1"
+    archiveBaseName="dsm"
+    archiveVersion="0.1"
+    from sourceSets.main.allSource
 }
 
 
