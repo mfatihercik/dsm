@@ -54,14 +54,18 @@ public class StaxParser extends StreamParser {
     }
 
     private void processReader(XMLStreamReader streamReader) throws XMLStreamException {
+
         while (streamReader.hasNext()) {
-            streamReader.next();
+
             switch (streamReader.getEventType()) {
+                case XMLStreamConstants.START_DOCUMENT:
+                    startElement(streamReader, null);
+                    break;
                 case XMLStreamConstants.START_ELEMENT:
-                    startElement(streamReader);
+                    startElement(streamReader, streamReader.getLocalName());
                     break;
                 case XMLStreamConstants.END_ELEMENT:
-                    endElement(streamReader);
+                    endElement(streamReader, streamReader.getLocalName());
                     break;
                 case XMLStreamConstants.SPACE:
                 case XMLStreamConstants.CHARACTERS:
@@ -70,6 +74,11 @@ public class StaxParser extends StreamParser {
 
                 default:
                     break;
+            }
+            streamReader.next();
+            if (XMLStreamConstants.END_DOCUMENT == streamReader.getEventType()) {
+                endElement(streamReader, null);
+                break;
             }
 
         }
@@ -89,19 +98,20 @@ public class StaxParser extends StreamParser {
             tempValue = tempValue.concat(streamReader.getText());
     }
 
-    private void endElement(final XMLStreamReader streamReader) {
+    private void endElement(final XMLStreamReader streamReader, String tagName) {
 
-        final String qName = streamReader.getLocalName();
+//        final String qName = streamReader.getLocalName();
 
         /*
          * current key is in parent tag
          */
         final String generateKey = parentTag();
 
-        parentTagRemove(qName);
+        if (tagName != null)
+            parentTagRemove(tagName);
 
         final String parentTagPath = parentTag();
-        PathInfo path = pathInfo.set(qName, parentTagPath, generateKey);
+        PathInfo path = pathInfo.set(tagName, parentTagPath, generateKey);
 
         List<ParsingElement> endValueEventElements = getEndValueEventElements(generateKey);
         for (ParsingElement parsingElement : endValueEventElements) {
@@ -116,16 +126,17 @@ public class StaxParser extends StreamParser {
 
     }
 
-    private void startElement(XMLStreamReader streamReader) {
+    private void startElement(XMLStreamReader streamReader, String tagName) {
 
-        final String qName = streamReader.getLocalName();
+//        final String qName ;= streamReader.getLocalName();
         tempValue = null;
         final String parentTagPath = parentTag();
         // add tag to parent to generate new key
-        parentTagAdd(qName);
+        if (tagName != null)
+            parentTagAdd(tagName);
         final String genderedKey = parentTag();
 
-        PathInfo path = pathInfo.set(qName, parentTagPath, genderedKey);
+        PathInfo path = pathInfo.set(tagName, parentTagPath, genderedKey);
         Map<String, String> attributes = null;
         List<ParsingElement> startEventElements = getStartEventElements(genderedKey);
         for (ParsingElement parsingElement : startEventElements) {
