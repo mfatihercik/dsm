@@ -2,10 +2,12 @@ package com.github.mfatihercik.dsb.configloader;
 
 import com.github.mfatihercik.dsb.ConfigLoader;
 import com.github.mfatihercik.dsb.ConfigLoaderStrategy;
-import com.github.mfatihercik.dsb.ParsingElement;
 import com.github.mfatihercik.dsb.expression.ExpressionResolver;
 import com.github.mfatihercik.dsb.expression.ExpressionResolverFactory;
 import com.github.mfatihercik.dsb.function.FunctionContext;
+import com.github.mfatihercik.dsb.model.Default;
+import com.github.mfatihercik.dsb.model.Function;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.transformation.FileValueTransformer;
 import com.github.mfatihercik.dsb.transformation.TransformationElement;
 import com.github.mfatihercik.dsb.transformation.ValueTransformer;
@@ -19,11 +21,12 @@ import java.util.Map.Entry;
 public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
 
     private static final String XML = "xml";
+
     final ConfigLoaderStrategy configLoader;
     private final FunctionContext functionContext;
     private final ValueTransformer valueTransformer;
     private Map<String, Object> params = new HashMap<>();
-    private Map<String, Object> definitions = new HashMap<>();
+    private Map<String, Object> fragments = new HashMap<>();
     private List<ParsingElement> parsingElements = new ArrayList<>();
     private ExpressionResolver expressionResolver;
     private boolean isLoaded = false;
@@ -39,7 +42,7 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         this.functionContext = functionContext;
 
         this.getExpressionResolver().setBean(PARAMS, getParams());
-        this.getExpressionResolver().setBean(DEFINITIONS, definitions);
+        this.getExpressionResolver().setBean(FRAGMENTS, fragments);
     }
 
 
@@ -49,8 +52,8 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         }
         Map<String, Object> map = configLoader.readConfiguration();
         fillParameters(map);
-        extendToExternalConfig(map);
         MapWrapper mainMap = new MapWrapper(map, null);
+        extendToExternalConfig(mainMap);
 
 
         mainMap.getField(RESULT, true);
@@ -66,20 +69,43 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
 
     @SuppressWarnings("unchecked")
     private void fillDefinitions(Map<String, Object> map) {
-        if (map.containsKey(DEFINITIONS)) {
-            MapUtils.mergeMap(getDefinitions(), (Map<String, Object>) map.get(DEFINITIONS));
+        if (map.containsKey(FRAGMENTS)) {
+            MapUtils.mergeMap(getDefinitions(), (Map<String, Object>) map.get(FRAGMENTS));
         }
     }
 
-    private void extendToExternalConfig(Map<String, Object> map) {
-        if (map.containsKey(EXTENDS)) {
-            String value = map.get(EXTENDS).toString().trim();
-            if (value.startsWith(EXPRESSION_INDICATOR)) {
-                value = getExpressionResolver().resolveExpression(value).toString();
+    private void extendToExternalConfig(MapWrapper mapWrapper) {
+        if (mapWrapper.isExist(EXTENDS)) {
+            if (mapWrapper.isList(EXTENDS)) {
+                List<Object> list = mapWrapper.toList(EXTENDS);
+                for (Object row : list) {
+                    if (row == null) {
+                        continue;
+                    }
+                    String path = row.toString().trim();
+                    extendsToExternalConfig(mapWrapper, path);
+
+                }
+            } else {
+                String value = mapWrapper.toString(EXTENDS, true).trim();
+                extendsToExternalConfig(mapWrapper, value);
             }
-            Map<String, Object> importMap = configLoader.readExtendConfiguration(value);
-            MapUtils.mergeMap(map, importMap);
+
         }
+    }
+
+    private void extendsToExternalConfig(MapWrapper mapWrapper, String path) {
+        if (path.startsWith(EXPRESSION_INDICATOR)) {
+            path = getExpressionResolver().resolveExpression(path).toString();
+        }
+        Map<String, Object> importMap = configLoader.readExtendConfiguration(path);
+        extendToExternalConfig(new MapWrapper(importMap, mapWrapper.getParent() + "|" + path));
+        /**
+         * if EXTENDS value is list ConcurrentModification exception is thrown.
+         * so we have to delete EXTENDS key
+         */
+        importMap.remove(EXTENDS);
+        MapUtils.mergeMap(mapWrapper.getMap(), importMap);
     }
 
     @SuppressWarnings("unchecked")
@@ -129,9 +155,9 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
     private void buildParsingElementTree(Object value, String fieldName, ParsingElement parent, int order) {
         @SuppressWarnings("unchecked")
         Map<String, Object> valueMap = (Map<String, Object>) value;
-        extendToExternalConfig(valueMap);
-        extendsToDefinitions(valueMap);
         MapWrapper elementMap = new MapWrapper(value, parent == null ? RESULT : parent.getFieldName());
+        extendToExternalConfig(elementMap);
+        extendsToFragments(elementMap);
         ParsingElement element = new ParsingElement();
         element.setFieldName(fieldName);
         if (parent != null)
@@ -139,12 +165,10 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         element.setOrder(element.isRoot() ? order : Integer.valueOf(element.getParentElement().getOrder() + "" + order));
         setTagType(elementMap, element);
         setType(elementMap, element);
-        element.setServiceName(elementMap.toString(FUNCTION));
-        element.setUseFunction(elementMap.isExist(FUNCTION));
+        setFunction(elementMap, element);
         element.setTagPath(elementMap.toString(TAG_PATH, parent == null));
         element.setTagParentPath(elementMap.toString(TAG_PARENT_PATH));
-        element.setDefaultValue(elementMap.toString(DEFAULT));
-        element.setDefault(elementMap.isExist(DEFAULT));
+        setDefaultFields(elementMap, element);
         element.setTransformEnabled(elementMap.isExist(TRANSFORMATION_CODE));
         element.setTransformationCode(elementMap.toString(TRANSFORMATION_CODE));
         element.setFilterExist(elementMap.isExist(FILTER));
@@ -166,8 +190,6 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
 
         element.setNormalizeExpression(elementMap.toString(NORMALIZE));
         element.setNormalizeExpressionExist(elementMap.isExist(NORMALIZE));
-        element.setForceDefault(elementMap.toBoolean(FORCE_DEFAULT));
-
 
         getParsingElements().add(element);
         TypeAdaptor tagTypeAdapter = element.getTagTypeAdapter();
@@ -176,6 +198,35 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         }
         element.validate();
 
+    }
+
+    private void setFunction(MapWrapper elementMap, ParsingElement element) {
+        if (elementMap.isExist(FUNCTION)) {
+            if (elementMap.isMap(FUNCTION)) {
+                MapWrapper functionWrapper = new MapWrapper(elementMap.toMap(FUNCTION), elementMap.getParent());
+                String functionName = functionWrapper.toString(FUNCTION_NAME);
+                Map<String, Object> params = functionWrapper.toMap(FUNCTION_PARAMS, null);
+                element.setFunction(new Function(functionName, params));
+            } else {
+                element.setFunction(new Function(elementMap.toString(FUNCTION), null));
+            }
+
+
+        }
+    }
+
+    private void setDefaultFields(MapWrapper elementMap, ParsingElement element) {
+        if (elementMap.isExist(DEFAULT)) {
+            if (elementMap.isMap(DEFAULT)) {
+                MapWrapper defaultMap = new MapWrapper(elementMap.toMap(DEFAULT), element.getFieldName());
+                String value = defaultMap.toString(DEFAULT_VALUE, true);
+                Boolean forceDefault = defaultMap.toBoolean(DEFAULT_FORCE);
+                Boolean atStart = defaultMap.toBoolean(DEFAULT_AT_START);
+                element.setDefault(new Default(value, forceDefault, atStart));
+            } else {
+                element.setDefault(new Default(elementMap.toString(DEFAULT)));
+            }
+        }
     }
 
     private void buildObjectField(String fieldName, MapWrapper elementMap, ParsingElement element) {
@@ -208,7 +259,7 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         if (parsingConfig instanceof Map<?, ?>) {
             buildParsingElementTree(parsingConfig, propertyName, element, count);
         } else if (parsingConfig instanceof List<?>) {
-            @SuppressWarnings("unchecked")
+            //TODO test muti line extends
             List<Object> parsingConfigList = (List<Object>) parsingConfig;
             for (Object listConfig : parsingConfigList) {
                 setAllFields(element, count++, listConfig, propertyName);
@@ -222,14 +273,31 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         return count;
     }
 
-    private void extendsToDefinitions(Map<String, Object> valueMap) {
-        if (valueMap.containsKey(REF)) {
-            String ref = valueMap.get(REF).toString();
-            @SuppressWarnings("unchecked")
-            Map<String, Object> definition = (Map<String, Object>) getExpressionResolver().resolveExpression(ref);
-
-            MapUtils.mergeMap(valueMap, definition);
+    private void extendsToFragments(MapWrapper valueMap) {
+        if (valueMap.isExist(REF)) {
+            //TODO test muti line refe
+            Map<String, Object> map = valueMap.getMap();
+            if (valueMap.isList(REF)) {
+                List<Object> list = valueMap.toList(REF);
+                for (Object row : list) {
+                    if (row == null) {
+                        continue;
+                    }
+                    resolveFragmentExpression(valueMap, row.toString());
+                }
+            } else {
+                resolveFragmentExpression(valueMap, valueMap.toString(REF, true));
+            }
         }
+    }
+
+    private void resolveFragmentExpression(MapWrapper map, String ref) {
+        ref = ref.trim();
+        Map<String, Object> fragment = (Map<String, Object>) getExpressionResolver().resolveExpression(ref);
+        extendsToFragments(new MapWrapper(fragment, ref + "|" + map.getParent()));
+        fragment.remove(REF);
+        if (fragment != null)
+            MapUtils.mergeMap(map.getMap(), fragment);
     }
 
     private void setType(MapWrapper elementMap, ParsingElement element) {
@@ -321,11 +389,11 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
     }
 
     public Map<String, Object> getDefinitions() {
-        return definitions;
+        return fragments;
     }
 
-    public void setDefinitions(Map<String, Object> definitions) {
-        this.definitions = definitions;
+    public void setDefinitions(Map<String, Object> fragments) {
+        this.fragments = fragments;
     }
 
     @Override

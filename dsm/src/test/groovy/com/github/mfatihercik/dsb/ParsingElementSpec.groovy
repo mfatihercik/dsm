@@ -1,6 +1,6 @@
 package com.github.mfatihercik.dsb
 
-import com.github.mfatihercik.dsb.ParsingElement
+import com.github.mfatihercik.dsb.model.ParsingElement
 import org.junit.Test
 import spock.lang.Specification
 
@@ -86,26 +86,19 @@ class ParsingElementSpec extends Specification {
         ParsingElement element = new ParsingElement ()
         element.setFieldName ("name")
         element.setTagParentPath ("product")
-        element.setDefault (true)
         element.setParentElement (new ParsingElement ())
         when:
-        element.validate ()
-        then:
-        def error = thrown (DCMValidationException)
-        error.message.contains ("defaultValue")
 
-        when:
 
-        element.setDefault (false)
         element.setFilterExist (true)
         element.validate ()
 
         then:
-        error = thrown (DCMValidationException)
+        def error = thrown (DCMValidationException)
         error.message.contains ("filterExpression")
 
         when:
-        element.setDefault (false)
+
         element.setFilterExist (false)
         element.setTransformEnabled (true)
         element.validate ()
@@ -114,17 +107,6 @@ class ParsingElementSpec extends Specification {
         error = thrown (DCMValidationException)
         error.message.contains ("transformationCode")
 
-        when:
-        element.setDefault (false)
-        element.setFilterExist (false)
-        element.setTransformEnabled (false)
-        element.setUseFunction (true)
-        element.validate ()
-
-        then:
-
-        error = thrown (DCMValidationException)
-        error.message.contains ("function")
 
     }
 }

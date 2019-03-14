@@ -2,6 +2,7 @@ package com.github.mfatihercik.dsb;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 
 import java.util.LinkedHashMap;
 import java.util.List;

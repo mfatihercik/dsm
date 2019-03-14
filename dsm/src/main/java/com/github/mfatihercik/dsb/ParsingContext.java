@@ -1,13 +1,20 @@
 package com.github.mfatihercik.dsb;
 
+import com.github.mfatihercik.dsb.model.DeferAssigment;
+import com.github.mfatihercik.dsb.model.ParsingElement;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ParsingContext {
     private int nodeMapSize = 0;
     private Map<String, Node> mainNodeMap = new HashMap<>();
+    private Map<ParsingElement, List<DeferAssigment>> deferAssigmentMap = new HashMap<>();
     private Class<?> resultType;
     private Node rootNode;
+
     private Node[] nodeMap = null;
 
     public void initNodeMap(int size) {
@@ -20,6 +27,22 @@ public class ParsingContext {
         getMainNodeMap().clear();
         initNodeMap(nodeMapSize);
 
+    }
+
+    public void addDeferAssignment(ParsingElement currentParsingElement, PathInfo pathInfo, Object value) {
+        if (!currentParsingElement.isRoot()) {
+            ParsingElement parentElement = currentParsingElement.getParentElement();
+            List<DeferAssigment> deferAssigments = deferAssigmentMap.get(parentElement);
+            if (deferAssigments == null) {
+                deferAssigments = new ArrayList<>();
+                deferAssigmentMap.put(parentElement, deferAssigments);
+            }
+            deferAssigments.add(new DeferAssigment(currentParsingElement, pathInfo, value));
+        }
+    }
+
+    public List<DeferAssigment> getDeferAssigment(ParsingElement parentParsingElement) {
+        return deferAssigmentMap.get(parentParsingElement);
     }
 
     public boolean contains(String uniqueName) {

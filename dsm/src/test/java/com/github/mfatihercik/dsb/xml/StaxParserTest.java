@@ -59,6 +59,7 @@ public class StaxParserTest {
         assertEquals("After", review1.get("collectionMethod").toString());
         assertEquals("Google Store", review1.get("vendorName").toString());
         assertEquals("Gold", review1.get("importance").toString());
+        assertEquals("2738", review1.get("deferedVendorId").toString());
 
         List<String> collectionMethod = (List<String>) map.get("collectionMethod");
         assertEquals(3, collectionMethod.size());

@@ -1,5 +1,6 @@
-package com.github.mfatihercik.dsb;
+package com.github.mfatihercik.dsb.model;
 
+import com.github.mfatihercik.dsb.DCMValidationException;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptorFactory;
 
@@ -15,8 +16,6 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
     private int order;
     private String fieldName;
     private String uniqueKey;
-    private boolean isDefault = false;
-    private String defaultValue;
     private String tagParentPath;
     private String tagPath;
     private String tagXmlParentPath;
@@ -26,8 +25,7 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
     private Map<String, Object> typeParameters;
     private String tagType = DEFAULT_TAG_TYPE;
     private String tagParameters;
-    private boolean useFunction;
-    private String serviceName;
+    private Function function;
     private boolean isTransformEnabled;
     private String transformationCode;
     private boolean isAttribute;
@@ -40,6 +38,7 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
     private TypeAdaptor tagTypeAdapter;
     private List<ParsingElement> children = new ArrayList<>();
     private int index = -1;
+    private Default defaultValue;
 
     public void addChild(ParsingElement child) {
         child.setParentElement(this);
@@ -56,14 +55,11 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
         throwExceptionIfTrue(getTagPath() == null, String.format("tagPath is required for %s/%s", fName, parentFiledName));
         throwExceptionIfTrue(getUniqueKey() == null, String.format("uniqueKey is required for %s/%s", fName, parentFiledName));
 
-        boolean isDefaultValueSet = (isDefault() && getDefaultValue() == null);
-        throwExceptionIfTrue(isDefaultValueSet, String.format("defaultValue is required if default true for %s/%s", fName, parentFiledName));
         boolean isFilterExist = (isFilterExist() && getFilterExpression() == null);
         throwExceptionIfTrue(isFilterExist, String.format("filterExpression is required if filterExist true for %s/%s", fName, parentFiledName));
 
         throwExceptionIfTrue((isTransformEnabled() && getTransformationCode() == null), String.format("transformationCode is required if transformationEnabled true for %s/%s", fName, parentFiledName));
 
-        throwExceptionIfTrue(isUseFunction() && getFunction() == null, String.format("function is required if useFunction true for %s/%s", fName, parentFiledName));
         TypeAdaptor typeAdapter = getTagTypeAdapter();
         throwExceptionIfTrue(typeAdapter.isObject() && !typeAdapter.isArray() && children.isEmpty(),
                 String.format("tagType of %s/%s is complex tagType(%s). Object tagType must have fields ", this.getFieldName(), parentFiledName, this.getTagType()));
@@ -106,18 +102,15 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
     }
 
     public boolean isDefault() {
-        return isDefault;
+        return defaultValue != null;
     }
 
-    public void setDefault(boolean isDefault) {
-        this.isDefault = isDefault;
-    }
 
-    public String getDefaultValue() {
+    public Default getDefault() {
         return defaultValue;
     }
 
-    public void setDefaultValue(String defaultValue) {
+    public void setDefault(Default defaultValue) {
         this.defaultValue = defaultValue;
     }
 
@@ -157,12 +150,12 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
         this.tagParameters = tagParameters;
     }
 
-    public String getFunction() {
-        return serviceName;
+    public Function getFunction() {
+        return function;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setFunction(Function function) {
+        this.function = function;
     }
 
     public boolean isTransformEnabled() {
@@ -188,14 +181,6 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
 
     public void setAttribute(boolean isAttribute) {
         this.isAttribute = isAttribute;
-    }
-
-    public boolean isOverwrite() {
-        return isOverwrite;
-    }
-
-    public void setForceDefault(boolean isOverwrite) {
-        this.isOverwrite = isOverwrite;
     }
 
     public boolean isFilterExist() {
@@ -272,11 +257,7 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
     }
 
     public boolean isUseFunction() {
-        return useFunction;
-    }
-
-    public void setUseFunction(boolean useFunction) {
-        this.useFunction = useFunction;
+        return function != null;
     }
 
     public int getOrder() {
@@ -289,9 +270,9 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
 
     @Override
     public int compareTo(ParsingElement o) {
-        if (this.isDefault && !o.isDefault)
+        if (this.isDefault() && !o.isDefault())
             return 1;
-        if (!this.isDefault && o.isDefault)
+        if (!this.isDefault() && o.isDefault())
             return -1;
         return (this.order - o.order) % 2;
     }

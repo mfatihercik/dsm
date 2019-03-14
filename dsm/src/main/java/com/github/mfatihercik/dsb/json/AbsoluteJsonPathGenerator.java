@@ -1,7 +1,7 @@
 package com.github.mfatihercik.dsb.json;
 
 import com.github.mfatihercik.dsb.AbstractPathGenerator;
-import com.github.mfatihercik.dsb.ParsingElement;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 
 public class AbsoluteJsonPathGenerator extends AbstractPathGenerator {
     @Override

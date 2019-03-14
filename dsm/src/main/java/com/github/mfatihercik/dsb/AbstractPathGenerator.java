@@ -1,7 +1,9 @@
 package com.github.mfatihercik.dsb;
 
 import com.github.mfatihercik.dsb.configloader.ConfigConstants;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.utils.PathUtils;
+import com.github.mfatihercik.dsb.utils.StringUtils;
 
 import static com.github.mfatihercik.dsb.configloader.ConfigConstants.PATH_SEPARATOR;
 
@@ -10,7 +12,7 @@ public abstract class AbstractPathGenerator implements PathGenerator {
 
     public static final String DOUBLE_SLASH = ConfigConstants.PATH_SEPARATOR.concat("{2,}");
 
-    public static final String TRIPLE_DOT = "(\\.\\.) {3,}";
+    public static final String TRIPLE_DOT = "(\\.) {3,}";
 
     @Override
     public String generatePath(ParsingElement parsingElement) {
@@ -70,17 +72,31 @@ public abstract class AbstractPathGenerator implements PathGenerator {
     public String concatPaths(String parentPath, String child) {
         String path = parentPath;
         if (child != null)
-            path = parentPath.concat(PATH_SEPARATOR).concat(child);
+            path = parentPath.concat(PATH_SEPARATOR).concat(normalize(removeDuplicateCharacters(child)));
 
         return normalize(path);
     }
 
     public String removeDuplicateCharacters(String path) {
-        return path.replaceAll(DOUBLE_SLASH, ConfigConstants.PATH_SEPARATOR).replaceAll(TRIPLE_DOT, DOUBLE_DOT);
+        while (path.startsWith("...")) {
+            path = path.substring(1);
+        }
+        path = path.replaceAll(DOUBLE_SLASH, ConfigConstants.PATH_SEPARATOR);
+        return path;
     }
 
     public String normalize(String path) {
-        return path.replaceAll("\\.", "").replaceAll(DOUBLE_SLASH, ConfigConstants.PATH_SEPARATOR);
+        while (path.startsWith("./")) {
+            path = path.substring(2);
+        }
+        while (path.startsWith("../")) {
+            path = path.substring(3);
+        }
+        String normalized = StringUtils.removeEnd(path.replaceAll(DOUBLE_SLASH, PATH_SEPARATOR), PATH_SEPARATOR);
+        if (StringUtils.isBlank(normalized))
+            return PATH_SEPARATOR;
+        else
+            return normalized;
     }
 
     protected ParsingElement findRelativeParentElement(ParsingElement parent, String path) {

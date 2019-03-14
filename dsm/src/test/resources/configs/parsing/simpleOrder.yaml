@@ -12,14 +12,14 @@ result:
         attribute: true
     mainProduct:
       tagType: object
-      $ref: "definitions.product"
+      $ref: "fragments.product"
     productList:
       tagType: array
       tagPath: "productList/product"
-      $ref: "definitions.product"
+      $ref: "fragments.product"
 
 
-definitions:
+fragments:
   product:
     fields:
       id:

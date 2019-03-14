@@ -20,13 +20,18 @@ result:
         tagPath: merchants
         xml:
           tagPath: merchants/merchant
-        function: insertVendor
+        function:
+          name: insertVendor
+          params:
+            name: 123
         fields:
           name:
           id:
             type: int
             xml:
               attribute: true
+            default:
+              value: 1235456
           vendorUrl:
             tagPath: merchant_url
           ratingUrl:
@@ -132,6 +137,12 @@ result:
         vendorId:
           tagPath: mid
           xml:
+            attribute: true
+        deferedVendorId:
+          tagPath: id
+          tagParentPath: ../merchants
+          xml:
+            tagParentPath: ../merchants/merchant
             attribute: true
         vendorName:
 

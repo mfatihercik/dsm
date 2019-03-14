@@ -2,8 +2,8 @@ package com.github.mfatihercik.dsb.typeadapter;
 
 import com.github.mfatihercik.dsb.Node;
 import com.github.mfatihercik.dsb.ParsingContext;
-import com.github.mfatihercik.dsb.ParsingElement;
 import com.github.mfatihercik.dsb.PathInfo;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -39,8 +39,8 @@ public class ListTypeAdapter extends BaseObjectAdapter {
 
         Node parentElementNode = getParentNode(parsingContext, parsingElement);
 
-        String uniqueKey = parsingElement.getUniqueKey();
-        Object parentData = parentElementNode.get(uniqueKey);
+        String fieldName = parsingElement.getFieldName();
+        Object parentData = parentElementNode.get(fieldName);
         parentData = parentData == null ? typeAdapter.getInitialObject() : parentData;
 
         Node parentNode = parentElementNode.getChild();
@@ -51,7 +51,7 @@ public class ListTypeAdapter extends BaseObjectAdapter {
 
         if (parentNode == null) {
             parentNode = parentElementNode.addChild(parentData, parsingElement);
-            parentElementNode.set(uniqueKey, parentData);
+            parentElementNode.set(fieldName, parentData);
             parsingContext.add(parentNode);
 
         } else {

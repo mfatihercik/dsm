@@ -83,6 +83,14 @@ public class MapWrapper {
         return null != map.get(fieldName);
     }
 
+    public Boolean isList(String fieldName) {
+        return map.get(fieldName) instanceof List;
+    }
+
+    public Boolean isMap(String fieldName) {
+        return map.get(fieldName) instanceof Map;
+    }
+
     public Object getField(String fieldName, Boolean required) {
         Object object = map.get(fieldName);
         if (required && object == null) {
@@ -132,5 +140,7 @@ public class MapWrapper {
         this.parent = parent;
     }
 
-
+    public Map<String, Object> getMap() {
+        return map;
+    }
 }

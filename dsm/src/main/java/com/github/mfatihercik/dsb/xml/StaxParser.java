@@ -1,11 +1,11 @@
 package com.github.mfatihercik.dsb.xml;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mfatihercik.dsb.ParsingElement;
 import com.github.mfatihercik.dsb.PathInfo;
 import com.github.mfatihercik.dsb.StreamParser;
 import com.github.mfatihercik.dsb.expression.ExpressionResolver;
 import com.github.mfatihercik.dsb.function.FunctionFactory;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
 
 import javax.xml.stream.XMLInputFactory;
@@ -67,7 +67,6 @@ public class StaxParser extends StreamParser {
                 case XMLStreamConstants.END_ELEMENT:
                     endElement(streamReader, streamReader.getLocalName());
                     break;
-                case XMLStreamConstants.SPACE:
                 case XMLStreamConstants.CHARACTERS:
                     characters(streamReader);
                     break;
@@ -117,7 +116,7 @@ public class StaxParser extends StreamParser {
         for (ParsingElement parsingElement : endValueEventElements) {
 
             if (parsingElement.isDefault() && parsingElement.getTagAbsolutePath().equals(generateKey))
-                setDefaultValueOnNode(parsingElement, parsingElement.getDefaultValue(), path);
+                setDefaultValueOnNode(parsingElement, parsingElement.getDefault().getValue(), path);
             else
                 setValueOnNode(parsingElement, path, tempValue);
 
@@ -134,11 +133,11 @@ public class StaxParser extends StreamParser {
         // add tag to parent to generate new key
         if (tagName != null)
             parentTagAdd(tagName);
-        final String genderedKey = parentTag();
+        final String generatedKey = parentTag();
 
-        PathInfo path = pathInfo.set(tagName, parentTagPath, genderedKey);
+        PathInfo path = pathInfo.set(tagName, parentTagPath, generatedKey);
         Map<String, String> attributes = null;
-        List<ParsingElement> startEventElements = getStartEventElements(genderedKey);
+        List<ParsingElement> startEventElements = getStartEventElements(generatedKey);
         for (ParsingElement parsingElement : startEventElements) {
             TypeAdaptor typeAdapter = parsingElement.getTagTypeAdapter();
             if (typeAdapter.isObject()) {
@@ -154,8 +153,19 @@ public class StaxParser extends StreamParser {
                     }
 
                     value = attributes.get(parsingElement.getTagPath());
+                    if (value == null && parsingElement.isDefault()) {
+                        value = parsingElement.getDefault().getValue();
+                        setDefaultValueOnNode(parsingElement, value, path);
+                    } else {
+                        setValueOnNode(parsingElement, path, value);
+
+                    }
+                } else if (parsingElement.isDefault() && parsingElement.getTagAbsolutePath().equals(generatedKey)) {
+                    setDefaultValueOnNode(parsingElement, parsingElement.getDefault().getValue(), path);
+                } else {
+                    setValueOnNode(parsingElement, path, null);
                 }
-                setValueOnNode(parsingElement, path, value);
+
             }
         }
     }
@@ -188,5 +198,6 @@ public class StaxParser extends StreamParser {
         return parsingElements;
 
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.github.mfatihercik.dsb;
 
+import com.github.mfatihercik.dsb.model.ParsingElement;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -77,16 +78,10 @@ public class ParsingElementTest {
         ParsingElement element = new ParsingElement();
         element.setFieldName("name");
         element.setTagParentPath("product");
-        element.setDefault(true);
         element.setParentElement(new ParsingElement());
         Throwable ex = null;
-        try {
-            element.validate();
-        } catch (Throwable e) {
-            ex = e;
-        }
-        Assert.assertTrue(ex.getMessage().contains("defaultValue"));
-        element.setDefault(false);
+
+
         element.setFilterExist(true);
         try {
             element.validate();
@@ -94,7 +89,6 @@ public class ParsingElementTest {
             ex = e;
         }
         Assert.assertTrue(ex.getMessage().contains("filterExpression"));
-        element.setDefault(false);
         element.setFilterExist(false);
         element.setTransformEnabled(true);
         try {
@@ -103,16 +97,9 @@ public class ParsingElementTest {
             ex = e;
         }
         Assert.assertTrue(ex.getMessage().contains("transformationCode"));
-        element.setDefault(false);
         element.setFilterExist(false);
         element.setTransformEnabled(false);
-        element.setUseFunction(true);
-        try {
-            element.validate();
-        } catch (Throwable e) {
-            ex = e;
-        }
-        Assert.assertTrue(ex.getMessage().contains("function"));
+
 
     }
 }

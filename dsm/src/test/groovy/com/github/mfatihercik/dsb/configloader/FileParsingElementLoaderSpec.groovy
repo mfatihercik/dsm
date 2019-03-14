@@ -1,9 +1,9 @@
 package com.github.mfatihercik.dsb.configloader
 
-import com.github.mfatihercik.dsb.ParsingElement
 import com.github.mfatihercik.dsb.TestUtils
 import com.github.mfatihercik.dsb.function.FunctionContext
 import com.github.mfatihercik.dsb.function.FunctionExecutor
+import com.github.mfatihercik.dsb.model.ParsingElement
 import com.github.mfatihercik.dsb.transformation.FileValueTransformer
 import com.github.mfatihercik.dsb.transformation.TransformationElement
 import com.github.mfatihercik.dsb.typeadapter.ListTypeAdapter
@@ -128,7 +128,7 @@ class FileParsingElementLoaderSpec extends Specification {
         assert "reviews" == reviews.fieldName
         assert "review" == reviews.tagPath
         assert "/feed/reviews" == reviews.tagAbsolutePath
-        assert "insertReview" == reviews.function
+        assert "insertReview" == reviews.function.name
 
 
         int idIndex = 0
@@ -191,7 +191,7 @@ class FileParsingElementLoaderSpec extends Specification {
         assert "vendor" == vendor.fieldName
         assert "deleted_merchant" == vendor.tagPath
         assert "/feed/deleted_merchants" == vendor.tagAbsolutePath
-        assert "insertVendor" == vendor.function
+        assert "insertVendor" == vendor.function.name
     }
 
     @Test
@@ -223,7 +223,7 @@ class FileParsingElementLoaderSpec extends Specification {
         assert "vendor" == vendor.fieldName
         assert "deleted_merchant" == vendor.tagPath
         assert "/feed/deleted_merchants" == vendor.tagAbsolutePath
-        assert "insertVendor" == vendor.function
+        assert "insertVendor" == vendor.function.name
 
     }
 
@@ -234,7 +234,7 @@ class FileParsingElementLoaderSpec extends Specification {
         assert "vendor" == vendor.fieldName
         assert "merchant" == vendor.tagPath
         assert "/feed/merchants" == vendor.tagAbsolutePath
-        assert "insertVendor" == vendor.function
+        assert "insertVendor" == vendor.function.name
 
         int idIndex = 0
         ParsingElement id = vendor.children [idIndex]
@@ -264,7 +264,7 @@ class FileParsingElementLoaderSpec extends Specification {
         assert "isDeleted" == isDeleted.uniqueKey
         assert "/feed/merchants/merchant" == isDeleted.tagAbsolutePath
         assert isDeleted.default
-        assert "false" == isDeleted.defaultValue
+        assert "false" == isDeleted.default.value
 
         int createTimeIndex = 3
         ParsingElement createTime = vendor.children [createTimeIndex]
@@ -344,7 +344,7 @@ class FileParsingElementLoaderSpec extends Specification {
         assert "reviews" == deletedReview.fieldName
         assert "deleted_review" == deletedReview.tagPath
         assert "/feed/deleted_reviews" == deletedReview.tagAbsolutePath
-        assert "insertReview" == deletedReview.function
+        assert "insertReview" == deletedReview.function.name
 
         when:
         int idIndex = 0

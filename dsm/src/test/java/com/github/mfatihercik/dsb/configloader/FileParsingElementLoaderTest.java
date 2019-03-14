@@ -1,9 +1,9 @@
 package com.github.mfatihercik.dsb.configloader;
 
-import com.github.mfatihercik.dsb.ParsingElement;
 import com.github.mfatihercik.dsb.TestUtils;
 import com.github.mfatihercik.dsb.function.FunctionContext;
 import com.github.mfatihercik.dsb.function.FunctionExecutor;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.transformation.FileValueTransformer;
 import com.github.mfatihercik.dsb.transformation.TransformationElement;
 import com.github.mfatihercik.dsb.typeadapter.ListTypeAdapter;
@@ -111,7 +111,7 @@ public class FileParsingElementLoaderTest {
         assertEquals("reviews", reviews.getFieldName());
         assertEquals("review", reviews.getTagPath());
         assertEquals("/feed/reviews", reviews.getTagAbsolutePath());
-        assertEquals("insertReview", reviews.getFunction());
+        assertEquals("insertReview", reviews.getFunction().getName());
 
         int idIndex = 0;
         ParsingElement id = reviews.getChildren().get(idIndex);
@@ -166,7 +166,7 @@ public class FileParsingElementLoaderTest {
         assertEquals("vendor", vendor.getFieldName());
         assertEquals("deleted_merchant", vendor.getTagPath());
         assertEquals("/feed/deleted_merchants", vendor.getTagAbsolutePath());
-        assertEquals("insertVendor", vendor.getFunction());
+        assertEquals("insertVendor", vendor.getFunction().getName());
 
     }
 
@@ -177,7 +177,7 @@ public class FileParsingElementLoaderTest {
         assertEquals("vendor", vendor.getFieldName());
         assertEquals("merchant", vendor.getTagPath());
         assertEquals("/feed/merchants", vendor.getTagAbsolutePath());
-        assertEquals("insertVendor", vendor.getFunction());
+        assertEquals("insertVendor", vendor.getFunction().getName());
 
         int idIndex = 0;
         ParsingElement id = vendor.getChildren().get(idIndex);
@@ -207,7 +207,7 @@ public class FileParsingElementLoaderTest {
         assertEquals("isDeleted", isDeleted.getUniqueKey());
         assertEquals("/feed/merchants/merchant", isDeleted.getTagAbsolutePath());
         assertTrue(isDeleted.isDefault());
-        assertEquals("false", isDeleted.getDefaultValue());
+        assertEquals("false", isDeleted.getDefault().getValue());
 
         int createTimeIndex = 3;
         ParsingElement createTime = vendor.getChildren().get(createTimeIndex);
@@ -275,7 +275,7 @@ public class FileParsingElementLoaderTest {
         assertEquals("reviews", deletedReview.getFieldName());
         assertEquals("deleted_review", deletedReview.getTagPath());
         assertEquals("/feed/deleted_reviews", deletedReview.getTagAbsolutePath());
-        assertEquals("insertReview", deletedReview.getFunction());
+        assertEquals("insertReview", deletedReview.getFunction().getName());
 
         int idIndex = 0;
         ParsingElement id = deletedReview.getChildren().get(idIndex);

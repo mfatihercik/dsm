@@ -1,5 +1,7 @@
 package com.github.mfatihercik.dsb;
 
+import com.github.mfatihercik.dsb.model.ParsingElement;
+
 public interface PathGenerator {
 
 

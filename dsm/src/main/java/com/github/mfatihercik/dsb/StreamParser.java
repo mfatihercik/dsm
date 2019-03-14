@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mfatihercik.dsb.configloader.ConfigConstants;
 import com.github.mfatihercik.dsb.expression.ExpressionResolver;
 import com.github.mfatihercik.dsb.function.FunctionFactory;
+import com.github.mfatihercik.dsb.function.Params;
+import com.github.mfatihercik.dsb.model.DeferAssigment;
+import com.github.mfatihercik.dsb.model.Function;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.transformation.ValueTransformer;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
 import com.github.mfatihercik.dsb.typeconverter.TypeConverterFactory;
@@ -194,9 +198,19 @@ public abstract class StreamParser {
     }
 
     protected Node registerNewNode(ParsingElement parsingElement, PathInfo pathInfo) {
-        return parsingElement.getTagTypeAdapter().registerNode(parsingContext, parsingElement, pathInfo);
+        Node node = parsingElement.getTagTypeAdapter().registerNode(parsingContext, parsingElement, pathInfo);
+        evaluateDefferedAssigment(parsingElement, pathInfo);
+        return node;
 
+    }
 
+    private void evaluateDefferedAssigment(ParsingElement parsingElement, PathInfo pathInfo) {
+        List<DeferAssigment> deferAssigment = parsingContext.getDeferAssigment(parsingElement);
+        if (deferAssigment != null) {
+            for (DeferAssigment assigment : deferAssigment) {
+                setValueOnNode(assigment.getCurrentParsingElement(), pathInfo, (String) assigment.getValue());
+            }
+        }
     }
 
     protected void setValueOnNode(ParsingElement parsingElement, PathInfo pathInfo, String value) {
@@ -206,6 +220,10 @@ public abstract class StreamParser {
         Node node = getCurrentNode(parsingElement);
         if (node == null)
             return;
+        if (node.isRoot() && !parsingElement.isRoot()) {
+            parsingContext.addDeferAssignment(parsingElement, pathInfo, value);
+            return;
+        }
         value = typeAdapter.getValue(parsingContext, node, parsingElement, pathInfo, value);
         value = evaluateBeforeExpression(parsingElement, value, node);
         if (parsingElement.isFilterExist()) {
@@ -224,7 +242,8 @@ public abstract class StreamParser {
         Object convertedValue = convertValue(parsingElement, value);
         typeAdapter.setValue(parsingContext, node, parsingElement, pathInfo, convertedValue);
         if (parsingElement.isUseFunction()) {
-            getFunctionFactory().execute(parsingElement.getFunction(), parsingContext, parsingElement, node, pathInfo, value);
+            Function function = parsingElement.getFunction();
+            getFunctionFactory().execute(function.getName(), new Params(parsingContext, parsingElement, node, pathInfo, value, function.getParams()));
         }
 
     }
@@ -274,7 +293,7 @@ public abstract class StreamParser {
         if (node == null)
             return;
 
-        boolean overwrite = parsingElement.isOverwrite() || !node.containsKey(parsingElement.getFieldName());
+        boolean overwrite = parsingElement.getDefault().isForce() || !node.containsKey(parsingElement.getFieldName());
         if (!overwrite)
             return;
         Object resolvedValue = value;
@@ -298,17 +317,17 @@ public abstract class StreamParser {
 
     protected List<ParsingElement> getParsingElements(Map<String, List<ParsingElement>> elementConfigMaps, String generateKey) {
 
-        List<ParsingElement> selectedConfigs = new ArrayList<>();
+        List<ParsingElement> selectedConfigs = new LinkedList<>();
 
         for (Entry<String, List<ParsingElement>> entry : elementConfigMaps.entrySet()) {
             if (generateKey.matches(entry.getKey())) {
                 selectedConfigs.addAll(entry.getValue());
             }
         }
-
         Collections.sort(selectedConfigs);
         return selectedConfigs;
     }
+
 
     protected String generateKey(String tagField, String tagParent) {
         if (tagParent == null)

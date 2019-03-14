@@ -1,11 +1,11 @@
 package com.github.mfatihercik.dsb.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mfatihercik.dsb.ParsingElement;
 import com.github.mfatihercik.dsb.PathInfo;
 import com.github.mfatihercik.dsb.StreamParser;
 import com.github.mfatihercik.dsb.expression.ExpressionResolver;
 import com.github.mfatihercik.dsb.function.FunctionFactory;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
 import com.github.mfatihercik.dsb.utils.PathUtils;
 
@@ -73,7 +73,7 @@ public abstract class JsonStreamParser extends StreamParser {
                 registerNewNode(parsingElement, path);
             } else {
                 if (parsingElement.isDefault() && parsingElement.getTagAbsolutePath().equals(genderedKey))
-                    setDefaultValueOnNode(parsingElement, parsingElement.getDefaultValue(), path);
+                    setDefaultValueOnNode(parsingElement, parsingElement.getDefault().getValue(), path);
                 else
                     setValueOnNode(parsingElement, path, value);
             }
@@ -95,7 +95,7 @@ public abstract class JsonStreamParser extends StreamParser {
             if (typeAdaptor.isObject()) {
                 setValueOnNode(parsingElement, path, null);
             } else {
-                setDefaultValueOnNode(parsingElement, parsingElement.getDefaultValue(), path);
+                setDefaultValueOnNode(parsingElement, parsingElement.getDefault().getValue(), path);
             }
         }
 

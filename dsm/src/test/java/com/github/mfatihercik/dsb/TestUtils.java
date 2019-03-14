@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mfatihercik.dsb.configloader.FileParsingElementLoader;
 import com.github.mfatihercik.dsb.configloader.YamlConfigLoaderStrategy;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.xml.AbsoluteXmlPathGenerator;
 
 import java.io.File;

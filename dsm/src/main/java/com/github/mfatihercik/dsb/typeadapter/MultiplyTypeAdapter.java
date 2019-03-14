@@ -2,8 +2,8 @@ package com.github.mfatihercik.dsb.typeadapter;
 
 import com.github.mfatihercik.dsb.Node;
 import com.github.mfatihercik.dsb.ParsingContext;
-import com.github.mfatihercik.dsb.ParsingElement;
 import com.github.mfatihercik.dsb.PathInfo;
+import com.github.mfatihercik.dsb.model.ParsingElement;
 
 import java.math.BigDecimal;
 import java.util.List;

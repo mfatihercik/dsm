@@ -1,10 +1,5 @@
 package com.github.mfatihercik.dsb.function;
 
-import com.github.mfatihercik.dsb.Node;
-import com.github.mfatihercik.dsb.ParsingContext;
-import com.github.mfatihercik.dsb.ParsingElement;
-import com.github.mfatihercik.dsb.PathInfo;
-
 import java.security.InvalidParameterException;
 
 public class DefaultFunctionFactory implements FunctionFactory {
@@ -20,13 +15,13 @@ public class DefaultFunctionFactory implements FunctionFactory {
     }
 
 
-    public void execute(String function, ParsingContext parsingContext, ParsingElement parsingElement, Node currentNode, PathInfo pathInfo, Object value) {
+    public void execute(String function, Params params) {
 
         FunctionExecutor functionExecutor = this.context.get(function);
         if (functionExecutor == null) {
             throw new InvalidParameterException(String.format("%s function is not defined", function));
         }
-        functionExecutor.execute(parsingContext, parsingElement, currentNode, pathInfo, value);
+        functionExecutor.execute(params);
     }
 
     public FunctionContext getContext() {
