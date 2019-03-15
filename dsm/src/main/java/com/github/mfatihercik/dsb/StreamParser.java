@@ -28,6 +28,8 @@ public abstract class StreamParser {
     protected final Map<String, List<ParsingElement>> endElementConfigMaps = new HashMap<>();
     protected final Map<String, List<ParsingElement>> defaultValuesElementConfigMaps = new HashMap<>();
     protected final Map<String, List<ParsingElement>> objectParsingElementMaps = new HashMap<>();
+    protected final Map<String, List<ParsingElement>> cacheStartDefaultEventConfigMaps = new HashMap<>();
+    protected final Map<String, List<ParsingElement>> cacheEndDefaultEventConfigMaps = new HashMap<>();
     protected final PathInfo pathInfo = new PathInfo();
     private final ParsingContext parsingContext = new ParsingContext();
     private final String[] parentPathStack = new String[32];
@@ -328,6 +330,47 @@ public abstract class StreamParser {
         return selectedConfigs;
     }
 
+    protected List<ParsingElement> getStartDefaultEventElements(String genderedKey) {
+
+        List<ParsingElement> parsingElements = cacheStartDefaultEventConfigMaps.get(genderedKey);
+        if (parsingElements == null) {
+
+
+            parsingElements = getParsingElements(defaultValuesElementConfigMaps, genderedKey);
+            for (Iterator<ParsingElement> iterator = parsingElements.iterator(); iterator.hasNext(); ) {
+                if (!iterator.next().getDefault().isAtStart()) {
+                    iterator.remove();
+                }
+            }
+            cacheStartDefaultEventConfigMaps.put(genderedKey, parsingElements);
+        }
+        return parsingElements;
+    }
+
+    protected void evaluateStartDefaultValue(PathInfo pathInfo, String genderedKey) {
+        List<ParsingElement> defaultEventElements = getStartDefaultEventElements(genderedKey);
+        for (ParsingElement element : defaultEventElements) {
+            setDefaultValueOnNode(element, element.getDefault().getValue(), pathInfo);
+        }
+    }
+
+    protected void evaluateEndDefaultValue(PathInfo pathInfo, String genderedKey) {
+        List<ParsingElement> defaultEventElements = getEndDefaultEventElements(genderedKey);
+        for (ParsingElement element : defaultEventElements) {
+            setDefaultValueOnNode(element, element.getDefault().getValue(), pathInfo);
+        }
+    }
+
+    protected List<ParsingElement> getEndDefaultEventElements(String genderedKey) {
+
+        List<ParsingElement> parsingElements = cacheEndDefaultEventConfigMaps.get(genderedKey);
+
+        if (parsingElements == null) {
+            parsingElements = getParsingElements(defaultValuesElementConfigMaps, genderedKey);
+            cacheEndDefaultEventConfigMaps.put(genderedKey, parsingElements);
+        }
+        return parsingElements;
+    }
 
     protected String generateKey(String tagField, String tagParent) {
         if (tagParent == null)

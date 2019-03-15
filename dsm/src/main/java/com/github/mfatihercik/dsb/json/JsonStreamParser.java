@@ -10,7 +10,6 @@ import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
 import com.github.mfatihercik.dsb.utils.PathUtils;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +52,7 @@ public abstract class JsonStreamParser extends StreamParser {
                 setValueOnNode(parsingElement, path, null);
             }
         }
+        evaluateStartDefaultValue(pathInfo, generateKey);
     }
 
     protected void endValue(String qName, String value) {
@@ -63,26 +63,40 @@ public abstract class JsonStreamParser extends StreamParser {
 
         PathInfo path = pathInfo.set(qName, parentTagPath, genderedKey);
         List<ParsingElement> valueEventElements = getEndValueEventElements(genderedKey);
-        List<ParsingElement> objectParsingElements = null;
+
+        boolean isObjectTagTypeExist = evaluateParsingElements(value, path, valueEventElements);
+
+        evaluateEndDefaultValue(pathInfo, genderedKey);
+
+        if (isObjectTagTypeExist) {
+            evaluateObjectParsingElement(value, path, valueEventElements);
+        }
+        if (qName != null)
+            parentTagRemove(qName);
+    }
+
+    private void evaluateObjectParsingElement(String value, PathInfo path, List<ParsingElement> valueEventElements) {
         for (ParsingElement parsingElement : valueEventElements) {
             TypeAdaptor typeAdaptor = parsingElement.getTagTypeAdapter();
             if (typeAdaptor.isObject()) {
-                if (objectParsingElements == null)
-                    objectParsingElements = new LinkedList<>();
-                objectParsingElements.add(parsingElement);
-                registerNewNode(parsingElement, path);
-            } else {
-                if (parsingElement.isDefault() && parsingElement.getTagAbsolutePath().equals(genderedKey))
-                    setDefaultValueOnNode(parsingElement, parsingElement.getDefault().getValue(), path);
-                else
-                    setValueOnNode(parsingElement, path, value);
+                setValueOnNode(parsingElement, path, value);
             }
         }
-        if (objectParsingElements != null)
-            setValueForParsingElements(objectParsingElements, value, path);
+    }
 
-        if (qName != null)
-            parentTagRemove(qName);
+    private boolean evaluateParsingElements(String value, PathInfo path, List<ParsingElement> valueEventElements) {
+
+        boolean isObjectTagTypeExist = false;
+        for (ParsingElement parsingElement : valueEventElements) {
+            TypeAdaptor typeAdaptor = parsingElement.getTagTypeAdapter();
+            if (typeAdaptor.isObject()) {
+                isObjectTagTypeExist = true;
+                registerNewNode(parsingElement, path);
+            } else {
+                setValueOnNode(parsingElement, path, value);
+            }
+        }
+        return isObjectTagTypeExist;
     }
 
     protected void endObject(String qName) {
@@ -110,8 +124,6 @@ public abstract class JsonStreamParser extends StreamParser {
         if (parsingElements == null) {
             parsingElements = getParsingElements(objectParsingElementMaps, genderedKey);
             parsingElements.addAll(getParsingElements(endElementConfigMaps, genderedKey));
-            if (!defaultValuesElementConfigMaps.isEmpty())
-                parsingElements.addAll(getParsingElements(defaultValuesElementConfigMaps, genderedKey));
             cacheEndValueEventConfigMaps.put(genderedKey, parsingElements);
         }
         return parsingElements;
@@ -143,12 +155,6 @@ public abstract class JsonStreamParser extends StreamParser {
         }
         return parsingElements;
 
-    }
-
-    protected void setValueForParsingElements(List<ParsingElement> endParsingElements, String value, PathInfo pathInfo) {
-        for (ParsingElement parsingElement : endParsingElements) {
-            setValueOnNode(parsingElement, pathInfo, value);
-        }
     }
 
     @Override

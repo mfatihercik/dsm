@@ -40,6 +40,7 @@ public class StaxParserTest {
         assertEquals("executed", googleStore.get("function").toString());
         assertEquals("Ada", googleStore.get("reviewerName").toString());
         assertEquals("true", googleStore.get("hasReview").toString());
+        assertEquals("Google Store", googleStore.get("name").toString());
 
         int deletedIndex = 2;
         Map<String, Object> deletedStore = vendorList.get(deletedIndex);

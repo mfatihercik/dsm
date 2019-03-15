@@ -91,6 +91,9 @@ public class StaxParser extends StreamParser {
     }
 
     private void characters(XMLStreamReader streamReader) {
+        if (streamReader.isWhiteSpace()) {
+            return;
+        }
         if (tempValue == null)
             tempValue = streamReader.getText();
         else
@@ -112,14 +115,24 @@ public class StaxParser extends StreamParser {
         final String parentTagPath = parentTag();
         PathInfo path = pathInfo.set(tagName, parentTagPath, generateKey);
 
+        boolean isObjectTagTypeExist = false;
         List<ParsingElement> endValueEventElements = getEndValueEventElements(generateKey);
         for (ParsingElement parsingElement : endValueEventElements) {
+            if (parsingElement.getTagTypeAdapter().isObject()) {
+                isObjectTagTypeExist = true;
+                continue;
+            }
+            setValueOnNode(parsingElement, path, tempValue);
 
-            if (parsingElement.isDefault() && parsingElement.getTagAbsolutePath().equals(generateKey))
-                setDefaultValueOnNode(parsingElement, parsingElement.getDefault().getValue(), path);
-            else
-                setValueOnNode(parsingElement, path, tempValue);
+        }
+        evaluateEndDefaultValue(path, generateKey);
 
+        if (isObjectTagTypeExist) {
+            for (ParsingElement parsingElement : endValueEventElements) {
+                if (parsingElement.getTagTypeAdapter().isObject()) {
+                    setValueOnNode(parsingElement, path, tempValue);
+                }
+            }
         }
         tempValue = null;
 
@@ -153,21 +166,17 @@ public class StaxParser extends StreamParser {
                     }
 
                     value = attributes.get(parsingElement.getTagPath());
-                    if (value == null && parsingElement.isDefault()) {
-                        value = parsingElement.getDefault().getValue();
-                        setDefaultValueOnNode(parsingElement, value, path);
-                    } else {
+                    if (value != null) {
                         setValueOnNode(parsingElement, path, value);
 
                     }
-                } else if (parsingElement.isDefault() && parsingElement.getTagAbsolutePath().equals(generatedKey)) {
-                    setDefaultValueOnNode(parsingElement, parsingElement.getDefault().getValue(), path);
                 } else {
                     setValueOnNode(parsingElement, path, null);
                 }
 
             }
         }
+        evaluateStartDefaultValue(path, generatedKey);
     }
 
     protected List<ParsingElement> getEndValueEventElements(String genderedKey) {
@@ -176,8 +185,6 @@ public class StaxParser extends StreamParser {
 
         if (parsingElements == null) {
             parsingElements = getParsingElements(endElementConfigMaps, genderedKey);
-            if (!defaultValuesElementConfigMaps.isEmpty())
-                parsingElements.addAll(getParsingElements(defaultValuesElementConfigMaps, genderedKey));
             parsingElements.addAll(getParsingElements(objectParsingElementMaps, genderedKey));
             cacheEndValueEventConfigMaps.put(genderedKey, parsingElements);
         }
