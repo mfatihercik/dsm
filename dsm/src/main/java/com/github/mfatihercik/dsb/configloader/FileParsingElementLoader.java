@@ -160,20 +160,30 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         extendsToFragments(elementMap);
         ParsingElement element = new ParsingElement();
         element.setFieldName(fieldName);
-        if (parent != null)
-            element.setParentElement(parent);
+        element.setTagPath(elementMap.toString(TAG_PATH, parent == null));
+        element.setTagParentPath(elementMap.toString(TAG_PARENT_PATH));
+        element.setUniqueKey(elementMap.toString(UNIQUE_KEY, fieldName));
+        if (parent != null) {
+            int index = parent.getChildren().indexOf(element);
+            if (index > -1) {
+                element = parent.getChildren().get(index);
+            } else {
+                element.setParentElement(parent);
+                getParsingElements().add(element);
+            }
+        } else {
+            getParsingElements().add(element);
+        }
         element.setOrder(element.isRoot() ? order : Integer.valueOf(element.getParentElement().getOrder() + "" + order));
         setTagType(elementMap, element);
         setType(elementMap, element);
         setFunction(elementMap, element);
-        element.setTagPath(elementMap.toString(TAG_PATH, parent == null));
-        element.setTagParentPath(elementMap.toString(TAG_PARENT_PATH));
+
         setDefaultFields(elementMap, element);
-        element.setTransformEnabled(elementMap.isExist(TRANSFORMATION_CODE));
-        element.setTransformationCode(elementMap.toString(TRANSFORMATION_CODE));
-        element.setFilterExist(elementMap.isExist(FILTER));
-        element.setFilterExpression(elementMap.toString(FILTER));
-        element.setUniqueKey(elementMap.toString(UNIQUE_KEY, fieldName));
+        element.setTransformEnabled(elementMap.isExist(TRANSFORMATION_CODE) || element.isTransformEnabled());
+        element.setTransformationCode(elementMap.toString(TRANSFORMATION_CODE, element.getTransformationCode()));
+        element.setFilterExist(elementMap.isExist(FILTER) || element.isFilterExist());
+        element.setFilterExpression(elementMap.toString(FILTER, element.getFilterExpression()));
         element.setTagXmlPath(element.getTagPath());
         element.setTagXmlParentPath(element.getTagParentPath());
 
@@ -188,10 +198,11 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
             }
         }
 
-        element.setNormalizeExpression(elementMap.toString(NORMALIZE));
-        element.setNormalizeExpressionExist(elementMap.isExist(NORMALIZE));
+        element.setNormalizeExpression(elementMap.toString(NORMALIZE, element.getBeforeExpression()));
+        element.setNormalizeExpressionExist(elementMap.isExist(NORMALIZE) || element.isBeforeExpressionExist());
 
-        getParsingElements().add(element);
+
+
         TypeAdaptor tagTypeAdapter = element.getTagTypeAdapter();
         if (tagTypeAdapter.isObject()) {
             buildObjectField(fieldName, elementMap, element);
@@ -219,10 +230,17 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         if (elementMap.isExist(DEFAULT)) {
             if (elementMap.isMap(DEFAULT)) {
                 MapWrapper defaultMap = new MapWrapper(elementMap.toMap(DEFAULT), element.getFieldName());
-                String value = defaultMap.toString(DEFAULT_VALUE, true);
-                Boolean forceDefault = defaultMap.toBoolean(DEFAULT_FORCE);
-                Boolean atStart = defaultMap.toBoolean(DEFAULT_AT_START);
-                element.setDefault(new Default(value, forceDefault, atStart));
+                Default prevDefault = element.getDefault();
+                if (prevDefault != null) {
+                    prevDefault.setValue(defaultMap.toString(DEFAULT_VALUE, prevDefault.getValue()));
+                    prevDefault.setAtStart(defaultMap.toBooleanDefault(DEFAULT_FORCE, prevDefault.isAtStart()));
+                    prevDefault.setForce(defaultMap.toBooleanDefault(DEFAULT_FORCE, prevDefault.isForce()));
+                } else {
+                    String value = defaultMap.toString(DEFAULT_VALUE, true);
+                    Boolean forceDefault = defaultMap.toBoolean(DEFAULT_FORCE);
+                    Boolean atStart = defaultMap.toBoolean(DEFAULT_AT_START);
+                    element.setDefault(new Default(value, forceDefault, atStart));
+                }
             } else {
                 element.setDefault(new Default(elementMap.toString(DEFAULT)));
             }
@@ -306,13 +324,13 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         if (tagType != null) {
             if (tagType instanceof Map<?, ?>) {
                 MapWrapper typeMap = new MapWrapper(tagType, element.getFieldName().concat(PATH_SEPARATOR).concat(DATA_TYPE));
-                element.setType(typeMap.toString("type", true));
+                element.setType(typeMap.toString("type", element.getType()));
                 if (typeMap.isExist(PARAMS)) {
                     Map<String, Object> paramsMap = typeMap.toMap(PARAMS);
                     typeParams.putAll(paramsMap);
                 }
             } else {
-                element.setType(elementMap.toString(DATA_TYPE));
+                element.setType(elementMap.toString(DATA_TYPE, element.getType()));
                 if (elementMap.isExist(TYPE_PARAMS)) {
                     Map<String, Object> paramsMap = elementMap.toMap(TYPE_PARAMS);
                     typeParams.putAll(paramsMap);
@@ -320,7 +338,10 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
                 }
             }
         }
-        element.setTypeParameters(typeParams);
+        if (element.getTypeParameters() != null)
+            MapUtils.mergeMap(element.getTypeParameters(), typeParams);
+        else
+            element.setTypeParameters(typeParams);
     }
 
     private void setTagType(MapWrapper elementMap, ParsingElement element) {
@@ -329,13 +350,13 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         if (tagType != null) {
             if (tagType instanceof Map<?, ?>) {
                 MapWrapper tagTypeMap = new MapWrapper(tagType, element.getFieldName().concat(PATH_SEPARATOR).concat(TAG_TYPE));
-                element.setTagType(tagTypeMap.toString("type", true));
+                element.setTagType(tagTypeMap.toString("type", element.getTagType()));
                 if (tagTypeMap.isExist(PARAMS)) {
                     Map<String, Object> paramsMap = tagTypeMap.toMap(PARAMS);
                     tagTypeParams.putAll(paramsMap);
                 }
             } else {
-                element.setTagType(elementMap.toString(TAG_TYPE));
+                element.setTagType(elementMap.toString(TAG_TYPE, element.getTagType()));
                 if (elementMap.isExist(TAG_TYPE_PARAMS)) {
                     Map<String, Object> paramsMap = elementMap.toMap(TAG_TYPE_PARAMS);
                     tagTypeParams.putAll(paramsMap);
@@ -343,7 +364,13 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
                 }
             }
         }
-        element.getTagTypeAdapter().setParameters(tagTypeParams);
+
+        TypeAdaptor tagTypeAdapter = element.getTagTypeAdapter();
+        if (tagTypeAdapter.getParameters() != null) {
+            MapUtils.mergeMap(tagTypeParams, tagTypeParams);
+        } else {
+            tagTypeAdapter.setParameters(tagTypeParams);
+        }
     }
 
     private void fillTransformations(Map<String, Object> transformations) {

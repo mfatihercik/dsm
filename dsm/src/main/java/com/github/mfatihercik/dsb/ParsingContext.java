@@ -30,6 +30,10 @@ public class ParsingContext {
     }
 
     public void addDeferAssignment(ParsingElement currentParsingElement, PathInfo pathInfo, Object value) {
+        addDeferAssignment(currentParsingElement, pathInfo, value, false);
+    }
+
+    public void addDeferAssignment(ParsingElement currentParsingElement, PathInfo pathInfo, Object value, boolean isDefault) {
         if (!currentParsingElement.isRoot()) {
             ParsingElement parentElement = currentParsingElement.getParentElement();
             List<DeferAssigment> deferAssigments = deferAssigmentMap.get(parentElement);

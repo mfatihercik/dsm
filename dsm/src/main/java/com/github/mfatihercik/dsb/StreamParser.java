@@ -201,16 +201,28 @@ public abstract class StreamParser {
 
     protected Node registerNewNode(ParsingElement parsingElement, PathInfo pathInfo) {
         Node node = parsingElement.getTagTypeAdapter().registerNode(parsingContext, parsingElement, pathInfo);
-        evaluateDefferedAssigment(parsingElement, pathInfo);
+        Node parentNode = parsingElement.getTagTypeAdapter().getParentNode(parsingContext, parsingElement);
+        if (isDefferedAssigment(parsingElement, parentNode)) {
+            parsingContext.addDeferAssignment(parsingElement, pathInfo, null);
+        }
+        evaluateDefferedAssigment(parsingElement, pathInfo, node);
         return node;
 
     }
 
-    private void evaluateDefferedAssigment(ParsingElement parsingElement, PathInfo pathInfo) {
+    private void evaluateDefferedAssigment(ParsingElement parsingElement, PathInfo pathInfo, Node node) {
         List<DeferAssigment> deferAssigment = parsingContext.getDeferAssigment(parsingElement);
         if (deferAssigment != null) {
             for (DeferAssigment assigment : deferAssigment) {
-                setValueOnNode(assigment.getCurrentParsingElement(), pathInfo, (String) assigment.getValue());
+                ParsingElement currentParsingElement = assigment.getCurrentParsingElement();
+                if (currentParsingElement.getTagTypeAdapter().isObject()) {
+                    node.set(currentParsingElement.getFieldName(), parsingContext.get(currentParsingElement).getData());
+                } else if (assigment.isDefault()) {
+                    setDefaultValueOnNode(currentParsingElement, currentParsingElement.getDefault().getValue(), assigment.getPathInfo());
+                } else {
+
+                    setValueOnNode(currentParsingElement, assigment.getPathInfo(), (String) assigment.getValue());
+                }
             }
         }
     }
@@ -222,7 +234,7 @@ public abstract class StreamParser {
         Node node = getCurrentNode(parsingElement);
         if (node == null)
             return;
-        if (node.isRoot() && !parsingElement.isRoot()) {
+        if (isDefferedAssigment(parsingElement, node)) {
             parsingContext.addDeferAssignment(parsingElement, pathInfo, value);
             return;
         }
@@ -248,6 +260,10 @@ public abstract class StreamParser {
             getFunctionFactory().execute(function.getName(), new Params(parsingContext, parsingElement, node, pathInfo, value, function.getParams()));
         }
 
+    }
+
+    private boolean isDefferedAssigment(ParsingElement parsingElement, Node node) {
+        return node.isRoot() && !parsingElement.isRoot();
     }
 
     private Node getCurrentNode(ParsingElement parsingElement) {
@@ -295,6 +311,11 @@ public abstract class StreamParser {
         if (node == null)
             return;
 
+        if (isDefferedAssigment(parsingElement, node)) {
+            parsingContext.addDeferAssignment(parsingElement, pathInfo, value, true);
+            //TODO wirte test for default defered assigment
+            return;
+        }
         boolean overwrite = parsingElement.getDefault().isForce() || !node.containsKey(parsingElement.getFieldName());
         if (!overwrite)
             return;
@@ -307,13 +328,17 @@ public abstract class StreamParser {
         }
         if (parsingElement.isFilterExist()) {
             Boolean isFilterTrue = evaluateFilterExpression(parsingElement, resolvedValue, node);
-            if (isFilterTrue) {
+            if (!isFilterTrue) {
                 return;
             }
         }
         if (resolvedValue instanceof String)
             resolvedValue = TypeConverterFactory.getTypeConverter(parsingElement.getType()).convert(resolvedValue.toString(), parsingElement.getTypeParameters());
         typeAdapter.setValue(parsingContext, node, parsingElement, pathInfo, resolvedValue);
+        if (parsingElement.isUseFunction()) {
+            Function function = parsingElement.getFunction();
+            getFunctionFactory().execute(function.getName(), new Params(parsingContext, parsingElement, node, pathInfo, resolvedValue, function.getParams()));
+        }
 
     }
 

@@ -36,9 +36,7 @@ result:
         tagPath: merchant
         tagParentPath: merchants
         function: insertVendor
-        filter:
-          isDelted: true
-          "$parent.name": $parent.surname
+        filter: self.parent.surname
         fields:
           id:
             xml:

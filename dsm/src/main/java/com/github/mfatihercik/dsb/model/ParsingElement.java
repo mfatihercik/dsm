@@ -7,12 +7,15 @@ import com.github.mfatihercik.dsb.typeadapter.TypeAdaptorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
 
     public static final String DEFAULT_TAG_TYPE = "STD";
     private ParsingElement parentElement;
     private String parsingTypology;
+
+
     private int order;
     private String fieldName;
     private String uniqueKey;
@@ -331,4 +334,20 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
         this.index = index;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParsingElement that = (ParsingElement) o;
+        return
+                Objects.equals(getFieldName(), that.getFieldName()) &&
+                        Objects.equals(getUniqueKey(), that.getUniqueKey()) &&
+                        Objects.equals(getTagParentPath(), that.getTagParentPath()) &&
+                        Objects.equals(getTagPath(), that.getTagPath());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFieldName(), getUniqueKey(), getTagParentPath(), getTagPath());
+    }
 }

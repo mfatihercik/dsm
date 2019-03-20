@@ -28,7 +28,8 @@ public abstract class AbstractConfigLoader implements ConfigLoaderStrategy {
 
     public AbstractConfigLoader(InputStream inputStream, String rootDirectory) {
         setInputStream(inputStream);
-        setResourceAccessor(rootDirectory);
+        setRootPath(rootDirectory);
+        setResourceAccessor();
     }
 
     private static ByteArrayInputStream stringToInputStream(String configContent) {
@@ -47,6 +48,7 @@ public abstract class AbstractConfigLoader implements ConfigLoaderStrategy {
     @Override
     public Map<String, Object> readExtendConfiguration(String filePath) {
         try {
+            filePath = rootPath != null ? rootPath.concat("/").concat(filePath) : filePath;
             Set<InputStream> resourcesAsStream = resourceAccessor.getResourcesAsStream(filePath);
             Map<String, Object> configuration = null;
             for (InputStream stream : resourcesAsStream) {
@@ -82,15 +84,10 @@ public abstract class AbstractConfigLoader implements ConfigLoaderStrategy {
         return resourceAccessor;
     }
 
-    private void setResourceAccessor(String rootDirectory) {
+    private void setResourceAccessor() {
         List<ResourceAccessor> resourceAccessors = new ArrayList<>();
         resourceAccessors.add(new FileSystemResourceAccessor());
         resourceAccessors.add(new ClassLoaderResourceAccessor(this.getClass().getClassLoader()));
-        String changeLogDirectory = rootDirectory;
-        if (changeLogDirectory != null) {
-            changeLogDirectory = changeLogDirectory.trim().replace('\\', '/'); // convert to standard / if using absolute path on windows
-            resourceAccessors.add(new FileSystemResourceAccessor(changeLogDirectory));
-        }
         setResourceAccessor(new CompositeResourceAccessor(resourceAccessors));
     }
 
