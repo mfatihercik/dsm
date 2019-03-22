@@ -4,7 +4,7 @@
 Node Object
 ============
 The node is a data structure used in the DSM to store data and create the hierarchy of the DSM document.
-Nodes are created with the complex tagType_ definition during parsing of source document. 
+Nodes are created with the complex type_ definition during parsing of source document. 
 It can be used in the parsing time expressions
     
 Fields:
@@ -38,7 +38,7 @@ data
 
   The data field holds the value of the current node. 
   
-  if tagType_ definition  of `Parsing Element`_ is an object_, data is a Map that contains properties of the current  `Parsing Element`_ definitions.
+  if type_ definition  of `Parsing Element`_ is an object_, data is a Map that contains properties of the current  `Parsing Element`_ definitions.
   
   Example Usage:
   
@@ -47,7 +47,7 @@ data
   :self.parent.data.foo: foo property of parent node
   :self.data.bar.foo: foo property of the bar object in current node
   
-If the tagType_ definition of the current `Parsing Element` is an array:
+If the type_ definition of the current `Parsing Element` is an array:
  
 and If the parsing element definition has fields, data of one is  Array , data of other is Map , two node is created.  
 parent node holds array,  child node holds map.

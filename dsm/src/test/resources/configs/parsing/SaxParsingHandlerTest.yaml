@@ -6,20 +6,20 @@ functions:
   insertReview: "com.github.mfatihercik.dsb.functions.InsertProduct"
 $extends: "$params.basePath.concat('SaxParsingHandlerTestExternal.yaml')"
 result:
-  tagType: object
-  tagPath: feed
+  type: object
+  path: feed
   fields:
     #merchant list deleted:false
     collectionMethod:
-      tagType: array
+      type: array
       xml:
-        tagPath: collection_methods/item
-      tagPath: collection_methods
+        path: collection_methods/item
+      path: collection_methods
     vendor:
-      - tagType: array
-        tagPath: merchants
+      - type: array
+        path: merchants
         xml:
-          tagPath: merchants/merchant
+          path: merchants/merchant
         function:
           name: insertVendor
           params:
@@ -27,66 +27,66 @@ result:
         fields:
           name:
           id:
-            type: int
+            dataType: int
             xml:
               attribute: true
             default:
               value: 1235456
           vendorUrl:
-            tagPath: merchant_url
+            path: merchant_url
           ratingUrl:
-            tagPath: rating_url
+            path: rating_url
           isDeleted:
-            type: boolean
+            dataType: boolean
             default: false
           vendorUniqueId:
-            tagPath: rating_url
-            tagType: join
-            tagTypeParams:
+            path: rating_url
+            type: join
+            typeParams:
               separator: "|"
               fields: [id,name]
           createTime:
-            type:
+            dataType:
               type: date
               params:
                 dateFormat:  yyyy-MM-dd'T'HH:mm:ss'Z'
-            tagPath: create_timestamp
+            path: create_timestamp
           lastModifiedTime:
-            tagPath: last_update_timestamp
-            type: date
+            path: last_update_timestamp
+            dataType: date
           reviewerName:
-            tagPath: ../reviews/reviewer_name
+            path: ../reviews/reviewer_name
             xml:
-              tagPath: ../reviews/review/reviewer_name
+              path: ../reviews/review/reviewer_name
           hasReview:
             default: true
-            tagParentPath: ../reviews/reviewer_name
+            parentPath: ../reviews/reviewer_name
             xml:
-              tagParentPath: ../reviews/review/reviewer_name
+              parentPath: ../reviews/review/reviewer_name
 
 
       #deleted_merchant list deleted:true both included in same list
-      - tagType: array
+      - type: array
         xml:
-          tagPath: deleted_merchants/deleted_merchant
-        tagPath: deleted_merchants
+          path: deleted_merchants/deleted_merchant
+        path: deleted_merchants
         function: insertVendor
         fields:
           id:
-            type: int
+            dataType: int
             xml:
               attribute: true
           isDeleted:
             default: true
           lastModifiedTime:
-            tagPath: last_update_timestamp
-            type: date
+            path: last_update_timestamp
+            dataType: date
     reviews:
-      tagType: array
+      type: array
       class: mfe.Review
       xml:
-        tagPath: reviews/review
-      tagPath: reviews
+        path: reviews/review
+      path: reviews
       filter: >
         $var isDateBigger=self.data.lastModifiedTime>self.data.reviewFilterDate;
         if(not isDateBigger)
@@ -104,45 +104,45 @@ result:
           xml:
             attribute: true
         userName:
-          tagPath: reviewer_name
+          path: reviewer_name
         title:
         content:
         country:
-          tagPath: country_code
+          path: country_code
           transformationCode: COUNTRIES
         collectionMethod:
-          tagPath: collection_method
+          path: collection_method
           transformationCode: COLLECTION_METHOD
         rating:
-          tagPath: overall
-          tagParentPath: ratings
+          path: overall
+          parentPath: ratings
           transformationCode: RATING
         isDeleted:
           default: false
         reviewFilterDate:
           default: $params.reviewFilterDate
-          type:
+          dataType:
             type: date
             params:
               dateFormat: 'dd.MM.yyyy'
         createTime:
-          tagPath: create_timestamp
-          type:
+          path: create_timestamp
+          dataType:
             type: date
             params:
               dateFormat: yyyy-MM-dd'T'HH:mm:ss'Z'
         lastModifiedTime:
-          tagPath: last_update_timestamp
-          type: date
+          path: last_update_timestamp
+          dataType: date
         vendorId:
-          tagPath: mid
+          path: mid
           xml:
             attribute: true
         deferedVendorId:
-          tagPath: id
-          tagParentPath: ../merchants
+          path: id
+          parentPath: ../merchants
           xml:
-            tagParentPath: ../merchants/merchant
+            parentPath: ../merchants/merchant
             attribute: true
         vendorName:
 
@@ -155,9 +155,9 @@ result:
             return null;
 
         importance:
-          tagPath: "collection_method"
-          tagType: join
-          tagTypeParams:
+          path: "collection_method"
+          type: join
+          typeParams:
             fields: [rating,collectionMethod]
             separator: "|"
           transformationCode: REVIEW_IMPORTANCE

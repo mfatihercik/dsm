@@ -3,13 +3,13 @@ destinationSystem: "ASDF"
 params:
   dateFormat: yyyy-MM-dd'T'HH:mm:ss'Z'
 result:
-  tagType: object
-  tagPath: data
+  type: object
+  path: data
   fields:
     order:
-      tagType: object
+      type: object
       filter: $self.data.model=='sale.order'
-      tagPath: record
+      path: record
       fields:
         id:
           xml:
@@ -18,57 +18,57 @@ result:
           xml:
             attribute: true
         fieldName:
-          tagPath: name
-          tagParentPath: field
+          path: name
+          parentPath: field
           xml:
             attribute: true
         partnerId:
-          tagParentPath: field
+          parentPath: field
           filter: $self.data.fieldName=='partner_id'
-          tagPath: ref
+          path: ref
           xml:
             attribute: true
         partnerInvoiceId:
-          tagParentPath: field
+          parentPath: field
           filter: $self.data.fieldName=='partner_invoice_id'
-          tagPath: ref
+          path: ref
           xml:
             attribute: true
 
     saleLines:
-      tagType: array
-      tagPath: record
+      type: array
+      path: record
       filter: $self.data.model=='sale.order.line'
       fields:
         model:
           xml:
             attribute: true
         fieldName:
-          tagPath: name
-          tagParentPath: field
+          path: name
+          parentPath: field
           xml:
             attribute: true
         orderId:
-          tagParentPath: field
+          parentPath: field
           filter: $self.data.fieldName=='order_id'
-          tagPath: ref
+          path: ref
           xml:
             attribute: true
         productId:
-          tagParentPath: field
+          parentPath: field
           filter: $self.data.fieldName=='product_id'
-          tagPath: ref
+          path: ref
           xml:
             attribute: true
         name:
-          tagPath: field
+          path: field
           filter: $self.data.fieldName=='name'
         productUomQty:
-          tagPath: field
+          path: field
           filter: $self.data.fieldName=='product_uom_qty'
         priceUnit:
-          type: float
-          tagPath: field
+          dataType: float
+          path: field
           filter: $self.data.fieldName=='price_unit'
             
         

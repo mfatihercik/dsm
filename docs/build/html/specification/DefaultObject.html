@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -180,7 +180,7 @@
   <div class="section" id="id1">
 <h1><span class="target" id="default-object">Default Object</span><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Default Object determines how the <a href="#id4"><span class="problematic" id="id5">default_</span></a> field is assigned.</p>
+<p>Default Object determines how the <a href="#id5"><span class="problematic" id="id6">default_</span></a> field is assigned.</p>
 <dl class="docutils">
 <dt>Fields:</dt>
 <dd><table border="1" class="first last docutils">
@@ -202,7 +202,11 @@
 </tr>
 <tr class="row-odd"><th class="stub">force</th>
 <td>string</td>
-<td>Use the default value, even if the tag specified in the “<a href="#id6"><span class="problematic" id="id7">tagPath_</span></a>” field is in the source file.</td>
+<td>Use the default value, even if the tag specified in the “<a href="#id7"><span class="problematic" id="id8">path_</span></a>” field is in the source file.</td>
+</tr>
+<tr class="row-even"><th class="stub">atStart</th>
+<td>string</td>
+<td>assign default value at start of tag.</td>
 </tr>
 </tbody>
 </table>
@@ -229,19 +233,19 @@ it  holds default value that is assigned to current field</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><th class="stub"><a href="#id8"><span class="problematic" id="id9">params_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id9"><span class="problematic" id="id10">params_</span></a></th>
 <td>Map&lt;string,any&gt;</td>
-<td><a href="#id10"><span class="problematic" id="id11">params_</span></a> object.</td>
+<td><a href="#id11"><span class="problematic" id="id12">params_</span></a> object.</td>
 <td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
 </tr>
-<tr class="row-odd"><th class="stub"><a href="#id12"><span class="problematic" id="id13">self_</span></a></th>
-<td><a href="#id14"><span class="problematic" id="id15">Node_</span></a></td>
-<td>current node object that hold data of current complex <a href="#id16"><span class="problematic" id="id17">tagType_</span></a></td>
+<tr class="row-odd"><th class="stub"><a href="#id13"><span class="problematic" id="id14">self_</span></a></th>
+<td><a href="#id15"><span class="problematic" id="id16">Node_</span></a></td>
+<td>current node object that hold data of current complex <a href="#id17"><span class="problematic" id="id18">type_</span></a></td>
 <td><strong>self.data.foo</strong> =&gt; foo field of current node,  <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
 </tr>
-<tr class="row-even"><th class="stub"><a href="#id18"><span class="problematic" id="id19">all_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id19"><span class="problematic" id="id20">all_</span></a></th>
 <td>Map&lt;string,Node_&gt;</td>
-<td>A map that stores all nodes by the “fieldName” of <a href="#id20"><span class="problematic" id="id21">`Parsing Element Object`_</span></a></td>
+<td>A map that stores all nodes by the “fieldName” of <a href="#id21"><span class="problematic" id="id22">`Parsing Element Object`_</span></a></td>
 <td><strong>all.bar.data.foo</strong> =&gt; foo field of <strong>bar</strong> node,  <strong>all.barList.data[0].foo</strong> =&gt; <em>foo</em> field of first item of <em>barList</em> node</td>
 </tr>
 </tbody>
@@ -250,14 +254,17 @@ it  holds default value that is assigned to current field</p>
 <div class="section" id="id3">
 <h2><span class="target" id="force">force</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>if it’s value is true, it means Use the default value,
-even if the tag specified in the “<a href="#id22"><span class="problematic" id="id23">tagPath_</span></a>” field is in the source file.
-if force value is true, default value is assigned both start and end of <a href="#id24"><span class="problematic" id="id25">tagParentPath_</span></a>.
-It is mostly used with filter field or with value in <a href="#id26"><span class="problematic" id="id27">params_</span></a>.
+even if the tag specified in the “<a href="#id23"><span class="problematic" id="id24">path_</span></a>” field is in the source file.
+if force value is true, default value is assigned both start and end of <a href="#id25"><span class="problematic" id="id26">parentPath_</span></a>.
+It is mostly used with filter field or with value in <a href="#id27"><span class="problematic" id="id28">params_</span></a>.
 The default value is false.</p>
-<p>check <a href="#id28"><span class="problematic" id="id29">default_</span></a> for detailed example.</p>
+</div>
+<div class="section" id="id4">
+<h2><span class="target" id="atstart">atStart</span><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>if <a class="reference internal" href="#atstart">atStart</a> filed is true, default value is assigned at start of the tag. other wise default value is assigned at the end of the tag.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a href="#id30"><span class="problematic" id="id31">default_</span></a></p>
+<p class="last"><a href="#id29"><span class="problematic" id="id30">default_</span></a></p>
 </div>
 </div>
 </div>

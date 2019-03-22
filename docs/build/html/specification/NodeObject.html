@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -180,7 +180,7 @@
   <div class="section" id="node-object">
 <span id="nodes"></span><span id="node"></span><h1>Node Object<a class="headerlink" href="#node-object" title="Permalink to this headline">¶</a></h1>
 <p>The node is a data structure used in the DSM to store data and create the hierarchy of the DSM document.
-Nodes are created with the complex <a href="#id1"><span class="problematic" id="id2">tagType_</span></a> definition during parsing of source document.
+Nodes are created with the complex <a href="#id1"><span class="problematic" id="id2">type_</span></a> definition during parsing of source document.
 It can be used in the parsing time expressions</p>
 <p>Fields:</p>
 <table border="1" class="docutils">
@@ -233,7 +233,7 @@ It can be used in the parsing time expressions</p>
 <h2>data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><p>The data field holds the value of the current node.</p>
-<p>if <a href="#id3"><span class="problematic" id="id4">tagType_</span></a> definition  of <a href="#id5"><span class="problematic" id="id6">`Parsing Element`_</span></a> is an <a href="#id7"><span class="problematic" id="id8">object_</span></a>, data is a Map that contains properties of the current  <a href="#id9"><span class="problematic" id="id10">`Parsing Element`_</span></a> definitions.</p>
+<p>if <a href="#id3"><span class="problematic" id="id4">type_</span></a> definition  of <a href="#id5"><span class="problematic" id="id6">`Parsing Element`_</span></a> is an <a href="#id7"><span class="problematic" id="id8">object_</span></a>, data is a Map that contains properties of the current  <a href="#id9"><span class="problematic" id="id10">`Parsing Element`_</span></a> definitions.</p>
 <p>Example Usage:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -252,7 +252,7 @@ It can be used in the parsing time expressions</p>
 </tbody>
 </table>
 </div></blockquote>
-<p>If the <a href="#id11"><span class="problematic" id="id12">tagType_</span></a> definition of the current <cite>Parsing Element</cite> is an array:</p>
+<p>If the <a href="#id11"><span class="problematic" id="id12">type_</span></a> definition of the current <cite>Parsing Element</cite> is an array:</p>
 <p>and If the parsing element definition has fields, data of one is  Array , data of other is Map , two node is created.
 parent node holds array,  child node holds map.</p>
 <p>self.data is a Map

@@ -5,6 +5,8 @@ import com.github.mfatihercik.dsb.ParsingContext;
 import com.github.mfatihercik.dsb.PathInfo;
 import com.github.mfatihercik.dsb.model.ParsingElement;
 
+import java.util.Map;
+
 public class MapTypeAdapter extends BaseObjectAdapter {
     public static final String NAME = "object";
 
@@ -19,7 +21,12 @@ public class MapTypeAdapter extends BaseObjectAdapter {
             parent.set(parsingElement.getFieldName(), currentNode.toObject(parsingContext.getResultType()));
 
         } else {
-            parent.set(parsingElement.getFieldName(), currentNode.getData());
+            Map data = (Map) parent.get(parsingElement.getFieldName());
+            if (data != null) {
+                data.putAll((Map) currentNode.getData());
+            } else {
+                parent.set(parsingElement.getFieldName(), currentNode.getData());
+            }
         }
         parent.addChild(currentNode);
         currentNode.setClose(true);
@@ -32,17 +39,29 @@ public class MapTypeAdapter extends BaseObjectAdapter {
         Node parentNode = getParentNode(parsingContext, parsingElement);
         Node node = Node.newNode(this.getInitialObject(), parsingElement);
 
-        Node child = parentNode.getChild();
-        if (child != null && child.getParsingElement().getIndex() == parsingElement.getIndex()) {
+        Node child = parentNode.getChild(parsingElement);
+        if (child != null) {
             int index = child.getIndex() + 1;
             node.setIndex(index);
         }
         node.setParent(parentNode);
         parsingContext.add(node);
+        parsingContext.addMainNodeMap(node);
         return node;
 
     }
 
+    @Override
+    public Node getCurrentNode(ParsingContext parsingContext, ParsingElement parsingElement) {
+        if (parsingElement.isRoot()) {
+            return parsingContext.get(parsingElement);
+        } else {
+            Node child = parsingElement.getTagTypeAdapter().getParentNode(parsingContext, parsingElement).getChild(parsingElement);
+            if (child == null)
+                parsingContext.getRootNode();
+            return child;
+        }
+    }
 
     @Override
     public Node getParentNode(ParsingContext parsingContext, ParsingElement parsingElement) {

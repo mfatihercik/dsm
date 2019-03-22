@@ -27,7 +27,7 @@ public class TestUtils {
         PathGenerator pathGenerator = new AbsoluteXmlPathGenerator();
         for (ParsingElement parsingElement : parsingElements) {
             String generatePath = pathGenerator.generatePath(parsingElement);
-            parsingElement.setTagAbsolutePath(generatePath);
+            parsingElement.setAbsolutePath(generatePath);
 
         }
     }

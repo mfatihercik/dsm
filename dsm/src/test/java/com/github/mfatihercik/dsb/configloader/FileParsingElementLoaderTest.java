@@ -98,7 +98,7 @@ public class FileParsingElementLoaderTest {
         TestUtils.initXmlParsingAbsolutePath(load);
         ParsingElement root = load.get(0);
         assertEquals(3, root.getChildren().size());
-        assertEquals("object", root.getTagType());
+        assertEquals("object", root.getType());
         assertEquals(MapTypeAdapter.class, root.getTagTypeAdapter().getClass());
         ParsingElement reviews = root.getChildren().get(2);
 
@@ -106,38 +106,38 @@ public class FileParsingElementLoaderTest {
     }
 
     private void testReview(ParsingElement reviews) {
-        assertEquals("array", reviews.getTagType());
+        assertEquals("array", reviews.getType());
         assertEquals(ListTypeAdapter.class, reviews.getTagTypeAdapter().getClass());
         assertEquals("reviews", reviews.getFieldName());
-        assertEquals("review", reviews.getTagPath());
-        assertEquals("/feed/reviews", reviews.getTagAbsolutePath());
+        assertEquals("review", reviews.getPath());
+        assertEquals("/feed/reviews", reviews.getAbsolutePath());
         assertEquals("insertReview", reviews.getFunction().getName());
 
         int idIndex = 0;
         ParsingElement id = reviews.getChildren().get(idIndex);
-        assertTrue("std".equalsIgnoreCase(id.getTagType()));
+        assertTrue("std".equalsIgnoreCase(id.getType()));
         assertEquals(StdTypeAdapter.class, id.getTagTypeAdapter().getClass());
         assertEquals("id", id.getFieldName());
-        assertEquals("id", id.getTagPath());
+        assertEquals("id", id.getPath());
         assertEquals("id", id.getUniqueKey());
-        assertEquals("/feed/reviews/review", id.getTagAbsolutePath());
+        assertEquals("/feed/reviews/review", id.getAbsolutePath());
 
         int titleIndex = 2;
         ParsingElement title = reviews.getChildren().get(titleIndex);
-        assertTrue("std".equalsIgnoreCase(title.getTagType()));
+        assertTrue("std".equalsIgnoreCase(title.getType()));
         assertEquals(StdTypeAdapter.class, title.getTagTypeAdapter().getClass());
         assertEquals("title", title.getFieldName());
-        assertEquals("title", title.getTagPath());
+        assertEquals("title", title.getPath());
         assertEquals("title", title.getUniqueKey());
-        assertEquals("/feed/reviews/review", title.getTagAbsolutePath());
+        assertEquals("/feed/reviews/review", title.getAbsolutePath());
         int countryIndex = 4;
         ParsingElement country = reviews.getChildren().get(countryIndex);
-        assertTrue("std".equalsIgnoreCase(country.getTagType()));
+        assertTrue("std".equalsIgnoreCase(country.getType()));
         assertEquals(StdTypeAdapter.class, country.getTagTypeAdapter().getClass());
         assertEquals("country", country.getFieldName());
-        assertEquals("country_code", country.getTagPath());
+        assertEquals("country_code", country.getPath());
         assertEquals("country", country.getUniqueKey());
-        assertEquals("/feed/reviews/review", country.getTagAbsolutePath());
+        assertEquals("/feed/reviews/review", country.getAbsolutePath());
         assertTrue(country.isTransformEnabled());
         assertEquals("COUNTRIES", country.getTransformationCode());
     }
@@ -152,7 +152,7 @@ public class FileParsingElementLoaderTest {
         assertEquals(3, root.getChildren().size());
         assertEquals(0, root.getOrder());
 
-        assertEquals("object", root.getTagType());
+        assertEquals("object", root.getType());
         assertEquals(MapTypeAdapter.class, root.getTagTypeAdapter().getClass());
 
         ParsingElement vendor = root.getChildren().get(0);
@@ -161,73 +161,73 @@ public class FileParsingElementLoaderTest {
         // deleted vendors
         vendor = root.getChildren().get(1);
         assertEquals(2, vendor.getOrder());
-        assertEquals("array", vendor.getTagType());
+        assertEquals("array", vendor.getType());
         assertEquals(ListTypeAdapter.class, vendor.getTagTypeAdapter().getClass());
         assertEquals("vendor", vendor.getFieldName());
-        assertEquals("deleted_merchant", vendor.getTagPath());
-        assertEquals("/feed/deleted_merchants", vendor.getTagAbsolutePath());
+        assertEquals("deleted_merchant", vendor.getPath());
+        assertEquals("/feed/deleted_merchants", vendor.getAbsolutePath());
         assertEquals("insertVendor", vendor.getFunction().getName());
 
     }
 
     private void testFirstVendor(ParsingElement vendor) {
         assertEquals(1, vendor.getOrder());
-        assertEquals("array", vendor.getTagType());
+        assertEquals("array", vendor.getType());
         assertEquals(ListTypeAdapter.class, vendor.getTagTypeAdapter().getClass());
         assertEquals("vendor", vendor.getFieldName());
-        assertEquals("merchant", vendor.getTagPath());
-        assertEquals("/feed/merchants", vendor.getTagAbsolutePath());
+        assertEquals("merchant", vendor.getPath());
+        assertEquals("/feed/merchants", vendor.getAbsolutePath());
         assertEquals("insertVendor", vendor.getFunction().getName());
 
         int idIndex = 0;
         ParsingElement id = vendor.getChildren().get(idIndex);
         assertEquals(11, id.getOrder());
-        assertTrue("std".equalsIgnoreCase(id.getTagType()));
+        assertTrue("std".equalsIgnoreCase(id.getType()));
         assertEquals(StdTypeAdapter.class, id.getTagTypeAdapter().getClass());
         assertEquals("id", id.getFieldName());
-        assertEquals("id", id.getTagPath());
+        assertEquals("id", id.getPath());
         assertEquals("id", id.getUniqueKey());
-        assertEquals("/feed/merchants/merchant", id.getTagAbsolutePath());
+        assertEquals("/feed/merchants/merchant", id.getAbsolutePath());
         assertTrue(id.isAttribute());
         int vendorUrlIndex = 1;
         ParsingElement vendorUrl = vendor.getChildren().get(vendorUrlIndex);
-        assertTrue("std".equalsIgnoreCase(vendorUrl.getTagType()));
+        assertTrue("std".equalsIgnoreCase(vendorUrl.getType()));
         assertEquals(StdTypeAdapter.class, vendorUrl.getTagTypeAdapter().getClass());
         assertEquals("vendorUrl", vendorUrl.getFieldName());
-        assertEquals("merchant_url", vendorUrl.getTagPath());
+        assertEquals("merchant_url", vendorUrl.getPath());
         assertEquals("vendorUrl", vendorUrl.getUniqueKey());
-        assertEquals("/feed/merchants/merchant", vendorUrl.getTagAbsolutePath());
+        assertEquals("/feed/merchants/merchant", vendorUrl.getAbsolutePath());
 
         int isDeletedIndex = 5;
         ParsingElement isDeleted = vendor.getChildren().get(isDeletedIndex);
-        assertTrue("std".equalsIgnoreCase(isDeleted.getTagType()));
+        assertTrue("std".equalsIgnoreCase(isDeleted.getType()));
         assertEquals("isDeleted", isDeleted.getFieldName());
         assertEquals(StdTypeAdapter.class, isDeleted.getTagTypeAdapter().getClass());
-        assertEquals("isDeleted", isDeleted.getTagPath());
+        assertEquals("isDeleted", isDeleted.getPath());
         assertEquals("isDeleted", isDeleted.getUniqueKey());
-        assertEquals("/feed/merchants/merchant", isDeleted.getTagAbsolutePath());
+        assertEquals("/feed/merchants/merchant", isDeleted.getAbsolutePath());
         assertTrue(isDeleted.isDefault());
         assertEquals("false", isDeleted.getDefault().getValue());
 
         int createTimeIndex = 3;
         ParsingElement createTime = vendor.getChildren().get(createTimeIndex);
-        assertTrue("std".equalsIgnoreCase(createTime.getTagType()));
+        assertTrue("std".equalsIgnoreCase(createTime.getType()));
         assertEquals(StdTypeAdapter.class, createTime.getTagTypeAdapter().getClass());
         assertEquals("createTime", createTime.getFieldName());
-        assertEquals("create_timestamp", createTime.getTagPath());
+        assertEquals("create_timestamp", createTime.getPath());
         assertEquals("createTime", createTime.getUniqueKey());
-        assertEquals("dd.MM.yyyy", createTime.getTypeParameters().get("dateFormat"));
-        assertEquals("/feed/merchants/merchant", createTime.getTagAbsolutePath());
+        assertEquals("dd.MM.yyyy", createTime.getDataTypeParameters().get("dateFormat"));
+        assertEquals("/feed/merchants/merchant", createTime.getAbsolutePath());
 
         int modifiedTimeIndex = 4;
         ParsingElement lastModifiedTime = vendor.getChildren().get(modifiedTimeIndex);
-        assertTrue("std".equalsIgnoreCase(lastModifiedTime.getTagType()));
+        assertTrue("std".equalsIgnoreCase(lastModifiedTime.getType()));
         assertEquals(StdTypeAdapter.class, lastModifiedTime.getTagTypeAdapter().getClass());
         assertEquals("lastModifiedTime", lastModifiedTime.getFieldName());
-        assertEquals("last_update_timestamp", lastModifiedTime.getTagPath());
+        assertEquals("last_update_timestamp", lastModifiedTime.getPath());
         assertEquals("lastModifiedTime", lastModifiedTime.getUniqueKey());
-        assertEquals("yyyy-MM-dd", lastModifiedTime.getTypeParameters().get("dateFormat"));
-        assertEquals("/feed/merchants/merchant", createTime.getTagAbsolutePath());
+        assertEquals("yyyy-MM-dd", lastModifiedTime.getDataTypeParameters().get("dateFormat"));
+        assertEquals("/feed/merchants/merchant", createTime.getAbsolutePath());
     }
 
     @Test
@@ -258,42 +258,42 @@ public class FileParsingElementLoaderTest {
         ParsingElement vendor = root.getChildren().get(vendorIndex);
         testFirstVendor(vendor);
         ParsingElement isDeletedOverride = vendor.getChildren().get(vendor.getChildren().size() - 1);
-        assertTrue("std".equalsIgnoreCase(isDeletedOverride.getTagType()));
+        assertTrue("std".equalsIgnoreCase(isDeletedOverride.getType()));
         assertEquals(StdTypeAdapter.class, isDeletedOverride.getTagTypeAdapter().getClass());
         assertEquals("isDeleted", isDeletedOverride.getFieldName());
-        assertEquals("isDeleted", isDeletedOverride.getTagPath());
+        assertEquals("isDeleted", isDeletedOverride.getPath());
         assertEquals("isDeleted", isDeletedOverride.getUniqueKey());
-        assertEquals("/feed/merchants/merchant", isDeletedOverride.getTagAbsolutePath());
+        assertEquals("/feed/merchants/merchant", isDeletedOverride.getAbsolutePath());
 
 
         testReview(root.getChildren().get(2));
         int deletedReviewIndex = 3;
         ParsingElement deletedReview = root.getChildren().get(deletedReviewIndex);
 
-        assertEquals("array", deletedReview.getTagType());
+        assertEquals("array", deletedReview.getType());
         assertEquals(ListTypeAdapter.class, deletedReview.getTagTypeAdapter().getClass());
         assertEquals("reviews", deletedReview.getFieldName());
-        assertEquals("deleted_review", deletedReview.getTagPath());
-        assertEquals("/feed/deleted_reviews", deletedReview.getTagAbsolutePath());
+        assertEquals("deleted_review", deletedReview.getPath());
+        assertEquals("/feed/deleted_reviews", deletedReview.getAbsolutePath());
         assertEquals("insertReview", deletedReview.getFunction().getName());
 
         int idIndex = 0;
         ParsingElement id = deletedReview.getChildren().get(idIndex);
-        assertTrue("std".equalsIgnoreCase(id.getTagType()));
+        assertTrue("std".equalsIgnoreCase(id.getType()));
         assertEquals(StdTypeAdapter.class, id.getTagTypeAdapter().getClass());
         assertEquals("id", id.getFieldName());
-        assertEquals("id", id.getTagPath());
+        assertEquals("id", id.getPath());
         assertEquals("id", id.getUniqueKey());
-        assertEquals("/feed/deleted_reviews/deleted_review", id.getTagAbsolutePath());
+        assertEquals("/feed/deleted_reviews/deleted_review", id.getAbsolutePath());
 
         int isDeletedIndex = 1;
         ParsingElement deleted = deletedReview.getChildren().get(isDeletedIndex);
-        assertTrue("std".equalsIgnoreCase(deleted.getTagType()));
+        assertTrue("std".equalsIgnoreCase(deleted.getType()));
         assertEquals(StdTypeAdapter.class, deleted.getTagTypeAdapter().getClass());
         assertEquals("isDeleted", deleted.getFieldName());
-        assertEquals("isDeleted", deleted.getTagPath());
+        assertEquals("isDeleted", deleted.getPath());
         assertEquals("isDeleted", deleted.getUniqueKey());
-        assertEquals("/feed/deleted_reviews/deleted_review", deleted.getTagAbsolutePath());
+        assertEquals("/feed/deleted_reviews/deleted_review", deleted.getAbsolutePath());
 
 
     }

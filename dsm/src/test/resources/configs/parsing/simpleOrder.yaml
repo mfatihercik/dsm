@@ -3,19 +3,19 @@ destinationSystem: "ASDF"
 params:
   dateFormat: yyyy-MM-dd'T'HH:mm:ss'Z'
 result:
-  tagType: array
-  tagPath: "orders/simpleOrder"
+  type: array
+  path: "orders/simpleOrder"
   fields:
     id:
-      type: long
+      dataType: long
       xml:
         attribute: true
     mainProduct:
-      tagType: object
+      type: object
       $ref: "fragments.product"
     productList:
-      tagType: array
-      tagPath: "productList/product"
+      type: array
+      path: "productList/product"
       $ref: "fragments.product"
 
 
@@ -23,12 +23,12 @@ fragments:
   product:
     fields:
       id:
-        type: long
+        dataType: long
       name:
       url:
       price:
       description:
       createDate:
-        type: date
+        dataType: date
                              
           

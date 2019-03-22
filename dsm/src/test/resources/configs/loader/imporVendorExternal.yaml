@@ -1,6 +1,6 @@
-tagType: array
-tagPath: merchant
-tagParentPath: merchants
+type: array
+path: merchant
+parentPath: merchants
 function: insertVendor
 filter: self.data.isDeleted
 fields:
@@ -8,17 +8,17 @@ fields:
     xml:
       attribute: true
   vendorUrl:
-    tagPath: merchant_url
+    path: merchant_url
   ratingUrl:
-    tagPath: rating_url
+    path: rating_url
   isDeleted:
     default: false
   createTime:
-    tagPath: create_timestamp
-    type:
+    path: create_timestamp
+    dataType:
       type: date
       params:
         dateFormat: dd.MM.yyyy
   lastModifiedTime:
-    tagPath: last_update_timestamp
-    type: date
+    path: last_update_timestamp
+    dataType: date

@@ -16,14 +16,18 @@ public class ListTypeAdapter extends BaseObjectAdapter {
     @Override
     public void setValue(ParsingContext parsingContext, Node currentNode, ParsingElement parsingElement, PathInfo pathInfo, Object value) {
 
+
         if (isSimpleObject(parsingElement)) {
             currentNode.add(value);
+            ((List) currentNode.getParent().get(parsingElement.getFieldName())).add(value);
         } else {
+            List list = (List) currentNode.getParent().getParent().get(parsingElement.getFieldName());
             if (parsingElement.isRoot() && parsingContext.getResultType() != null) {
-                currentNode.getParent().add(currentNode.toObject(parsingContext.getResultType()));
-            } else {
-
                 currentNode.getParent().add(currentNode.getData());
+                list.add(currentNode.toObject(parsingContext.getResultType()));
+            } else {
+                currentNode.getParent().add(currentNode.getData());
+                list.add(currentNode.getData());
                 currentNode.setClose(true);
             }
         }
@@ -41,18 +45,24 @@ public class ListTypeAdapter extends BaseObjectAdapter {
 
         String fieldName = parsingElement.getFieldName();
         Object parentData = parentElementNode.get(fieldName);
-        parentData = parentData == null ? typeAdapter.getInitialObject() : parentData;
 
-        Node parentNode = parentElementNode.getChild();
-        if (parentNode != null && parsingElement.getIndex() != parentNode.getParsingElement().getIndex()) {
+        Node parentNode = parentElementNode.getChild(parsingElement);
 
-            parentNode = null;
+        if (parentData == null) {
+            parentData = typeAdapter.getInitialObject();
+            parsingContext.addMainNodeMap(parentElementNode.addChild(parentData, parsingElement));
         }
 
+
+//        if (parentNode != null && parsingElement.getIndex() != parentNode.getParsingElement().getIndex()) {
+//
+//            parentNode = null;
+//        }
+
+        parentElementNode.set(fieldName, parentData);
         if (parentNode == null) {
-            parentNode = parentElementNode.addChild(parentData, parsingElement);
-            parentElementNode.set(fieldName, parentData);
-            parsingContext.add(parentNode);
+            parentNode = parentElementNode.addChild(typeAdapter.getInitialObject(), parsingElement);
+
 
         } else {
             parentNode.incrementIndex();
@@ -67,7 +77,10 @@ public class ListTypeAdapter extends BaseObjectAdapter {
                 child.setClose(false);
             }
             child.setIndex(parentNode.getIndex());
+            parsingContext.add(child);
             return child;
+        } else {
+            parsingContext.add(parentNode);
         }
         return parentNode;
 
@@ -88,7 +101,8 @@ public class ListTypeAdapter extends BaseObjectAdapter {
     @Override
     public Node getCurrentNode(ParsingContext parsingContext, ParsingElement parsingElement) {
 
-        Node currentNode = parsingContext.get(parsingElement);
+        Node parentNode = getParentNode(parsingContext, parsingElement);
+        Node currentNode = parentNode.getChild(parsingElement);
         if (currentNode == null) {
             return parsingContext.getRootNode();
         } else {

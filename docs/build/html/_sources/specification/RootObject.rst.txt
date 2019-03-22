@@ -218,8 +218,8 @@ Example CF document that contains result
           
              version: 1.0
              result: 
-               tagType: object
-               tagPath: /
+               type: object
+               path: /
                fields:
                   id: string
                   name: string           
@@ -234,8 +234,8 @@ Example CF document that contains result
           
                 "version": 1.0,
                 "result":{
-                   "tagType":"object",
-                   "tagPath":"/"         
+                   "type":"object",
+                   "path":"/"         
                    "fields":{
                       "id":"string",
                       "name":"double",

@@ -33,15 +33,15 @@ Merge process work as follows:
        
        2. if field **exist** in source do followings     
        
-          2.1.  if  **type** of fields  is **different** then **skip** this field.
+          2.1.  if  **dataType** of fields  is **different** then **skip** this field.
              
-          2.2.  if  **type** of fields  is **same** then do followings          
+          2.2.  if  **dataType** of fields  is **same** then do followings          
              
-            2.2.1.  if **type** is **simple type** (string,number) then **skip** this field (do not copy target to source)
+            2.2.1.  if **dataType** is **simpleDataType** (string,number) then **skip** this field (do not copy target to source)
                  
-            2.2.2.  if **type** is **array** then **add** target values to **start of** the source values
+            2.2.2.  if **dataType** is **array** then **add** target values to **start of** the source values
                  
-            2.2.3.  if **type** is **map** then **start Merge process** for those two map.
+            2.2.3.  if **dataType** is **map** then **start Merge process** for those two map.
              
 Example  merge process of DSM documents:
 
@@ -81,8 +81,8 @@ current DSM Document:
            map:
              UK: United Kingdom
    result: 
-     tagType: object
-     tagPath: /
+     type: object
+     path: /
      fields:
         category: string
         
@@ -107,8 +107,8 @@ After merge process following configuration will take effect:
              US: United States  # (rule 1) imported from external document
              
    result: 
-     tagType: object  # exist only current DSM document
-     tagPath: /
+     type: object  # exist only current DSM document
+     path: /
      fields:
         category: string  # exist only current DSM document
         id: string        

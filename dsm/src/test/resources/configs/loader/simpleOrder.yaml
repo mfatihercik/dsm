@@ -1,11 +1,11 @@
 sourceSystem: "MRX"
 destinationSystem: "MRX"
 result:
-  tagType: object
-  tagPath: root
+  type: object
+  path: root
   fields:
     order:
       autoMaping: true
-      tagType: object
+      type: object
       class: com.github.mfatihercik.dsb.model.SimpleOrder
           

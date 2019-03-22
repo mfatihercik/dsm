@@ -113,7 +113,7 @@ class FileParsingElementLoaderSpec extends Specification {
 
         then:
         root.getChildren ().size () == 3
-        "object" == root.tagType
+        "object" == root.type
         MapTypeAdapter.class == root.tagTypeAdapter.class
         when:
         ParsingElement reviews = root.children [2]
@@ -123,42 +123,42 @@ class FileParsingElementLoaderSpec extends Specification {
 
 
     private static void testReview(ParsingElement reviews) {
-        assert "array" == reviews.tagType
+        assert "array" == reviews.type
         assert ListTypeAdapter.class == reviews.tagTypeAdapter.class
         assert "reviews" == reviews.fieldName
-        assert "review" == reviews.tagPath
-        assert "/feed/reviews" == reviews.tagAbsolutePath
+        assert "review" == reviews.path
+        assert "/feed/reviews" == reviews.absolutePath
         assert "insertReview" == reviews.function.name
 
 
         int idIndex = 0
         ParsingElement id = reviews.children [idIndex]
-        assert "STD" == id.tagType
+        assert "STD" == id.type
         assert StdTypeAdapter.class == id.tagTypeAdapter.class
         assert "id" == id.fieldName
-        assert "id" == id.tagPath
+        assert "id" == id.path
         assert "id" == id.uniqueKey
-        assert "/feed/reviews/review" == id.tagAbsolutePath
+        assert "/feed/reviews/review" == id.absolutePath
 
 
         int titleIndex = 2
         ParsingElement title = reviews.children [titleIndex]
-        assert "STD" == title.tagType
+        assert "STD" == title.type
         assert StdTypeAdapter.class == title.tagTypeAdapter.class
         assert "title" == title.fieldName
-        assert "title" == title.tagPath
+        assert "title" == title.path
         assert "title" == title.uniqueKey
-        assert "/feed/reviews/review" == title.tagAbsolutePath
+        assert "/feed/reviews/review" == title.absolutePath
 
 
         int countryIndex = 4
         ParsingElement country = reviews.getChildren ().get (countryIndex)
-        assert "STD" == country.tagType
+        assert "STD" == country.type
         assert StdTypeAdapter.class == country.tagTypeAdapter.class
         assert "country" == country.fieldName
-        assert "country_code" == country.tagPath
+        assert "country_code" == country.path
         assert "country" == country.uniqueKey
-        assert "/feed/reviews/review" == country.tagAbsolutePath
+        assert "/feed/reviews/review" == country.absolutePath
         assert country.transformEnabled
         assert "COUNTRIES" == country.transformationCode
 
@@ -174,7 +174,7 @@ class FileParsingElementLoaderSpec extends Specification {
         assert root.getChildren ().size () == 3
         assert root.order == 0
 
-        assert root.tagType == "object"
+        assert root.type == "object"
         assert root.tagTypeAdapter.class == MapTypeAdapter
         when:
         ParsingElement vendor = root.children [0]
@@ -186,11 +186,11 @@ class FileParsingElementLoaderSpec extends Specification {
         vendor = root.children [1]
         then:
         assert vendor.order == 2
-        assert "array" == vendor.tagType
+        assert "array" == vendor.type
         assert ListTypeAdapter.class == vendor.tagTypeAdapter.class
         assert "vendor" == vendor.fieldName
-        assert "deleted_merchant" == vendor.tagPath
-        assert "/feed/deleted_merchants" == vendor.tagAbsolutePath
+        assert "deleted_merchant" == vendor.path
+        assert "/feed/deleted_merchants" == vendor.absolutePath
         assert "insertVendor" == vendor.function.name
     }
 
@@ -206,7 +206,7 @@ class FileParsingElementLoaderSpec extends Specification {
         assert 3 == root.children.size ()
         assert 0 == root.order
 
-        assert "object" == root.tagType
+        assert "object" == root.type
         assert MapTypeAdapter == root.tagTypeAdapter.class
         when:
         ParsingElement vendor = root.children [0]
@@ -218,73 +218,73 @@ class FileParsingElementLoaderSpec extends Specification {
         vendor = root.children [1]
         then:
         assert 2 == vendor.order
-        assert "array" == vendor.tagType
+        assert "array" == vendor.type
         assert ListTypeAdapter == vendor.tagTypeAdapter.class
         assert "vendor" == vendor.fieldName
-        assert "deleted_merchant" == vendor.tagPath
-        assert "/feed/deleted_merchants" == vendor.tagAbsolutePath
+        assert "deleted_merchant" == vendor.path
+        assert "/feed/deleted_merchants" == vendor.absolutePath
         assert "insertVendor" == vendor.function.name
 
     }
 
     private static void testFirstVendor(ParsingElement vendor) {
         assert 1 == vendor.order
-        assert "array" == vendor.tagType
+        assert "array" == vendor.type
         assert ListTypeAdapter == vendor.tagTypeAdapter.class
         assert "vendor" == vendor.fieldName
-        assert "merchant" == vendor.tagPath
-        assert "/feed/merchants" == vendor.tagAbsolutePath
+        assert "merchant" == vendor.path
+        assert "/feed/merchants" == vendor.absolutePath
         assert "insertVendor" == vendor.function.name
 
         int idIndex = 0
         ParsingElement id = vendor.children [idIndex]
         assert 11 == id.order
-        assert ("std".equalsIgnoreCase (id.getTagType ()))
+        assert ("std".equalsIgnoreCase (id.getType ()))
         assert StdTypeAdapter == id.tagTypeAdapter.class
         assert "id" == id.fieldName
-        assert "id" == id.tagPath
+        assert "id" == id.path
         assert "id" == id.uniqueKey
-        assert "/feed/merchants/merchant" == id.tagAbsolutePath
+        assert "/feed/merchants/merchant" == id.absolutePath
         assert id.attribute
         int vendorUrlIndex = 1
         ParsingElement vendorUrl = vendor.children [vendorUrlIndex]
-        assert ("std".equalsIgnoreCase (vendorUrl.tagType))
+        assert ("std".equalsIgnoreCase (vendorUrl.type))
         assert StdTypeAdapter == vendorUrl.tagTypeAdapter.class
         assert "vendorUrl" == vendorUrl.fieldName
-        assert "merchant_url" == vendorUrl.tagPath
+        assert "merchant_url" == vendorUrl.path
         assert "vendorUrl" == vendorUrl.uniqueKey
-        assert "/feed/merchants/merchant" == vendorUrl.tagAbsolutePath
+        assert "/feed/merchants/merchant" == vendorUrl.absolutePath
 
         int isDeletedIndex = 5
         ParsingElement isDeleted = vendor.children [isDeletedIndex]
-        assert ("std".equalsIgnoreCase (isDeleted.tagType))
+        assert ("std".equalsIgnoreCase (isDeleted.type))
         assert StdTypeAdapter.class == isDeleted.tagTypeAdapter.getClass ()
         assert "isDeleted" == isDeleted.fieldName
-        assert "isDeleted" == isDeleted.tagPath
+        assert "isDeleted" == isDeleted.path
         assert "isDeleted" == isDeleted.uniqueKey
-        assert "/feed/merchants/merchant" == isDeleted.tagAbsolutePath
+        assert "/feed/merchants/merchant" == isDeleted.absolutePath
         assert isDeleted.default
         assert "false" == isDeleted.default.value
 
         int createTimeIndex = 3
         ParsingElement createTime = vendor.children [createTimeIndex]
-        assert ("std".equalsIgnoreCase (createTime.tagType))
+        assert ("std".equalsIgnoreCase (createTime.type))
         assert StdTypeAdapter == createTime.tagTypeAdapter.class
         assert "createTime" == createTime.fieldName
-        assert "create_timestamp" == createTime.tagPath
+        assert "create_timestamp" == createTime.path
         assert "createTime" == createTime.uniqueKey
-        assert "dd.MM.yyyy" == createTime.typeParameters ["dateFormat"]
-        assert "/feed/merchants/merchant" == createTime.tagAbsolutePath
+        assert "dd.MM.yyyy" == createTime.dataTypeParameters ["dateFormat"]
+        assert "/feed/merchants/merchant" == createTime.absolutePath
 
         int modifiedTimeIndex = 4
         ParsingElement lastModifiedTime = vendor.children [modifiedTimeIndex]
-        assert ("std".equalsIgnoreCase (lastModifiedTime.tagType))
+        assert ("std".equalsIgnoreCase (lastModifiedTime.type))
         assert StdTypeAdapter.class == lastModifiedTime.tagTypeAdapter.class
         assert "lastModifiedTime" == lastModifiedTime.fieldName
-        assert "last_update_timestamp" == lastModifiedTime.tagPath
+        assert "last_update_timestamp" == lastModifiedTime.path
         assert "lastModifiedTime" == lastModifiedTime.uniqueKey
-        assert "yyyy-MM-dd" == lastModifiedTime.typeParameters ["dateFormat"]
-        assert "/feed/merchants/merchant" == createTime.tagAbsolutePath
+        assert "yyyy-MM-dd" == lastModifiedTime.dataTypeParameters ["dateFormat"]
+        assert "/feed/merchants/merchant" == createTime.absolutePath
     }
 
 
@@ -326,12 +326,12 @@ class FileParsingElementLoaderSpec extends Specification {
         when:
         ParsingElement isDeletedOverride = vendor.getChildren ().get (vendor.getChildren ().size () - 1)
         then:
-        assert ("std".equalsIgnoreCase (isDeletedOverride.tagType))
+        assert ("std".equalsIgnoreCase (isDeletedOverride.type))
         assert StdTypeAdapter == isDeletedOverride.tagTypeAdapter.class
         assert "isDeleted" == isDeletedOverride.fieldName
-        assert "isDeleted" == isDeletedOverride.tagPath
+        assert "isDeleted" == isDeletedOverride.path
         assert "isDeleted" == isDeletedOverride.uniqueKey
-        assert "/feed/merchants/merchant" == isDeletedOverride.tagAbsolutePath
+        assert "/feed/merchants/merchant" == isDeletedOverride.absolutePath
 
 
         testReview (root.getChildren ().get (2))
@@ -339,11 +339,11 @@ class FileParsingElementLoaderSpec extends Specification {
         int deletedReviewIndex = 3
         ParsingElement deletedReview = root.getChildren ().get (deletedReviewIndex)
         then:
-        assert "array" == deletedReview.tagType
+        assert "array" == deletedReview.type
         assert (ListTypeAdapter == deletedReview.tagTypeAdapter.class)
         assert "reviews" == deletedReview.fieldName
-        assert "deleted_review" == deletedReview.tagPath
-        assert "/feed/deleted_reviews" == deletedReview.tagAbsolutePath
+        assert "deleted_review" == deletedReview.path
+        assert "/feed/deleted_reviews" == deletedReview.absolutePath
         assert "insertReview" == deletedReview.function.name
 
         when:
@@ -351,23 +351,23 @@ class FileParsingElementLoaderSpec extends Specification {
         ParsingElement id = deletedReview.getChildren ().get (idIndex)
 
         then:
-        assert ("std".equalsIgnoreCase (id.getTagType ()))
+        assert ("std".equalsIgnoreCase (id.getType ()))
         assert StdTypeAdapter.class == id.tagTypeAdapter.class
         assert "id" == id.fieldName
-        assert "id" == id.tagPath
+        assert "id" == id.path
         assert "id" == id.uniqueKey
-        assert "/feed/deleted_reviews/deleted_review" == id.tagAbsolutePath
+        assert "/feed/deleted_reviews/deleted_review" == id.absolutePath
 
         when:
         int isDeletedIndex = 1
         ParsingElement deleted = deletedReview.getChildren ().get (isDeletedIndex)
         then:
-        assert ("std".equalsIgnoreCase (deleted.getTagType ()))
+        assert ("std".equalsIgnoreCase (deleted.getType ()))
         assert StdTypeAdapter == deleted.tagTypeAdapter.class
         assert "isDeleted" == deleted.fieldName
-        assert "isDeleted" == deleted.tagPath
+        assert "isDeleted" == deleted.path
         assert "isDeleted" == deleted.uniqueKey
-        assert "/feed/deleted_reviews/deleted_review" == deleted.tagAbsolutePath
+        assert "/feed/deleted_reviews/deleted_review" == deleted.absolutePath
 
 
     }

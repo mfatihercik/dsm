@@ -5,7 +5,7 @@ public interface ConfigConstants {
     String PATH_SEPARATOR = "/";
 
     String AUTO_MAPPING = "autoMapping";
-    String NORMALIZE = "beforeExpression";
+    String NORMALIZE = "normalize";
     String IS_ATTRIBUTE = "attribute";
     String UNIQUE_KEY = "uniqueKey";
     String FILTER = "filter";
@@ -16,17 +16,17 @@ public interface ConfigConstants {
     String DEFAULT_VALUE = "value";
     String DEFAULT = "default";
 
-    String TAG_PARENT_PATH = "tagParentPath";
-    String TAG_PATH = "tagPath";
+    String TAG_PARENT_PATH = "parentPath";
+    String TAG_PATH = "path";
     String EXPRESSION_INDICATOR = "$";
     String FUNCTION = "function";
 
     String PARAMS = "params";
     String REF = "$ref";
-    String TAG_TYPE = "tagType";
-    String TAG_TYPE_PARAMS = "tagTypeParams";
+    String TYPE = "type";
     String TYPE_PARAMS = "typeParams";
-    String DATA_TYPE = "type";
+    String DATA_TYPE_PARAMS = "dataTypeParams";
+    String DATA_TYPE = "dataType";
 
 
     String FIELDS = "fields";

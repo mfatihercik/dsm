@@ -4,7 +4,7 @@ _`XML Object`
 
 ---------------
 
-XML Object is used to make extra definitions and to change "tagPath_" and "tagParentPath_" fields for xml format 
+XML Object is used to make extra definitions and to change "path_" and "parentPath_" fields for xml format 
 
 Fields:
     .. csv-table::
@@ -12,16 +12,16 @@ Fields:
       :stub-columns: 1
       :delim: |
       
-      tagPath_ | string | xml specific tagPath_ definition default value is tagPath_ field of `Parsing Element Object`_
-      tagParentPath_ | string | xml specific tagParentPath_ definition. default value is tagParentPath_ field of `Parsing Element Object`_
-      attribute_ | boolean |  attribute field is indicates that the current `Parsing Element Object`_ is an attribute on the tag pointed to by the tagParentPath field in the xml.
+      path_ | string | xml specific path_ definition default value is path_ field of `Parsing Element Object`_
+      parentPath_ | string | xml specific parentPath_ definition. default value is parentPath_ field of `Parsing Element Object`_
+      attribute_ | boolean |  attribute field is indicates that the current `Parsing Element Object`_ is an attribute on the tag pointed to by the parentPath field in the xml.
       
       
 
 _`attribute`
 ------------
 
-The attribute field is indicates that the current `Parsing Element`_ is an attribute on the tag pointed to by the tagParentPath_ field in the xml.
+The attribute field is indicates that the current `Parsing Element`_ is an attribute on the tag pointed to by the parentPath_ field in the xml.
     
     
 Examples:
@@ -35,13 +35,13 @@ Examples:
          
             version: 1.0
             result:
-               tagType: object
-               tagPath: / 
+               type: object
+               path: / 
                xml:
-                  tagPath: /Pets/Pet    # xml specific tagPath definition
+                  path: /Pets/Pet    # xml specific path definition
                fields: 
                     id:
-                       type: long
+                       dataType: long
                        xml:
                          attribute: true   # id field is an attribute that is located at /Pets/Pet tag. 
                     name: string
@@ -57,14 +57,14 @@ Examples:
          
                "version": 1.0,      
                "result":{
-                  "tagType": "object",
-                  "tagPath": "/" ,
+                  "type": "object",
+                  "path": "/" ,
                   "xml":{
-                     "tagPath": "/Pets/Pet"
+                     "path": "/Pets/Pet"
                    }
                   "fields": {
                        "id": {
-                           "type": "long",
+                           "dataType": "long",
                            "xml":{
                               "attribute": "true"
                            }

@@ -70,14 +70,11 @@ public abstract class BaseSimpleAdapter implements TypeAdaptor {
 
     @Override
     public Node getCurrentNode(ParsingContext parsingContext, ParsingElement parsingElement) {
-        if (isObject()) {
-
-            Node currentNode = parsingContext.get(parsingElement);
-            return currentNode == null ? parsingContext.getRootNode() : currentNode;
-        } else {
-            ParsingElement parentElement = parsingElement.getParentElement();
-            return parentElement.getTagTypeAdapter().getCurrentNode(parsingContext, parentElement);
+        Node node = parsingContext.get(parsingElement.getParentElement());
+        if (parsingElement.isRoot() || node == null) {
+            return parsingContext.getRootNode();
         }
+        return node;
     }
 
     @Override

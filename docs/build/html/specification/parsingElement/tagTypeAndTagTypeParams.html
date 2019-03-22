@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tagType &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
+  <title>type &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
   
 
   
@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -158,7 +158,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>tagType</li>
+      <li>type</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -178,11 +178,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1><span class="target" id="tagtype">tagType</span><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><span class="target" id="type">type</span><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>tagType defines how tags in the source document are parsed. it also defines the structure of the output object and hierarchy of the object tree. it may need extra parameters. Extra parameters are provided with <a class="reference internal" href="#tagtypeparams">tagTypeParams</a> field that <a href="#id10"><span class="problematic" id="id11">extended_</span></a> to <a href="#id12"><span class="problematic" id="id13">params_</span></a> field.
-Basically, there are two main “tagType” categories which are “complex”, and “simple”. The complex category includes “tagTypes” which exposes complex data type such as object or arrays. the simple category includes tagTypes which expose data type in the <a href="#id14"><span class="problematic" id="id15">type_</span></a> field.</p>
-<p>Supported tagType’s:</p>
+<p><a class="reference internal" href="#type">type</a> defines how tags in the source document are parsed. it also defines the structure of the output object and hierarchy of the object tree. it may need extra parameters. Extra parameters are provided with <a class="reference internal" href="#typeparams">typeParams</a> field that <a href="#id10"><span class="problematic" id="id11">extended_</span></a> to <a href="#id12"><span class="problematic" id="id13">params_</span></a> field.
+Basically, there are two main “type” categories which are “complex”, and “simple”. The complex category includes “tagTypes” which exposes complex data dataType such as object or arrays. the simple category includes tagTypes which expose ddataTypetype in the <a href="#id14"><span class="problematic" id="id15">dataType_ype_</span></a> field.</p>
+<p>Supported <a class="reference internal" href="#type">type</a>’s:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="25%" />
@@ -200,8 +200,8 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <tbody valign="top">
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#std">std</a></th>
 <td>Simple</td>
-<td><a href="#id16"><span class="problematic" id="id17">type_</span></a></td>
-<td>default tagType if not defined explicitly</td>
+<td><a href="#id16"><span class="problematic" id="id17">dataType_</span></a></td>
+<td>default <a class="reference internal" href="#type">type</a> if not defined explicitly</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#object">object</a></th>
 <td>Complex</td>
@@ -210,27 +210,27 @@ Basically, there are two main “tagType” categories which are “complex”, 
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#array">array</a></th>
 <td>Complex</td>
-<td>List&lt;Map&gt; - List&lt;<a href="#id18"><span class="problematic" id="id19">type_</span></a>&gt;</td>
+<td>List&lt;Map&gt; - List&lt;<a href="#id18"><span class="problematic" id="id19">dataType_</span></a>&gt;</td>
 <td>&#160;</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#sum">sum</a></th>
 <td>Simple</td>
-<td><a href="#id20"><span class="problematic" id="id21">type_</span></a></td>
+<td><a href="#id20"><span class="problematic" id="id21">dataType_</span></a></td>
 <td>fields: array of fieldName of current object.</td>
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#multiply">multiply</a></th>
 <td>Simple</td>
-<td><a href="#id22"><span class="problematic" id="id23">type_</span></a></td>
+<td><a href="#id22"><span class="problematic" id="id23">dataType_</span></a></td>
 <td><strong>fields</strong>: array of fieldName of current object.</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#divide">divide</a></th>
 <td>Simple</td>
-<td><a href="#id24"><span class="problematic" id="id25">type_</span></a></td>
+<td><a href="#id24"><span class="problematic" id="id25">dataType_</span></a></td>
 <td><strong>fields</strong>: array of fieldName of current object.</td>
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#join">join</a></th>
 <td>Simple</td>
-<td><a href="#id26"><span class="problematic" id="id27">type_</span></a></td>
+<td><a href="#id26"><span class="problematic" id="id27">dataType_</span></a></td>
 <td><strong>fields</strong>: array of fieldName of current object, <strong>separator</strong>: separator string. default is comma(,)</td>
 </tr>
 </tbody>
@@ -238,14 +238,14 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="section" id="id2">
 <h2><span class="target" id="std">std</span><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>std is basic <a class="reference internal" href="#tagtype">tagType</a> which copy the value of the tag in the source document to the current object. std is the default value of the <a class="reference internal" href="#tagtype">tagType</a> field.  Data <a href="#id28"><span class="problematic" id="id29">type_</span></a> is defined in the <a href="#id30"><span class="problematic" id="id31">type_</span></a> field.</p>
+<p>std is basic <a class="reference internal" href="#type">type</a> which copy the value of the tag in the source document to the current object. std is the default value of the <a class="reference internal" href="#type">type</a> field.  Data <a href="#id28"><span class="problematic" id="id29">dataType_</span></a> is defined in <a href="#id30"><span class="problematic" id="id31">dataType_ype_</span></a> field.</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>   <span class="c1"># tag type is STD</span>
      <span class="l l-Scalar l-Scalar-Plain">bar</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>      <span class="c1"># tag type is STD</span>
@@ -257,8 +257,8 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span>
@@ -273,14 +273,14 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="section" id="id3">
 <h2><span class="target" id="object">object</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>object <a class="reference internal" href="#tagtype">tagType</a> is used to expose an object. <a href="#id32"><span class="problematic" id="id33">`Parsing Element`_</span></a> which has “object” <a class="reference internal" href="#tagtype">tagType</a> must have ‘<a href="#id34"><span class="problematic" id="id35">fields_</span></a>’ field.</p>
+<p>object <a class="reference internal" href="#type">type</a> is used to expose an object. <a href="#id32"><span class="problematic" id="id33">`Parsing Element`_</span></a> which has “object” <a class="reference internal" href="#type">type</a> must have ‘<a href="#id34"><span class="problematic" id="id35">fields_</span></a>’ field.</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
      <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -293,8 +293,8 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
@@ -318,21 +318,21 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="section" id="id4">
 <h2><span class="target" id="array">array</span><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>array tagType is used to expose an array. Items of the array may be a object or simple <a href="#id36"><span class="problematic" id="id37">type_</span></a>. if <a href="#id38"><span class="problematic" id="id39">`Parsing Element`_</span></a>  has “<a href="#id40"><span class="problematic" id="id41">fields_</span></a>” field then the array <a class="reference internal" href="#tagtype">tagType</a> exposes List&lt;Object&gt;.  if <a href="#id42"><span class="problematic" id="id43">fields_</span></a> field is not defined, the data type of array item decided by <a href="#id44"><span class="problematic" id="id45">type_</span></a> field.</p>
+<p>array <a class="reference internal" href="#type">type</a> is used to expose an array. Items of the array may be a object or simple <a href="#id36"><span class="problematic" id="id37">dataType_</span></a>. if <a href="#id38"><span class="problematic" id="id39">`Parsing Element`_</span></a>  has “<a href="#id40"><span class="problematic" id="id41">fields_</span></a>” field then the array <a class="reference internal" href="#type">type</a> exposes List&lt;Object&gt;.  if <a href="#id42"><span class="problematic" id="id43">fields_</span></a> field is not defined, the data type of array item <a href="#id44"><span class="problematic" id="id45">decideddataType_ype_</span></a> field.</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>  <span class="c1"># EXPOSE [Object] array of Object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>  <span class="c1"># EXPOSE [Object] array of Object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
      <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
      <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
      <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>                 <span class="c1"># EXPOSE [string] array of string</span>
-       <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-       <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tag</span>
+       <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+       <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tag</span>
        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
 </pre></div>
 </div>
@@ -342,15 +342,15 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span><span class="p">,</span>
          <span class="nt">&quot;tags&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;tag&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;tag&quot;</span><span class="p">,</span>
             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
          <span class="p">}</span>
        <span class="p">}</span>
@@ -373,10 +373,10 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="section" id="id5">
 <h2><span class="target" id="sum">sum</span><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p><em>sum</em> tagType is used to sum  properties defined with “fields” in <strong>tagTypeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object,   it is accepted as ZERO.</p>
-<p>if current property(<a href="#id46"><span class="problematic" id="id47">`Parsing Element`_</span></a> that “<em>sum</em>” <a class="reference internal" href="#tagtype">tagType</a> is defined on) is defined in “fields” in <strong>tagTypeParams_</strong>,   current property value is added to total result.(sum with self)</p>
+<p><em>sum</em> <a class="reference internal" href="#type">type</a> is used to sum  properties defined with “fields” in <strong>typeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object,   it is accepted as ZERO.</p>
+<p>if current property(<a href="#id46"><span class="problematic" id="id47">`Parsing Element`_</span></a> that “<em>sum</em>” <a class="reference internal" href="#type">type</a> is defined on) is defined in “fields” in <strong>typeParams_</strong>,   current property value is added to total result.(sum with self)</p>
 <p><strong>(Explained with example below)</strong></p>
-<p><strong>tagTypeParams</strong>:</p>
+<p><strong>typeParams</strong>:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="33%" />
@@ -401,21 +401,21 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
      <span class="l l-Scalar l-Scalar-Plain">bar</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">bar</span>
      <span class="l l-Scalar l-Scalar-Plain">fooAndBar</span><span class="p p-Indicator">:</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>    <span class="c1"># declare sum tagType to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>    <span class="c1"># declare sum type to sum foo and bar field</span>
          <span class="l l-Scalar l-Scalar-Plain">type:int</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagTypeParams</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar]</span>  <span class="c1"># sum foo,and bar fields then set to fooAndBar property of current object.</span>
      <span class="l l-Scalar l-Scalar-Plain">sumWithSelf</span><span class="p p-Indicator">:</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>    <span class="c1"># declare sum tagType to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>    <span class="c1"># declare sum type to sum foo and bar field</span>
          <span class="l l-Scalar l-Scalar-Plain">type:int</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagTypeParams</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar,sumWithSelf]</span>  <span class="c1"># sum foo, bar and sumWithSelf(current field) fields then set sumWithSelf to total property of current object.</span>
 </pre></div>
 </div>
@@ -425,22 +425,22 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
          <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
          <span class="nt">&quot;fooAndBar&quot;</span><span class="p">:{</span>
-             <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;tagTypeParams&quot;</span><span class="p">:{</span>
+             <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
                   <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
              <span class="p">}</span>
          <span class="p">},</span>
          <span class="nt">&quot;sumWithSelf&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
             <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;tagTypeParams&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
                <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span><span class="s2">&quot;sumWithSelf&quot;</span><span class="p">]</span>
             <span class="p">}</span>
          <span class="p">}</span>
@@ -455,10 +455,10 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="section" id="id6">
 <h2><span class="target" id="multiply">multiply</span><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p><em>multiply</em> tagType is used to multiply  properties defined with “fields” in <strong>tagTypeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object,   it is accepted as ONE.</p>
-<p>if current property(<a href="#id52"><span class="problematic" id="id53">`Parsing Element`_</span></a> that “<em>multiply</em>” <a class="reference internal" href="#tagtype">tagType</a> is defined on) is defined in “fields” in <strong>tagTypeParams_</strong>,   current property value is multiplied with total result. (multiply with self)</p>
+<p><em>multiply</em> <a class="reference internal" href="#type">type</a> is used to multiply  properties defined with “fields” in <strong>typeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object,   it is accepted as ONE.</p>
+<p>if current property(<a href="#id52"><span class="problematic" id="id53">`Parsing Element`_</span></a> that “<em>multiply</em>” <a class="reference internal" href="#type">type</a> is defined on) is defined in “fields” in <strong>typeParams_</strong>,   current property value is multiplied with total result. (multiply with self)</p>
 <p><strong>(Explained with example below)</strong></p>
-<p><a class="reference internal" href="#tagtypeparams">tagTypeParams</a>:</p>
+<p><a class="reference internal" href="#typeparams">typeParams</a>:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="33%" />
@@ -483,21 +483,21 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
      <span class="l l-Scalar l-Scalar-Plain">bar</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
      <span class="l l-Scalar l-Scalar-Plain">fooAndBar</span><span class="p p-Indicator">:</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiply</span>    <span class="c1"># declare multiply tagType to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiply</span>    <span class="c1"># declare multiply type to sum foo and bar field</span>
          <span class="l l-Scalar l-Scalar-Plain">type:int</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagTypeParams</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar]</span>  <span class="c1"># multiply foo,and bar fields then set it to fooAndBar property of current object.</span>
      <span class="l l-Scalar l-Scalar-Plain">multiplyWithSelf</span><span class="p p-Indicator">:</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiply</span>    <span class="c1"># declare multiply tagType to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiply</span>    <span class="c1"># declare multiply type to sum foo and bar field</span>
          <span class="l l-Scalar l-Scalar-Plain">type:int</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagTypeParams</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar,multiplyWithSelf]</span>  <span class="c1"># multiply foo, bar and multiplyWithSelf(current field) fields then set it to multiplyWithSelf property of current object.</span>
 </pre></div>
 </div>
@@ -507,22 +507,22 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
          <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
          <span class="nt">&quot;fooAndBar&quot;</span><span class="p">:{</span>
-             <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;multiply&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;tagTypeParams&quot;</span><span class="p">:{</span>
+             <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;multiply&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
                   <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
              <span class="p">}</span>
          <span class="p">},</span>
          <span class="nt">&quot;multiplyWithSelf&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;multiply&quot;</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;multiply&quot;</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;tagTypeParams&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
                <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span><span class="s2">&quot;multiplyWithSelf&quot;</span><span class="p">]</span>
             <span class="p">}</span>
          <span class="p">}</span>
@@ -537,10 +537,10 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="section" id="id7">
 <h2><span class="target" id="divide">divide</span><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p><em>divide</em> tagType is used to divide  properties defined with “fields” in <strong>tagTypeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object,   it is accepted as ONE.</p>
-<p>if current property(<a href="#id54"><span class="problematic" id="id55">`Parsing Element`_</span></a> that “<em>divide</em>” <a class="reference internal" href="#tagtype">tagType</a> is defined on) is defined in “fields” in <strong>tagTypeParams_</strong>,   current property value is divided with total result. (divide with self)</p>
+<p><em>divide</em> <a class="reference internal" href="#type">type</a> is used to divide  properties defined with “fields” in <strong>typeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object,   it is accepted as ONE.</p>
+<p>if current property(<a href="#id54"><span class="problematic" id="id55">`Parsing Element`_</span></a> that “<em>divide</em>” <a class="reference internal" href="#type">type</a> is defined on) is defined in “fields” in <strong>typeParams_</strong>,   current property value is divided with total result. (divide with self)</p>
 <p><strong>(Explained with example below)</strong></p>
-<p><a class="reference internal" href="#tagtypeparams">tagTypeParams</a>:</p>
+<p><a class="reference internal" href="#typeparams">typeParams</a>:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="33%" />
@@ -565,21 +565,21 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
      <span class="l l-Scalar l-Scalar-Plain">bar</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
      <span class="l l-Scalar l-Scalar-Plain">fooAndBar</span><span class="p p-Indicator">:</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">divide</span>    <span class="c1"># declare divide tagType to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">divide</span>    <span class="c1"># declare divide type to sum foo and bar field</span>
          <span class="l l-Scalar l-Scalar-Plain">type:int</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagTypeParams</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar]</span>  <span class="c1"># divide foo with bar (foo/bar) fields then set it to fooAndBar property of current object.</span>
      <span class="l l-Scalar l-Scalar-Plain">divideWithSelf</span><span class="p p-Indicator">:</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">divide</span>    <span class="c1"># declare divide tagType to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">divide</span>    <span class="c1"># declare divide type to sum foo and bar field</span>
          <span class="l l-Scalar l-Scalar-Plain">type:int</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagTypeParams</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar,divideWithSelf]</span>  <span class="c1"># divide foo with bar then divide with divideWithSelf(current field) (foo/bar/divideWithSelf) fields then set it to sumWithSelf property of current object.</span>
 </pre></div>
 </div>
@@ -589,22 +589,22 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
          <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
          <span class="nt">&quot;fooAndBar&quot;</span><span class="p">:{</span>
-             <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;divide&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;tagTypeParams&quot;</span><span class="p">:{</span>
+             <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;divide&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
                   <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
              <span class="p">}</span>
          <span class="p">},</span>
          <span class="nt">&quot;divideWithSelf&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;divide&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;divide&quot;</span><span class="p">,</span>
             <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;tagTypeParams&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
                <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span><span class="s2">&quot;divideWithSelf&quot;</span><span class="p">]</span>
             <span class="p">}</span>
          <span class="p">}</span>
@@ -619,11 +619,11 @@ Basically, there are two main “tagType” categories which are “complex”, 
 <div class="section" id="id8">
 <h2><span class="target" id="join">join</span><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p><em>join</em> tagType is used to join properties defined with “fields” in <strong>tagTypeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object, it is skipped.</p>
-<p>if current property(<a href="#id56"><span class="problematic" id="id57">`Parsing Element`_</span></a> that “<em>join</em>” <a class="reference internal" href="#tagtype">tagType</a> is defined on) is defined in
-“fields” in <strong>tagTypeParams_</strong>, current property value is included in to joining  (join with self)
-Values are  separated by <em>separator</em> defined in  “<a class="reference internal" href="#tagtypeparams">tagTypeParams</a>”. The default separator  is a comma(,)</p>
-<p><a class="reference internal" href="#tagtypeparams">tagTypeParams</a>:</p>
+<p><em>join</em> <a class="reference internal" href="#type">type</a> is used to join properties defined with “fields” in <strong>typeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object, it is skipped.</p>
+<p>if current property(<a href="#id56"><span class="problematic" id="id57">`Parsing Element`_</span></a> that “<em>join</em>” <a class="reference internal" href="#type">type</a> is defined on) is defined in
+“fields” in <strong>typeParams_</strong>, current property value is included in to joining  (join with self)
+Values are  separated by <em>separator</em> defined in  “<a class="reference internal" href="#typeparams">typeParams</a>”. The default separator  is a comma(,)</p>
+<p><a class="reference internal" href="#typeparams">typeParams</a>:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="33%" />
@@ -652,21 +652,21 @@ Values are  separated by <em>separator</em> defined in  “<a class="reference i
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span>version: 1.0
 result:
-  tagType: object
-  tagPath: /
+  type: object
+  path: /
   fields:
      foo: string
      bar: string
      fooAndBar:
-         tagPath: \.  # when current object closed
-         tagType: join    # declare join tagType to sum foo and bar field
+         path: \.  # when current object closed
+         type: join    # declare join type to sum foo and bar field
          type:int
-         tagTypeParams:
+         typeParams:
             fields:[foo,bar]  # join foo and bar (foo,bar) fields then set it to fooAndBar property of current object.
      joinWithSelf:
-         tagType: join    # declare join tagType to sum foo and bar field
+         type: join    # declare join type to sum foo and bar field
          type:int
-         tagTypeParams:
+         typeParams:
             separator: &amp;
             fields:[foo,bar,sumWithSelf]  # join foo,bar, and joinWithSelf(current field) (foo&amp;bar&amp;joinWithSelf) fields then set it to joinWithSelf property of current object.
 </pre></div>
@@ -677,22 +677,22 @@ result:
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;fooAndBar&quot;</span><span class="p">:{</span>
-             <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;join&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;tagTypeParams&quot;</span><span class="p">:{</span>
+             <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;join&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
                   <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
              <span class="p">}</span>
          <span class="p">},</span>
          <span class="nt">&quot;joinWithSelf&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;join&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;join&quot;</span><span class="p">,</span>
             <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;tagTypeParams&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
                <span class="nt">&quot;separator&quot;</span><span class="p">:</span> <span class="s2">&quot;&amp;&quot;</span><span class="p">,</span>
                <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span><span class="s2">&quot;joinWithSelf&quot;</span><span class="p">]</span>
             <span class="p">}</span>
@@ -707,25 +707,25 @@ result:
 </div>
 </div>
 <div class="section" id="id9">
-<h1><span class="target" id="tagtypeparams">tagTypeParams</span><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h1>
+<h1><span class="target" id="typeparams">typeParams</span><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>tagTypeParams is used for passing extra parameters to <a class="reference internal" href="#tagtype">tagType</a> field. The tagTypeParams field is  <a href="#id58"><span class="problematic" id="id59">extended_</span></a> to <a href="#id60"><span class="problematic" id="id61">params_</span></a> field.</p>
+<p>typeParams is used for passing extra parameters to <a class="reference internal" href="#type">type</a> field. The typeParams field is  <a href="#id58"><span class="problematic" id="id59">extended_</span></a> to <a href="#id60"><span class="problematic" id="id61">params_</span></a> field.</p>
 <p>Examples:</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
      <span class="l l-Scalar l-Scalar-Plain">bar</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
      <span class="l l-Scalar l-Scalar-Plain">fooAndBar</span><span class="p p-Indicator">:</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">join</span>    <span class="c1"># declare join tagType to concat foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">join</span>    <span class="c1"># declare join type to concat foo and bar field</span>
          <span class="l l-Scalar l-Scalar-Plain">type:int</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagTypeParams</span><span class="p p-Indicator">:</span>       <span class="c1"># tagTypeParams is used to pass fields parameter to tagType</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>       <span class="c1"># typeParams is used to pass fields parameter to type</span>
             <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar]</span>
 </pre></div>
 </div>
@@ -735,15 +735,15 @@ result:
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;fooAndBar&quot;</span><span class="p">:{</span>
-             <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;join&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;tagTypeParams&quot;</span><span class="p">:{</span>
+             <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;join&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
                   <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
              <span class="p">}</span>
          <span class="p">}</span>

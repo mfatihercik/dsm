@@ -14,12 +14,12 @@ transformations:
       UK: United Kingdom
       TR: Turkiye
 result:
-  tagType: object
+  type: object
   fields:
     reviews:
-      - tagType: array
-        tagPath: deleted_review
-        tagParentPath: deleted_reviews
+      - type: array
+        path: deleted_review
+        parentPath: deleted_reviews
         function: insertReview
         fields:
           id:
@@ -27,8 +27,8 @@ result:
           isDeleted:
             default: true
           lastModifiedTime:
-            tagPath: last_update_timestamp
-            type: date
+            path: last_update_timestamp
+            dataType: date
                  
        
           

@@ -7,7 +7,7 @@ fields
 ------------
 
 
-The fields field is used to define the properties of complex objects. Only `Parsing Element`_ that has complex tagType_  can have the "fields" field.
+The fields field is used to define the properties of complex objects. Only `Parsing Element`_ that has complex type_  can have the "fields" field.
 
 The fields field is  a map that keys are fieldName of  `Parsing Element`_ , values are string, `Parsing Element`_ or list of `Parsing Element`_ 
 
@@ -24,15 +24,15 @@ Below explain type of value definition and the default values of the `Parsing El
 
 empty:
       :fieldName_: key of the map.
-      :type_: string
-      :tagPath_: key of the map (fieldName)
-      :tagParentPath_: null
+      :dataType_: string
+      :path_: key of the map (fieldName)
+      :parentPath_: null
 
 string:
       :fieldName_: key of the map.
-      :type_: value of the map
-      :tagPath_: key of the map (fieldName)
-      :tagParentPath_: null
+      :dataType_: value of the map
+      :path_: key of the map (fieldName)
+      :parentPath_: null
       
 `Parsing Element`_:
       :fieldName_: key of the map.      
@@ -52,19 +52,19 @@ Example of different type of value definition:
          
             version: 1.0
             result: 
-              tagType: object
-              tagPath: /
+              type: object
+              path: /
               fields:
-                 name:     # fieldName is "name" and type is  string and the tagPath is "/name"
+                 name:     # fieldName is "name" and dataType is  string and the path is "/name"
                  category: 
-                 price: long      # fieldName is "price" and type is  "long"  and the tagPath is "/price"
-                 categoryType:   # fieldName is "categoryType" and it is  "string" value and the tagPath is "/categoryType" it has extra definition (default)        
+                 price: long      # fieldName is "price" and dataType is  "long"  and the path is "/price"
+                 categoryType:   # fieldName is "categoryType" and it is  "string" value and the path is "/categoryType" it has extra definition (default)        
                         default: "foo"   # default value a is a string. 
                  productUnit:  # this field contains two definition. one  of that  will win depending on the structure of source document.
-                       - tagPath: unit/unit_name      # fieldName is "productUnit" and type is  "long"  and the tagPath is "/unit/unit_name"
+                       - path: unit/unit_name      # fieldName is "productUnit" and dataType is  "long"  and the path is "/unit/unit_name"
                          default: $ self.data.categoryType=='foo'? 'LT': 'KG'  
                          
-                       - tagPath: mainUnit/unit_name  # fieldName is "productUnit" and type is  "long"  and the tagPath is "/mainUnit/unit_name"
+                       - path: mainUnit/unit_name  # fieldName is "productUnit" and dataType is  "long"  and the path is "/mainUnit/unit_name"
 
       .. tab-container:: json
          :title: JSON
@@ -74,8 +74,8 @@ Example of different type of value definition:
             {
                "version": 1.0,
                "result":{
-                  "tagType":"object",
-                  "tagPath":"/"  ,       
+                  "type"object",
+                  "path":"/"  ,       
                   "fields":{
                      "name":"",
                      "category":"", 
@@ -84,11 +84,11 @@ Example of different type of value definition:
                         "default": "foo"
                      },
                      "productUnit":[
-                     {  "tagPath": "unit/unit_name",
+                     {  "path": "unit/unit_name",
                         "default": " $self.data.categoryType=='foo'? 'LT': 'KG'"
                      },
                      {
-                        "tagPath": "mainUnit/unit_name",
+                        "path": "mainUnit/unit_name",
                      },
                      ],
                    }

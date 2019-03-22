@@ -3,8 +3,8 @@ destinationSystem: "ASDF"
 params:
   dateFormat: yyyy-MM-dd'T'HH:mm:ss'Z'
 result:
-  tagType: object
-  tagPath: "root/products/product"
+  type: object
+  path: "root/products/product"
   fields:
     id:
     name:
@@ -12,6 +12,6 @@ result:
     price:
     description:
     createDate:
-      type: date
+      dataType: date
                              
           

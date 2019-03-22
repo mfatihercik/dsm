@@ -31,7 +31,7 @@ public abstract class JsonStreamParser extends StreamParser {
 
     @Override
     protected String getAttributePath(ParsingElement parsingElement) {
-        return generateKey(parsingElement.getTagPath(), parsingElement.getTagAbsolutePath());
+        return generateKey(parsingElement.getPath(), parsingElement.getAbsolutePath());
     }
 
 

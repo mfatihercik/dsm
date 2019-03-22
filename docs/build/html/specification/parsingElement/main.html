@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -199,49 +199,49 @@
 <td>string</td>
 <td><strong>REQUIRED</strong>  <a class="reference internal" href="#fieldname">fieldName</a> define the name of the property to expose by current object. the fieldName is unique in object.</td>
 </tr>
-<tr class="row-odd"><th class="stub"><a class="reference internal" href="#type">type</a></th>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#datatype">dataType</a></th>
 <td>string</td>
-<td><strong>REQUIRED</strong>. The data type of exposed field. it may have extra parameter provided with <a class="reference internal" href="#typeparams">typeParams</a></td>
+<td><strong>REQUIRED</strong>. The data type of exposed field. it may have extra parameter provided with <a class="reference internal" href="#datatypeparams">dataTypeParams</a></td>
 </tr>
-<tr class="row-even"><th class="stub"><a class="reference internal" href="#typeparams">typeParams</a></th>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#datatypeparams">dataTypeParams</a></th>
 <td>Map[string,any]</td>
-<td>extra parameters for type field need to convert. for example. dateFormat for <a class="reference internal" href="#date">date</a> type</td>
+<td>extra parameters for dataType field need to convert. for example. dateFormat for dadataTypetype</td>
 </tr>
-<tr class="row-odd"><th class="stub"><a href="#id14"><span class="problematic" id="id15">tagType_</span></a></th>
+<tr class="row-odd"><th class="stub"><a href="#id14"><span class="problematic" id="id15">type_</span></a></th>
 <td>string</td>
 <td>the name of the parsing strategy for the current field. the default is STD.</td>
 </tr>
-<tr class="row-even"><th class="stub"><a href="#id16"><span class="problematic" id="id17">tagTypeParams_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id16"><span class="problematic" id="id17">typeParams_</span></a></th>
 <td>Map[string,any]</td>
-<td>it is used for passing extra parameter to <a class="reference internal" href="#type">type</a> converter. <a href="#id18"><span class="problematic" id="id19">tagTypeParams_</span></a> field <a href="#id20"><span class="problematic" id="id21">extended_</span></a> to <a href="#id22"><span class="problematic" id="id23">params_</span></a> field.</td>
+<td>it is used for passing extra parameter to <a class="reference internal" href="#datatype">dataType</a> converter. <a href="#id18"><span class="problematic" id="id19">typeParams_</span></a> field <a href="#id20"><span class="problematic" id="id21">extended_</span></a> to <a href="#id22"><span class="problematic" id="id23">params_</span></a> field.</td>
 </tr>
-<tr class="row-odd"><th class="stub"><a href="#id24"><span class="problematic" id="id25">tagPath_</span></a></th>
+<tr class="row-odd"><th class="stub"><a href="#id24"><span class="problematic" id="id25">path_</span></a></th>
 <td>string</td>
-<td>The tagPath field specifies the location of a tag in the <a href="#id26"><span class="problematic" id="id27">`source document`_</span></a> relative to the tagPath field of the higher-level Parsing Element definition. The default value is the value in the fieldName field.</td>
+<td>The path field specifies the location of a tag in the <a href="#id26"><span class="problematic" id="id27">`source document`_</span></a> relative to the path field of the higher-level Parsing Element definition. The default value is the value in the fieldName field.</td>
 </tr>
-<tr class="row-even"><th class="stub"><a href="#id28"><span class="problematic" id="id29">tagParentPath_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id28"><span class="problematic" id="id29">parentPath_</span></a></th>
 <td>string</td>
-<td>The <a href="#id30"><span class="problematic" id="id31">tagParentPath_</span></a> field is used in a slightly more complex parsing definitions. it holds path to parent tag of the tag specified in the “<a href="#id32"><span class="problematic" id="id33">tagPath_</span></a>” field.</td>
+<td>The <a href="#id30"><span class="problematic" id="id31">parentPath_</span></a> field is used in a slightly more complex parsing definitions. it holds path to parent tag of the tag specified in the “<a href="#id32"><span class="problematic" id="id33">path_</span></a>” field.</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#default">default</a></th>
 <td>string,`Default Object`_</td>
-<td>default value of the field if <a href="#id34"><span class="problematic" id="id35">tagPath_</span></a> not exist in the source document. if default value starts with “$” character it is accepted as <a href="#id36"><span class="problematic" id="id37">expression_</span></a> and it is resolved by expression resolver.</td>
+<td>default value of the field if <a href="#id34"><span class="problematic" id="id35">path_</span></a> not exist in the source document. if default value starts with “$” character it is accepted as <a href="#id36"><span class="problematic" id="id37">expression_</span></a> and it is resolved by expression resolver.</td>
 </tr>
 <tr class="row-even"><th class="stub"><a href="#id38"><span class="problematic" id="id39">filter_</span></a></th>
 <td>string</td>
-<td>The Filter field determines whether the value of a <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a> (complex or simple tagType does not matter) is added to the object tree. The filter field is an <a href="#id40"><span class="problematic" id="id41">expression_</span></a> that returns true or false.</td>
+<td>The Filter field determines whether the value of a <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a> (complex or simple <a href="#id40"><span class="problematic" id="id41">type_</span></a> does not matter) is added to the object tree. The filter field is an <a href="#id42"><span class="problematic" id="id43">expression_</span></a> that returns true or false.</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#transformationcode">transformationCode</a></th>
 <td>string</td>
-<td>this field refers to the definition of the <a href="#id42"><span class="problematic" id="id43">transformation_</span></a> to be used to transform the tag value.</td>
+<td>this field refers to the definition of the <a href="#id44"><span class="problematic" id="id45">transformation_</span></a> to be used to transform the tag value.</td>
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#function">function</a></th>
 <td>string</td>
-<td>name of the function in <a href="#id44"><span class="problematic" id="id45">functions_</span></a> map.</td>
+<td>name of the function in <a href="#id46"><span class="problematic" id="id47">functions_</span></a> map.</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#normalize">normalize</a></th>
 <td>string</td>
-<td>this field is used to normalize the value of <a href="#id46"><span class="problematic" id="id47">tag_</span></a>. İt is an expression.</td>
+<td>this field is used to normalize the value of <a href="#id48"><span class="problematic" id="id49">tag_</span></a>. İt is an expression.</td>
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#uniquename">uniqueName</a></th>
 <td>string</td>
@@ -251,21 +251,21 @@
 <td>Map[string,any]</td>
 <td>XML related configuration goes under this tag.</td>
 </tr>
-<tr class="row-even"><th class="stub"><a href="#id48"><span class="problematic" id="id49">attribute_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id50"><span class="problematic" id="id51">attribute_</span></a></th>
 <td>boolean</td>
-<td>it is indicates that the current <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a> is an attribute on the tag pointed to by the tagParentPath field in the xml.</td>
+<td>it is indicates that the current <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a> is an attribute on the tag pointed to by the parentPath field in the xml.</td>
 </tr>
-<tr class="row-odd"><th class="stub"><a href="#id50"><span class="problematic" id="id51">overwriteByDefault_</span></a></th>
+<tr class="row-odd"><th class="stub"><a href="#id52"><span class="problematic" id="id53">overwriteByDefault_</span></a></th>
 <td>boolean</td>
 <td>force using <a class="reference internal" href="#default">default</a> field. Mostly used with filter field.</td>
 </tr>
-<tr class="row-even"><th class="stub"><a href="#id52"><span class="problematic" id="id53">fields_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id54"><span class="problematic" id="id55">fields_</span></a></th>
 <td>Map[string,String - Parsing Element Object - [Parsing Element Object] ]</td>
-<td>fields  of the current object. its only valid for object and array <a href="#id54"><span class="problematic" id="id55">tagType_</span></a></td>
+<td>fields  of the current object. its only valid for object and array <a href="#id56"><span class="problematic" id="id57">type_</span></a></td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#ref">$ref</a></th>
 <td>string</td>
-<td>$ref_ field is used to <a href="#id56"><span class="problematic" id="id57">extends_</span></a> current config to given <a href="#id58"><span class="problematic" id="id59">fragment_</span></a>. it’s value is an expression.</td>
+<td>$ref_ field is used to <a href="#id58"><span class="problematic" id="id59">extends_</span></a> current config to given <a href="#id60"><span class="problematic" id="id61">fragment_</span></a>. it’s value is an expression.</td>
 </tr>
 </tbody>
 </table>
@@ -274,15 +274,15 @@
 <div class="section" id="id2">
 <h2><span class="target" id="fieldname">fieldName</span><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p><strong>REQUIRED</strong> The <a class="reference internal" href="#fieldname">fieldName</a> define the name of the property to expose by current object. the fieldName is unique in object.. However, a fieldName may have multiple <cite>Parsing Element</cite>. The fieldName is not explicitly defined. it is defined with <a href="#id60"><span class="problematic" id="id61">fields_</span></a> property.  The keys of <a href="#id62"><span class="problematic" id="id63">fields_</span></a> map are the fieldName of the Parsing Element.</p>
-<p>In blow DSM document, id, name, and price are <a class="reference internal" href="#fieldname">fieldName</a> of the result object. The <a href="#id64"><span class="problematic" id="id65">result_</span></a> object exposes id, name and price property</p>
+<p><strong>REQUIRED</strong> The <a class="reference internal" href="#fieldname">fieldName</a> define the name of the property to expose by current object. the fieldName is unique in object.. However, a fieldName may have multiple <cite>Parsing Element</cite>. The fieldName is not explicitly defined. it is defined with <a href="#id62"><span class="problematic" id="id63">fields_</span></a> property.  The keys of <a href="#id64"><span class="problematic" id="id65">fields_</span></a> map are the fieldName of the Parsing Element.</p>
+<p>In blow DSM document, id, name, and price are <a class="reference internal" href="#fieldname">fieldName</a> of the result object. The <a href="#id66"><span class="problematic" id="id67">result_</span></a> object exposes id, name and price property</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>             <span class="c1"># fieldName is result</span>
 <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type:ject</span>
      <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>    <span class="c1"># fieldName is id</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
@@ -295,8 +295,8 @@
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>
       <span class="s2">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span><span class="p">,</span>
@@ -310,11 +310,11 @@
 </div>
 </div>
 <div class="section" id="id3">
-<h2><span class="target" id="type">type</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><span class="target" id="datatype">dataType</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>The type field defines data type(string, int, boolean etc.) of the exposed property. it is basicity a converter from string to given data type.
-it may need extra parameters to convert a string to given data type. Extra parameters may be provided with <a href="#id66"><span class="problematic" id="id67">params_</span></a> or <a class="reference internal" href="#typeparams">typeParams</a>.</p>
-<p>Supported type name and their corresponding java class:</p>
+<p>The dataType field defines ddataTypetype(string, int, boolean etc.) of the exposed property. it is basicity a converter from string to givdataTypeata type.
+it may need extra parameters to convert a string to given data dataType. Extra parameters may be provided with <a href="#id68"><span class="problematic" id="id69">params_</span></a> or <a class="reference internal" href="#datatypeparams">dataTypeParams</a>.</p>
+<p>Supported dataType name and their corresponding java class:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="33%" />
@@ -375,19 +375,19 @@ it may need extra parameters to convert a string to given data type. Extra param
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">dd.MM.yyyy</span>  <span class="c1"># default &#39;dateFormat&#39; for all &#39;date&#39; type</span>
+  <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">dd.MM.yyyy</span>  <span class="c1"># default &#39;dateFormat&#39; for all &#39;date&#39; dataType</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type:ject</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
-     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>       <span class="c1"># implicitly defined type. type is string</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>       <span class="c1"># implicitly defined dataTydataTypetype is string</span>
      <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>    <span class="c1"># explicitly defined the type. type is double</span>
-     <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>   <span class="c1"># implicitly defined the date type. and &#39;dateFormat&#39; is defined in params field.</span>
+        <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>    <span class="c1"># explicitly defined dataTydataTypepe. type is double</span>
+     <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>   <span class="c1"># implicitly defined the date dataType. and &#39;dateFormat&#39; is defined in params field.</span>
      <span class="l l-Scalar l-Scalar-Plain">modifiedTime</span><span class="p p-Indicator">:</span>
-       <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>       <span class="c1"># explicitly defined the date type. and &#39;dateFormat&#39; is defined in typeParams field.</span>
-       <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
+       <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>       <span class="c1"># explicitly defined the ddataTypetype. and &#39;dateFormat&#39; is defined in dataTypeParams field.</span>
+       <span class="l l-Scalar l-Scalar-Plain">dataTypeParams</span><span class="p p-Indicator">:</span>
           <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="s">&quot;yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;&quot;</span>
 </pre></div>
 </div>
@@ -400,18 +400,18 @@ it may need extra parameters to convert a string to given data type. Extra param
       <span class="nt">&quot;dateFormat&quot;</span><span class="p">:</span> <span class="s2">&quot;dd.MM.yyyy&quot;</span>
    <span class="p">},</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span><span class="p">,</span>
          <span class="nt">&quot;price&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;double&quot;</span>
+            <span class="nt">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;double&quot;</span>
          <span class="p">},</span>
          <span class="nt">&quot;createDate&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span>
          <span class="nt">&quot;modifiedTime&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;typeParams&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;dataTypeParams&quot;</span><span class="p">:</span> <span class="p">{</span>
                <span class="nt">&quot;dateFormat&quot;</span><span class="p">:</span><span class="s2">&quot;yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;&quot;</span>
             <span class="p">}</span>
          <span class="p">}</span>
@@ -424,38 +424,38 @@ it may need extra parameters to convert a string to given data type. Extra param
 </div>
 </div>
 <div class="section" id="id4">
-<h2><span class="target" id="typeparams">typeParams</span><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><span class="target" id="datatypeparams">dataTypeParams</span><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>typeParams is used for passing extra parameters to a <a class="reference internal" href="#type">type</a> converter. typeParams field <a href="#id68"><span class="problematic" id="id69">extended_</span></a> to <a href="#id70"><span class="problematic" id="id71">params_</span></a> field.</p>
+<p>dataTypeParams is used for passing extra parameters to a <a class="reference internal" href="#datatype">dataType</a> convertdataTypeParamsrams field <a href="#id70"><span class="problematic" id="id71">extended_</span></a> to <a href="#id72"><span class="problematic" id="id73">params_</span></a> field.</p>
 <p>Check <a class="reference internal" href="#typeparamsexample">example</a> here.</p>
 </div>
 <div class="section" id="id5">
 <h2><span class="target" id="default">default</span><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>The <em>default</em> field holds the value to be assigned to a property  by default. The default value is assigned  when the <a href="#id72"><span class="problematic" id="id73">tagPath_</span></a>  does not match the <a href="#id74"><span class="problematic" id="id75">absolute_</span></a> path of any tag in the <a href="#id76"><span class="problematic" id="id77">`source document`_</span></a>.
+<p>The <em>default</em> field holds the value to be assigned to a property  by default. The default value is assigned  when the <a href="#id74"><span class="problematic" id="id75">path_</span></a>  does not match the <a href="#id76"><span class="problematic" id="id77">absolute_</span></a> path of any tag in the <a href="#id78"><span class="problematic" id="id79">`source document`_</span></a>.
 If the value of the default field is a string,
-this value is accepted as the <a href="#id78"><span class="problematic" id="id79">value_</span></a> field of the <a href="#id80"><span class="problematic" id="id81">`Default Object`_</span></a>.</p>
+this value is accepted as the <a href="#id80"><span class="problematic" id="id81">value_</span></a> field of the <a href="#id82"><span class="problematic" id="id83">`Default Object`_</span></a>.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p><a href="#id82"><span class="problematic" id="id83">`Default Object`_</span></a></p>
-<p class="last"><a href="#id84"><span class="problematic" id="id85">Expression_</span></a></p>
+<p><a href="#id84"><span class="problematic" id="id85">`Default Object`_</span></a></p>
+<p class="last"><a href="#id86"><span class="problematic" id="id87">Expression_</span></a></p>
 </div>
-<p><a href="#id86"><span class="problematic" id="id87">`assignment order`_</span></a> of the default  is from the bottom to up in an object.</p>
+<p><a href="#id88"><span class="problematic" id="id89">`assignment order`_</span></a> of the default  is from the bottom to up in an object.</p>
 <p>Examples</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$ self.data.categoryType==&#39;foo&#39;</span>
            <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
               <span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">foo</span>  <span class="c1"># force set name to foo with filter</span>
               <span class="l l-Scalar l-Scalar-Plain">force</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
+         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
      <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
      <span class="l l-Scalar l-Scalar-Plain">productUnit</span><span class="p p-Indicator">:</span>
            <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$ self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;</span><span class="p p-Indicator">:</span> <span class="s">&#39;KG&#39;</span>    <span class="c1"># default value is expression.  this default value is assigned after &quot;categoryType&quot; field assigned.</span>
@@ -470,8 +470,8 @@ this value is accepted as the <a href="#id78"><span class="problematic" id="id79
 <div><div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
@@ -493,13 +493,13 @@ this value is accepted as the <a href="#id78"><span class="problematic" id="id79
 <div class="section" id="id6">
 <h2><span class="target" id="transformationcode">transformationCode</span><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p><em>transformationCode</em> field refers to the definition of the <a href="#id88"><span class="problematic" id="id89">transformation_</span></a> to be used to transform the tag value.</p>
+<p><em>transformationCode</em> field refers to the definition of the <a href="#id90"><span class="problematic" id="id91">transformation_</span></a> to be used to transform the tag value.</p>
 <p>Below definition work as follows:</p>
 <blockquote>
 <div><ul class="simple">
-<li>value of tag “/country_code”  is read from <a href="#id90"><span class="problematic" id="id91">`source document`_</span></a></li>
-<li>if this value exist in “COUNTRY_CODE_TO_NAME” <a href="#id92"><span class="problematic" id="id93">transformation_</span></a> definition, get value that match.</li>
-<li>if not exist, get “DEFAULT” value of “COUNTRY_CODE_TO_NAME” <a href="#id94"><span class="problematic" id="id95">transformation_</span></a> definition</li>
+<li>value of tag “/country_code”  is read from <a href="#id92"><span class="problematic" id="id93">`source document`_</span></a></li>
+<li>if this value exist in “COUNTRY_CODE_TO_NAME” <a href="#id94"><span class="problematic" id="id95">transformation_</span></a> definition, get value that match.</li>
+<li>if not exist, get “DEFAULT” value of “COUNTRY_CODE_TO_NAME” <a href="#id96"><span class="problematic" id="id97">transformation_</span></a> definition</li>
 </ul>
 </div></blockquote>
 <div class="content-tabs docutils container">
@@ -514,11 +514,11 @@ this value is accepted as the <a href="#id78"><span class="problematic" id="id79
           <span class="l l-Scalar l-Scalar-Plain">US</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">United States</span>
 
 <span class=" -Error"> </span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-   <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-   <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">country</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">country_code</span>
+            <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">country_code</span>
             <span class="l l-Scalar l-Scalar-Plain">transformationCode</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">COUNTRY_CODE_TO_NAME</span>
 </pre></div>
 </div>
@@ -537,11 +537,11 @@ this value is accepted as the <a href="#id78"><span class="problematic" id="id79
       <span class="p">}</span>
    <span class="p">},</span>
  <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-   <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
    <span class="nt">&quot;fields&quot;</span><span class="p">{</span>
         <span class="nt">&quot;country&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;country_code&quot;</span>
+            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;country_code&quot;</span>
             <span class="s2">&quot;transformationCode&quot;</span><span class="p">:</span> <span class="s2">&quot;COUNTRY_CODE_TO_NAME&quot;</span>
         <span class="p">}</span>
    <span class="p">}</span>
@@ -553,18 +553,18 @@ this value is accepted as the <a href="#id78"><span class="problematic" id="id79
 </div>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a href="#id96"><span class="problematic" id="id97">Transformations_</span></a></p>
+<p class="last"><a href="#id98"><span class="problematic" id="id99">Transformations_</span></a></p>
 </div>
 </div>
 <div class="section" id="id7">
 <h2><span class="target" id="function">function</span><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>The <em>function</em> field refers to the definition of <a href="#id98"><span class="problematic" id="id99">functions_</span></a> field to be used for the custom operation.
-For more detail about how <a href="#id100"><span class="problematic" id="id101">functions_</span></a> works, look at <a href="#id102"><span class="problematic" id="id103">functions_</span></a> sections.</p>
+<p>The <em>function</em> field refers to the definition of <a href="#id100"><span class="problematic" id="id101">functions_</span></a> field to be used for the custom operation.
+For more detail about how <a href="#id102"><span class="problematic" id="id103">functions_</span></a> works, look at <a href="#id104"><span class="problematic" id="id105">functions_</span></a> sections.</p>
 <p>Below definition work as follows:</p>
 <blockquote>
 <div><ul class="simple">
-<li>all fields of product   are read from <a href="#id104"><span class="problematic" id="id105">`source document`_</span></a></li>
+<li>all fields of product   are read from <a href="#id106"><span class="problematic" id="id107">`source document`_</span></a></li>
 <li>When the “/product” tag is closed, the “com.example.InsertProduct” function in the “insertProduct” definition is called.</li>
 </ul>
 </div></blockquote>
@@ -576,8 +576,8 @@ For more detail about how <a href="#id100"><span class="problematic" id="id101">
    <span class="l l-Scalar l-Scalar-Plain">insertProduct</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">com.example.InsertProduct</span>
 
 <span class=" -Error"> </span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-   <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-   <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/product</span>
+   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/product</span>
    <span class="l l-Scalar l-Scalar-Plain">function</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">insertProduct</span>
    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -594,8 +594,8 @@ For more detail about how <a href="#id100"><span class="problematic" id="id101">
       <span class="nt">&quot;insertProduct&quot;</span><span class="p">:</span><span class="s2">&quot;com.example.InsertProduct&quot;</span>
    <span class="p">},</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
       <span class="nt">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;insertProduct&quot;</span><span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
@@ -610,7 +610,7 @@ For more detail about how <a href="#id100"><span class="problematic" id="id101">
 </div>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a href="#id106"><span class="problematic" id="id107">functions_</span></a></p>
+<p class="last"><a href="#id108"><span class="problematic" id="id109">functions_</span></a></p>
 </div>
 </div>
 <div class="section" id="id8">
@@ -628,25 +628,25 @@ The <a class="reference internal" href="#uniquename">uniqueName</a> field is use
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-   <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-   <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">users</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
             <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
                 <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
                 <span class="l l-Scalar l-Scalar-Plain">email</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
                 <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
-                     <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+                     <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
                      <span class="l l-Scalar l-Scalar-Plain">uniqueName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">userCategory</span>
                      <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
                         <span class="l l-Scalar l-Scalar-Plain">categoryName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
         <span class="l l-Scalar l-Scalar-Plain">order</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
             <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
                 <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
                 <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
-                  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+                  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
                   <span class="l l-Scalar l-Scalar-Plain">uniqueName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">orderCategory</span>
                   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
                         <span class="l l-Scalar l-Scalar-Plain">categoryName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -658,16 +658,16 @@ The <a class="reference internal" href="#uniquename">uniqueName</a> field is use
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
          <span class="nt">&quot;users&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
             <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
                <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
                <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="p">{</span>
-                  <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
                   <span class="nt">&quot;uniqueName&quot;</span><span class="p">:</span> <span class="s2">&quot;userCategory&quot;</span><span class="p">,</span>
                   <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
                      <span class="nt">&quot;categoryName&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
@@ -676,11 +676,11 @@ The <a class="reference internal" href="#uniquename">uniqueName</a> field is use
             <span class="p">}</span>
          <span class="p">},</span>
          <span class="nt">&quot;order&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
             <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
                <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
                <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="p">{</span>
-                  <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
                   <span class="nt">&quot;uniqueName&quot;</span><span class="p">:</span> <span class="s2">&quot;orderCategory&quot;</span><span class="p">,</span>
                   <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
                      <span class="nt">&quot;categoryName&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
@@ -718,58 +718,58 @@ The value of this field is an expression.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><th class="stub"><a href="#id108"><span class="problematic" id="id109">params_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id110"><span class="problematic" id="id111">params_</span></a></th>
 <td>Map&lt;string,any&gt;</td>
-<td><a href="#id110"><span class="problematic" id="id111">params_</span></a> object.</td>
+<td><a href="#id112"><span class="problematic" id="id113">params_</span></a> object.</td>
 <td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
 </tr>
-<tr class="row-odd"><th class="stub"><a href="#id112"><span class="problematic" id="id113">self_</span></a></th>
-<td><a href="#id114"><span class="problematic" id="id115">Node_</span></a></td>
-<td>current node object that hold data of current complex <a href="#id116"><span class="problematic" id="id117">tagType_</span></a></td>
+<tr class="row-odd"><th class="stub"><a href="#id114"><span class="problematic" id="id115">self_</span></a></th>
+<td><a href="#id116"><span class="problematic" id="id117">Node_</span></a></td>
+<td>current node object that hold data of current complex <a href="#id118"><span class="problematic" id="id119">type_</span></a></td>
 <td><strong>self.data.foo</strong> =&gt; foo field of current node,  <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
 </tr>
-<tr class="row-even"><th class="stub"><a href="#id118"><span class="problematic" id="id119">all_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id120"><span class="problematic" id="id121">all_</span></a></th>
 <td>Map&lt;string,Node_&gt;</td>
 <td>A map that stores all nodes by the “<a class="reference internal" href="#uniquename">uniqueName</a>” of <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a></td>
 <td><strong>all.bar.data.foo</strong> =&gt; foo field of <strong>bar</strong> node,  <strong>all.barList.data[0].foo</strong> =&gt; <em>foo</em> field of first item of <em>barList</em> node</td>
 </tr>
 <tr class="row-odd"><th class="stub">value</th>
 <td>string</td>
-<td>raw string value of the current tag in <a href="#id120"><span class="problematic" id="id121">`source document`_</span></a></td>
+<td>raw string value of the current tag in <a href="#id122"><span class="problematic" id="id123">`source document`_</span></a></td>
 <td><strong>value==’Computer’</strong>,**value.startWith(‘bar’)**</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a href="#id122"><span class="problematic" id="id123">`Expression`_</span></a></p>
+<p class="last"><a href="#id124"><span class="problematic" id="id125">`Expression`_</span></a></p>
 </div>
 </div>
 <div class="section" id="id10">
 <h2><span class="target" id="xml">xml</span><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>The xml field is used to make extra definitions and to change “tagPath” and “tagType” fields for XML format.</p>
-<p>check <a href="#id124"><span class="problematic" id="id125">`XML Object`_</span></a> for more detail</p>
+<p>The xml field is used to make extra definitions and to change “path” and “type” fields for XML format.</p>
+<p>check <a href="#id126"><span class="problematic" id="id127">`XML Object`_</span></a> for more detail</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a href="#id126"><span class="problematic" id="id127">`XML Object`_</span></a></p>
+<p class="last"><a href="#id128"><span class="problematic" id="id129">`XML Object`_</span></a></p>
 </div>
 </div>
 <div class="section" id="id11">
 <h2><span class="target" id="ref">$ref</span><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>$ref field is used to <a href="#id128"><span class="problematic" id="id129">extends_</span></a> <a class="reference internal" href="#parsing-element">Parsing Element</a> to given <a href="#id130"><span class="problematic" id="id131">fragments_</span></a>. it’s value is a Load Time Expression.
-<a href="#id132"><span class="problematic" id="id133">fragments_</span></a> can be <a href="#id134"><span class="problematic" id="id135">extends_</span></a> another <a href="#id136"><span class="problematic" id="id137">fragments_</span></a> but can not extends itself.
-Sometimes we don’t need parent properties. To exclude parent properties, define <a class="reference internal" href="#type">type</a> as “exclude”.  In example bellow category property is excluded.</p>
+<p>$ref field is used to <a href="#id130"><span class="problematic" id="id131">extends_</span></a> <a class="reference internal" href="#parsing-element">Parsing Element</a> to given <a href="#id132"><span class="problematic" id="id133">fragments_</span></a>. it’s value is a Load Time Expression.
+<a href="#id134"><span class="problematic" id="id135">fragments_</span></a> can be <a href="#id136"><span class="problematic" id="id137">extends_</span></a> another <a href="#id138"><span class="problematic" id="id139">fragments_</span></a> but can not extends itself.
+Sometimes we don’t need parent properties. To exclude parent properties, define <a class="reference internal" href="#datatype">dataType</a> as “exclude”.  In example bellow category property is excluded.</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="s">&quot;/Pets/Pet&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="s">&quot;/Pets/Pet&quot;</span>
   <span class="l l-Scalar l-Scalar-Plain">$ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$fragments.pet</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">exclude</span>     <span class="c1"># import all properties of  fragments.pet except category property.</span>
@@ -777,17 +777,17 @@ Sometimes we don’t need parent properties. To exclude parent properties, defin
             <span class="l l-Scalar l-Scalar-Plain">default $self.data.tags.stream().anyMatch(s-&gt;s.name==&#39;Popular&#39;)</span>
 <span class="l l-Scalar l-Scalar-Plain">fragments</span><span class="p p-Indicator">:</span>
    <span class="l l-Scalar l-Scalar-Plain">tag</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
       <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
          <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
          <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
    <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
       <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
          <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
          <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
    <span class="l l-Scalar l-Scalar-Plain">pet</span><span class="p p-Indicator">:</span>
-     <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+     <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
      <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
          <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>
          <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -795,15 +795,15 @@ Sometimes we don’t need parent properties. To exclude parent properties, defin
          <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">$ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$fragments.category</span>
          <span class="l l-Scalar l-Scalar-Plain">photoUrls</span><span class="p p-Indicator">:</span>
-              <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-              <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls</span>
+              <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+              <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls</span>
               <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
-                 <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls/photoUrls</span>
+                 <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls/photoUrls</span>
          <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>
-             <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-             <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags</span>
+             <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+             <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags</span>
              <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
-               <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/tag</span>
+               <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/tag</span>
              <span class="l l-Scalar l-Scalar-Plain">$ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$fragments.tag</span>
 </pre></div>
 </div>
@@ -813,10 +813,10 @@ Sometimes we don’t need parent properties. To exclude parent properties, defin
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
       <span class="nt">&quot;xml&quot;</span><span class="p">:</span> <span class="p">{</span>
-         <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/Pets/Pet&quot;</span>
+         <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Pets/Pet&quot;</span>
       <span class="p">},</span>
       <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;$fragments.pet&quot;</span><span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -826,21 +826,21 @@ Sometimes we don’t need parent properties. To exclude parent properties, defin
    <span class="p">},</span>
    <span class="nt">&quot;fragments&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;tag&quot;</span><span class="p">:</span> <span class="p">{</span>
-         <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
          <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span>
             <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
          <span class="p">}</span>
       <span class="p">},</span>
       <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="p">{</span>
-         <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
          <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span>
             <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
          <span class="p">}</span>
       <span class="p">},</span>
       <span class="nt">&quot;pet&quot;</span><span class="p">:</span> <span class="p">{</span>
-         <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
          <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;long&quot;</span><span class="p">,</span>
             <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
@@ -849,17 +849,17 @@ Sometimes we don’t need parent properties. To exclude parent properties, defin
                <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;$fragments.category&quot;</span>
             <span class="p">},</span>
             <span class="nt">&quot;photoUrls&quot;</span><span class="p">:</span> <span class="p">{</span>
-               <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
-               <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;photoUrls&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;photoUrls&quot;</span><span class="p">,</span>
                <span class="nt">&quot;xml&quot;</span><span class="p">:</span> <span class="p">{</span>
-                  <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;photoUrls/photoUrls&quot;</span>
+                  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;photoUrls/photoUrls&quot;</span>
                <span class="p">}</span>
             <span class="p">},</span>
             <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
-               <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
-               <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span>
                <span class="nt">&quot;xml&quot;</span><span class="p">:</span> <span class="p">{</span>
-                  <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;tags/tag&quot;</span>
+                  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;tags/tag&quot;</span>
                <span class="p">},</span>
                <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;$fragments.tag&quot;</span>
             <span class="p">}</span>

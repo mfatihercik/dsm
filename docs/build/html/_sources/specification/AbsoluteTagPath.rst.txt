@@ -2,12 +2,12 @@
 .. _absolute:
 
 *********************
-Absolute Tag Path
+Absolute  Path
 *********************
 
 --------------------------------------
 
-Absolute Tag Path  is found by **joining all tag name from top to bottom with "/"** character until specified tag.
+Absolute  Path  is found by **joining all tag name from top to bottom with "/"** character until specified tag.
       
 Below example is json representation of array of Pet object.
 
@@ -122,6 +122,6 @@ Absolute tag paths of all field in above XML document are listed below.
 
 .. seealso::
 
-   tagPath_
+   path_
 
-   tagParentPath_
+   parentPath_

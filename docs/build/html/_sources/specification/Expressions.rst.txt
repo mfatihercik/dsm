@@ -96,7 +96,7 @@ The following objects are available in the expression context.
     
     params_ | Map<string,any> | params_ object. | **params.dateFormat** =='dd.MM.yyyy' 
     all_ | Map<string,Node_> | A map that stores all nodes by the "uniqueName_" of `Parsing Element Object`_  | **all.bar.data.foo** => foo field of **bar** node,  **all.barList.data[0].foo** => *foo* field of first item of *barList* node
-    self_ | Node_ | current node object that hold data of current complex tagType_ | **self.data.foo** => foo field of current node,     **self.parent.data.foo** => foo field of parent node, **self.data.bar.foo** => foo field of bar object in current node.    
+    self_ | Node_ | current node object that hold data of current complex type_ | **self.data.foo** => foo field of current node,     **self.parent.data.foo** => foo field of parent node, **self.data.bar.foo** => foo field of bar object in current node.    
     value | string | (not available in default_ field) The raw string value of the current tag in `source document`_ | **value=='Computer'**,**value.startWith('bar')**
 
 .. seealso::
@@ -111,7 +111,7 @@ _`all`
 
 -------------------------
 
-Each complex tagType_ creates a node_. The created nodes can be accessed using the "all" object in the expressions. 
+Each complex type_ creates a node_. The created nodes can be accessed using the "all" object in the expressions. 
 Each node is stored in all_ map with the uniqueName_ of the `Parsing Element`_ that creates the node.  
 
 
@@ -121,18 +121,18 @@ Each node is stored in all_ map with the uniqueName_ of the `Parsing Element`_ t
 .. code-block:: yaml
 
    result:
-        tagType: array
+        type: array
         fields:
             order: 
-                 tagType:  object
+                 type:  object
                  fields:
                     state: string
                     createDate: date                         
                     saleLines:
-                         tagType: array
+                         type: array
                          fields: 
                             product:
-                                  tagType: object
+                                  type: object
                                   fields: 
                                       id: string
                                       name: string
@@ -141,7 +141,7 @@ Each node is stored in all_ map with the uniqueName_ of the `Parsing Element`_ t
                             unit: string
                     
             company:
-                 tagType: object
+                 type: object
                  fields:
                      id: string
                      name: string
@@ -188,7 +188,7 @@ _`self`
 
 -------------------------
 
-current node object that hold data of current complex tagType.
+current node object that hold data of current complex type_.
 
 Example usages:
 
@@ -211,17 +211,17 @@ Example usages:
          
             version: 1.0
             result:             
-              tagType: object
-              tagPath: /
+              type: object
+              path: /
               fields:
                  name:    
                      - filter: $ self.data.categoryType=='foo'     # filter expression. 
                        default: 
                           value: foo  # force set name to foo with filter
                           force: true
-                     - tagPath: name    
+                     - path: name    
                  category: 
-                    tagType: object
+                    type: object
                     fields:
                        id: int
                        name: 
@@ -241,8 +241,8 @@ Example usages:
              {
                 "version": 1.0,
                 "result":{
-                   "tagType":"object",
-                   "tagPath":"/"  ,       
+                   "type"bject",
+                   "path":"/"  ,       
                    "fields":{
                       "name":"string",
                       "category":{

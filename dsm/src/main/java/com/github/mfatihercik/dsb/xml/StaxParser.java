@@ -86,7 +86,7 @@ public class StaxParser extends StreamParser {
     @Override
     protected ParsingElement initParsingElement(ParsingElement parsingElement) {
         parsingElement = super.initParsingElement(parsingElement);
-        parsingElement.setTagPath(parsingElement.getTagXmlPath());
+        parsingElement.setPath(parsingElement.getXmlPath());
         return parsingElement;
     }
 
@@ -165,7 +165,7 @@ public class StaxParser extends StreamParser {
                         }
                     }
 
-                    value = attributes.get(parsingElement.getTagPath());
+                    value = attributes.get(parsingElement.getPath());
                     if (value != null) {
                         setValueOnNode(parsingElement, path, value);
 

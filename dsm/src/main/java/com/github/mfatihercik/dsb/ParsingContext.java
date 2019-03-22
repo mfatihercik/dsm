@@ -11,6 +11,7 @@ import java.util.Map;
 public class ParsingContext {
     private int nodeMapSize = 0;
     private Map<String, Node> mainNodeMap = new HashMap<>();
+    private Map<ParsingElement, Node> parsingElementToNode = new HashMap<>();
     private Map<ParsingElement, List<DeferAssigment>> deferAssigmentMap = new HashMap<>();
     private Class<?> resultType;
     private Node rootNode;
@@ -26,6 +27,8 @@ public class ParsingContext {
     public void clear() {
         getMainNodeMap().clear();
         initNodeMap(nodeMapSize);
+        parsingElementToNode.clear();
+        deferAssigmentMap.clear();
 
     }
 
@@ -62,29 +65,28 @@ public class ParsingContext {
     }
 
 
-    public Node get(String uniqueKey) {
-        return getMainNodeMap().get(uniqueKey);
-    }
-
-    public Node get(int index) {
-        return nodeMap[index];
-    }
 
     public Node get(ParsingElement parsingElement) {
-        if (parsingElement.getIndex() > -1) {
-            return get(parsingElement.getIndex());
-        }
-        return null;
+        return parsingElementToNode.get(parsingElement);
+//        if (parsingElement.getIndex() > -1) {
+//            return get(parsingElement.getIndex());
+//        }
+//        return null;
     }
 
+    public void addMainNodeMap(Node node) {
+        ParsingElement parsingElement = node.getParsingElement();
+        getMainNodeMap().put(parsingElement.getUniqueKey(), node);
+    }
     public void add(Node node) {
         ParsingElement parsingElement = node.getParsingElement();
         nodeMap[parsingElement.getIndex()] = node;
-        getMainNodeMap().put(parsingElement.getUniqueKey(), node);
+        parsingElementToNode.put(parsingElement, node);
     }
 
     public Node remove(ParsingElement parsingElement) {
         nodeMap[parsingElement.getIndex()] = null;
+        parsingElementToNode.remove(parsingElement);
         return getMainNodeMap().remove(parsingElement.getUniqueKey());
     }
 

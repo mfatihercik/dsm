@@ -111,7 +111,7 @@
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="specification/main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -249,26 +249,26 @@
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">MM/dd/yyyy</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-   <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-   <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+   <span class="l l-Scalar l-Scalar-Plain">typebject</span>
+   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
    <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pet</span>
+      <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pet</span>
    <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.status==&#39;sold&#39;</span>
    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
        <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span>
-         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+         <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
          <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">attribute</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
        <span class="l l-Scalar l-Scalar-Plain">status</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">status</span>
        <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>
        <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
-           <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">category/name</span>
+           <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">category/name</span>
        <span class="l l-Scalar l-Scalar-Plain">isPopular</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.tags.contains(&quot;Popular&quot;)</span>
        <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>
-             <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-             <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/name |tags/tag/name</span>    <span class="c1"># its regex expression. works for both JSON and XML</span>
+             <span class="l l-Scalar l-Scalar-Plain">typerray</span>
+             <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/name |tags/tag/name</span>    <span class="c1"># its regex expression. works for both JSON and XML</span>
 </pre></div>
 </div>
 <p><strong>Class to deserialize</strong></p>
@@ -374,7 +374,7 @@
 
 <span class="l l-Scalar l-Scalar-Plain">fragments</span><span class="p p-Indicator">:</span>                                  <span class="c1"># create reusable fragment</span>
     <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+      <span class="l l-Scalar l-Scalar-Plain">typebject</span>
       <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
          <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
          <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -384,10 +384,10 @@
 <p>[main.yaml]</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$extends</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">header.yaml</span>                       <span class="c1"># extends to header.yaml config.</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>                          <span class="c1"># result is an array</span>
-    <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/ | /Pets/Pet</span>                 <span class="c1"># start reading form beginning for json. tagPath is a regex. we can define both for xml and json same time. or we can declare for xml in XML field.</span>
+    <span class="l l-Scalar l-Scalar-Plain">typerray</span>                          <span class="c1"># result is an array</span>
+    <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/ | /Pets/Pet</span>                 <span class="c1"># start reading form beginning for json. path is a regex. we can define both for xml and json same time. or we can declare for xml in XML field.</span>
     <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pets/Pet</span>                    <span class="c1"># start reading from /Pets/Pet for xml</span>
+      <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pets/Pet</span>                    <span class="c1"># start reading from /Pets/Pet for xml</span>
 
     <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.isAvailable</span>          <span class="c1"># filter by &quot;isAvailable&quot; property. &quot;self&quot; key word refers to current Node. self.parent refers to parent Node. self.data refers to current node data</span>
 
@@ -395,13 +395,13 @@
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>                          <span class="c1"># read name as string.</span>
       <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>                           <span class="c1"># read id as int</span>
+        <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>                           <span class="c1"># read id as int</span>
         <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
           <span class="l l-Scalar l-Scalar-Plain">attribute</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>                   <span class="c1"># id is an attribute on /Pets/Pet tag.</span>
       <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>                      <span class="c1"># use dateFormat in params then convert string to date</span>
       <span class="l l-Scalar l-Scalar-Plain">isAvailable</span><span class="p p-Indicator">:</span>
-          <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">status</span>              <span class="c1"># read isAvailable as string from &quot;status&quot; tag</span>
-          <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+          <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">status</span>              <span class="c1"># read isAvailable as string from &quot;status&quot; tag</span>
+          <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
           <span class="l l-Scalar l-Scalar-Plain">transformationCode</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">SOLD_STATUS</span>    <span class="c1"># user &quot;SOLD_STATUS&quot; transformation to map from &quot;status&quot; to &quot;isAvailable&quot;</span>
       <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
           <span class="l l-Scalar l-Scalar-Plain">$ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$fragments.category</span>          <span class="c1"># extends to &quot;fragment.category&quot;</span>
@@ -413,11 +413,11 @@
             <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.tags.contains(&quot;Popular&quot;)</span>   <span class="c1"># set default value of &quot;isPopular&quot; property</span>
 
       <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>
-          <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-          <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/name</span>
+          <span class="l l-Scalar l-Scalar-Plain">typerray</span>
+          <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/name</span>
           <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$value.length&gt;15</span>      <span class="c1"># filter by length of value.</span>
           <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/tag/name</span>
+            <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/tag/name</span>
 </pre></div>
 </div>
 </div>

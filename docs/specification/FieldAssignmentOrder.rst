@@ -15,7 +15,7 @@ if Parsing Element founds, value of tag is assigned according to `Parsing Elemen
 
 The Property assignment work as follows:
 
-let's name the tag that is pointed by tagPath_  as **current tag** and the tag that is pointed by tagParentPath  as **parent tag** 
+let's name the tag that is pointed by path_  as **current tag** and the tag that is pointed by parentPath  as **parent tag** 
 
 The property is assigned when **current tag** is closed except attribute_ properties for the XML document. 
 The attribute_ properties is assigned at start of **parent tag** by reading attribute value of **parent tag**
@@ -75,10 +75,10 @@ Example:
 .. code-block:: yaml
 
       result: 
-        tagType: array
-        tagPath: /
+        type: array
+        path: /
         xml: 
-          tagPath: "/Pets/Pet"
+          path: "/Pets/Pet"
         fields:
          id:long
          name: 
@@ -86,20 +86,20 @@ Example:
          isPopular:
             default $self.data.tags.stream().anyMatch(s->s.name=='Popular')
          category: 
-             tagType: object
+             type: object
              fields: 
                name:
                id: long
          photoUrls: 
-              tagType: array
-              tagPath: photoUrls
+              type: array
+              path: photoUrls
               xml: 
-                 tagPath: photoUrls/photoUrls
+                 path: photoUrls/photoUrls
          tags: 
-             tagType: array
-             tagPath: tags
+             type: array
+             path: tags
              xml: 
-               tagPath: tags/tag
+               path: tags/tag
              fields: 
                  id:int 
                  name: 

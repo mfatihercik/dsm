@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -196,12 +196,12 @@
 <li><p class="first">if field <strong>not exist</strong> in source, <strong>copy</strong> value of target to source.</p>
 </li>
 <li><p class="first">if field <strong>exist</strong> in source do followings</p>
-<p>2.1.  if  <strong>type</strong> of fields  is <strong>different</strong> then <strong>skip</strong> this field.</p>
-<p>2.2.  if  <strong>type</strong> of fields  is <strong>same</strong> then do followings</p>
+<p>2.1.  if  <strong>dataType</strong> of fields  is <strong>different</strong> then <strong>skip</strong> this field.</p>
+<p>2.2.  if  <strong>dataType</strong> of fields  is <strong>same</strong> then do followings</p>
 <blockquote>
-<div><p>2.2.1.  if <strong>type</strong> is <strong>simple type</strong> (string,number) then <strong>skip</strong> this field (do not copy target to source)</p>
-<p>2.2.2.  if <strong>type</strong> is <strong>array</strong> then <strong>add</strong> target values to <strong>start of</strong> the source values</p>
-<p>2.2.3.  if <strong>type</strong> is <strong>map</strong> then <strong>start Merge process</strong> for those two map.</p>
+<div><p>2.2.1.  if <strong>dataType</strong> is <strong>simpleDataType</strong> (string,number) then <strong>skip</strong> this field (do not copy target to source)</p>
+<p>2.2.2.  if <strong>dataType</strong> is <strong>array</strong> then <strong>add</strong> target values to <strong>start of</strong> the source values</p>
+<p>2.2.3.  if <strong>dataType</strong> is <strong>map</strong> then <strong>start Merge process</strong> for those two map.</p>
 </div></blockquote>
 </li>
 </ol>
@@ -240,8 +240,8 @@
         <span class="l l-Scalar l-Scalar-Plain">map</span><span class="p p-Indicator">:</span>
           <span class="l l-Scalar l-Scalar-Plain">UK</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">United Kingdom</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
 </pre></div>
@@ -262,8 +262,8 @@
           <span class="l l-Scalar l-Scalar-Plain">US</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">United States</span>  <span class="c1"># (rule 1) imported from external document</span>
 
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>  <span class="c1"># exist only current DSM document</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>  <span class="c1"># exist only current DSM document</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>  <span class="c1"># exist only current DSM document</span>
      <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>

@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -180,12 +180,12 @@
   <div class="section" id="id1">
 <h1><span class="target" id="filter">filter</span><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>The filter field determines whether the value of a <a href="#id2"><span class="problematic" id="id3">`Parsing Element`_</span></a>
-(complex or simple tagType does not matter) is added to the object tree.
-The filter field is an <a href="#id4"><span class="problematic" id="id5">expression_</span></a> that returns true or false.</p>
+(complex or simple <a href="#id4"><span class="problematic" id="id5">type_</span></a> does not matter) is added to the object tree.
+The filter field is an <a href="#id6"><span class="problematic" id="id7">expression_</span></a> that returns true or false.</p>
 <p>The following objects are available in Expression Context.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a href="#id6"><span class="problematic" id="id7">expression_</span></a></p>
+<p class="last"><a href="#id8"><span class="problematic" id="id9">expression_</span></a></p>
 </div>
 <table border="1" class="docutils">
 <colgroup>
@@ -202,24 +202,24 @@ The filter field is an <a href="#id4"><span class="problematic" id="id5">express
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><th class="stub"><a href="#id8"><span class="problematic" id="id9">params_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id10"><span class="problematic" id="id11">params_</span></a></th>
 <td>Map&lt;string,any&gt;</td>
-<td><a href="#id10"><span class="problematic" id="id11">params_</span></a> object.</td>
+<td><a href="#id12"><span class="problematic" id="id13">params_</span></a> object.</td>
 <td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
 </tr>
-<tr class="row-odd"><th class="stub"><a href="#id12"><span class="problematic" id="id13">self_</span></a></th>
-<td><a href="#id14"><span class="problematic" id="id15">Node_</span></a></td>
-<td>current node object that hold data of current complex <a href="#id16"><span class="problematic" id="id17">tagType_</span></a></td>
+<tr class="row-odd"><th class="stub"><a href="#id14"><span class="problematic" id="id15">self_</span></a></th>
+<td><a href="#id16"><span class="problematic" id="id17">Node_</span></a></td>
+<td>current node object that hold data of current complex <a href="#id18"><span class="problematic" id="id19">type_</span></a></td>
 <td><strong>self.data.foo</strong> =&gt; foo field of current node,  <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
 </tr>
-<tr class="row-even"><th class="stub"><a href="#id18"><span class="problematic" id="id19">all_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id20"><span class="problematic" id="id21">all_</span></a></th>
 <td>Map&lt;string,Node_&gt;</td>
-<td>A map that stores all nodes by the “<a href="#id20"><span class="problematic" id="id21">uniqueName_</span></a>” of <a href="#id22"><span class="problematic" id="id23">`Parsing Element`_</span></a></td>
+<td>A map that stores all nodes by the “<a href="#id22"><span class="problematic" id="id23">uniqueName_</span></a>” of <a href="#id24"><span class="problematic" id="id25">`Parsing Element`_</span></a></td>
 <td><strong>all.bar.data.foo</strong> =&gt; foo field of <strong>bar</strong> node,  <strong>all.barList.data[0].foo</strong> =&gt; <em>foo</em> field of first item of <em>barList</em> node</td>
 </tr>
 <tr class="row-odd"><th class="stub">value</th>
 <td>string</td>
-<td>value of the current tag in <a href="#id24"><span class="problematic" id="id25">`source document`_</span></a></td>
+<td>value of the current tag in <a href="#id26"><span class="problematic" id="id27">`source document`_</span></a></td>
 <td><strong>value==’Computer’</strong>,**value.startWith(‘bar’)**</td>
 </tr>
 </tbody>
@@ -231,8 +231,8 @@ The filter field is an <a href="#id4"><span class="problematic" id="id5">express
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span>
-    <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-    <span class="l l-Scalar l-Scalar-Plain">tagPath:/</span>
+    <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+    <span class="l l-Scalar l-Scalar-Plain">path:/</span>
     <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.category==&#39;Computer&#39;</span>  <span class="c1"># collect all data that category field is &#39;Computer&#39;</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -245,8 +245,8 @@ The filter field is an <a href="#id4"><span class="problematic" id="id5">express
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;array&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;array&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
       <span class="nt">&quot;filter&quot;</span><span class="p">:</span> <span class="s2">&quot;$self.data.category==&#39;Computer&#39;&quot;</span><span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
@@ -264,8 +264,8 @@ The filter field is an <a href="#id4"><span class="problematic" id="id5">express
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span>
-    <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-    <span class="l l-Scalar l-Scalar-Plain">tagPath:/</span>
+    <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+    <span class="l l-Scalar l-Scalar-Plain">path:/</span>
     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
      <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
@@ -278,8 +278,8 @@ The filter field is an <a href="#id4"><span class="problematic" id="id5">express
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;array&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;array&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
       <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
          <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
          <span class="nt">&quot;category&quot;</span><span class="p">:{</span>

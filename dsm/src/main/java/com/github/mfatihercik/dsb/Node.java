@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mfatihercik.dsb.model.ParsingElement;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,15 @@ public class Node {
     private ObjectMapper objectMapper;
     private int index = 0;
     private boolean isClose = false;
+    private Map<ParsingElement, Node> childNodes = null;
+
+    public void reset(Object data) {
+        this.data = data;
+        childNodes = null;
+        child = null;
+        isClose = false;
+        index = 0;
+    }
 
     public Node() {
         this.data = new LinkedHashMap<String, Object>();
@@ -99,8 +109,13 @@ public class Node {
     public void setParent(Node parent, boolean addToChild) {
 
         this.parent = parent;
-        if (addToChild && parent != null)
+        if (addToChild && parent != null) {
+            if (parent.childNodes == null) {
+                parent.childNodes = new HashMap<>();
+            }
+            parent.childNodes.put(this.parsingElement, this);
             parent.setChild(this);
+        }
     }
 
     public void addChild(Node child) {
@@ -175,6 +190,12 @@ public class Node {
 
     public Node getChild() {
         return child;
+    }
+
+    public Node getChild(ParsingElement child) {
+        if (childNodes == null)
+            return null;
+        return childNodes.get(child);
     }
 
     public void setChild(Node child) {

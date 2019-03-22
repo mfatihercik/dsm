@@ -88,26 +88,26 @@ File contents are taken from `Swagger Petstore example <https://editor.swagger.i
     params:
         dateFormat: MM/dd/yyyy    
     result:
-       tagType: object
-       tagPath: / 
+       typebject
+       path: / 
        xml:
-          tagPath: /Pet     
+          path: /Pet     
        filter: $self.data.status=='sold'   
        fields:
            id:
-             type: int
+             dataType: int
              xml:
                 attribute: true
            name: string
            status: status
            createDate: date
            category:
-               tagPath: category/name
+               path: category/name
            isPopular:                
                 default: $self.data.tags.contains("Popular")
            tags:
-                 tagType: array
-                 tagPath: tags/name |tags/tag/name    # its regex expression. works for both JSON and XML
+                 typerray
+                 path: tags/name |tags/tag/name    # its regex expression. works for both JSON and XML
                  
                     
               
@@ -246,7 +246,7 @@ This config file contains some possible option and their short description.
         
     fragments:                                  # create reusable fragment
         category:
-          tagType: object      
+          typebject      
           fields:      
              id: int
              name: string
@@ -259,10 +259,10 @@ This config file contains some possible option and their short description.
     
     $extends: header.yaml                       # extends to header.yaml config.
     result:
-        tagType: array                          # result is an array
-        tagPath: / | /Pets/Pet                 # start reading form beginning for json. tagPath is a regex. we can define both for xml and json same time. or we can declare for xml in XML field.
+        typerray                          # result is an array
+        path: / | /Pets/Pet                 # start reading form beginning for json. path is a regex. we can define both for xml and json same time. or we can declare for xml in XML field.
         xml:
-          tagPath: /Pets/Pet                    # start reading from /Pets/Pet for xml
+          path: /Pets/Pet                    # start reading from /Pets/Pet for xml
         
         filter: $self.data.isAvailable          # filter by "isAvailable" property. "self" key word refers to current Node. self.parent refers to parent Node. self.data refers to current node data
         
@@ -270,13 +270,13 @@ This config file contains some possible option and their short description.
         fields:
           name: string                          # read name as string. 
           id:
-            type: int                           # read id as int  
+            dataType: int                           # read id as int  
             xml:
               attribute: true                   # id is an attribute on /Pets/Pet tag.
           createDate: date                      # use dateFormat in params then convert string to date    
           isAvailable: 
-              tagPath: status              # read isAvailable as string from "status" tag
-              type: boolean
+              path: status              # read isAvailable as string from "status" tag
+              dataType: boolean
               transformationCode: SOLD_STATUS    # user "SOLD_STATUS" transformation to map from "status" to "isAvailable" 
           category: 
               $ref: $fragments.category          # extends to "fragment.category"
@@ -288,11 +288,11 @@ This config file contains some possible option and their short description.
                 default: $self.data.tags.contains("Popular")   # set default value of "isPopular" property
                 
           tags:
-              tagType: array
-              tagPath: tags/name
+              typerray
+              path: tags/name
               filter: $value.length>15      # filter by length of value.
               xml:
-                tagPath: tags/tag/name
+                path: tags/tag/name
 
 
 

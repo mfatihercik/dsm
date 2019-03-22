@@ -57,7 +57,7 @@ class DeserializeTestSpec extends Specification {
 //		
 //			dsm Builder builder = new dsm Builder(rootPath.resolve("simpleOrder.yaml").toFile(),rootPath.toString());
 //	
-//			builder.setType(dsm Builder.TYPE.XML);
+//			builder.setDataType(dsm Builder.TYPE.XML);
 //			dsm dsm = builder.create(SimpleOrder.class);
 //
 //		when:
@@ -78,9 +78,9 @@ class DeserializeTestSpec extends Specification {
 //	@Test
 //	public void deserializeSingleOrderJackson() throws ParserConfigurationException, JsonParseException, JsonProcessingException, IOException {
 //		ObjectMapper mapper = new ObjectMapper(new XmlFactory());
-//		TypeReference<List<SimpleOrder>> type = new TypeReference<List<SimpleOrder>>() {
+//		TypeReference<List<SimpleOrder>> dataType = new TypeReference<List<SimpleOrder>>() {
 //		};
-//		mapper.readValue(new File(TestUtils.getTestResourcePath() + pathPlace + "/" + "simpleOrder.xml"), type);
+//		mapper.readValue(new File(TestUtils.getTestResourcePath() + pathPlace + "/" + "simpleOrder.xml"), dataType);
 //	}
 
 }

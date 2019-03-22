@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -180,7 +180,7 @@
   <div class="section" id="fields">
 <span id="id1"></span><h1>fields<a class="headerlink" href="#fields" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>The fields field is used to define the properties of complex objects. Only <a href="#id2"><span class="problematic" id="id3">`Parsing Element`_</span></a> that has complex <a href="#id4"><span class="problematic" id="id5">tagType_</span></a>  can have the “fields” field.</p>
+<p>The fields field is used to define the properties of complex objects. Only <a href="#id2"><span class="problematic" id="id3">`Parsing Element`_</span></a> that has complex <a href="#id4"><span class="problematic" id="id5">type_</span></a>  can have the “fields” field.</p>
 <p>The fields field is  a map that keys are fieldName of  <a href="#id6"><span class="problematic" id="id7">`Parsing Element`_</span></a> , values are string, <a href="#id8"><span class="problematic" id="id9">`Parsing Element`_</span></a> or list of <a href="#id10"><span class="problematic" id="id11">`Parsing Element`_</span></a></p>
 <div class="section" id="type-of-value-definition">
 <h2>Type of Value Definition<a class="headerlink" href="#type-of-value-definition" title="Permalink to this headline">¶</a></h2>
@@ -195,11 +195,11 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name"><a href="#id20"><span class="problematic" id="id21">fieldName_</span></a>:</th><td class="field-body">key of the map.</td>
 </tr>
-<tr class="field-even field"><th class="field-name"><a href="#id22"><span class="problematic" id="id23">type_</span></a>:</th><td class="field-body">string</td>
+<tr class="field-even field"><th class="field-name"><a href="#id22"><span class="problematic" id="id23">dataType_</span></a>:</th><td class="field-body">string</td>
 </tr>
-<tr class="field-odd field"><th class="field-name"><a href="#id24"><span class="problematic" id="id25">tagPath_</span></a>:</th><td class="field-body">key of the map (fieldName)</td>
+<tr class="field-odd field"><th class="field-name"><a href="#id24"><span class="problematic" id="id25">path_</span></a>:</th><td class="field-body">key of the map (fieldName)</td>
 </tr>
-<tr class="field-even field"><th class="field-name"><a href="#id26"><span class="problematic" id="id27">tagParentPath_</span></a>:</th><td class="field-body">null</td>
+<tr class="field-even field"><th class="field-name"><a href="#id26"><span class="problematic" id="id27">parentPath_</span></a>:</th><td class="field-body">null</td>
 </tr>
 </tbody>
 </table>
@@ -211,11 +211,11 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name"><a href="#id28"><span class="problematic" id="id29">fieldName_</span></a>:</th><td class="field-body">key of the map.</td>
 </tr>
-<tr class="field-even field"><th class="field-name"><a href="#id30"><span class="problematic" id="id31">type_</span></a>:</th><td class="field-body">value of the map</td>
+<tr class="field-even field"><th class="field-name"><a href="#id30"><span class="problematic" id="id31">dataType_</span></a>:</th><td class="field-body">value of the map</td>
 </tr>
-<tr class="field-odd field"><th class="field-name"><a href="#id32"><span class="problematic" id="id33">tagPath_</span></a>:</th><td class="field-body">key of the map (fieldName)</td>
+<tr class="field-odd field"><th class="field-name"><a href="#id32"><span class="problematic" id="id33">path_</span></a>:</th><td class="field-body">key of the map (fieldName)</td>
 </tr>
-<tr class="field-even field"><th class="field-name"><a href="#id34"><span class="problematic" id="id35">tagParentPath_</span></a>:</th><td class="field-body">null</td>
+<tr class="field-even field"><th class="field-name"><a href="#id34"><span class="problematic" id="id35">parentPath_</span></a>:</th><td class="field-body">null</td>
 </tr>
 </tbody>
 </table>
@@ -240,47 +240,47 @@
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
-     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>     <span class="c1"># fieldName is &quot;name&quot; and type is  string and the tagPath is &quot;/name&quot;</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>     <span class="c1"># fieldName is &quot;name&quot; and dataType is  string and the path is &quot;/name&quot;</span>
      <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
-     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>      <span class="c1"># fieldName is &quot;price&quot; and type is  &quot;long&quot;  and the tagPath is &quot;/price&quot;</span>
-     <span class="l l-Scalar l-Scalar-Plain">categoryType</span><span class="p p-Indicator">:</span>   <span class="c1"># fieldName is &quot;categoryType&quot; and it is  &quot;string&quot; value and the tagPath is &quot;/categoryType&quot; it has extra definition (default)</span>
+     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>      <span class="c1"># fieldName is &quot;price&quot; and dataType is  &quot;long&quot;  and the path is &quot;/price&quot;</span>
+     <span class="l l-Scalar l-Scalar-Plain">categoryType</span><span class="p p-Indicator">:</span>   <span class="c1"># fieldName is &quot;categoryType&quot; and it is  &quot;string&quot; value and the path is &quot;/categoryType&quot; it has extra definition (default)</span>
             <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="s">&quot;foo&quot;</span>   <span class="c1"># default value a is a string.</span>
      <span class="l l-Scalar l-Scalar-Plain">productUnit</span><span class="p p-Indicator">:</span>  <span class="c1"># this field contains two definition. one  of that  will win depending on the structure of source document.</span>
-           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">unit/unit_name</span>      <span class="c1"># fieldName is &quot;productUnit&quot; and type is  &quot;long&quot;  and the tagPath is &quot;/unit/unit_name&quot;</span>
+           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">unit/unit_name</span>      <span class="c1"># fieldName is &quot;productUnit&quot; and dataType is  &quot;long&quot;  and the path is &quot;/unit/unit_name&quot;</span>
              <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$ self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;</span><span class="p p-Indicator">:</span> <span class="s">&#39;KG&#39;</span>
 
-           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">mainUnit/unit_name</span>  <span class="c1"># fieldName is &quot;productUnit&quot; and type is  &quot;long&quot;  and the tagPath is &quot;/mainUnit/unit_name&quot;</span>
+           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">mainUnit/unit_name</span>  <span class="c1"># fieldName is &quot;productUnit&quot; and dataType is  &quot;long&quot;  and the path is &quot;/mainUnit/unit_name&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="tab-content docutils container" id="tab-json">
 <p class="tab-title">JSON</p>
-<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
-   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
-      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
-         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;long&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;categoryType&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
-         <span class="p">},</span>
-         <span class="nt">&quot;productUnit&quot;</span><span class="p">:[</span>
-         <span class="p">{</span>  <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;unit/unit_name&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot; $self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;: &#39;KG&#39;&quot;</span>
-         <span class="p">},</span>
-         <span class="p">{</span>
-            <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;mainUnit/unit_name&quot;</span><span class="p">,</span>
-         <span class="p">},</span>
-         <span class="p">],</span>
-       <span class="p">}</span>
-   <span class="p">}</span>
- <span class="p">}</span>
+<div class="highlight-json"><div class="highlight"><pre><span></span>{
+   &quot;version&quot;: 1.0,
+   &quot;result&quot;:{
+      &quot;type&quot;bject&quot;,
+      &quot;path&quot;:&quot;/&quot;  ,
+      &quot;fields&quot;:{
+         &quot;name&quot;:&quot;&quot;,
+         &quot;category&quot;:&quot;&quot;,
+         &quot;price&quot;:&quot;long&quot;,
+         &quot;categoryType&quot;:{
+            &quot;default&quot;: &quot;foo&quot;
+         },
+         &quot;productUnit&quot;:[
+         {  &quot;path&quot;: &quot;unit/unit_name&quot;,
+            &quot;default&quot;: &quot; $self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;: &#39;KG&#39;&quot;
+         },
+         {
+            &quot;path&quot;: &quot;mainUnit/unit_name&quot;,
+         },
+         ],
+       }
+   }
+ }
 </pre></div>
 </div>
 </div>

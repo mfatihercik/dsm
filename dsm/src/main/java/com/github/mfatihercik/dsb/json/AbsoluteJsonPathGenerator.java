@@ -6,12 +6,12 @@ import com.github.mfatihercik.dsb.model.ParsingElement;
 public class AbsoluteJsonPathGenerator extends AbstractPathGenerator {
     @Override
     public String getTagParentPath(ParsingElement parsingElement) {
-        return parsingElement.getTagParentPath();
+        return parsingElement.getParentPath();
     }
 
     @Override
     public String getTagPath(ParsingElement parsingElement) {
-        return parsingElement.getTagPath();
+        return parsingElement.getPath();
 
     }
 

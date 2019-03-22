@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -282,7 +282,7 @@ It allows you to change the structure of the output, change the property value, 
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#self">self</a></th>
 <td><a href="#id41"><span class="problematic" id="id42">Node_</span></a></td>
-<td>current node object that hold data of current complex <a href="#id43"><span class="problematic" id="id44">tagType_</span></a></td>
+<td>current node object that hold data of current complex <a href="#id43"><span class="problematic" id="id44">type_</span></a></td>
 <td><strong>self.data.foo</strong> =&gt; foo field of current node,     <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
 </tr>
 <tr class="row-odd"><th class="stub">value</th>
@@ -299,21 +299,21 @@ It allows you to change the structure of the output, change the property value, 
 <div class="section" id="id2">
 <h3><span class="target" id="all">all</span><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <hr class="docutils" />
-<p>Each complex <a href="#id61"><span class="problematic" id="id62">tagType_</span></a> creates a <a href="#id63"><span class="problematic" id="id64">node_</span></a>. The created nodes can be accessed using the “all” object in the expressions.
+<p>Each complex <a href="#id61"><span class="problematic" id="id62">type_</span></a> creates a <a href="#id63"><span class="problematic" id="id64">node_</span></a>. The created nodes can be accessed using the “all” object in the expressions.
 Each node is stored in <a class="reference internal" href="#all">all</a> map with the <a href="#id65"><span class="problematic" id="id66">uniqueName_</span></a> of the <a href="#id67"><span class="problematic" id="id68">`Parsing Element`_</span></a> that creates the node.</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-     <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+     <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
      <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
          <span class="l l-Scalar l-Scalar-Plain">order</span><span class="p p-Indicator">:</span>
-              <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">object</span>
+              <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">object</span>
               <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
                  <span class="l l-Scalar l-Scalar-Plain">state</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
                  <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>
                  <span class="l l-Scalar l-Scalar-Plain">saleLines</span><span class="p p-Indicator">:</span>
-                      <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+                      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
                       <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
                          <span class="l l-Scalar l-Scalar-Plain">product</span><span class="p p-Indicator">:</span>
-                               <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+                               <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
                                <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
                                    <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
                                    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -322,7 +322,7 @@ Each node is stored in <a class="reference internal" href="#all">all</a> map wit
                          <span class="l l-Scalar l-Scalar-Plain">unit</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
 
          <span class="l l-Scalar l-Scalar-Plain">company</span><span class="p p-Indicator">:</span>
-              <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+              <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
               <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
                   <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
                   <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -381,7 +381,7 @@ Each node is stored in <a class="reference internal" href="#all">all</a> map wit
 <div class="section" id="id3">
 <h3><span class="target" id="self">self</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <hr class="docutils" />
-<p>current node object that hold data of current complex tagType.</p>
+<p>current node object that hold data of current complex <a href="#id69"><span class="problematic" id="id70">type_</span></a>.</p>
 <p>Example usages:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -404,17 +404,17 @@ Each node is stored in <a class="reference internal" href="#all">all</a> map wit
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$ self.data.categoryType==&#39;foo&#39;</span>     <span class="c1"># filter expression.</span>
            <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
               <span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">foo</span>  <span class="c1"># force set name to foo with filter</span>
               <span class="l l-Scalar l-Scalar-Plain">force</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
+         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
      <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
         <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
            <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
            <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
@@ -431,31 +431,31 @@ Each node is stored in <a class="reference internal" href="#all">all</a> map wit
 <div class="tab-content docutils container" id="tab-json">
 <p class="tab-title">JSON</p>
 <blockquote>
-<div><div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
-   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
-      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
-         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-         <span class="nt">&quot;category&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
-               <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;self.parent.data.categoryType==&#39;foo&#39;? &#39;Foo&#39;:&#39;Bar&#39;&quot;</span><span class="p">,</span>
-            <span class="p">},</span>
-            <span class="nt">&quot;categoryType&quot;</span><span class="p">:</span> <span class="p">{</span>
-               <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;default: all.data.categoryType==&#39;foo&#39;? &#39;Foo&#39;:&#39;Bar&#39;&quot;</span><span class="p">,</span>
-            <span class="p">}</span>
-         <span class="p">},</span>
-         <span class="nt">&quot;productUnit&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot; $self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;: &#39;KG&#39;&quot;</span>
-         <span class="p">},</span>
-         <span class="nt">&quot;categoryType&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
-         <span class="p">}</span>
-       <span class="p">}</span>
-   <span class="p">}</span>
- <span class="p">}</span>
+<div><div class="highlight-json"><div class="highlight"><pre><span></span>{
+   &quot;version&quot;: 1.0,
+   &quot;result&quot;:{
+      &quot;type&quot;bject&quot;,
+      &quot;path&quot;:&quot;/&quot;  ,
+      &quot;fields&quot;:{
+         &quot;name&quot;:&quot;string&quot;,
+         &quot;category&quot;:{
+            &quot;id&quot;: &quot;int&quot;,
+            &quot;name&quot;: {
+               &quot;default&quot;: &quot;self.parent.data.categoryType==&#39;foo&#39;? &#39;Foo&#39;:&#39;Bar&#39;&quot;,
+            },
+            &quot;categoryType&quot;: {
+               &quot;default&quot;: &quot;default: all.data.categoryType==&#39;foo&#39;? &#39;Foo&#39;:&#39;Bar&#39;&quot;,
+            }
+         },
+         &quot;productUnit&quot;:{
+            &quot;default&quot;: &quot; $self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;: &#39;KG&#39;&quot;
+         },
+         &quot;categoryType&quot;:{
+            &quot;default&quot;: &quot;foo&quot;
+         }
+       }
+   }
+ }
 </pre></div>
 </div>
 </div></blockquote>

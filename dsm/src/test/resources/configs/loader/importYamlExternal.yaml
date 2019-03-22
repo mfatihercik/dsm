@@ -29,21 +29,21 @@ transformations:
       TR: Turkey
       FR: France
 result:
-  tagType: object
-  tagPath: feed
+  type: object
+  path: feed
   fields:
     #merchant list deleted:false
     vendor:
-      - tagParentPath: merchants
+      - parentPath: merchants
         $extends: "$params.basePath.concat('imporVendorExternal.yaml')"
         fields:
           isDeleted:
             default: false
 
       #deleted_merchant list deleted:true both included in same list
-      - tagType: array
-        tagPath: deleted_merchant
-        tagParentPath: deleted_merchants
+      - type: array
+        path: deleted_merchant
+        parentPath: deleted_merchants
         function: insertVendor
         fields:
           id:
@@ -52,42 +52,42 @@ result:
           isDeleted:
             default: true
           lastModifiedTime:
-            tagPath: last_update_timestamp
-            type: date
+            path: last_update_timestamp
+            dataType: date
     reviews:
-      tagType: array
-      tagPath: review
-      tagParentPath: reviews
+      type: array
+      path: review
+      parentPath: reviews
       function: insertReview
       fields:
         id:
           xml:
             attribute: true
         userName:
-          tagPath: reviewer_name
+          path: reviewer_name
         title:
         content:
         country:
-          tagPath: country_code
+          path: country_code
           transformationCode: COUNTRIES
         collectionMethod:
-          tagPath: collection_method
+          path: collection_method
           transformationCode: COLLECTION_METHOD
         rating:
-          tagPath: overall
-          tagParentPath: ratings
+          path: overall
+          parentPath: ratings
           transformationCode: RATING
         isDeleted:
           default: false
         createTime:
-          tagPath: create_timestamp
-          type:
+          path: create_timestamp
+          dataType:
             type: date
             params:
               dateFormat: dd.MM.yyyy
         lastModifiedTime:
-          tagPath: last_update_timestamp
-          type: date
+          path: last_update_timestamp
+          dataType: date
         
        
           

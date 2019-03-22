@@ -13,22 +13,22 @@ Fields:
           :delim: |
     
           fieldName_ | string | **REQUIRED**  fieldName_ define the name of the property to expose by current object. the fieldName is unique in object.
-          type_ | string | **REQUIRED**. The data type of exposed field. it may have extra parameter provided with typeParams_
-          typeParams_ | Map[string,any] | extra parameters for type field need to convert. for example. dateFormat for date_ type
-          tagType_ | string | the name of the parsing strategy for the current field. the default is STD. 
-          tagTypeParams_ | Map[string,any] | it is used for passing extra parameter to type_ converter. tagTypeParams_ field extended_ to params_ field.
-          tagPath_ | string | The tagPath field specifies the location of a tag in the `source document`_ relative to the tagPath field of the higher-level Parsing Element definition. The default value is the value in the fieldName field.
-          tagParentPath_ | string |The tagParentPath_ field is used in a slightly more complex parsing definitions. it holds path to parent tag of the tag specified in the "tagPath_" field.
-          default_ | string,`Default Object`_ | default value of the field if tagPath_ not exist in the source document. if default value starts with "$" character it is accepted as expression_ and it is resolved by expression resolver.
-          filter_ | string | The Filter field determines whether the value of a `Parsing Element Object`_ (complex or simple tagType does not matter) is added to the object tree. The filter field is an expression_ that returns true or false. 
+          dataType_ | string | **REQUIRED**. The data type of exposed field. it may have extra parameter provided with dataTypeParams_
+          dataTypeParams_ | Map[string,any] | extra parameters for dataType field need to convert. for example. dateFormat for dataType
+          type_ | string | the name of the parsing strategy for the current field. the default is STD. 
+          typeParams_ | Map[string,any] | it is used for passing extra parameter to dataType_ converter. typeParams_ field extended_ to params_ field.
+          path_ | string | The path field specifies the location of a tag in the `source document`_ relative to the path field of the higher-level Parsing Element definition. The default value is the value in the fieldName field.
+          parentPath_ | string |The parentPath_ field is used in a slightly more complex parsing definitions. it holds path to parent tag of the tag specified in the "path_" field.
+          default_ | string,`Default Object`_ | default value of the field if path_ not exist in the source document. if default value starts with "$" character it is accepted as expression_ and it is resolved by expression resolver.
+          filter_ | string | The Filter field determines whether the value of a `Parsing Element Object`_ (complex or simple type_ does not matter) is added to the object tree. The filter field is an expression_ that returns true or false. 
           transformationCode_ | string | this field refers to the definition of the transformation_ to be used to transform the tag value. 
           function_ | string | name of the function in functions_ map. 
           normalize_ | string| this field is used to normalize the value of tag_. İt is an expression. 
           uniqueName_ | string | When "fieldName" fields of complex `Parsing Element`_ definitions are the same in the DSM document, these definitions are differentiated by using the "uniqueKey" field.
           xml_ |  Map[string,any] | XML related configuration goes under this tag.
-          attribute_ | boolean | it is indicates that the current `Parsing Element Object`_ is an attribute on the tag pointed to by the tagParentPath field in the xml.
+          attribute_ | boolean | it is indicates that the current `Parsing Element Object`_ is an attribute on the tag pointed to by the parentPath field in the xml.
           overwriteByDefault_|  boolean | force using default_ field. Mostly used with filter field.
-          fields_ | Map[string,String - Parsing Element Object - [Parsing Element Object] ] | fields  of the current object. its only valid for object and array tagType_
+          fields_ | Map[string,String - Parsing Element Object - [Parsing Element Object] ] | fields  of the current object. its only valid for object and array type_
           `$ref`_ | string| $ref_ field is used to extends_ current config to given fragment_. it's value is an expression.
 
 
@@ -52,8 +52,8 @@ In blow DSM document, id, name, and price are fieldName_ of the result object. T
 
             result:             # fieldName is result
             version: 1.0
-              tagPath: /
-              tagType: object
+              path: /
+              type:object
                  id: string    # fieldName is id
               fields:
                  price: double
@@ -67,8 +67,8 @@ In blow DSM document, id, name, and price are fieldName_ of the result object. T
             {
                "version": 1.0,
                "result":{
-                  "tagType":"object",
-                  "tagPath":"/"         
+                  "type":"object",
+                  "path":"/"         
                   "fields":{
                      "id":"string",
                      "name":"double",
@@ -82,15 +82,15 @@ In blow DSM document, id, name, and price are fieldName_ of the result object. T
 
 
    
-_`type`
+_`dataType`
 ----------
 
 ------------------------------
 
-The type field defines data type(string, int, boolean etc.) of the exposed property. it is basicity a converter from string to given data type.
-it may need extra parameters to convert a string to given data type. Extra parameters may be provided with params_ or typeParams_. 
+The dataType field defines data type (string, int, boolean etc.) of the exposed property. it is basicity a converter from string to given dataType type.
+it may need extra parameters to convert a string to given data dataType. Extra parameters may be provided with params_ or dataTypeParams_. 
    
-Supported type name and their corresponding java class:
+Supported dataType name and their corresponding java class:
    
 .. csv-table::
     :header: Type Name, Java Type, Extra Parameters
@@ -120,19 +120,19 @@ Supported type name and their corresponding java class:
          
             version: 1.0
             params: 
-              dateFormat: dd.MM.yyyy  # default 'dateFormat' for all 'date' type
+              dateFormat: dd.MM.yyyy  # default 'dateFormat' for all 'date' dataType
             result:             
-              tagType: object
-              tagPath: /
+              type:object
+              path: /
               fields:
                  id: string    
-                 name: string       # implicitly defined type. type is string
+                 name: string       # implicitly defined dataType. dataType is string
                  price: 
-                    type: double    # explicitly defined the type. type is double
-                 createDate: date   # implicitly defined the date type. and 'dateFormat' is defined in params field.
+                    dataType: double    # explicitly defined dataType dataType. type is double
+                 createDate: date   # implicitly defined the date dataType. and 'dateFormat' is defined in params field.
                  modifiedTime: 
-                   type: date       # explicitly defined the date type. and 'dateFormat' is defined in typeParams field.
-                   typeParams:
+                   dataType: date       # explicitly defined the date dataType. and 'dateFormat' is defined in dataTypeParams field.
+                   dataTypeParams:
                       dateFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'"
 
       .. tab-container:: json
@@ -146,18 +146,18 @@ Supported type name and their corresponding java class:
                   "dateFormat": "dd.MM.yyyy"
                },
                "result":{
-                  "tagType":"object",
-                  "tagPath":"/",         
+                  "type":"object",
+                  "path":"/",         
                   "fields":{
                      "id":"string",
                      "name":"double",
                      "price":{
-                        "type": "double"
+                        "dataType": "double"
                      },
                      "createDate": "date",
                      "modifiedTime": {
-                        "type": "date",
-                        "typeParams": {
+                        "dataType": "date",
+                        "dataTypeParams": {
                            "dateFormat":"yyyy-MM-dd'T'HH:mm:ss'Z'"
                         }
                      }
@@ -165,12 +165,12 @@ Supported type name and their corresponding java class:
                }
              } 
     
-_`typeParams`
+_`dataTypeParams`
 ----------------
 
 --------------------------------
 
-typeParams is used for passing extra parameters to a type_ converter. typeParams field extended_ to params_ field.
+dataTypeParams is used for passing extra parameters to a dataType_ convert.  dataTypeParams field extended_ to params_ field.
    
 Check `example <typeParamsExample_>`_ here.
    
@@ -190,7 +190,7 @@ _`default`
 
 ------------------
 
-The *default* field holds the value to be assigned to a property  by default. The default value is assigned  when the tagPath_  does not match the absolute_ path of any tag in the `source document`_.  
+The *default* field holds the value to be assigned to a property  by default. The default value is assigned  when the path_  does not match the absolute_ path of any tag in the `source document`_.  
 If the value of the default field is a string, 
 this value is accepted as the value_ field of the `Default Object`_.
 
@@ -213,15 +213,15 @@ Examples
          
             version: 1.0
             result:             
-              tagType: object
-              tagPath: /
+              type: object
+              path: /
               fields:
                  name:    
                      - filter: $ self.data.categoryType=='foo'
                        default: 
                           value: foo  # force set name to foo with filter
                           force: true
-                     - tagPath: name    
+                     - path: name    
                  category: string          
                  productUnit:
                        default: $ self.data.categoryType=='foo'? 'LT': 'KG'    # default value is expression.  this default value is assigned after "categoryType" field assigned.
@@ -236,8 +236,8 @@ Examples
              {
                 "version": 1.0,
                 "result":{
-                   "tagType":"object",
-                   "tagPath":"/"  ,       
+                   "type":"object",
+                   "path":"/"  ,       
                    "fields":{
                       "name":"string",
                       "category":"string",            
@@ -287,11 +287,11 @@ Below definition work as follows:
                       US: United States
                       
              result:
-               tagType: object
-               tagPath: /
+               type: object
+               path: /
                fields: 
                     country: 
-                        tagPath: country_code
+                        path: country_code
                         transformationCode: COUNTRY_CODE_TO_NAME
 
       .. tab-container:: json
@@ -311,11 +311,11 @@ Below definition work as follows:
                   }
                },
              "result":{
-               "tagType": "object",
-               "tagPath": "/",
+               "type": "object",
+               "path": "/",
                "fields"{
                     "country":{
-                        "tagPath": "country_code"
+                        "path": "country_code"
                         "transformationCode": "COUNTRY_CODE_TO_NAME"
                     }
                }
@@ -352,8 +352,8 @@ Below definition work as follows:
                insertProduct: com.example.InsertProduct
                
              result:
-               tagType: object
-               tagPath: /product
+               type: object
+               path: /product
                function: insertProduct
                fields: 
                     name: string
@@ -371,8 +371,8 @@ Below definition work as follows:
                   "insertProduct":"com.example.InsertProduct"
                },
                "result":{
-                  "tagType": "object",
-                  "tagPath": "/",
+                  "type": "object",
+                  "path": "/",
                   "function": "insertProduct",
                   "fields": {
                        "name": "string",
@@ -414,25 +414,25 @@ The uniqueName_ field is used to differentiate the category objects.
          
             version: 1.0
             result:
-               tagType: object
-               tagPath: /
+               type: object
+               path: /
                fields: 
                     users:
-                        tagType: array
+                        type: array
                         fields:
                             name: string
                             email: string
                             category:
-                                 tagType: object
+                                 type: object
                                  uniqueName: userCategory
                                  fields:
                                     categoryName: string                           
                     order:
-                        tagType: object
+                        type: object
                         fields:
                             id: string
                             category:
-                              tagType: object
+                              type: object
                               uniqueName: orderCategory
                               fields:
                                     categoryName: string
@@ -444,16 +444,16 @@ The uniqueName_ field is used to differentiate the category objects.
             {
                "version": 1,
                "result": {
-                  "tagType": "object",
-                  "tagPath": "/",
+                  "type": "object",
+                  "path": "/",
                   "fields": {
                      "users": {
-                        "tagType": "array",
+                        "type": "array",
                         "fields": {
                            "name": "string",
                            "email": "string",
                            "category": {
-                              "tagType": "object",
+                              "type": "object",
                               "uniqueName": "userCategory",
                               "fields": {
                                  "categoryName": "string"
@@ -462,11 +462,11 @@ The uniqueName_ field is used to differentiate the category objects.
                         }
                      },
                      "order": {
-                        "tagType": "object",
+                        "type": "object",
                         "fields": {
                            "id": "string",
                            "category": {
-                              "tagType": "object",
+                              "type": "object",
                               "uniqueName": "orderCategory",
                               "fields": {
                                  "categoryName": "string"
@@ -497,7 +497,7 @@ The following objects are available in Expression Context.
     :delim: |  
     
     params_ | Map<string,any> | params_ object. | **params.dateFormat** =='dd.MM.yyyy' 
-    self_ | Node_ | current node object that hold data of current complex tagType_ | **self.data.foo** => foo field of current node,  **self.parent.data.foo** => foo field of parent node, **self.data.bar.foo** => foo field of bar object in current node.
+    self_ | Node_ | current node object that hold data of current complex type_ | **self.data.foo** => foo field of current node,  **self.parent.data.foo** => foo field of parent node, **self.data.bar.foo** => foo field of bar object in current node.
     all_ | Map<string,Node_> | A map that stores all nodes by the "uniqueName_" of `Parsing Element Object`_  | **all.bar.data.foo** => foo field of **bar** node,  **all.barList.data[0].foo** => *foo* field of first item of *barList* node
     value | string | raw string value of the current tag in `source document`_ | **value=='Computer'**,**value.startWith('bar')**
 
@@ -510,7 +510,7 @@ _`xml`
 
 -----------
 
-The xml field is used to make extra definitions and to change "tagPath" and "tagType" fields for XML format.
+The xml field is used to make extra definitions and to change "path" and "type" fields for XML format.
 
 check `XML Object`_ for more detail
 
@@ -527,7 +527,7 @@ _`$ref`
 
 $ref field is used to extends_ `Parsing Element`_ to given fragments_. it's value is a Load Time Expression. 
 fragments_ can be extends_ another fragments_ but can not extends itself.  
-Sometimes we don't need parent properties. To exclude parent properties, define type_ as "exclude".  In example bellow category property is excluded.
+Sometimes we don't need parent properties. To exclude parent properties, define dataType_ as "exclude".  In example bellow category property is excluded.
 
 ..  content-tabs::
        
@@ -538,10 +538,10 @@ Sometimes we don't need parent properties. To exclude parent properties, define 
          
                version: 1.0
                result: 
-                 tagType: array
-                 tagPath: /
+                 type: array
+                 path: /
                  xml: 
-                   tagPath: "/Pets/Pet"
+                   path: "/Pets/Pet"
                  $ref: $fragments.pet
                  fields:
                      category: exclude     # import all properties of  fragments.pet except category property.
@@ -549,17 +549,17 @@ Sometimes we don't need parent properties. To exclude parent properties, define 
                            default $self.data.tags.stream().anyMatch(s->s.name=='Popular')
                fragments:
                   tag:
-                     tagType: object
+                     type: object
                      fields:
                         id: int
                         name: string         
                   category:
-                     tagType: object
+                     type: object
                      fields:
                         id: int
                         name: string      
                   pet:
-                    tagType: object
+                    type: object
                     fields:
                         id: long
                         name: string
@@ -567,15 +567,15 @@ Sometimes we don't need parent properties. To exclude parent properties, define 
                         category: 
                            $ref: $fragments.category  
                         photoUrls: 
-                             tagType: array
-                             tagPath: photoUrls
+                             type: array
+                             path: photoUrls
                              xml: 
-                                tagPath: photoUrls/photoUrls
+                                path: photoUrls/photoUrls
                         tags: 
-                            tagType: array
-                            tagPath: tags
+                            type: array
+                            path: tags
                             xml: 
-                              tagPath: tags/tag
+                              path: tags/tag
                             $ref: $fragments.tag
 
       .. tab-container:: json
@@ -586,10 +586,10 @@ Sometimes we don't need parent properties. To exclude parent properties, define 
             {
                "version": 1,
                "result": {
-                  "tagType": "array",
-                  "tagPath": "/",
+                  "type": "array",
+                  "path": "/",
                   "xml": {
-                     "tagPath": "/Pets/Pet"
+                     "path": "/Pets/Pet"
                   },
                   "$ref": "$fragments.pet",
                   "fields": {
@@ -599,21 +599,21 @@ Sometimes we don't need parent properties. To exclude parent properties, define 
                },
                "fragments": {
                   "tag": {
-                     "tagType": "object",
+                     "type": "object",
                      "fields": {
                         "id": "int",
                         "name": "string"
                      }
                   },
                   "category": {
-                     "tagType": "object",
+                     "type": "object",
                      "fields": {
                         "id": "int",
                         "name": "string"
                      }
                   },
                   "pet": {
-                     "tagType": "object",
+                     "type": "object",
                      "fields": {
                         "id": "long",
                         "name": "string",
@@ -622,17 +622,17 @@ Sometimes we don't need parent properties. To exclude parent properties, define 
                            "$ref": "$fragments.category"
                         },
                         "photoUrls": {
-                           "tagType": "array",
-                           "tagPath": "photoUrls",
+                           "type": "array",
+                           "path": "photoUrls",
                            "xml": {
-                              "tagPath": "photoUrls/photoUrls"
+                              "path": "photoUrls/photoUrls"
                            }
                         },
                         "tags": {
-                           "tagType": "array",
-                           "tagPath": "tags",
+                           "type": "array",
+                           "path": "tags",
                            "xml": {
-                              "tagPath": "tags/tag"
+                              "path": "tags/tag"
                            },
                            "$ref": "$fragments.tag"
                         }

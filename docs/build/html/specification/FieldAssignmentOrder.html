@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -186,7 +186,7 @@ Referencing a not existing field in “self.data” can cause NullPointerExcepti
 Once it reads a tag <cite>source document</cite>, it checks whether <a href="#id3"><span class="problematic" id="id4">absolute_</span></a> path of the tag match with <a href="#id5"><span class="problematic" id="id6">tagAbsolutePath_</span></a> or <a href="#id7"><span class="problematic" id="id8">taParentAbsolutePath_</span></a> of any of <a href="#id9"><span class="problematic" id="id10">`Parsing Element`_</span></a>
 if Parsing Element founds, value of tag is assigned according to <a href="#id11"><span class="problematic" id="id12">`Parsing Element`_</span></a> definitions.</p>
 <p>The Property assignment work as follows:</p>
-<p>let’s name the tag that is pointed by <a href="#id13"><span class="problematic" id="id14">tagPath_</span></a>  as <strong>current tag</strong> and the tag that is pointed by tagParentPath  as <strong>parent tag</strong></p>
+<p>let’s name the tag that is pointed by <a href="#id13"><span class="problematic" id="id14">path_</span></a>  as <strong>current tag</strong> and the tag that is pointed by parentPath  as <strong>parent tag</strong></p>
 <p>The property is assigned when <strong>current tag</strong> is closed except <a href="#id15"><span class="problematic" id="id16">attribute_</span></a> properties for the XML document.
 The <a href="#id17"><span class="problematic" id="id18">attribute_</span></a> properties is assigned at start of <strong>parent tag</strong> by reading attribute value of <strong>parent tag</strong></p>
 <dl class="docutils">
@@ -244,10 +244,10 @@ The <a href="#id17"><span class="problematic" id="id18">attribute_</span></a> pr
 </pre></div>
 </div>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-  <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="s">&quot;/Pets/Pet&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="s">&quot;/Pets/Pet&quot;</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
    <span class="l l-Scalar l-Scalar-Plain">id:long</span>
    <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
@@ -255,20 +255,20 @@ The <a href="#id17"><span class="problematic" id="id18">attribute_</span></a> pr
    <span class="l l-Scalar l-Scalar-Plain">isPopular</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">default $self.data.tags.stream().anyMatch(s-&gt;s.name==&#39;Popular&#39;)</span>
    <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
-       <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+       <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
        <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
          <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
          <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>
    <span class="l l-Scalar l-Scalar-Plain">photoUrls</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-        <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+        <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls</span>
         <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
-           <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls/photoUrls</span>
+           <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls/photoUrls</span>
    <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>
-       <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
-       <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags</span>
+       <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+       <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags</span>
        <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
-         <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/tag</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/tag</span>
        <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
            <span class="l l-Scalar l-Scalar-Plain">id:int</span>
            <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>

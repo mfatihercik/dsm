@@ -23,22 +23,22 @@ public class ParsingElementTest {
         Throwable ex = null;
         try {
             element.setFieldName("name");
-            element.setTagPath("name");
-            Assert.assertEquals("STD", element.getTagType());
-            element.setTagType(null);
+            element.setPath("name");
+            Assert.assertEquals("STD", element.getType());
+            element.setType(null);
             element.validate();
         } catch (DCMValidationException e) {
             ex = e;
         }
         Assert.assertNull(ex);
-        Assert.assertTrue(element.getTagType().equalsIgnoreCase("STD"));
+        Assert.assertTrue(element.getType().equalsIgnoreCase("STD"));
     }
 
     @Test
     public void tagUniqueKeyPathRequired() {
         ParsingElement element = new ParsingElement();
         element.setFieldName("name");
-        element.setTagParentPath("product");
+        element.setParentPath("product");
         element.setParentElement(new ParsingElement());
 
         element.validate();
@@ -52,8 +52,8 @@ public class ParsingElementTest {
 //		ParsingElement element = new ParsingElement();
 //		element.setFieldName("name");
 //		element.setTagName("name");
-//		element.setTagParentPath("product");
-//		element.setTagType("object");		
+//		element.setParentPath("product");
+//		element.setType("object");
 //		Throwable ex = null;
 //		try {
 //			element.validate();
@@ -63,7 +63,7 @@ public class ParsingElementTest {
 //		Assert.assertTrue(ex.getMessage().contains("ObjectTypes must have fields"));
 //		element.addChild(new ParsingElement());
 //		element.setTagTypeAdapter(null);
-//		element.setTagType("STD");
+//		element.setType("STD");
 //		try {
 //			element.validate();
 //		} catch (Throwable e) {
@@ -77,7 +77,7 @@ public class ParsingElementTest {
     public void validateBooleanField() {
         ParsingElement element = new ParsingElement();
         element.setFieldName("name");
-        element.setTagParentPath("product");
+        element.setParentPath("product");
         element.setParentElement(new ParsingElement());
         Throwable ex = null;
 
@@ -88,7 +88,7 @@ public class ParsingElementTest {
         } catch (Throwable e) {
             ex = e;
         }
-        Assert.assertTrue(ex.getMessage().contains("filterExpression"));
+        Assert.assertTrue(ex.getMessage().contains("filter"));
         element.setFilterExist(false);
         element.setTransformEnabled(true);
         try {

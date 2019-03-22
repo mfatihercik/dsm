@@ -16,7 +16,7 @@ public abstract class AbstractPathGenerator implements PathGenerator {
 
     @Override
     public String generatePath(ParsingElement parsingElement) {
-        String tagAbsolutePath = parsingElement.getTagAbsolutePath();
+        String tagAbsolutePath = parsingElement.getAbsolutePath();
         if (tagAbsolutePath == null) {
             String builder = "";
             boolean isRelativePath = false;

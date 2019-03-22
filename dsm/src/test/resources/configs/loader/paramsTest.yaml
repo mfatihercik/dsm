@@ -19,8 +19,8 @@ transformations:
       Monitor: Computer
       Printer: Electronics
 result:
-  tagType: object
-  tagPath: product
+  type: object
+  path: product
   fields:
     name:
     price:

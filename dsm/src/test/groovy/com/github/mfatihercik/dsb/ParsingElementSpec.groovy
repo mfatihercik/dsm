@@ -26,17 +26,17 @@ class ParsingElementSpec extends Specification {
 
         when:
         element.fieldName = "name"
-        element.tagPath = "name"
+        element.path = "name"
         then:
-        "STD" == element.tagType
+        "STD" == element.type
 
         when:
-        element.tagType = null
+        element.type = null
         element.validate ()
 
         then:
         notThrown (DCMValidationException)
-        element.tagType.equalsIgnoreCase ("STD")
+        element.type.equalsIgnoreCase ("STD")
 
     }
 
@@ -44,7 +44,7 @@ class ParsingElementSpec extends Specification {
     def "ParsingElement tag Unique Key Path Required"() {
         ParsingElement element = new ParsingElement ()
         element.fieldName = "name"
-        element.tagParentPath = "product"
+        element.parentPath = "product"
         element.parentElement = new ParsingElement ()
 
         when:
@@ -60,8 +60,8 @@ class ParsingElementSpec extends Specification {
 //		ParsingElement element = new ParsingElement();
 //		element.setFieldName("name");
 //		element.setTagName("name");
-//		element.setTagParentPath("product");
-//		element.setTagType("object");
+//		element.setParentPath("product");
+//		element.setType("object");
 //		Throwable ex = null;
 //		try {
 //			element.validate();
@@ -71,7 +71,7 @@ class ParsingElementSpec extends Specification {
 //		Assert.assertTrue(ex.getMessage().contains("ObjectTypes must have fields"));
 //		element.addChild(new ParsingElement());
 //		element.setTagTypeAdapter(null);
-//		element.setTagType("STD");
+//		element.setType("STD");
 //		try {
 //			element.validate();
 //		} catch (Throwable e) {
@@ -85,7 +85,7 @@ class ParsingElementSpec extends Specification {
     def "validate Boolean Field"() {
         ParsingElement element = new ParsingElement ()
         element.setFieldName ("name")
-        element.setTagParentPath ("product")
+        element.setParentPath ("product")
         element.setParentElement (new ParsingElement ())
         when:
 
@@ -95,7 +95,7 @@ class ParsingElementSpec extends Specification {
 
         then:
         def error = thrown (DCMValidationException)
-        error.message.contains ("filterExpression")
+        error.message.contains ("filter")
 
         when:
 

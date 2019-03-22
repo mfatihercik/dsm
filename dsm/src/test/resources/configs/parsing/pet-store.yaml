@@ -3,53 +3,53 @@ destinationSystem: "ASDF"
 params:
   dateFormat: yyyy-MM-dd'T'HH:mm:ss'Z'
 result:
-  tagType: array
-  tagPath: ..../
+  type: array
+  path: ..../
   #  filter: $self.index%3==0
   xml:
-    tagPath: "/pets/Pet"
+    path: "/pets/Pet"
   fields:
     category:
-      tagType: object
+      type: object
       fields:
         id:
-          type: long
+          dataType: long
         name:
     #          tagId:
-    #             tagType: object
+    #             type: object
     #             filter: $self.index==3
-    #             tagPath: ../tags
-    ##             tagParentPath: ../tags
+    #             path: ../tags
+    ##             parentPath: ../tags
     #             xml:
-    #               tagPath: /pets/Pet/tags/tag
+    #               path: /pets/Pet/tags/tag
     #             fields:
     #               id: int
     #               name:
     #
     tagIds:
-      type: long
-      tagType: array
-      tagPath: tags/id
+      dataType: long
+      type: array
+      path: tags/id
       xml:
-        tagPath: tags/tag/id
+        path: tags/tag/id
 
     id:
-      type: long
+      dataType: long
     name:
     status:
     photoUrls:
-      tagType: array
-      tagPath: photoUrls
+      type: array
+      path: photoUrls
       xml:
-        tagPath: photoUrls/photoUrls
+        path: photoUrls/photoUrls
     tags:
-      tagType: array
-      tagPath: tags
+      type: array
+      path: tags
       xml:
-        tagPath: tags/tag
+        path: tags/tag
       fields:
         id:
-          type: long
+          dataType: long
         name:
          
        

@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-tag-path">Absolute Tag Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-path">Absolute  Path</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#expression">Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
@@ -180,7 +180,7 @@
   <div class="section" id="id1">
 <h1><span class="target" id="xml-object">XML Object</span><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>XML Object is used to make extra definitions and to change “<a href="#id3"><span class="problematic" id="id4">tagPath_</span></a>” and “<a href="#id5"><span class="problematic" id="id6">tagParentPath_</span></a>” fields for xml format</p>
+<p>XML Object is used to make extra definitions and to change “<a href="#id3"><span class="problematic" id="id4">path_</span></a>” and “<a href="#id5"><span class="problematic" id="id6">parentPath_</span></a>” fields for xml format</p>
 <dl class="docutils">
 <dt>Fields:</dt>
 <dd><table border="1" class="first last docutils">
@@ -196,17 +196,17 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><th class="stub"><a href="#id7"><span class="problematic" id="id8">tagPath_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id7"><span class="problematic" id="id8">path_</span></a></th>
 <td>string</td>
-<td>xml specific <a href="#id9"><span class="problematic" id="id10">tagPath_</span></a> definition default value is <a href="#id11"><span class="problematic" id="id12">tagPath_</span></a> field of <a href="#id13"><span class="problematic" id="id14">`Parsing Element Object`_</span></a></td>
+<td>xml specific <a href="#id9"><span class="problematic" id="id10">path_</span></a> definition default value is <a href="#id11"><span class="problematic" id="id12">path_</span></a> field of <a href="#id13"><span class="problematic" id="id14">`Parsing Element Object`_</span></a></td>
 </tr>
-<tr class="row-odd"><th class="stub"><a href="#id15"><span class="problematic" id="id16">tagParentPath_</span></a></th>
+<tr class="row-odd"><th class="stub"><a href="#id15"><span class="problematic" id="id16">parentPath_</span></a></th>
 <td>string</td>
-<td>xml specific <a href="#id17"><span class="problematic" id="id18">tagParentPath_</span></a> definition. default value is <a href="#id19"><span class="problematic" id="id20">tagParentPath_</span></a> field of <a href="#id21"><span class="problematic" id="id22">`Parsing Element Object`_</span></a></td>
+<td>xml specific <a href="#id17"><span class="problematic" id="id18">parentPath_</span></a> definition. default value is <a href="#id19"><span class="problematic" id="id20">parentPath_</span></a> field of <a href="#id21"><span class="problematic" id="id22">`Parsing Element Object`_</span></a></td>
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#attribute">attribute</a></th>
 <td>boolean</td>
-<td>attribute field is indicates that the current <a href="#id23"><span class="problematic" id="id24">`Parsing Element Object`_</span></a> is an attribute on the tag pointed to by the tagParentPath field in the xml.</td>
+<td>attribute field is indicates that the current <a href="#id23"><span class="problematic" id="id24">`Parsing Element Object`_</span></a> is an attribute on the tag pointed to by the parentPath field in the xml.</td>
 </tr>
 </tbody>
 </table>
@@ -214,20 +214,20 @@
 </dl>
 <div class="section" id="id2">
 <h2><span class="target" id="attribute">attribute</span><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>The attribute field is indicates that the current <a href="#id25"><span class="problematic" id="id26">`Parsing Element`_</span></a> is an attribute on the tag pointed to by the <a href="#id27"><span class="problematic" id="id28">tagParentPath_</span></a> field in the xml.</p>
+<p>The attribute field is indicates that the current <a href="#id25"><span class="problematic" id="id26">`Parsing Element`_</span></a> is an attribute on the tag pointed to by the <a href="#id27"><span class="problematic" id="id28">parentPath_</span></a> field in the xml.</p>
 <p>Examples:</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
 <p class="tab-title">YAML</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-   <span class="l l-Scalar l-Scalar-Plain">tagType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
-   <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
    <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">tagPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pets/Pet</span>    <span class="c1"># xml specific tagPath definition</span>
+      <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pets/Pet</span>    <span class="c1"># xml specific path definition</span>
    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
         <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span>
-           <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>
+           <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>
            <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
              <span class="l l-Scalar l-Scalar-Plain">attribute</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>   <span class="c1"># id field is an attribute that is located at /Pets/Pet tag.</span>
         <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -242,14 +242,14 @@
 
    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
    <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
-      <span class="nt">&quot;tagType&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span> <span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span> <span class="p">,</span>
       <span class="nt">&quot;xml&quot;</span><span class="p">:{</span>
-         <span class="nt">&quot;tagPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/Pets/Pet&quot;</span>
+         <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Pets/Pet&quot;</span>
        <span class="p">}</span>
       <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="p">{</span>
-               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;long&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;long&quot;</span><span class="p">,</span>
                <span class="nt">&quot;xml&quot;</span><span class="p">:{</span>
                   <span class="nt">&quot;attribute&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span>
                <span class="p">}</span>

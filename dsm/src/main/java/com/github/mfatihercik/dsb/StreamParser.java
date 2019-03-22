@@ -107,7 +107,7 @@ public abstract class StreamParser {
             }
 
             if (parsingElement.isDefault()) {
-                putParsingElementToToMap(this.defaultValuesElementConfigMaps, parsingElement.getTagAbsolutePath(), parsingElement);
+                putParsingElementToToMap(this.defaultValuesElementConfigMaps, parsingElement.getAbsolutePath(), parsingElement);
             }
             if (isStartElement(parsingElement)) {
                 putParsingElementToToMap(this.startElementConfigMaps, key, parsingElement);
@@ -120,7 +120,7 @@ public abstract class StreamParser {
 
     protected ParsingElement initParsingElement(ParsingElement parsingElement) {
 
-        parsingElement.setTagAbsolutePath(absolutePathGenerator.generatePath(parsingElement));
+        parsingElement.setAbsolutePath(absolutePathGenerator.generatePath(parsingElement));
 
         return parsingElement;
 
@@ -146,11 +146,11 @@ public abstract class StreamParser {
         if (parsingElement.isAttribute()) {
             return getAttributePath(parsingElement);
         }
-        return absolutePathGenerator.concatPaths(parsingElement.getTagAbsolutePath(), parsingElement.getTagPath());
+        return absolutePathGenerator.concatPaths(parsingElement.getAbsolutePath(), parsingElement.getPath());
     }
 
     protected String getAttributePath(ParsingElement parsingElement) {
-        return parsingElement.getTagAbsolutePath();
+        return parsingElement.getAbsolutePath();
     }
 
     protected boolean isStartElement(ParsingElement parsingElement) {
@@ -158,7 +158,7 @@ public abstract class StreamParser {
     }
 
     protected void initExpressionResolver(Map<String, Object> paramsMap) {
-        expressionResolver.setBean("all", parsingContext);
+        expressionResolver.setBean("all", parsingContext.getMainNodeMap());
         expressionResolver.setBean("params", paramsMap);
     }
 
@@ -274,7 +274,7 @@ public abstract class StreamParser {
     }
 
     protected Object convertValue(ParsingElement parsingElement, String value) {
-        return TypeConverterFactory.getTypeConverter(parsingElement.getType()).convert(value, parsingElement.getTypeParameters());
+        return TypeConverterFactory.getTypeConverter(parsingElement.getDataType()).convert(value, parsingElement.getDataTypeParameters());
     }
 
     protected String transformValue(ParsingElement parsingElement, String value) {
@@ -290,15 +290,15 @@ public abstract class StreamParser {
     protected Boolean evaluateFilterExpression(ParsingElement parsingElement, Object value, Node currentNode) {
         expressionResolver.setBean(SELF, currentNode);
         expressionResolver.setBean(VALUE, value);
-        Object resolved = expressionResolver.resolveExpression(parsingElement.getFilterExpression());
+        Object resolved = expressionResolver.resolveExpression(parsingElement.getFilter());
         return (resolved == null ? false : Boolean.valueOf(resolved.toString()));
     }
 
     protected String evaluateBeforeExpression(ParsingElement parsingElement, String value, Node currentNode) {
-        if (parsingElement.isBeforeExpressionExist()) {
+        if (parsingElement.isNormalizeExist()) {
             expressionResolver.setBean(SELF, currentNode);
             expressionResolver.setBean(VALUE, value);
-            Object resolved = expressionResolver.resolveExpression(parsingElement.getBeforeExpression());
+            Object resolved = expressionResolver.resolveExpression(parsingElement.getNormalize());
             value = resolved == null ? null : resolved.toString();
         }
         return value;
@@ -333,7 +333,7 @@ public abstract class StreamParser {
             }
         }
         if (resolvedValue instanceof String)
-            resolvedValue = TypeConverterFactory.getTypeConverter(parsingElement.getType()).convert(resolvedValue.toString(), parsingElement.getTypeParameters());
+            resolvedValue = TypeConverterFactory.getTypeConverter(parsingElement.getDataType()).convert(resolvedValue.toString(), parsingElement.getDataTypeParameters());
         typeAdapter.setValue(parsingContext, node, parsingElement, pathInfo, resolvedValue);
         if (parsingElement.isUseFunction()) {
             Function function = parsingElement.getFunction();

@@ -160,8 +160,8 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         extendsToFragments(elementMap);
         ParsingElement element = new ParsingElement();
         element.setFieldName(fieldName);
-        element.setTagPath(elementMap.toString(TAG_PATH, parent == null));
-        element.setTagParentPath(elementMap.toString(TAG_PARENT_PATH));
+        element.setPath(elementMap.toString(TAG_PATH, parent == null));
+        element.setParentPath(elementMap.toString(TAG_PARENT_PATH));
         element.setUniqueKey(elementMap.toString(UNIQUE_KEY, fieldName));
         if (parent != null) {
             int index = parent.getChildren().indexOf(element);
@@ -176,30 +176,30 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         }
         element.setOrder(element.isRoot() ? order : Integer.valueOf(element.getParentElement().getOrder() + "" + order));
         setTagType(elementMap, element);
-        setType(elementMap, element);
+        setDataType(elementMap, element);
         setFunction(elementMap, element);
 
         setDefaultFields(elementMap, element);
         element.setTransformEnabled(elementMap.isExist(TRANSFORMATION_CODE) || element.isTransformEnabled());
         element.setTransformationCode(elementMap.toString(TRANSFORMATION_CODE, element.getTransformationCode()));
         element.setFilterExist(elementMap.isExist(FILTER) || element.isFilterExist());
-        element.setFilterExpression(elementMap.toString(FILTER, element.getFilterExpression()));
-        element.setTagXmlPath(element.getTagPath());
-        element.setTagXmlParentPath(element.getTagParentPath());
+        element.setFilter(elementMap.toString(FILTER, element.getFilter()));
+        element.setXmlPath(element.getPath());
+        element.setXmlParentPath(element.getParentPath());
 
         if (elementMap.isExist(XML)) {
             MapWrapper map = new MapWrapper(elementMap.toMap(XML), fieldName.concat(PATH_SEPARATOR).concat(XML));
             element.setAttribute(map.toBooleanDefault(IS_ATTRIBUTE, false));
             if (map.isExist(TAG_PATH)) {
-                element.setTagXmlPath(map.toString(TAG_PATH, true));
+                element.setXmlPath(map.toString(TAG_PATH, true));
             }
             if (map.isExist(TAG_PARENT_PATH)) {
-                element.setTagXmlParentPath(map.toString(TAG_PARENT_PATH, true));
+                element.setXmlParentPath(map.toString(TAG_PARENT_PATH, true));
             }
         }
 
-        element.setNormalizeExpression(elementMap.toString(NORMALIZE, element.getBeforeExpression()));
-        element.setNormalizeExpressionExist(elementMap.isExist(NORMALIZE) || element.isBeforeExpressionExist());
+        element.setNormalizeExpression(elementMap.toString(NORMALIZE, element.getNormalize()));
+        element.setNormalizeExpressionExist(elementMap.isExist(NORMALIZE) || element.isNormalizeExist());
 
 
 
@@ -318,47 +318,47 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
             MapUtils.mergeMap(map.getMap(), fragment);
     }
 
-    private void setType(MapWrapper elementMap, ParsingElement element) {
+    private void setDataType(MapWrapper elementMap, ParsingElement element) {
         Object tagType = elementMap.getField(DATA_TYPE);
         Map<String, Object> typeParams = new LinkedHashMap<>(getParams());
         if (tagType != null) {
             if (tagType instanceof Map<?, ?>) {
                 MapWrapper typeMap = new MapWrapper(tagType, element.getFieldName().concat(PATH_SEPARATOR).concat(DATA_TYPE));
-                element.setType(typeMap.toString("type", element.getType()));
+                element.setDataType(typeMap.toString("type", element.getDataType()));
                 if (typeMap.isExist(PARAMS)) {
                     Map<String, Object> paramsMap = typeMap.toMap(PARAMS);
                     typeParams.putAll(paramsMap);
                 }
             } else {
-                element.setType(elementMap.toString(DATA_TYPE, element.getType()));
-                if (elementMap.isExist(TYPE_PARAMS)) {
-                    Map<String, Object> paramsMap = elementMap.toMap(TYPE_PARAMS);
+                element.setDataType(elementMap.toString(DATA_TYPE, element.getDataType()));
+                if (elementMap.isExist(DATA_TYPE_PARAMS)) {
+                    Map<String, Object> paramsMap = elementMap.toMap(DATA_TYPE_PARAMS);
                     typeParams.putAll(paramsMap);
 
                 }
             }
         }
-        if (element.getTypeParameters() != null)
-            MapUtils.mergeMap(element.getTypeParameters(), typeParams);
+        if (element.getDataTypeParameters() != null)
+            MapUtils.mergeMap(element.getDataTypeParameters(), typeParams);
         else
-            element.setTypeParameters(typeParams);
+            element.setDataTypeParameters(typeParams);
     }
 
     private void setTagType(MapWrapper elementMap, ParsingElement element) {
-        Object tagType = elementMap.getField(TAG_TYPE);
+        Object tagType = elementMap.getField(TYPE);
         Map<String, Object> tagTypeParams = new LinkedHashMap<>(getParams());
         if (tagType != null) {
             if (tagType instanceof Map<?, ?>) {
-                MapWrapper tagTypeMap = new MapWrapper(tagType, element.getFieldName().concat(PATH_SEPARATOR).concat(TAG_TYPE));
-                element.setTagType(tagTypeMap.toString("type", element.getTagType()));
+                MapWrapper tagTypeMap = new MapWrapper(tagType, element.getFieldName().concat(PATH_SEPARATOR).concat(TYPE));
+                element.setType(tagTypeMap.toString("type", element.getType()));
                 if (tagTypeMap.isExist(PARAMS)) {
                     Map<String, Object> paramsMap = tagTypeMap.toMap(PARAMS);
                     tagTypeParams.putAll(paramsMap);
                 }
             } else {
-                element.setTagType(elementMap.toString(TAG_TYPE, element.getTagType()));
-                if (elementMap.isExist(TAG_TYPE_PARAMS)) {
-                    Map<String, Object> paramsMap = elementMap.toMap(TAG_TYPE_PARAMS);
+                element.setType(elementMap.toString(TYPE, element.getType()));
+                if (elementMap.isExist(TYPE_PARAMS)) {
+                    Map<String, Object> paramsMap = elementMap.toMap(TYPE_PARAMS);
                     tagTypeParams.putAll(paramsMap);
 
                 }
