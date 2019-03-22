@@ -74,7 +74,7 @@ File contents are taken from `Swagger Petstore example <https://editor.swagger.i
 - exclude "photoUrls" tag. 
 - read only "name" field of "tags" tag. 
 - read only  "name" field of "category" tag. 
-- add new the "isPopular" field that it's value is true, if "tag.name" has "Popular" value
+- **add new the "isPopular" field that it's value is true, if "tag.name" has "Popular" value**
 
 
 **DSM config file**   
@@ -107,7 +107,7 @@ File contents are taken from `Swagger Petstore example <https://editor.swagger.i
                 default: $self.data.tags.contains("Popular")
            tags:
                  type:array
-                 path: tags/name |tags/tag/name    # its regex expression. works for both JSON and XML
+                 path: tags/name |tags/tag/name    # this is a regex expression. works for both JSON and XML
                  
                     
               
@@ -135,12 +135,12 @@ File contents are taken from `Swagger Petstore example <https://editor.swagger.i
 
 .. code-block:: java       
         
-    ElekBuilder builder = new ElekBuilder("sdp-config-file.yaml");    
-    Elek elek = builder.create();    
+    DSMBuilder builder = new DSMBuilder("dsm-config-file.yaml");    
+    DSM dsm = builder.setType(DSMBuilder.XML).create();        
+    Pet pet = dsm.toObject(new File("path/to/xmlFile.xml"),Pet.class);  // read data from xml file
     
-    Pet pet = elek.toObject(new File("path/to/xmlFile.xml"),Pet.class);  // read data from xml file
-    
-    pet = elek.toObject(new File("path/to/jsonFile.json"),Pet.class);  // read data from json file
+    dsm = builder.setType(DSMBuilder.JSON).create();        
+    pet = dsm.toObject(new File("path/to/jsonFile.json"),Pet.class);  // read data from json file
 
 
 

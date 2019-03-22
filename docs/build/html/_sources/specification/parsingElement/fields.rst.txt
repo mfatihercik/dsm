@@ -74,7 +74,7 @@ Example of different type of value definition:
             {
                "version": 1.0,
                "result":{
-                  "type"bject",
+                  "type"object",
                   "path":"/"  ,       
                   "fields":{
                      "name":"",

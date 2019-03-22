@@ -583,7 +583,7 @@ In later case, <a class="reference internal" href="#extends">$extends</a> fields
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#datatypeparams">dataTypeParams</a></th>
 <td>Map[string,any]</td>
-<td>extra parameters for dataType field need to convert. for example. dateFormat for dadataTypetype</td>
+<td>extra parameters for dataType field need to convert. for example. dateFormat for dataType</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#type">type</a></th>
 <td>string</td>
@@ -660,7 +660,7 @@ In later case, <a class="reference internal" href="#extends">$extends</a> fields
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>             <span class="c1"># fieldName is result</span>
 <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
-  <span class="l l-Scalar l-Scalar-Plain">type:ject</span>
+  <span class="l l-Scalar l-Scalar-Plain">type:object</span>
      <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>    <span class="c1"># fieldName is id</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
@@ -690,7 +690,7 @@ In later case, <a class="reference internal" href="#extends">$extends</a> fields
 <div class="section" id="id11">
 <h3><span class="target" id="datatype">dataType</span><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <hr class="docutils" />
-<p>The dataType field defines ddataTypetype(string, int, boolean etc.) of the exposed property. it is basicity a converter from string to givdataTypeata type.
+<p>The dataType field defines data type (string, int, boolean etc.) of the exposed property. it is basicity a converter from string to given dataType type.
 it may need extra parameters to convert a string to given data dataType. Extra parameters may be provided with <a class="reference internal" href="#params">params</a> or <a class="reference internal" href="#datatypeparams">dataTypeParams</a>.</p>
 <p>Supported dataType name and their corresponding java class:</p>
 <table border="1" class="docutils">
@@ -755,16 +755,16 @@ it may need extra parameters to convert a string to given data dataType. Extra p
 <span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">dd.MM.yyyy</span>  <span class="c1"># default &#39;dateFormat&#39; for all &#39;date&#39; dataType</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">type:ject</span>
+  <span class="l l-Scalar l-Scalar-Plain">type:object</span>
   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
-     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>       <span class="c1"># implicitly defined dataTydataTypetype is string</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>       <span class="c1"># implicitly defined dataType. dataType is string</span>
      <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>    <span class="c1"># explicitly defined dataTydataTypepe. type is double</span>
+        <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>    <span class="c1"># explicitly defined dataType dataType. type is double</span>
      <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>   <span class="c1"># implicitly defined the date dataType. and &#39;dateFormat&#39; is defined in params field.</span>
      <span class="l l-Scalar l-Scalar-Plain">modifiedTime</span><span class="p p-Indicator">:</span>
-       <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>       <span class="c1"># explicitly defined the ddataTypetype. and &#39;dateFormat&#39; is defined in dataTypeParams field.</span>
+       <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>       <span class="c1"># explicitly defined the date dataType. and &#39;dateFormat&#39; is defined in dataTypeParams field.</span>
        <span class="l l-Scalar l-Scalar-Plain">dataTypeParams</span><span class="p p-Indicator">:</span>
           <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="s">&quot;yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;&quot;</span>
 </pre></div>
@@ -804,14 +804,14 @@ it may need extra parameters to convert a string to given data dataType. Extra p
 <div class="section" id="id12">
 <h3><span class="target" id="datatypeparams">dataTypeParams</span><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <hr class="docutils" />
-<p>dataTypeParams is used for passing extra parameters to a <a class="reference internal" href="#datatype">dataType</a> convertdataTypeParamsrams field <a class="reference internal" href="#extended">extended</a> to <a class="reference internal" href="#params">params</a> field.</p>
+<p>dataTypeParams is used for passing extra parameters to a <a class="reference internal" href="#datatype">dataType</a> convert.  dataTypeParams field <a class="reference internal" href="#extended">extended</a> to <a class="reference internal" href="#params">params</a> field.</p>
 <p>Check <a class="reference internal" href="#typeparamsexample">example</a> here.</p>
 </div>
 <div class="section" id="id13">
 <h3><span class="target" id="type">type</span><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <hr class="docutils" />
 <p><a class="reference internal" href="#type">type</a> defines how tags in the source document are parsed. it also defines the structure of the output object and hierarchy of the object tree. it may need extra parameters. Extra parameters are provided with <a class="reference internal" href="#typeparams">typeParams</a> field that <a class="reference internal" href="#extended">extended</a> to <a class="reference internal" href="#params">params</a> field.
-Basically, there are two main “type” categories which are “complex”, and “simple”. The complex category includes “tagTypes” which exposes complex data dataType such as object or arrays. the simple category includes tagTypes which expose ddataTypetype in the <a href="#id55"><span class="problematic" id="id56">dataType_ype_</span></a> field.</p>
+Basically, there are two main “type” categories which are “complex”, and “simple”. The complex category includes “tagTypes” which exposes complex data dataType such as object or arrays. the simple category includes tagTypes which expose data type in the <a class="reference internal" href="#datatype">dataType</a> field.</p>
 <p>Supported <a class="reference internal" href="#type">type</a>’s:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -868,7 +868,7 @@ Basically, there are two main “type” categories which are “complex”, and
 <div class="section" id="id14">
 <h4><span class="target" id="std">std</span><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
 <hr class="docutils" />
-<p>std is basic <a class="reference internal" href="#type">type</a> which copy the value of the tag in the source document to the current object. std is the default value of the <a class="reference internal" href="#type">type</a> field.  Data <a class="reference internal" href="#datatype">dataType</a> is defined in <a href="#id57"><span class="problematic" id="id58">dataType_ype_</span></a> field.</p>
+<p>std is basic <a class="reference internal" href="#type">type</a> which copy the value of the tag in the source document to the current object. std is the default value of the <a class="reference internal" href="#type">type</a> field.  Data <a class="reference internal" href="#datatype">dataType</a> is defined in <a href="#id55"><span class="problematic" id="id56">dataType_ype_</span></a> field.</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
 <p class="tab-title">YAML</p>
@@ -948,7 +948,7 @@ Basically, there are two main “type” categories which are “complex”, and
 <div class="section" id="id16">
 <h4><span class="target" id="array">array</span><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
 <hr class="docutils" />
-<p>array <a class="reference internal" href="#type">type</a> is used to expose an array. Items of the array may be a object or simple <a class="reference internal" href="#datatype">dataType</a>. if <a class="reference internal" href="#parsing-element">Parsing Element</a>  has “<a class="reference internal" href="#fields">fields</a>” field then the array <a class="reference internal" href="#type">type</a> exposes List&lt;Object&gt;.  if <a class="reference internal" href="#fields">fields</a> field is not defined, the data type of array item <a href="#id59"><span class="problematic" id="id60">decideddataType_ype_</span></a> field.</p>
+<p>array <a class="reference internal" href="#type">type</a> is used to expose an array. Items of the array may be a object or simple <a class="reference internal" href="#datatype">dataType</a>. if <a class="reference internal" href="#parsing-element">Parsing Element</a>  has “<a class="reference internal" href="#fields">fields</a>” field then the array <a class="reference internal" href="#type">type</a> exposes List&lt;Object&gt;.  if <a class="reference internal" href="#fields">fields</a> field is not defined, the data type of array item decided <a class="reference internal" href="#datatype">dataType</a> field.</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
 <p class="tab-title">YAML</p>
@@ -1425,7 +1425,7 @@ all the <em>parentPath</em> and <em>path</em> fields from top to bottom are merg
 <ul class="simple">
 <li>parentObject = if (<strong>parentPath+path</strong>) is relative path then find  parentObject by resolving relative path else currentObject.parent</li>
 <li><strong>tagParentAbsolutePath</strong> = parentObject.path+”/”+currentObject.parentPath</li>
-<li><strong>tagAbsolutePath</strong> = absoluteparentPath+”/”+currentObject.path</li>
+<li><strong>tagAbsolutePath</strong> = absoluteParentPath+”/”+currentObject.path</li>
 </ul>
 </div></blockquote>
 <p>if <strong>tagAbsolutePath</strong>  regex match any  <a class="reference internal" href="#absolute">absolute</a> path of tag, value of this tag evaluated by <a class="reference internal" href="#type">type</a></p>
@@ -1655,7 +1655,7 @@ all the <em>parentPath</em> and <em>path</em> fields from top to bottom are merg
 <div class="highlight-json"><div class="highlight"><pre><span></span>{
    &quot;version&quot;: 1.0,
    &quot;result&quot;:{
-      &quot;type&quot;bject&quot;,
+      &quot;type&quot;object&quot;,
       &quot;path&quot;:&quot;/&quot;  ,
       &quot;fields&quot;:{
          &quot;name&quot;:&quot;&quot;,
@@ -1712,7 +1712,7 @@ The filter field is an <a class="reference internal" href="#expression">expressi
 <td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#self">self</a></th>
-<td><a href="#id61"><span class="problematic" id="id62">Node_</span></a></td>
+<td><a href="#id57"><span class="problematic" id="id58">Node_</span></a></td>
 <td>current node object that hold data of current complex <a class="reference internal" href="#type">type</a></td>
 <td><strong>self.data.foo</strong> =&gt; foo field of current node,  <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
 </tr>
@@ -1871,13 +1871,13 @@ this value is accepted as the <a class="reference internal" href="#value">value<
 <div class="section" id="id25">
 <h3><span class="target" id="transformationcode">transformationCode</span><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
 <hr class="docutils" />
-<p><em>transformationCode</em> field refers to the definition of the <a href="#id63"><span class="problematic" id="id64">transformation_</span></a> to be used to transform the tag value.</p>
+<p><em>transformationCode</em> field refers to the definition of the <a href="#id59"><span class="problematic" id="id60">transformation_</span></a> to be used to transform the tag value.</p>
 <p>Below definition work as follows:</p>
 <blockquote>
 <div><ul class="simple">
 <li>value of tag “/country_code”  is read from <a class="reference internal" href="#source-document">source document</a></li>
-<li>if this value exist in “COUNTRY_CODE_TO_NAME” <a href="#id65"><span class="problematic" id="id66">transformation_</span></a> definition, get value that match.</li>
-<li>if not exist, get “DEFAULT” value of “COUNTRY_CODE_TO_NAME” <a href="#id67"><span class="problematic" id="id68">transformation_</span></a> definition</li>
+<li>if this value exist in “COUNTRY_CODE_TO_NAME” <a href="#id61"><span class="problematic" id="id62">transformation_</span></a> definition, get value that match.</li>
+<li>if not exist, get “DEFAULT” value of “COUNTRY_CODE_TO_NAME” <a href="#id63"><span class="problematic" id="id64">transformation_</span></a> definition</li>
 </ul>
 </div></blockquote>
 <div class="content-tabs docutils container">
@@ -2102,7 +2102,7 @@ The value of this field is an expression.</p>
 <td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#self">self</a></th>
-<td><a href="#id69"><span class="problematic" id="id70">Node_</span></a></td>
+<td><a href="#id65"><span class="problematic" id="id66">Node_</span></a></td>
 <td>current node object that hold data of current complex <a class="reference internal" href="#type">type</a></td>
 <td><strong>self.data.foo</strong> =&gt; foo field of current node,  <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
 </tr>
@@ -2390,7 +2390,7 @@ it  holds default value that is assigned to current field</p>
 <td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#self">self</a></th>
-<td><a href="#id71"><span class="problematic" id="id72">Node_</span></a></td>
+<td><a href="#id67"><span class="problematic" id="id68">Node_</span></a></td>
 <td>current node object that hold data of current complex <a class="reference internal" href="#type">type</a></td>
 <td><strong>self.data.foo</strong> =&gt; foo field of current node,  <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
 </tr>
@@ -2795,7 +2795,7 @@ It allows you to change the structure of the output, change the property value, 
 <td><strong>all.bar.data.foo</strong> =&gt; foo field of <strong>bar</strong> node,  <strong>all.barList.data[0].foo</strong> =&gt; <em>foo</em> field of first item of <em>barList</em> node</td>
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#self">self</a></th>
-<td><a href="#id73"><span class="problematic" id="id74">Node_</span></a></td>
+<td><a href="#id69"><span class="problematic" id="id70">Node_</span></a></td>
 <td>current node object that hold data of current complex <a class="reference internal" href="#type">type</a></td>
 <td><strong>self.data.foo</strong> =&gt; foo field of current node,     <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
 </tr>
@@ -2808,12 +2808,12 @@ It allows you to change the structure of the output, change the property value, 
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a href="#id75"><span class="problematic" id="id76">Node_</span></a>  ,  <a class="reference internal" href="#default">default</a>,  <a class="reference internal" href="#filter">filter</a>,   <a class="reference internal" href="#normalize">normalize</a>,  <a class="reference internal" href="#extends">$extends</a>,  <a class="reference internal" href="#ref">$ref</a></p>
+<p class="last"><a href="#id71"><span class="problematic" id="id72">Node_</span></a>  ,  <a class="reference internal" href="#default">default</a>,  <a class="reference internal" href="#filter">filter</a>,   <a class="reference internal" href="#normalize">normalize</a>,  <a class="reference internal" href="#extends">$extends</a>,  <a class="reference internal" href="#ref">$ref</a></p>
 </div>
 <div class="section" id="id41">
 <h3><span class="target" id="all">all</span><a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
 <hr class="docutils" />
-<p>Each complex <a class="reference internal" href="#type">type</a> creates a <a href="#id77"><span class="problematic" id="id78">node_</span></a>. The created nodes can be accessed using the “all” object in the expressions.
+<p>Each complex <a class="reference internal" href="#type">type</a> creates a <a href="#id73"><span class="problematic" id="id74">node_</span></a>. The created nodes can be accessed using the “all” object in the expressions.
 Each node is stored in <a class="reference internal" href="#all">all</a> map with the <a class="reference internal" href="#uniquename">uniqueName</a> of the <a class="reference internal" href="#parsing-element">Parsing Element</a> that creates the node.</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
@@ -2948,7 +2948,7 @@ Each node is stored in <a class="reference internal" href="#all">all</a> map wit
 <div><div class="highlight-json"><div class="highlight"><pre><span></span>{
    &quot;version&quot;: 1.0,
    &quot;result&quot;:{
-      &quot;type&quot;bject&quot;,
+      &quot;type&quot;:object&quot;,
       &quot;path&quot;:&quot;/&quot;  ,
       &quot;fields&quot;:{
          &quot;name&quot;:&quot;string&quot;,
@@ -3079,7 +3079,7 @@ Each node is stored in <a class="reference internal" href="#all">all</a> map wit
 <p>The property assignment order is very important for the correct operation of the expressions in the filter field and in the default field
 Referencing a not existing field in “self.data” can cause NullPointerException.</p>
 <p>DSM reads <cite>source document</cite> top to bottom in one pass as a stream.
-Once it reads a tag <cite>source document</cite>, it checks whether <a class="reference internal" href="#absolute">absolute</a> path of the tag match with <a href="#id79"><span class="problematic" id="id80">tagAbsolutePath_</span></a> or <a href="#id81"><span class="problematic" id="id82">taParentAbsolutePath_</span></a> of any of <a class="reference internal" href="#parsing-element">Parsing Element</a>
+Once it reads a tag <cite>source document</cite>, it checks whether <a class="reference internal" href="#absolute">absolute</a> path of the tag match with <a href="#id75"><span class="problematic" id="id76">tagAbsolutePath_</span></a> or <a href="#id77"><span class="problematic" id="id78">taParentAbsolutePath_</span></a> of any of <a class="reference internal" href="#parsing-element">Parsing Element</a>
 if Parsing Element founds, value of tag is assigned according to <a class="reference internal" href="#parsing-element">Parsing Element</a> definitions.</p>
 <p>The Property assignment work as follows:</p>
 <p>let’s name the tag that is pointed by <a class="reference internal" href="#path">path</a>  as <strong>current tag</strong> and the tag that is pointed by parentPath  as <strong>parent tag</strong></p>
@@ -3088,8 +3088,8 @@ The <a class="reference internal" href="#attribute">attribute</a> properties is 
 <dl class="docutils">
 <dt>Order of the property assignment as follows:</dt>
 <dd><ul class="first last simple">
-<li>the closing of  <a href="#id83"><span class="problematic" id="id84">`current tag`_</span></a>  is near to the document header(starting of <span class="target" id="parent-tag">parent tag</span>” for attribute )</li>
-<li>deeper <a href="#id85"><span class="problematic" id="id86">`current tag`_</span></a></li>
+<li>the closing of  <a href="#id79"><span class="problematic" id="id80">`current tag`_</span></a>  is near to the document header(starting of <span class="target" id="parent-tag">parent tag</span>” for attribute )</li>
+<li>deeper <a href="#id81"><span class="problematic" id="id82">`current tag`_</span></a></li>
 <li>Parsing Element definition close to the document header.(<strong>assignment start from top to bottom</strong> )</li>
 </ul>
 </dd>

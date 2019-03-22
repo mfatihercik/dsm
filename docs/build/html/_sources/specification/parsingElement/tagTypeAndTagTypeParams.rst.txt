@@ -4,7 +4,7 @@ _`type`
 ----------------------------------
 
 type_ defines how tags in the source document are parsed. it also defines the structure of the output object and hierarchy of the object tree. it may need extra parameters. Extra parameters are provided with typeParams_ field that extended_ to params_ field.
-Basically, there are two main "type" categories which are "complex", and "simple". The complex category includes "tagTypes" which exposes complex data dataType such as object or arrays. the simple category includes tagTypes which expose ddataTypetype in the dataType_ype_ field.
+Basically, there are two main "type" categories which are "complex", and "simple". The complex category includes "tagTypes" which exposes complex data dataType such as object or arrays. the simple category includes tagTypes which expose data type in the dataType_ field.
      
      
 Supported type_'s:
@@ -126,7 +126,7 @@ _`array`
 
 ---------------------------
 
-array type_ is used to expose an array. Items of the array may be a object or simple dataType_. if `Parsing Element`_  has "fields_" field then the array type_ exposes List<Object>.  if fields_ field is not defined, the data type of array item decideddataType_ype_ field.   
+array type_ is used to expose an array. Items of the array may be a object or simple dataType_. if `Parsing Element`_  has "fields_" field then the array type_ exposes List<Object>.  if fields_ field is not defined, the data type of array item decided dataType_ field.   
  
 
 ..  content-tabs::

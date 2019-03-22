@@ -242,14 +242,14 @@
 <li>exclude “photoUrls” tag.</li>
 <li>read only “name” field of “tags” tag.</li>
 <li>read only  “name” field of “category” tag.</li>
-<li>add new the “isPopular” field that it’s value is true, if “tag.name” has “Popular” value</li>
+<li><strong>add new the “isPopular” field that it’s value is true, if “tag.name” has “Popular” value</strong></li>
 </ul>
 <p><strong>DSM config file</strong></p>
 <p>[YAML]</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">MM/dd/yyyy</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-   <span class="l l-Scalar l-Scalar-Plain">typebject</span>
+   <span class="l l-Scalar l-Scalar-Plain">type:object</span>
    <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
    <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pet</span>
@@ -267,8 +267,8 @@
        <span class="l l-Scalar l-Scalar-Plain">isPopular</span><span class="p p-Indicator">:</span>
             <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.tags.contains(&quot;Popular&quot;)</span>
        <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>
-             <span class="l l-Scalar l-Scalar-Plain">typerray</span>
-             <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/name |tags/tag/name</span>    <span class="c1"># its regex expression. works for both JSON and XML</span>
+             <span class="l l-Scalar l-Scalar-Plain">type:array</span>
+             <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/name |tags/tag/name</span>    <span class="c1"># this is a regex expression. works for both JSON and XML</span>
 </pre></div>
 </div>
 <p><strong>Class to deserialize</strong></p>
@@ -287,12 +287,12 @@
 </pre></div>
 </div>
 <p><strong>Read Data</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">ElekBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ElekBuilder</span><span class="o">(</span><span class="s">&quot;sdp-config-file.yaml&quot;</span><span class="o">);</span>
-<span class="n">Elek</span> <span class="n">elek</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">DSMBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DSMBuilder</span><span class="o">(</span><span class="s">&quot;dsm-config-file.yaml&quot;</span><span class="o">);</span>
+<span class="n">DSM</span> <span class="n">dsm</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="n">DSMBuilder</span><span class="o">.</span><span class="na">XML</span><span class="o">).</span><span class="na">create</span><span class="o">();</span>
+<span class="n">Pet</span> <span class="n">pet</span> <span class="o">=</span> <span class="n">dsm</span><span class="o">.</span><span class="na">toObject</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;path/to/xmlFile.xml&quot;</span><span class="o">),</span><span class="n">Pet</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>  <span class="c1">// read data from xml file</span>
 
-<span class="n">Pet</span> <span class="n">pet</span> <span class="o">=</span> <span class="n">elek</span><span class="o">.</span><span class="na">toObject</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;path/to/xmlFile.xml&quot;</span><span class="o">),</span><span class="n">Pet</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>  <span class="c1">// read data from xml file</span>
-
-<span class="n">pet</span> <span class="o">=</span> <span class="n">elek</span><span class="o">.</span><span class="na">toObject</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;path/to/jsonFile.json&quot;</span><span class="o">),</span><span class="n">Pet</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>  <span class="c1">// read data from json file</span>
+<span class="n">dsm</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="n">DSMBuilder</span><span class="o">.</span><span class="na">JSON</span><span class="o">).</span><span class="na">create</span><span class="o">();</span>
+<span class="n">pet</span> <span class="o">=</span> <span class="n">dsm</span><span class="o">.</span><span class="na">toObject</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;path/to/jsonFile.json&quot;</span><span class="o">),</span><span class="n">Pet</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>  <span class="c1">// read data from json file</span>
 </pre></div>
 </div>
 </div>
@@ -374,7 +374,7 @@
 
 <span class="l l-Scalar l-Scalar-Plain">fragments</span><span class="p p-Indicator">:</span>                                  <span class="c1"># create reusable fragment</span>
     <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">typebject</span>
+      <span class="l l-Scalar l-Scalar-Plain">type:object</span>
       <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
          <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
          <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -384,7 +384,7 @@
 <p>[main.yaml]</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">$extends</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">header.yaml</span>                       <span class="c1"># extends to header.yaml config.</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">typerray</span>                          <span class="c1"># result is an array</span>
+    <span class="l l-Scalar l-Scalar-Plain">type:array</span>                          <span class="c1"># result is an array</span>
     <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/ | /Pets/Pet</span>                 <span class="c1"># start reading form beginning for json. path is a regex. we can define both for xml and json same time. or we can declare for xml in XML field.</span>
     <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pets/Pet</span>                    <span class="c1"># start reading from /Pets/Pet for xml</span>
@@ -413,7 +413,7 @@
             <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.tags.contains(&quot;Popular&quot;)</span>   <span class="c1"># set default value of &quot;isPopular&quot; property</span>
 
       <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>
-          <span class="l l-Scalar l-Scalar-Plain">typerray</span>
+          <span class="l l-Scalar l-Scalar-Plain">type:array</span>
           <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/name</span>
           <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$value.length&gt;15</span>      <span class="c1"># filter by length of value.</span>
           <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>

@@ -14,7 +14,7 @@ Fields:
     
           fieldName_ | string | **REQUIRED**  fieldName_ define the name of the property to expose by current object. the fieldName is unique in object.
           dataType_ | string | **REQUIRED**. The data type of exposed field. it may have extra parameter provided with dataTypeParams_
-          dataTypeParams_ | Map[string,any] | extra parameters for dataType field need to convert. for example. dateFormat for dadataTypetype
+          dataTypeParams_ | Map[string,any] | extra parameters for dataType field need to convert. for example. dateFormat for dataType
           type_ | string | the name of the parsing strategy for the current field. the default is STD. 
           typeParams_ | Map[string,any] | it is used for passing extra parameter to dataType_ converter. typeParams_ field extended_ to params_ field.
           path_ | string | The path field specifies the location of a tag in the `source document`_ relative to the path field of the higher-level Parsing Element definition. The default value is the value in the fieldName field.
@@ -53,7 +53,7 @@ In blow DSM document, id, name, and price are fieldName_ of the result object. T
             result:             # fieldName is result
             version: 1.0
               path: /
-              type:ject
+              type:object
                  id: string    # fieldName is id
               fields:
                  price: double
@@ -87,7 +87,7 @@ _`dataType`
 
 ------------------------------
 
-The dataType field defines ddataTypetype(string, int, boolean etc.) of the exposed property. it is basicity a converter from string to givdataTypeata type.
+The dataType field defines data type (string, int, boolean etc.) of the exposed property. it is basicity a converter from string to given dataType type.
 it may need extra parameters to convert a string to given data dataType. Extra parameters may be provided with params_ or dataTypeParams_. 
    
 Supported dataType name and their corresponding java class:
@@ -122,16 +122,16 @@ Supported dataType name and their corresponding java class:
             params: 
               dateFormat: dd.MM.yyyy  # default 'dateFormat' for all 'date' dataType
             result:             
-              type:ject
+              type:object
               path: /
               fields:
                  id: string    
-                 name: string       # implicitly defined dataTydataTypetype is string
+                 name: string       # implicitly defined dataType. dataType is string
                  price: 
-                    dataType: double    # explicitly defined dataTydataTypepe. type is double
+                    dataType: double    # explicitly defined dataType dataType. type is double
                  createDate: date   # implicitly defined the date dataType. and 'dateFormat' is defined in params field.
                  modifiedTime: 
-                   dataType: date       # explicitly defined the ddataTypetype. and 'dateFormat' is defined in dataTypeParams field.
+                   dataType: date       # explicitly defined the date dataType. and 'dateFormat' is defined in dataTypeParams field.
                    dataTypeParams:
                       dateFormat: "yyyy-MM-dd'T'HH:mm:ss'Z'"
 
@@ -170,7 +170,7 @@ _`dataTypeParams`
 
 --------------------------------
 
-dataTypeParams is used for passing extra parameters to a dataType_ convertdataTypeParamsrams field extended_ to params_ field.
+dataTypeParams is used for passing extra parameters to a dataType_ convert.  dataTypeParams field extended_ to params_ field.
    
 Check `example <typeParamsExample_>`_ here.
    

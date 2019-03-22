@@ -43,7 +43,7 @@ all the *parentPath* and *path* fields from top to bottom are merged with the "/
 
          - **tagParentAbsolutePath** = parentObject.path+"/"+currentObject.parentPath      
 
-         - **tagAbsolutePath** = absoluteparentPath+"/"+currentObject.path
+         - **tagAbsolutePath** = absoluteParentPath+"/"+currentObject.path
          
 
 if **tagAbsolutePath**  regex match any  absolute_ path of tag, value of this tag evaluated by type_

@@ -205,7 +205,7 @@
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#datatypeparams">dataTypeParams</a></th>
 <td>Map[string,any]</td>
-<td>extra parameters for dataType field need to convert. for example. dateFormat for dadataTypetype</td>
+<td>extra parameters for dataType field need to convert. for example. dateFormat for dataType</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a href="#id14"><span class="problematic" id="id15">type_</span></a></th>
 <td>string</td>
@@ -282,7 +282,7 @@
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>             <span class="c1"># fieldName is result</span>
 <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
-  <span class="l l-Scalar l-Scalar-Plain">type:ject</span>
+  <span class="l l-Scalar l-Scalar-Plain">type:object</span>
      <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>    <span class="c1"># fieldName is id</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
@@ -312,7 +312,7 @@
 <div class="section" id="id3">
 <h2><span class="target" id="datatype">dataType</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>The dataType field defines ddataTypetype(string, int, boolean etc.) of the exposed property. it is basicity a converter from string to givdataTypeata type.
+<p>The dataType field defines data type (string, int, boolean etc.) of the exposed property. it is basicity a converter from string to given dataType type.
 it may need extra parameters to convert a string to given data dataType. Extra parameters may be provided with <a href="#id68"><span class="problematic" id="id69">params_</span></a> or <a class="reference internal" href="#datatypeparams">dataTypeParams</a>.</p>
 <p>Supported dataType name and their corresponding java class:</p>
 <table border="1" class="docutils">
@@ -377,16 +377,16 @@ it may need extra parameters to convert a string to given data dataType. Extra p
 <span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">dd.MM.yyyy</span>  <span class="c1"># default &#39;dateFormat&#39; for all &#39;date&#39; dataType</span>
 <span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">type:ject</span>
+  <span class="l l-Scalar l-Scalar-Plain">type:object</span>
   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
-     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>       <span class="c1"># implicitly defined dataTydataTypetype is string</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>       <span class="c1"># implicitly defined dataType. dataType is string</span>
      <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span>
-        <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>    <span class="c1"># explicitly defined dataTydataTypepe. type is double</span>
+        <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>    <span class="c1"># explicitly defined dataType dataType. type is double</span>
      <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>   <span class="c1"># implicitly defined the date dataType. and &#39;dateFormat&#39; is defined in params field.</span>
      <span class="l l-Scalar l-Scalar-Plain">modifiedTime</span><span class="p p-Indicator">:</span>
-       <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>       <span class="c1"># explicitly defined the ddataTypetype. and &#39;dateFormat&#39; is defined in dataTypeParams field.</span>
+       <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>       <span class="c1"># explicitly defined the date dataType. and &#39;dateFormat&#39; is defined in dataTypeParams field.</span>
        <span class="l l-Scalar l-Scalar-Plain">dataTypeParams</span><span class="p p-Indicator">:</span>
           <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="s">&quot;yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;&quot;</span>
 </pre></div>
@@ -426,7 +426,7 @@ it may need extra parameters to convert a string to given data dataType. Extra p
 <div class="section" id="id4">
 <h2><span class="target" id="datatypeparams">dataTypeParams</span><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<p>dataTypeParams is used for passing extra parameters to a <a class="reference internal" href="#datatype">dataType</a> convertdataTypeParamsrams field <a href="#id70"><span class="problematic" id="id71">extended_</span></a> to <a href="#id72"><span class="problematic" id="id73">params_</span></a> field.</p>
+<p>dataTypeParams is used for passing extra parameters to a <a class="reference internal" href="#datatype">dataType</a> convert.  dataTypeParams field <a href="#id70"><span class="problematic" id="id71">extended_</span></a> to <a href="#id72"><span class="problematic" id="id73">params_</span></a> field.</p>
 <p>Check <a class="reference internal" href="#typeparamsexample">example</a> here.</p>
 </div>
 <div class="section" id="id5">
