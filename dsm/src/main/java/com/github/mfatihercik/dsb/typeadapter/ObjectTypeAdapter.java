@@ -7,7 +7,7 @@ import com.github.mfatihercik.dsb.model.ParsingElement;
 
 import java.util.Map;
 
-public class MapTypeAdapter extends BaseObjectAdapter {
+public class ObjectTypeAdapter extends BaseObjectAdapter {
     public static final String NAME = "object";
 
     @Override
@@ -56,7 +56,7 @@ public class MapTypeAdapter extends BaseObjectAdapter {
         if (parsingElement.isRoot()) {
             return parsingContext.get(parsingElement);
         } else {
-            Node child = parsingElement.getTagTypeAdapter().getParentNode(parsingContext, parsingElement).getChild(parsingElement);
+            Node child = parsingElement.getTypeAdapter().getParentNode(parsingContext, parsingElement).getChild(parsingElement);
             if (child == null)
                 parsingContext.getRootNode();
             return child;
@@ -70,7 +70,7 @@ public class MapTypeAdapter extends BaseObjectAdapter {
             return parsingContext.getRootNode();
         else {
             ParsingElement parentElement = parsingElement.getParentElement();
-            return parentElement.getTagTypeAdapter().getCurrentNode(parsingContext, parentElement);
+            return parentElement.getTypeAdapter().getCurrentNode(parsingContext, parentElement);
         }
 
     }

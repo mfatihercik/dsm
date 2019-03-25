@@ -12,6 +12,7 @@ import com.github.mfatihercik.dsb.transformation.FileValueTransformer;
 import com.github.mfatihercik.dsb.transformation.TransformationElement;
 import com.github.mfatihercik.dsb.transformation.ValueTransformer;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
+import com.github.mfatihercik.dsb.typeadapter.TypeAdaptorFactory;
 import com.github.mfatihercik.dsb.utils.MapUtils;
 import com.github.mfatihercik.dsb.utils.MapWrapper;
 
@@ -30,16 +31,18 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
     private List<ParsingElement> parsingElements = new ArrayList<>();
     private ExpressionResolver expressionResolver;
     private boolean isLoaded = false;
+    private TypeAdaptorFactory typeAdaptorFactory;
 
     public FileParsingElementLoader(ConfigLoaderStrategy configLoader) {
-        this(configLoader, ExpressionResolverFactory.getExpressionResolver(null), new FileValueTransformer(), new FunctionContext());
+        this(configLoader, ExpressionResolverFactory.getExpressionResolver(null), new FileValueTransformer(), new FunctionContext(), new TypeAdaptorFactory());
     }
 
-    public FileParsingElementLoader(ConfigLoaderStrategy configLoader, ExpressionResolver expressionResolver, ValueTransformer valueTransformer, FunctionContext functionContext) {
+    public FileParsingElementLoader(ConfigLoaderStrategy configLoader, ExpressionResolver expressionResolver, ValueTransformer valueTransformer, FunctionContext functionContext, TypeAdaptorFactory typeAdaptorFactory) {
         this.expressionResolver = expressionResolver;
         this.configLoader = configLoader;
         this.valueTransformer = valueTransformer;
         this.functionContext = functionContext;
+        this.typeAdaptorFactory = typeAdaptorFactory;
 
         this.getExpressionResolver().setBean(PARAMS, getParams());
         this.getExpressionResolver().setBean(FRAGMENTS, fragments);
@@ -202,8 +205,7 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         element.setNormalizeExpressionExist(elementMap.isExist(NORMALIZE) || element.isNormalizeExist());
 
 
-
-        TypeAdaptor tagTypeAdapter = element.getTagTypeAdapter();
+        TypeAdaptor tagTypeAdapter = element.getTypeAdapter();
         if (tagTypeAdapter.isObject()) {
             buildObjectField(fieldName, elementMap, element);
         }
@@ -266,7 +268,7 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
             count = setAllFields(element, count, property.getValue(), propertyName);
             fieldNames.add(propertyName);
         }
-        element.getTagTypeAdapter().postProcess(element);
+        element.getTypeAdapter().postProcess(element);
 
     }
 
@@ -365,11 +367,12 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
             }
         }
 
-        TypeAdaptor tagTypeAdapter = element.getTagTypeAdapter();
-        if (tagTypeAdapter.getParameters() != null) {
+        TypeAdaptor typeAdapter = getTypeAdaptorFactory().getTypeAdapter(element.getType());
+        element.setTypeAdapter(typeAdapter);
+        if (typeAdapter.getParameters() != null) {
             MapUtils.mergeMap(tagTypeParams, tagTypeParams);
         } else {
-            tagTypeAdapter.setParameters(tagTypeParams);
+            typeAdapter.setParameters(tagTypeParams);
         }
     }
 
@@ -433,4 +436,11 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         return valueTransformer;
     }
 
+    public TypeAdaptorFactory getTypeAdaptorFactory() {
+        return typeAdaptorFactory;
+    }
+
+    public void setTypeAdaptorFactory(TypeAdaptorFactory typeAdaptorFactory) {
+        this.typeAdaptorFactory = typeAdaptorFactory;
+    }
 }

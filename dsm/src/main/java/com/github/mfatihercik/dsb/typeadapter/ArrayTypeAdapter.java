@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class ListTypeAdapter extends BaseObjectAdapter {
+public class ArrayTypeAdapter extends BaseObjectAdapter {
 
     public static final String NAME = "array";
 
@@ -39,7 +39,7 @@ public class ListTypeAdapter extends BaseObjectAdapter {
 
     @Override
     public Node registerNode(ParsingContext parsingContext, ParsingElement parsingElement, PathInfo pathInfo) {
-        TypeAdaptor typeAdapter = parsingElement.getTagTypeAdapter();
+        TypeAdaptor typeAdapter = parsingElement.getTypeAdapter();
 
         Node parentElementNode = getParentNode(parsingContext, parsingElement);
 
@@ -92,7 +92,7 @@ public class ListTypeAdapter extends BaseObjectAdapter {
             return parsingContext.getRootNode();
         else {
             ParsingElement parentElement = parsingElement.getParentElement();
-            return parentElement.getTagTypeAdapter().getCurrentNode(parsingContext, parentElement);
+            return parentElement.getTypeAdapter().getCurrentNode(parsingContext, parentElement);
         }
 
     }
@@ -135,7 +135,7 @@ public class ListTypeAdapter extends BaseObjectAdapter {
             for (Object childData : children) {
                 node.setClose(false);
                 node.setData(childData);
-                currentElement.getTagTypeAdapter().setValue(parsingContext, node, currentElement, pathInfo, value);
+                currentElement.getTypeAdapter().setValue(parsingContext, node, currentElement, pathInfo, value);
                 node.setClose(true);
             }
         }

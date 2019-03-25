@@ -7,6 +7,7 @@ import com.github.mfatihercik.dsb.expression.ExpressionResolver;
 import com.github.mfatihercik.dsb.function.FunctionFactory;
 import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
+import com.github.mfatihercik.dsb.typeconverter.TypeConverterFactory;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -23,8 +24,8 @@ public class StaxParser extends StreamParser {
     protected final Map<String, List<ParsingElement>> cacheEndObjectEventConfigMaps = new HashMap<>();
     protected final Map<String, List<ParsingElement>> cacheEndValueEventConfigMaps = new HashMap<>();
 
-    public StaxParser(FunctionFactory functionFactory, ExpressionResolver expressionResolver, ObjectMapper objectMapper, Class<?> resultType) {
-        super(functionFactory, expressionResolver, new AbsoluteXmlPathGenerator(), objectMapper, resultType);
+    public StaxParser(FunctionFactory functionFactory, ExpressionResolver expressionResolver, ObjectMapper objectMapper, Class<?> resultType, TypeConverterFactory typeConverterFactory) {
+        super(functionFactory, expressionResolver, new AbsoluteXmlPathGenerator(), objectMapper, resultType, typeConverterFactory);
     }
 
     @Override
@@ -118,7 +119,7 @@ public class StaxParser extends StreamParser {
         boolean isObjectTagTypeExist = false;
         List<ParsingElement> endValueEventElements = getEndValueEventElements(generateKey);
         for (ParsingElement parsingElement : endValueEventElements) {
-            if (parsingElement.getTagTypeAdapter().isObject()) {
+            if (parsingElement.getTypeAdapter().isObject()) {
                 isObjectTagTypeExist = true;
                 continue;
             }
@@ -129,7 +130,7 @@ public class StaxParser extends StreamParser {
 
         if (isObjectTagTypeExist) {
             for (ParsingElement parsingElement : endValueEventElements) {
-                if (parsingElement.getTagTypeAdapter().isObject()) {
+                if (parsingElement.getTypeAdapter().isObject()) {
                     setValueOnNode(parsingElement, path, tempValue);
                 }
             }
@@ -152,7 +153,7 @@ public class StaxParser extends StreamParser {
         Map<String, String> attributes = null;
         List<ParsingElement> startEventElements = getStartEventElements(generatedKey);
         for (ParsingElement parsingElement : startEventElements) {
-            TypeAdaptor typeAdapter = parsingElement.getTagTypeAdapter();
+            TypeAdaptor typeAdapter = parsingElement.getTypeAdapter();
             if (typeAdapter.isObject()) {
                 registerNewNode(parsingElement, path);
             } else {

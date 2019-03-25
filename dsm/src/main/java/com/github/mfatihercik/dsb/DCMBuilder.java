@@ -15,6 +15,10 @@ import com.github.mfatihercik.dsb.function.FunctionFactory;
 import com.github.mfatihercik.dsb.json.JacksonStreamParser;
 import com.github.mfatihercik.dsb.transformation.FileValueTransformer;
 import com.github.mfatihercik.dsb.transformation.ValueTransformer;
+import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
+import com.github.mfatihercik.dsb.typeadapter.TypeAdaptorFactory;
+import com.github.mfatihercik.dsb.typeconverter.TypeConverter;
+import com.github.mfatihercik.dsb.typeconverter.TypeConverterFactory;
 import com.github.mfatihercik.dsb.xml.StaxParser;
 
 import java.io.*;
@@ -26,6 +30,8 @@ public class DCMBuilder {
     private ConfigLoaderStrategy configLoaderStrategy = null;
     private ValueTransformer valueTransformer = new FileValueTransformer();
     private FunctionFactory functionFactory = new DefaultFunctionFactory(new FunctionContext());
+    private TypeAdaptorFactory typeAdaptorFactory = new TypeAdaptorFactory();
+    private TypeConverterFactory typeConverterFactory = new TypeConverterFactory();
     private TYPE type = TYPE.JSON;
     private ObjectMapper objectMapper = new ObjectMapper();
     private InputStream configContent = null;
@@ -78,13 +84,44 @@ public class DCMBuilder {
                 configLoaderStrategy = new JsonConfigLoaderStrategy(configContent, rootPath);
             }
         }
-        StreamParser parser = type.equals(TYPE.JSON) ? new JacksonStreamParser(functionFactory, expressionResolver, objectMapper, resultType) : new StaxParser(functionFactory, expressionResolver, objectMapper, resultType);
-        FileParsingElementLoader configLoader = new FileParsingElementLoader(configLoaderStrategy, expressionResolver, valueTransformer, functionFactory.getContext());
+        StreamParser parser = type.equals(TYPE.JSON) ? new JacksonStreamParser(functionFactory, expressionResolver, objectMapper, resultType, getTypeConverterFactory().clone()) : new StaxParser(functionFactory, expressionResolver, objectMapper, resultType, getTypeConverterFactory().clone());
+        FileParsingElementLoader configLoader = new FileParsingElementLoader(configLoaderStrategy, expressionResolver, valueTransformer, functionFactory.getContext(), getTypeAdaptorFactory().clone());
         return new DCM(parser, configLoader, objectMapper);
     }
 
+    /**
+     * register new function with given name.
+     *
+     * @param functionName
+     * @param functionExecutor
+     * @return
+     */
     public DCMBuilder registerFunction(String functionName, FunctionExecutor functionExecutor) {
         this.getFunctionFactory().getContext().registerFunction(functionName, functionExecutor);
+        return this;
+    }
+
+    /**
+     * Register new type adapter with name.
+     *
+     * @param name
+     * @param adapterClass
+     * @return
+     */
+    public DCMBuilder registerTypeAdapter(String name, Class<? extends TypeAdaptor> adapterClass) {
+        this.getTypeAdaptorFactory().register(name, adapterClass);
+        return this;
+    }
+
+    /**
+     * Register new type converter with name
+     *
+     * @param name
+     * @param typeConverter
+     * @return
+     */
+    public DCMBuilder registerTypeConverter(String name, TypeConverter typeConverter) {
+        this.getTypeConverterFactory().register(name, typeConverter);
         return this;
     }
 
@@ -167,6 +204,24 @@ public class DCMBuilder {
 
     public DCMBuilder setValueTransformer(ValueTransformer valueTransformer) {
         this.valueTransformer = valueTransformer;
+        return this;
+    }
+
+    public TypeAdaptorFactory getTypeAdaptorFactory() {
+        return typeAdaptorFactory;
+    }
+
+    public DCMBuilder setTypeAdaptorFactory(TypeAdaptorFactory typeAdaptorFactory) {
+        this.typeAdaptorFactory = typeAdaptorFactory;
+        return this;
+    }
+
+    public TypeConverterFactory getTypeConverterFactory() {
+        return typeConverterFactory;
+    }
+
+    public DCMBuilder setTypeConverterFactory(TypeConverterFactory typeConverterFactory) {
+        this.typeConverterFactory = typeConverterFactory;
         return this;
     }
 

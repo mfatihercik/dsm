@@ -1,8 +1,8 @@
 package com.github.mfatihercik.dsb.model;
 
 import com.github.mfatihercik.dsb.DCMValidationException;
+import com.github.mfatihercik.dsb.typeadapter.StdTypeAdapter;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
-import com.github.mfatihercik.dsb.typeadapter.TypeAdaptorFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
 
         throwExceptionIfTrue((isTransformEnabled() && getTransformationCode() == null), String.format("transformationCode is required if transformationEnabled true for %s/%s", fName, parentFiledName));
 
-        TypeAdaptor typeAdapter = getTagTypeAdapter();
+        TypeAdaptor typeAdapter = getTypeAdapter();
         throwExceptionIfTrue(typeAdapter.isObject() && !typeAdapter.isArray() && children.isEmpty(),
                 String.format("type of %s/%s is complex type(%s). Object type must have fields ", this.getFieldName(), parentFiledName, this.getType()));
         throwExceptionIfTrue(!typeAdapter.isObject() && !children.isEmpty(),
@@ -217,14 +217,13 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
         this.normalize = beforeExpression;
     }
 
-    public TypeAdaptor getTagTypeAdapter() {
-        if (tagTypeAdapter == null) {
-            tagTypeAdapter = TypeAdaptorFactory.getTypeAdapter(getType());
-        }
+    public TypeAdaptor getTypeAdapter() {
+        if (tagTypeAdapter == null)
+            tagTypeAdapter = new StdTypeAdapter();
         return tagTypeAdapter;
     }
 
-    public void setTagTypeAdapter(TypeAdaptor tagTypeAdapter) {
+    public void setTypeAdapter(TypeAdaptor tagTypeAdapter) {
         this.tagTypeAdapter = tagTypeAdapter;
     }
 

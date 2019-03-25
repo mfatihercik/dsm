@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mfatihercik.dsb.expression.ExpressionResolver;
 import com.github.mfatihercik.dsb.function.FunctionFactory;
+import com.github.mfatihercik.dsb.typeconverter.TypeConverterFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,8 +14,8 @@ import java.io.Reader;
 
 public class JacksonStreamParser extends JsonStreamParser {
 
-    public JacksonStreamParser(FunctionFactory functionFactory, ExpressionResolver expressionResolver, ObjectMapper objectMapper, Class<?> resultType) {
-        super(functionFactory, expressionResolver, objectMapper, resultType);
+    public JacksonStreamParser(FunctionFactory functionFactory, ExpressionResolver expressionResolver, ObjectMapper objectMapper, Class<?> resultType, TypeConverterFactory typeConverterFactory) {
+        super(functionFactory, expressionResolver, objectMapper, resultType, typeConverterFactory);
     }
 
     @Override
@@ -26,7 +27,7 @@ public class JacksonStreamParser extends JsonStreamParser {
             JsonParser parser = factory.createParser(reader);
             processParser(parser);
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -35,13 +36,15 @@ public class JacksonStreamParser extends JsonStreamParser {
     protected void parseInputStream(InputStream inputStream) {
         JsonFactory factory = new JsonFactory();
 
-        try {
-            JsonParser parser = factory.createParser(inputStream);
-            processParser(parser);
 
-        } catch (Exception e) {
+        JsonParser parser = null;
+        try {
+            parser = factory.createParser(inputStream);
+            processParser(parser);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
 
     }
 

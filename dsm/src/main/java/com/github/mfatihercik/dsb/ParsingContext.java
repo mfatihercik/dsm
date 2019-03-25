@@ -1,7 +1,10 @@
 package com.github.mfatihercik.dsb;
 
+import com.github.mfatihercik.dsb.expression.ExpressionResolver;
+import com.github.mfatihercik.dsb.function.FunctionFactory;
 import com.github.mfatihercik.dsb.model.DeferAssigment;
 import com.github.mfatihercik.dsb.model.ParsingElement;
+import com.github.mfatihercik.dsb.transformation.ValueTransformer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +18,9 @@ public class ParsingContext {
     private Map<ParsingElement, List<DeferAssigment>> deferAssigmentMap = new HashMap<>();
     private Class<?> resultType;
     private Node rootNode;
+    protected ValueTransformer valueTransformer = null;
+    protected ExpressionResolver expressionResolver = null;
+    protected FunctionFactory functionFactory = null;
 
     private Node[] nodeMap = null;
 
@@ -114,4 +120,28 @@ public class ParsingContext {
         this.resultType = resultType;
     }
 
+
+    public ValueTransformer getValueTransformer() {
+        return valueTransformer;
+    }
+
+    public void setValueTransformer(ValueTransformer valueTransformer) {
+        this.valueTransformer = valueTransformer;
+    }
+
+    public ExpressionResolver getExpressionResolver() {
+        return expressionResolver;
+    }
+
+    public void setExpressionResolver(ExpressionResolver expressionResolver) {
+        this.expressionResolver = expressionResolver;
+    }
+
+    public FunctionFactory getFunctionFactory() {
+        return functionFactory;
+    }
+
+    public void setFunctionFactory(FunctionFactory functionFactory) {
+        this.functionFactory = functionFactory;
+    }
 }

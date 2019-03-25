@@ -1,12 +1,35 @@
+
 package com.github.mfatihercik.dsb.typeconverter;
+
+import com.github.mfatihercik.dsb.DCMValidationException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TypeConverterFactory {
-    private static final Map<String, TypeConverter> typeConverter = new HashMap<>();
 
-    static {
+public class TypeConverterFactory implements Cloneable {
+
+
+    /**
+     * {@link TypeConverter} name and instance mapper.
+     */
+    protected final Map<String, TypeConverter> typeConverter = new HashMap<>();
+
+    public TypeConverterFactory() {
+        registerDefaultConverter();
+    }
+
+    /**
+     * initialize {@link TypeConverterFactory} with given map.
+     * this constructure used for cloning.
+     *
+     * @param converterMap *
+     */
+    private TypeConverterFactory(Map<String, TypeConverter> converterMap) {
+        typeConverter.putAll(converterMap);
+    }
+
+    protected void registerDefaultConverter() {
         typeConverter.put("date", new DateTypeConverter());
         typeConverter.put("int", new IntegerTypeConverter());
         typeConverter.put("integer", new IntegerTypeConverter());
@@ -18,16 +41,33 @@ public class TypeConverterFactory {
         typeConverter.put("boolean", new BooleanTypeConverter());
         typeConverter.put("bigdecimal", new BigDecimalTypeConverter());
         typeConverter.put("biginteger", new BigIntegerTypeConverter());
+        typeConverter.put("default", new DefaultTypeConverter());
     }
 
-    public static TypeConverter getTypeConverter(String name) {
-        if (name == null)
-            return new DefaultTypeConverter();
-        assert typeConverter.containsKey(name) : String.format("%s is not registered as type converter", name);
-        return typeConverter.get(name.toLowerCase());
+    /**
+     * Get {@link TypeConverter} instance with name.
+     *
+     * @param name of the type adapter
+     * @return TypeConverter instance
+     * @throws DCMValidationException if requested type adapter is not registered
+     */
+    public TypeConverter getTypeConverter(String name) {
+        TypeConverter converter = this.typeConverter.get(name.toLowerCase());
+        if (converter == null) {
+            throw new DCMValidationException(String.format("%s is not registered as type converter", name));
+        }
+        return converter;
     }
 
-    void registerTypeConverter(String name, TypeConverter converter) {
+    public void register(String name, TypeConverter converter) {
         typeConverter.put(name, converter);
+
     }
+
+    @Override
+    public TypeConverterFactory clone() {
+        return new TypeConverterFactory(this.typeConverter);
+    }
+
+
 }

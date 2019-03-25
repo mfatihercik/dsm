@@ -46,7 +46,7 @@ public class Node {
     }
 
     public void broadcast(ParsingContext parsingContext, ParsingElement currentParsingElement, PathInfo pathInfo, Object value) {
-        getParsingElement().getTagTypeAdapter().broadcast(parsingContext, this, currentParsingElement, pathInfo, value);
+        getParsingElement().getTypeAdapter().broadcast(parsingContext, this, currentParsingElement, pathInfo, value);
     }
 
     public <T> Object toObject(ObjectMapper objectMapper, Class<T> classOf) {

@@ -64,7 +64,7 @@ public abstract class BaseSimpleAdapter implements TypeAdaptor {
             return parsingContext.getRootNode();
         else {
             ParsingElement parentElement = parsingElement.getParentElement();
-            return parentElement.getTagTypeAdapter().getParentNode(parsingContext, parentElement);
+            return parentElement.getTypeAdapter().getParentNode(parsingContext, parentElement);
         }
     }
 

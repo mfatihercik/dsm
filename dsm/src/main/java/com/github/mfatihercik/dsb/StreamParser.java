@@ -36,6 +36,7 @@ public abstract class StreamParser {
     protected ValueTransformer valueTransformer = null;
     protected ExpressionResolver expressionResolver;
     protected FunctionFactory functionFactory;
+    protected TypeConverterFactory typeConverterFactory;
     protected Node nodes = new Node();
     protected String currentTagName;
     protected String tempValue;
@@ -52,11 +53,12 @@ public abstract class StreamParser {
         parentPathStack[parentPathStackSize] = parentPath;
     }
 
-    public StreamParser(FunctionFactory functionFactory, ExpressionResolver expressionResolver, PathGenerator absolutePathGenerator, ObjectMapper objectMapper, Class<?> resultType) {
+    public StreamParser(FunctionFactory functionFactory, ExpressionResolver expressionResolver, PathGenerator absolutePathGenerator, ObjectMapper objectMapper, Class<?> resultType, TypeConverterFactory typeConverterFactory) {
         this.absolutePathGenerator = absolutePathGenerator;
         this.expressionResolver = expressionResolver;
         this.functionFactory = functionFactory;
         this.objectMapper = objectMapper;
+        this.typeConverterFactory = typeConverterFactory;
         this.setResultType(resultType);
 
     }
@@ -98,7 +100,7 @@ public abstract class StreamParser {
 
         for (ParsingElement parsingElement : getAllParsingElement()) {
             parsingElement = initParsingElement(parsingElement);
-            TypeAdaptor typeAdapter = parsingElement.getTagTypeAdapter();
+            TypeAdaptor typeAdapter = parsingElement.getTypeAdapter();
             String key = generateKey(parsingElement);
             if (typeAdapter.isObject()) {
                 calculateIndexOfParsingElement(parsingElement);
@@ -154,7 +156,7 @@ public abstract class StreamParser {
     }
 
     protected boolean isStartElement(ParsingElement parsingElement) {
-        return parsingElement.getTagTypeAdapter().isStartElement() || parsingElement.isAttribute();
+        return parsingElement.getTypeAdapter().isStartElement() || parsingElement.isAttribute();
     }
 
     protected void initExpressionResolver(Map<String, Object> paramsMap) {
@@ -200,8 +202,8 @@ public abstract class StreamParser {
     }
 
     protected Node registerNewNode(ParsingElement parsingElement, PathInfo pathInfo) {
-        Node node = parsingElement.getTagTypeAdapter().registerNode(parsingContext, parsingElement, pathInfo);
-        Node parentNode = parsingElement.getTagTypeAdapter().getParentNode(parsingContext, parsingElement);
+        Node node = parsingElement.getTypeAdapter().registerNode(parsingContext, parsingElement, pathInfo);
+        Node parentNode = parsingElement.getTypeAdapter().getParentNode(parsingContext, parsingElement);
         if (isDefferedAssigment(parsingElement, parentNode)) {
             parsingContext.addDeferAssignment(parsingElement, pathInfo, null);
         }
@@ -215,7 +217,7 @@ public abstract class StreamParser {
         if (deferAssigment != null) {
             for (DeferAssigment assigment : deferAssigment) {
                 ParsingElement currentParsingElement = assigment.getCurrentParsingElement();
-                if (currentParsingElement.getTagTypeAdapter().isObject()) {
+                if (currentParsingElement.getTypeAdapter().isObject()) {
                     node.set(currentParsingElement.getFieldName(), parsingContext.get(currentParsingElement).getData());
                 } else if (assigment.isDefault()) {
                     setDefaultValueOnNode(currentParsingElement, currentParsingElement.getDefault().getValue(), assigment.getPathInfo());
@@ -229,7 +231,7 @@ public abstract class StreamParser {
 
     protected void setValueOnNode(ParsingElement parsingElement, PathInfo pathInfo, String value) {
 
-        TypeAdaptor typeAdapter = parsingElement.getTagTypeAdapter();
+        TypeAdaptor typeAdapter = parsingElement.getTypeAdapter();
 
         Node node = getCurrentNode(parsingElement);
         if (node == null)
@@ -267,14 +269,17 @@ public abstract class StreamParser {
     }
 
     private Node getCurrentNode(ParsingElement parsingElement) {
-        TypeAdaptor typeAdapter = parsingElement.getTagTypeAdapter();
+        TypeAdaptor typeAdapter = parsingElement.getTypeAdapter();
         return typeAdapter.getCurrentNode(parsingContext, parsingElement);
 
 
     }
 
     protected Object convertValue(ParsingElement parsingElement, String value) {
-        return TypeConverterFactory.getTypeConverter(parsingElement.getDataType()).convert(value, parsingElement.getDataTypeParameters());
+        String dataType = parsingElement.getDataType();
+        if (dataType == null)
+            dataType = "default";
+        return getTypeConverterFactory().getTypeConverter(dataType).convert(value, parsingElement.getDataTypeParameters());
     }
 
     protected String transformValue(ParsingElement parsingElement, String value) {
@@ -284,7 +289,7 @@ public abstract class StreamParser {
     }
 
     protected void removeFilteredNode(ParsingElement parsingElement, Node currentNode, PathInfo pathInfo) {
-        parsingElement.getTagTypeAdapter().deregisterNode(parsingContext, currentNode, parsingElement, pathInfo);
+        parsingElement.getTypeAdapter().deregisterNode(parsingContext, currentNode, parsingElement, pathInfo);
     }
 
     protected Boolean evaluateFilterExpression(ParsingElement parsingElement, Object value, Node currentNode) {
@@ -305,7 +310,7 @@ public abstract class StreamParser {
     }
 
     protected void setDefaultValueOnNode(ParsingElement parsingElement, String value, PathInfo pathInfo) {
-        TypeAdaptor typeAdapter = parsingElement.getTagTypeAdapter();
+        TypeAdaptor typeAdapter = parsingElement.getTypeAdapter();
         Node node = getCurrentNode(parsingElement);
 
         if (node == null)
@@ -333,7 +338,7 @@ public abstract class StreamParser {
             }
         }
         if (resolvedValue instanceof String)
-            resolvedValue = TypeConverterFactory.getTypeConverter(parsingElement.getDataType()).convert(resolvedValue.toString(), parsingElement.getDataTypeParameters());
+            resolvedValue = convertValue(parsingElement, (String) resolvedValue);
         typeAdapter.setValue(parsingContext, node, parsingElement, pathInfo, resolvedValue);
         if (parsingElement.isUseFunction()) {
             Function function = parsingElement.getFunction();
@@ -494,4 +499,12 @@ public abstract class StreamParser {
         this.objectMapper = objectMapper;
     }
 
+
+    public TypeConverterFactory getTypeConverterFactory() {
+        return typeConverterFactory;
+    }
+
+    public void setTypeConverterFactory(TypeConverterFactory typeConverterFactory) {
+        this.typeConverterFactory = typeConverterFactory;
+    }
 }

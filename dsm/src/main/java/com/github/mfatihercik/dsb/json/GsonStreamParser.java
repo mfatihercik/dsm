@@ -3,6 +3,7 @@ package com.github.mfatihercik.dsb.json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mfatihercik.dsb.expression.ExpressionResolver;
 import com.github.mfatihercik.dsb.function.FunctionFactory;
+import com.github.mfatihercik.dsb.typeconverter.TypeConverterFactory;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
@@ -14,8 +15,8 @@ import java.io.Reader;
 public class GsonStreamParser extends JsonStreamParser {
 
 
-    public GsonStreamParser(FunctionFactory functionFactory, ExpressionResolver expressionResolver, ObjectMapper objectMapper, Class<?> resultType) {
-        super(functionFactory, expressionResolver, objectMapper, resultType);
+    public GsonStreamParser(FunctionFactory functionFactory, ExpressionResolver expressionResolver, ObjectMapper objectMapper, Class<?> resultType, TypeConverterFactory typeConverterFactory) {
+        super(functionFactory, expressionResolver, objectMapper, resultType, typeConverterFactory);
     }
 
     @Override

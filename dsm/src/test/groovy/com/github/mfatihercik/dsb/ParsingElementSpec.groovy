@@ -70,7 +70,7 @@ class ParsingElementSpec extends Specification {
 //		}
 //		Assert.assertTrue(ex.getMessage().contains("ObjectTypes must have fields"));
 //		element.addChild(new ParsingElement());
-//		element.setTagTypeAdapter(null);
+//		element.setTypeAdapter(null);
 //		element.setType("STD");
 //		try {
 //			element.validate();

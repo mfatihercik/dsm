@@ -7,6 +7,7 @@ import com.github.mfatihercik.dsb.expression.ExpressionResolver;
 import com.github.mfatihercik.dsb.function.FunctionFactory;
 import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
+import com.github.mfatihercik.dsb.typeconverter.TypeConverterFactory;
 import com.github.mfatihercik.dsb.utils.PathUtils;
 
 import java.util.HashMap;
@@ -20,13 +21,13 @@ public abstract class JsonStreamParser extends StreamParser {
     protected final Map<String, List<ParsingElement>> cacheEndValueEventConfigMaps = new HashMap<>();
 
 
-    public JsonStreamParser(FunctionFactory functionFactory, ExpressionResolver expressionResolver, ObjectMapper objectMapper, Class<?> resultType) {
-        super(functionFactory, expressionResolver, new AbsoluteJsonPathGenerator(), objectMapper, resultType);
+    public JsonStreamParser(FunctionFactory functionFactory, ExpressionResolver expressionResolver, ObjectMapper objectMapper, Class<?> resultType, TypeConverterFactory typeConverterFactory) {
+        super(functionFactory, expressionResolver, new AbsoluteJsonPathGenerator(), objectMapper, resultType, typeConverterFactory);
     }
 
     @Override
     protected boolean isStartElement(ParsingElement parsingElement) {
-        return parsingElement.getTagTypeAdapter().isStartElement();
+        return parsingElement.getTypeAdapter().isStartElement();
     }
 
     @Override
@@ -45,7 +46,7 @@ public abstract class JsonStreamParser extends StreamParser {
         PathInfo path = pathInfo.set(qName, parentTagPath, generateKey);
         List<ParsingElement> startEventElements = getStartEventElements(generateKey);
         for (ParsingElement parsingElement : startEventElements) {
-            TypeAdaptor typeAdapter = parsingElement.getTagTypeAdapter();
+            TypeAdaptor typeAdapter = parsingElement.getTypeAdapter();
             if (typeAdapter.isObject()) {
                 registerNewNode(parsingElement, path);
             } else {
@@ -77,7 +78,7 @@ public abstract class JsonStreamParser extends StreamParser {
 
     private void evaluateObjectParsingElement(String value, PathInfo path, List<ParsingElement> valueEventElements) {
         for (ParsingElement parsingElement : valueEventElements) {
-            TypeAdaptor typeAdaptor = parsingElement.getTagTypeAdapter();
+            TypeAdaptor typeAdaptor = parsingElement.getTypeAdapter();
             if (typeAdaptor.isObject()) {
                 setValueOnNode(parsingElement, path, value);
             }
@@ -88,7 +89,7 @@ public abstract class JsonStreamParser extends StreamParser {
 
         boolean isObjectTagTypeExist = false;
         for (ParsingElement parsingElement : valueEventElements) {
-            TypeAdaptor typeAdaptor = parsingElement.getTagTypeAdapter();
+            TypeAdaptor typeAdaptor = parsingElement.getTypeAdapter();
             if (typeAdaptor.isObject()) {
                 isObjectTagTypeExist = true;
                 registerNewNode(parsingElement, path);
@@ -105,7 +106,7 @@ public abstract class JsonStreamParser extends StreamParser {
         PathInfo path = pathInfo.set(qName, genderedKey, genderedKey);
         List<ParsingElement> endObjectEventElements = getEndObjectEventElements(genderedKey);
         for (ParsingElement parsingElement : endObjectEventElements) {
-            TypeAdaptor typeAdaptor = parsingElement.getTagTypeAdapter();
+            TypeAdaptor typeAdaptor = parsingElement.getTypeAdapter();
             if (typeAdaptor.isObject()) {
                 setValueOnNode(parsingElement, path, null);
             } else {
