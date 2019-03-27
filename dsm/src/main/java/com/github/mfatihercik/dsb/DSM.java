@@ -7,19 +7,19 @@ import java.io.*;
 import java.net.URL;
 import java.util.List;
 
-public class DCM {
+public class DSM {
     private final StreamParser parser;
     private final ConfigLoader configLoader;
     private ObjectMapper objectMapper;
 
-    DCM(StreamParser parser, ConfigLoader configLoader, ObjectMapper objectMapper) {
+    DSM(StreamParser parser, ConfigLoader configLoader, ObjectMapper objectMapper) {
         super();
         this.parser = parser;
         this.configLoader = configLoader;
         this.setObjectMapper(objectMapper);
     }
 
-    public DCM(StreamParser parser, ConfigLoader configLoader) {
+    public DSM(StreamParser parser, ConfigLoader configLoader) {
         this(parser, configLoader, new ObjectMapper());
     }
 

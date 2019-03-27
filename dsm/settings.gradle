@@ -15,6 +15,6 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'DSM'
+rootProject.name = 'dsm'
 
 

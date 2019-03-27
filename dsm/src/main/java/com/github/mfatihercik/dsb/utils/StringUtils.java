@@ -224,7 +224,7 @@ public class StringUtils {
     }
 
     /**
-     * Returns true if ch is a "7-bit-clean" ASCII character (ordinal number < 128).
+     * Returns true if ch is a "7-bit-clean" ASCII character (ordinal number <  128).
      *
      * @param ch the character to test
      * @return true if 7 bit-clean, false otherwise.

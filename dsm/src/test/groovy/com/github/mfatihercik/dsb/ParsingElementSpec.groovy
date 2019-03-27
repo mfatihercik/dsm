@@ -14,7 +14,7 @@ class ParsingElementSpec extends Specification {
         element.validate ()
 
         then:
-        def error = thrown (DCMValidationException)
+        def error = thrown (DSMValidationException)
         error.getMessage ().contains ("fieldName")
 
     }
@@ -35,7 +35,7 @@ class ParsingElementSpec extends Specification {
         element.validate ()
 
         then:
-        notThrown (DCMValidationException)
+        notThrown (DSMValidationException)
         element.type.equalsIgnoreCase ("STD")
 
     }
@@ -94,7 +94,7 @@ class ParsingElementSpec extends Specification {
         element.validate ()
 
         then:
-        def error = thrown (DCMValidationException)
+        def error = thrown (DSMValidationException)
         error.message.contains ("filter")
 
         when:
@@ -104,7 +104,7 @@ class ParsingElementSpec extends Specification {
         element.validate ()
 
         then:
-        error = thrown (DCMValidationException)
+        error = thrown (DSMValidationException)
         error.message.contains ("transformationCode")
 
 

@@ -2,8 +2,8 @@ package com.github.mfatihercik.dsb.json;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mfatihercik.dsb.DCM;
-import com.github.mfatihercik.dsb.DCMBuilder;
+import com.github.mfatihercik.dsb.DSM;
+import com.github.mfatihercik.dsb.DSMBuilder;
 import com.github.mfatihercik.dsb.TestMemoryLog;
 import com.github.mfatihercik.dsb.TestUtils;
 import com.github.mfatihercik.dsb.model.Pet;
@@ -29,10 +29,10 @@ public class JsonParserTest {
         memoryLog.logBefore();
         Path rootPath = Paths.get(TestUtils.getTestResourcePath(), pathPlace);
 
-        DCMBuilder builder = new DCMBuilder(rootPath.resolve("pet-store.yaml").toFile(), rootPath.toString());
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("pet-store.yaml").toFile(), rootPath.toString());
 
-        builder.setType(DCMBuilder.TYPE.JSON);
-        DCM dsm = builder.create(Pet.class);
+        builder.setType(DSMBuilder.TYPE.JSON);
+        DSM dsm = builder.create(Pet.class);
 
 
         Object object = dsm.toObject(rootPath.resolve("swagger-pet-store.json").toFile());
@@ -52,10 +52,10 @@ public class JsonParserTest {
     @Test
     public void test() throws IOException {
 
-        DCMBuilder builder = new DCMBuilder(rootPath.resolve("SaxParsingHandlerTest.yaml").toFile(), rootPath.toString());
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("SaxParsingHandlerTest.yaml").toFile(), rootPath.toString());
 
-        builder.setType(DCMBuilder.TYPE.JSON);
-        DCM dsm = builder.create();
+        builder.setType(DSMBuilder.TYPE.JSON);
+        DSM dsm = builder.create();
         Object data = dsm.toObject(rootPath.resolve("google-merchant-review.json").toFile());
 
         System.out.println(TestUtils.toJson(data));

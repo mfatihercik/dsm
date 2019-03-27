@@ -1,7 +1,7 @@
 
 package com.github.mfatihercik.dsb.typeconverter;
 
-import com.github.mfatihercik.dsb.DCMValidationException;
+import com.github.mfatihercik.dsb.DSMValidationException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,12 +49,12 @@ public class TypeConverterFactory implements Cloneable {
      *
      * @param name of the type adapter
      * @return TypeConverter instance
-     * @throws DCMValidationException if requested type adapter is not registered
+     * @throws DSMValidationException if requested type adapter is not registered
      */
     public TypeConverter getTypeConverter(String name) {
         TypeConverter converter = this.typeConverter.get(name.toLowerCase());
         if (converter == null) {
-            throw new DCMValidationException(String.format("%s is not registered as type converter", name));
+            throw new DSMValidationException(String.format("%s is not registered as type converter", name));
         }
         return converter;
     }

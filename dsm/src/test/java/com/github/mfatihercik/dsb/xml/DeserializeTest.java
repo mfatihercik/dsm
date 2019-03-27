@@ -3,8 +3,8 @@ package com.github.mfatihercik.dsb.xml;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlFactory;
-import com.github.mfatihercik.dsb.DCM;
-import com.github.mfatihercik.dsb.DCMBuilder;
+import com.github.mfatihercik.dsb.DSM;
+import com.github.mfatihercik.dsb.DSMBuilder;
 import com.github.mfatihercik.dsb.TestUtils;
 import com.github.mfatihercik.dsb.model.Product;
 import com.github.mfatihercik.dsb.model.SimpleOrder;
@@ -26,10 +26,10 @@ public class DeserializeTest {
     public void deserializeProductList() throws Exception {
 
 
-        DCMBuilder builder = new DCMBuilder(rootPath.resolve("simpleProductDeserializeList.yaml").toFile(), rootPath.toString());
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("simpleProductDeserializeList.yaml").toFile(), rootPath.toString());
 
-        builder.setType(DCMBuilder.TYPE.XML);
-        DCM dsm = builder.create(Product.class);
+        builder.setType(DSMBuilder.TYPE.XML);
+        DSM dsm = builder.create(Product.class);
 
         TestUtils.toJson(dsm.toObject(rootPath.resolve("simpleProduct.xml").toFile()));
 
@@ -46,9 +46,9 @@ public class DeserializeTest {
     public void deserializeSingleProduct() throws IOException {
 
 
-        DCMBuilder builder = new DCMBuilder(rootPath.resolve("simpleProductDeserializeSingle.yaml").toFile(), rootPath.toString());
-        builder.setType(DCMBuilder.TYPE.XML);
-        DCM dsm = builder.create(Product.class);
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("simpleProductDeserializeSingle.yaml").toFile(), rootPath.toString());
+        builder.setType(DSMBuilder.TYPE.XML);
+        DSM dsm = builder.create(Product.class);
 
         TestUtils.toJson(dsm.toObject(rootPath.resolve("simpleProduct.xml").toFile()));
 
@@ -60,10 +60,10 @@ public class DeserializeTest {
 
     @Test
     public void deserializeSingleOrder() throws IOException {
-        DCMBuilder builder = new DCMBuilder(rootPath.resolve("simpleOrder.yaml").toFile(), rootPath.toString());
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("simpleOrder.yaml").toFile(), rootPath.toString());
 
-        builder.setType(DCMBuilder.TYPE.XML);
-        DCM dsm = builder.create(SimpleOrder.class);
+        builder.setType(DSMBuilder.TYPE.XML);
+        DSM dsm = builder.create(SimpleOrder.class);
 
         // System.out.println(TestUtils.toJson(staxParser.getRoot().toObject()));
 

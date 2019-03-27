@@ -24,7 +24,7 @@ import com.github.mfatihercik.dsb.xml.StaxParser;
 import java.io.*;
 import java.nio.charset.Charset;
 
-public class DCMBuilder {
+public class DSMBuilder {
 
     private ExpressionResolver expressionResolver = null;
     private ConfigLoaderStrategy configLoaderStrategy = null;
@@ -44,41 +44,41 @@ public class DCMBuilder {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    public DCMBuilder(String configContent) {
+    public DSMBuilder(String configContent) {
         this(configContent, null);
     }
 
-    public DCMBuilder(String configContent, String rootDirectory) {
+    public DSMBuilder(String configContent, String rootDirectory) {
         this(new ByteArrayInputStream(configContent.getBytes(Charset.forName("UTF-8"))), rootDirectory);
     }
 
-    public DCMBuilder(InputStream inputStream) {
+    public DSMBuilder(InputStream inputStream) {
         this(inputStream, null);
     }
 
-    public DCMBuilder(InputStream inputStream, String rootDirectory) {
+    public DSMBuilder(InputStream inputStream, String rootDirectory) {
         this.configContent = inputStream;
         this.rootPath = rootDirectory;
     }
 
-    public DCMBuilder(File configFile) throws IOException {
+    public DSMBuilder(File configFile) throws IOException {
         this(configFile, configFile.getParentFile().getAbsolutePath());
 
     }
 
-    public DCMBuilder(File configFile, String rootDirectory) throws IOException {
+    public DSMBuilder(File configFile, String rootDirectory) throws IOException {
         this(new FileInputStream(configFile), rootDirectory);
     }
 
-    public DCMBuilder(ConfigLoaderStrategy configLoaderStrategy) {
+    public DSMBuilder(ConfigLoaderStrategy configLoaderStrategy) {
         this.configLoaderStrategy = configLoaderStrategy;
     }
 
-    public DCM create() {
+    public DSM create() {
         return create(null);
     }
 
-    public DCM create(Class<?> resultType) {
+    public DSM create(Class<?> resultType) {
         if (configLoaderStrategy == null) {
             if (ConfigFormat.YAML == configFormat) {
                 configLoaderStrategy = new YamlConfigLoaderStrategy(configContent, rootPath);
@@ -91,17 +91,17 @@ public class DCMBuilder {
         }
         StreamParser parser = type.equals(TYPE.JSON) ? new JacksonStreamParser(functionFactory, expressionResolver, objectMapper, resultType, getTypeConverterFactory().clone()) : new StaxParser(functionFactory, expressionResolver, objectMapper, resultType, getTypeConverterFactory().clone());
         FileParsingElementLoader configLoader = new FileParsingElementLoader(configLoaderStrategy, expressionResolver, valueTransformer, functionFactory.getContext(), getTypeAdaptorFactory().clone());
-        return new DCM(parser, configLoader, objectMapper);
+        return new DSM(parser, configLoader, objectMapper);
     }
 
     /**
      * register new function with given name.
      *
-     * @param functionName
-     * @param functionExecutor
-     * @return
+     * @param functionName name of function to register
+     * @param functionExecutor {@link FunctionExecutor} instance to register
+     * @return DSMBuilder
      */
-    public DCMBuilder registerFunction(String functionName, FunctionExecutor functionExecutor) {
+    public DSMBuilder registerFunction(String functionName, FunctionExecutor functionExecutor) {
         this.getFunctionFactory().getContext().registerFunction(functionName, functionExecutor);
         return this;
     }
@@ -109,11 +109,11 @@ public class DCMBuilder {
     /**
      * Register new type adapter with name.
      *
-     * @param name
-     * @param adapterClass
-     * @return
+     * @param name name of the type adapter to register
+     * @param adapterClass {@link Class} of the {@link TypeAdaptor}
+     * @return self
      */
-    public DCMBuilder registerTypeAdapter(String name, Class<? extends TypeAdaptor> adapterClass) {
+    public DSMBuilder registerTypeAdapter(String name, Class<? extends TypeAdaptor> adapterClass) {
         this.getTypeAdaptorFactory().register(name, adapterClass);
         return this;
     }
@@ -121,21 +121,21 @@ public class DCMBuilder {
     /**
      * Register new type converter with name
      *
-     * @param name
-     * @param typeConverter
-     * @return
+     * @param name name of {@link TypeConverter} to register. name can be referenced "dataType" field in DSM document
+     * @param typeConverter {@link TypeConverter} instance
+     * @return self
      */
-    public DCMBuilder registerTypeConverter(String name, TypeConverter typeConverter) {
+    public DSMBuilder registerTypeConverter(String name, TypeConverter typeConverter) {
         this.getTypeConverterFactory().register(name, typeConverter);
         return this;
     }
 
-    public DCMBuilder removeFunction(String functionName) {
+    public DSMBuilder removeFunction(String functionName) {
         this.getFunctionFactory().getContext().remove(functionName);
         return this;
     }
 
-    public DCMBuilder getRegisteredFunction(String functionName) {
+    public DSMBuilder getRegisteredFunction(String functionName) {
         this.getFunctionFactory().getContext().get(functionName);
         return this;
     }
@@ -144,7 +144,7 @@ public class DCMBuilder {
         return objectMapper;
     }
 
-    public DCMBuilder setObjectMapper(ObjectMapper objectMapper) {
+    public DSMBuilder setObjectMapper(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
         return this;
     }
@@ -153,7 +153,7 @@ public class DCMBuilder {
         return configContent;
     }
 
-    public DCMBuilder setConfigContent(InputStream configContent) {
+    public DSMBuilder setConfigContent(InputStream configContent) {
         this.configContent = configContent;
         return this;
     }
@@ -162,7 +162,7 @@ public class DCMBuilder {
         return rootPath;
     }
 
-    public DCMBuilder setRootPath(String rootPath) {
+    public DSMBuilder setRootPath(String rootPath) {
         this.rootPath = rootPath;
         return this;
     }
@@ -171,7 +171,7 @@ public class DCMBuilder {
         return configFormat;
     }
 
-    public DCMBuilder setConfigFormat(ConfigFormat configFormat) {
+    public DSMBuilder setConfigFormat(ConfigFormat configFormat) {
         this.configFormat = configFormat;
         return this;
     }
@@ -180,7 +180,7 @@ public class DCMBuilder {
         return functionFactory;
     }
 
-    public DCMBuilder setFunctionFactory(FunctionFactory functionFactory) {
+    public DSMBuilder setFunctionFactory(FunctionFactory functionFactory) {
         this.functionFactory = functionFactory;
         return this;
     }
@@ -189,7 +189,7 @@ public class DCMBuilder {
         return expressionResolver;
     }
 
-    public DCMBuilder setExpressionResolver(ExpressionResolver expressionResolver) {
+    public DSMBuilder setExpressionResolver(ExpressionResolver expressionResolver) {
         this.expressionResolver = expressionResolver;
         return this;
     }
@@ -198,7 +198,7 @@ public class DCMBuilder {
         return configLoaderStrategy;
     }
 
-    public DCMBuilder setConfigLoaderStrategy(ConfigLoaderStrategy configLoaderStrategy) {
+    public DSMBuilder setConfigLoaderStrategy(ConfigLoaderStrategy configLoaderStrategy) {
         this.configLoaderStrategy = configLoaderStrategy;
         return this;
     }
@@ -207,7 +207,7 @@ public class DCMBuilder {
         return valueTransformer;
     }
 
-    public DCMBuilder setValueTransformer(ValueTransformer valueTransformer) {
+    public DSMBuilder setValueTransformer(ValueTransformer valueTransformer) {
         this.valueTransformer = valueTransformer;
         return this;
     }
@@ -216,7 +216,7 @@ public class DCMBuilder {
         return typeAdaptorFactory;
     }
 
-    public DCMBuilder setTypeAdaptorFactory(TypeAdaptorFactory typeAdaptorFactory) {
+    public DSMBuilder setTypeAdaptorFactory(TypeAdaptorFactory typeAdaptorFactory) {
         this.typeAdaptorFactory = typeAdaptorFactory;
         return this;
     }
@@ -225,7 +225,7 @@ public class DCMBuilder {
         return typeConverterFactory;
     }
 
-    public DCMBuilder setTypeConverterFactory(TypeConverterFactory typeConverterFactory) {
+    public DSMBuilder setTypeConverterFactory(TypeConverterFactory typeConverterFactory) {
         this.typeConverterFactory = typeConverterFactory;
         return this;
     }
@@ -234,7 +234,7 @@ public class DCMBuilder {
         return scriptingLang;
     }
 
-    public DCMBuilder setScriptingLang(String scriptingLang) {
+    public DSMBuilder setScriptingLang(String scriptingLang) {
         this.scriptingLang = scriptingLang;
         this.setExpressionResolver(null);
         return this;
@@ -244,7 +244,7 @@ public class DCMBuilder {
         return type;
     }
 
-    public DCMBuilder setType(TYPE type) {
+    public DSMBuilder setType(TYPE type) {
         this.type = type;
         return this;
     }

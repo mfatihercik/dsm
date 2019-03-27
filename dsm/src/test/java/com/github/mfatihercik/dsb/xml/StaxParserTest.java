@@ -2,8 +2,8 @@ package com.github.mfatihercik.dsb.xml;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlFactory;
-import com.github.mfatihercik.dsb.DCM;
-import com.github.mfatihercik.dsb.DCMBuilder;
+import com.github.mfatihercik.dsb.DSM;
+import com.github.mfatihercik.dsb.DSMBuilder;
 import com.github.mfatihercik.dsb.TestUtils;
 import org.junit.Test;
 
@@ -109,10 +109,10 @@ public class StaxParserTest {
     public void test() throws IOException {
 
 
-        DCMBuilder builder = new DCMBuilder(rootPath.resolve("SaxParsingHandlerTest.yaml").toFile(), rootPath.toString());
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("SaxParsingHandlerTest.yaml").toFile(), rootPath.toString());
 
-        builder.setType(DCMBuilder.TYPE.XML);
-        DCM dsm = builder.create();
+        builder.setType(DSMBuilder.TYPE.XML);
+        DSM dsm = builder.create();
         Object data = dsm.toObject(rootPath.resolve("google-merchant-review.xml").toFile());
 
         System.out.println(TestUtils.toJson(data));
@@ -125,10 +125,10 @@ public class StaxParserTest {
     public void odooSaleOrder() throws IOException {
 
 
-        DCMBuilder builder = new DCMBuilder(rootPath.resolve("odoo-sale.yaml").toFile(), rootPath.toString());
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("odoo-sale.yaml").toFile(), rootPath.toString());
 
-        builder.setType(DCMBuilder.TYPE.XML);
-        DCM dsm = builder.create();
+        builder.setType(DSMBuilder.TYPE.XML);
+        DSM dsm = builder.create();
         Map<String, Object> data = (Map<String, Object>) dsm.toObject(rootPath.resolve("odoo-sale.xml").toFile());
 
         System.out.println(TestUtils.toJson(data));
@@ -164,11 +164,11 @@ public class StaxParserTest {
     @Test
     public void petStoreXml() throws IOException {
 
-        DCMBuilder builder = new DCMBuilder(rootPath.resolve("pet-store.yaml").toFile(), rootPath.toString());
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("pet-store.yaml").toFile(), rootPath.toString());
 
 
-        builder.setType(DCMBuilder.TYPE.XML);
-        DCM dsm = builder.create();
+        builder.setType(DSMBuilder.TYPE.XML);
+        DSM dsm = builder.create();
         Object object = dsm.toObject(rootPath.resolve("swagger-pet-store.xml").toFile());
 
         List<Map<String, Object>> list = (List<Map<String, Object>>) object;

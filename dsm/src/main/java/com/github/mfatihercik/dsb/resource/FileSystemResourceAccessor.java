@@ -27,8 +27,10 @@ public class FileSystemResourceAccessor extends AbstractResourceAccessor {
         init();
     }
 
+
     /**
      * Creates with base directory for relative path support.
+     * @param base base directory name
      */
     public FileSystemResourceAccessor(String base) {
         baseDirectory = new File(base);

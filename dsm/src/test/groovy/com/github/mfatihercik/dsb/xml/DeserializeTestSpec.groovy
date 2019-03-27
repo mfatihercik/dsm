@@ -1,7 +1,7 @@
 package com.github.mfatihercik.dsb.xml
 
-import com.github.mfatihercik.dsb.DCM
-import com.github.mfatihercik.dsb.DCMBuilder
+import com.github.mfatihercik.dsb.DSM
+import com.github.mfatihercik.dsb.DSMBuilder
 import com.github.mfatihercik.dsb.TestUtils
 import com.github.mfatihercik.dsb.model.Product
 import spock.lang.Specification
@@ -17,9 +17,9 @@ class DeserializeTestSpec extends Specification {
 
     def "deserialize product list"() {
 
-        DCMBuilder builder = new DCMBuilder (rootPath.resolve ("simpleProductDeserializeList.yaml").toFile (), rootPath.toString ())
-        builder.setType (DCMBuilder.TYPE.XML)
-        DCM dsm = builder.create (Product.class)
+        DSMBuilder builder = new DSMBuilder (rootPath.resolve ("simpleProductDeserializeList.yaml").toFile (), rootPath.toString ())
+        builder.setType (DSMBuilder.TYPE.XML)
+        DSM dsm = builder.create (Product.class)
 
         when:
 
@@ -35,9 +35,9 @@ class DeserializeTestSpec extends Specification {
     }
 
     def "deserialize single product"() {
-        DCMBuilder builder = new DCMBuilder (rootPath.resolve ("simpleProductDeserializeSingle.yaml").toFile (), rootPath.toString ())
-        builder.setType (DCMBuilder.TYPE.XML)
-        DCM dsm = builder.create (Product.class)
+        DSMBuilder builder = new DSMBuilder (rootPath.resolve ("simpleProductDeserializeSingle.yaml").toFile (), rootPath.toString ())
+        builder.setType (DSMBuilder.TYPE.XML)
+        DSM dsm = builder.create (Product.class)
 
         when:
 

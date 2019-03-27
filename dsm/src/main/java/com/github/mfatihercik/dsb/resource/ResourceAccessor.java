@@ -14,6 +14,7 @@ public interface ResourceAccessor {
      * Return an InputStream for each resource mapped by the given path.
      * The path is often a URL but does not have to be.
      *
+     * @param path path to file
      * @return null if the resource does not exist.
      * @throws IOException if there is an error reading an existing path.
      */

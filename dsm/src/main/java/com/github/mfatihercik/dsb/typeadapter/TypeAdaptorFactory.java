@@ -1,6 +1,6 @@
 package com.github.mfatihercik.dsb.typeadapter;
 
-import com.github.mfatihercik.dsb.DCMValidationException;
+import com.github.mfatihercik.dsb.DSMValidationException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +31,7 @@ public class TypeAdaptorFactory implements Cloneable {
             name = name.toLowerCase();
             Class<? extends TypeAdaptor> typeAdapter = typeAdapterMap.get(name);
             if (typeAdapter == null) {
-                throw new DCMValidationException(String.format("%s tagType adapter is not registered", name));
+                throw new DSMValidationException(String.format("%s tagType adapter is not registered", name));
             }
             return typeAdapter.newInstance();
         } catch (Exception e) {

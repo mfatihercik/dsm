@@ -12,7 +12,7 @@ public class ParsingElementTest {
         try {
 
             element.validate();
-        } catch (DCMValidationException e) {
+        } catch (DSMValidationException e) {
             Assert.assertTrue(e.getMessage().contains("fieldName"));
         }
     }
@@ -27,7 +27,7 @@ public class ParsingElementTest {
             Assert.assertEquals("STD", element.getType());
             element.setType(null);
             element.validate();
-        } catch (DCMValidationException e) {
+        } catch (DSMValidationException e) {
             ex = e;
         }
         Assert.assertNull(ex);
