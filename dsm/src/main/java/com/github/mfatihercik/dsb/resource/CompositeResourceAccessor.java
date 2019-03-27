@@ -4,7 +4,10 @@ import com.github.mfatihercik.dsb.utils.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Code taken from <a href="https://github.com/liquibase/liquibase">Liquivase</a>
@@ -35,21 +38,6 @@ public class CompositeResourceAccessor implements ResourceAccessor {
         return null;
     }
 
-    @Override
-    public Set<String> list(String relativeTo, String path, boolean includeFiles, boolean includeDirectories, boolean recursive) throws IOException {
-        Set<String> returnSet = new HashSet<>();
-        for (ResourceAccessor accessor : resourceAccessors) {
-            Set<String> thisSet = accessor.list(relativeTo, path, includeFiles, includeDirectories, recursive);
-            if (thisSet != null) {
-                returnSet.addAll(thisSet);
-            }
-        }
-
-        if (!returnSet.isEmpty()) {
-            return returnSet;
-        }
-        return null;
-    }
 
     @Override
     public ClassLoader toClassLoader() {

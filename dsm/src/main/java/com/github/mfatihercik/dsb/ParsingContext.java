@@ -2,7 +2,7 @@ package com.github.mfatihercik.dsb;
 
 import com.github.mfatihercik.dsb.expression.ExpressionResolver;
 import com.github.mfatihercik.dsb.function.FunctionFactory;
-import com.github.mfatihercik.dsb.model.DeferAssigment;
+import com.github.mfatihercik.dsb.model.DeferAssignment;
 import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.transformation.ValueTransformer;
 
@@ -14,8 +14,8 @@ import java.util.Map;
 public class ParsingContext {
     private int nodeMapSize = 0;
     private Map<String, Node> mainNodeMap = new HashMap<>();
-    private Map<ParsingElement, Node> parsingElementToNode = new HashMap<>();
-    private Map<ParsingElement, List<DeferAssigment>> deferAssigmentMap = new HashMap<>();
+    private final Map<ParsingElement, Node> parsingElementToNode = new HashMap<>();
+    private final Map<ParsingElement, List<DeferAssignment>> deferAssignmentMap = new HashMap<>();
     private Class<?> resultType;
     private Node rootNode;
     protected ValueTransformer valueTransformer = null;
@@ -34,7 +34,7 @@ public class ParsingContext {
         getMainNodeMap().clear();
         initNodeMap(nodeMapSize);
         parsingElementToNode.clear();
-        deferAssigmentMap.clear();
+        deferAssignmentMap.clear();
 
     }
 
@@ -45,17 +45,17 @@ public class ParsingContext {
     public void addDeferAssignment(ParsingElement currentParsingElement, PathInfo pathInfo, Object value, boolean isDefault) {
         if (!currentParsingElement.isRoot()) {
             ParsingElement parentElement = currentParsingElement.getParentElement();
-            List<DeferAssigment> deferAssigments = deferAssigmentMap.get(parentElement);
-            if (deferAssigments == null) {
-                deferAssigments = new ArrayList<>();
-                deferAssigmentMap.put(parentElement, deferAssigments);
+            List<DeferAssignment> deferAssignments = deferAssignmentMap.get(parentElement);
+            if (deferAssignments == null) {
+                deferAssignments = new ArrayList<>();
+                deferAssignmentMap.put(parentElement, deferAssignments);
             }
-            deferAssigments.add(new DeferAssigment(currentParsingElement, pathInfo, value));
+            deferAssignments.add(new DeferAssignment(currentParsingElement, pathInfo, value));
         }
     }
 
-    public List<DeferAssigment> getDeferAssigment(ParsingElement parentParsingElement) {
-        return deferAssigmentMap.get(parentParsingElement);
+    public List<DeferAssignment> getDeferredAssignment(ParsingElement parentParsingElement) {
+        return deferAssignmentMap.get(parentParsingElement);
     }
 
     public boolean contains(String uniqueName) {

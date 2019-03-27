@@ -1,6 +1,5 @@
 package com.github.mfatihercik.dsb.model;
 
-import com.github.mfatihercik.dsb.DCMValidationException;
 import com.github.mfatihercik.dsb.typeadapter.StdTypeAdapter;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
 
@@ -9,13 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.github.mfatihercik.dsb.utils.ValidationUtils.assertTrue;
+
 public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
 
     public static final String DEFAULT_TAG_TYPE = "STD";
     private ParsingElement parentElement;
-    private String parsingTypology;
-
-
     private int order;
     private String fieldName;
     private String uniqueKey;
@@ -50,31 +48,27 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
         String parentFiledName = this.getParentElement() == null ? "" : this.getParentElement().getFieldName();
 
         String fName = getFieldName();
-        throwExceptionIfTrue(fName == null, String.format("fieldName is required for %s", parentFiledName));
-        throwExceptionIfTrue(getType() == null, String.format("type is required %s/%s", fName, parentFiledName));
-        throwExceptionIfTrue(getPath() == null, String.format("path is required for %s/%s", fName, parentFiledName));
-        throwExceptionIfTrue(getUniqueKey() == null, String.format("uniqueKey is required for %s/%s", fName, parentFiledName));
+        assertTrue(fName == null, String.format("fieldName is required for %s", parentFiledName));
+        assertTrue(getType() == null, String.format("type is required %s/%s", fName, parentFiledName));
+        assertTrue(getPath() == null, String.format("path is required for %s/%s", fName, parentFiledName));
+        assertTrue(getUniqueKey() == null, String.format("uniqueKey is required for %s/%s", fName, parentFiledName));
 
         boolean isFilterExist = (isFilterExist() && getFilter() == null);
-        throwExceptionIfTrue(isFilterExist, String.format("filter is required if filterExist true for %s/%s", fName, parentFiledName));
+        assertTrue(isFilterExist, String.format("filter is required if filterExist true for %s/%s", fName, parentFiledName));
 
-        throwExceptionIfTrue((isTransformEnabled() && getTransformationCode() == null), String.format("transformationCode is required if transformationEnabled true for %s/%s", fName, parentFiledName));
+        assertTrue((isTransformEnabled() && getTransformationCode() == null), String.format("transformationCode is required if transformationEnabled true for %s/%s", fName, parentFiledName));
 
         TypeAdaptor typeAdapter = getTypeAdapter();
-        throwExceptionIfTrue(typeAdapter.isObject() && !typeAdapter.isArray() && children.isEmpty(),
+        assertTrue(typeAdapter.isObject() && !typeAdapter.isArray() && children.isEmpty(),
                 String.format("type of %s/%s is complex type(%s). Object type must have fields ", this.getFieldName(), parentFiledName, this.getType()));
-        throwExceptionIfTrue(!typeAdapter.isObject() && !children.isEmpty(),
+        assertTrue(!typeAdapter.isObject() && !children.isEmpty(),
                 String.format("type of %s/%s is not objectType(%s). Only objectType can have fields ", this.getFieldName(), parentFiledName, this.getType()));
 
 
-        throwExceptionIfTrue(isRoot() && getPath() == null, String.format("path is required for root element for %s/%s", fName, parentFiledName));
+        assertTrue(isRoot() && getPath() == null, String.format("path is required for root element for %s/%s", fName, parentFiledName));
 
     }
 
-    private void throwExceptionIfTrue(boolean condition, String message) {
-        if (condition)
-            throw new DCMValidationException(message);
-    }
 
     public ParsingElement getParentElement() {
         return parentElement;
@@ -83,14 +77,6 @@ public class ParsingElement implements Comparable<ParsingElement>, Cloneable {
     public void setParentElement(ParsingElement parentElement) {
         this.parentElement = parentElement;
         parentElement.children.add(this);
-    }
-
-    public String getParsingTypology() {
-        return parsingTypology;
-    }
-
-    public void setParsingTypology(String parsingTypology) {
-        this.parsingTypology = parsingTypology;
     }
 
     public String getFieldName() {

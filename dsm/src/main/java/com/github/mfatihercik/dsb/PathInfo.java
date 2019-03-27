@@ -10,25 +10,14 @@ public class PathInfo {
         return tagName;
     }
 
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
-    }
-
     public String getParentPath() {
         return parentPath;
-    }
-
-    public void setParentPath(String parentPath) {
-        this.parentPath = parentPath;
     }
 
     public String getAbsolutePath() {
         return absolutePath;
     }
 
-    public void setAbsolutePath(String absolutePath) {
-        this.absolutePath = absolutePath;
-    }
 
     public PathInfo set(String tagName, String parentPath, String absolutePath) {
         this.tagName = tagName;

@@ -1,9 +1,6 @@
 package com.github.mfatihercik.dsb.configloader
 
 import com.github.mfatihercik.dsb.TestUtils
-import com.github.mfatihercik.dsb.configloader.GsonConfigLoaderStrategy
-import com.github.mfatihercik.dsb.configloader.JsonConfigLoaderStrategy
-import com.github.mfatihercik.dsb.configloader.YamlConfigLoaderStrategy
 import spock.lang.Specification
 
 import java.nio.file.Path
@@ -22,15 +19,6 @@ class JsonConfigLoaderStrategySpec extends Specification {
         configLoaderAssert (map)
     }
 
-    def "gson Config Class Loader"() {
-
-        when:
-        Path filePath = Paths.get (TestUtils.getTestResourcePath (), "configs/loader", "yamlConfigLoaderTest.json")
-        GsonConfigLoaderStrategy jsonConfigLoaderStrategy = new GsonConfigLoaderStrategy (new FileInputStream (filePath.toString ()), TestUtils.getTestResourcePath ())
-        Map<String, Object> map = jsonConfigLoaderStrategy.readConfiguration ()
-        then:
-        configLoaderAssert (map)
-    }
 
     def "yaml Config Class Loader"() throws URISyntaxException, IOException {
         when:

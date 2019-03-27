@@ -24,9 +24,9 @@ public class JsonParserTest {
     @Test
     public void petStoreJson() throws IOException {
 
+
         TestMemoryLog memoryLog = new TestMemoryLog();
         memoryLog.logBefore();
-
         Path rootPath = Paths.get(TestUtils.getTestResourcePath(), pathPlace);
 
         DCMBuilder builder = new DCMBuilder(rootPath.resolve("pet-store.yaml").toFile(), rootPath.toString());

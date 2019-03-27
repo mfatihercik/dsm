@@ -5,6 +5,7 @@ import com.github.mfatihercik.dsb.ParsingContext;
 import com.github.mfatihercik.dsb.PathInfo;
 import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.utils.StringUtils;
+import com.github.mfatihercik.dsb.utils.ValidationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,13 @@ public class JoinTypeAdapter extends BaseSimpleAdapter {
     @Override
     public String getValue(ParsingContext parsingContext, Node node, ParsingElement parsingElement, PathInfo pathInfo, String value) {
         Map<String, Object> parameters = getParameters();
-        assert parameters != null : "Join tagType must have params";
-        assert parameters.containsKey(FIELDS) : "Join tagType must have \"fields\" in params";
+
+        ValidationUtils.assertTrue(parameters == null, "Join type must have params");
+        ValidationUtils.assertTrue(!parameters.containsKey(FIELDS), "Join type must have \"fields\" in params");
         Object object = parameters.get(FIELDS);
+        ValidationUtils.assertTrue(!(object instanceof List), "\"fields\" must be List");
         String separator = parameters.containsKey(SEPARATOR) ? parameters.get(SEPARATOR).toString() : DEFAULT_SEPARATOR;
-        assert object instanceof List : "\"fields\" must be List";
+
         @SuppressWarnings("unchecked")
         List<Object> fields = (List<Object>) object;
         List<String> values = new ArrayList<>();

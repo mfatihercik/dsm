@@ -2,7 +2,6 @@ package com.github.mfatihercik.dsb.transformation;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class FileValueTransformer implements ValueTransformer {
@@ -12,14 +11,6 @@ public class FileValueTransformer implements ValueTransformer {
 
 
     public FileValueTransformer() {
-
-    }
-
-    public FileValueTransformer(List<TransformationElement> transformationElements) {
-        super();
-        for (TransformationElement transformationElement : transformationElements) {
-            getTransformationElementMap().put(transformationElement.getTransformationCode(), transformationElement);
-        }
 
     }
 

@@ -26,7 +26,7 @@ import java.nio.charset.Charset;
 
 public class DCMBuilder {
 
-    private ExpressionResolver expressionResolver = ExpressionResolverFactory.getExpressionResolver(null);
+    private ExpressionResolver expressionResolver = null;
     private ConfigLoaderStrategy configLoaderStrategy = null;
     private ValueTransformer valueTransformer = new FileValueTransformer();
     private FunctionFactory functionFactory = new DefaultFunctionFactory(new FunctionContext());
@@ -37,6 +37,8 @@ public class DCMBuilder {
     private InputStream configContent = null;
     private String rootPath;
     private ConfigFormat configFormat = ConfigFormat.YAML;
+
+    private String scriptingLang = "jexl3";
 
     {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -83,6 +85,9 @@ public class DCMBuilder {
             } else {
                 configLoaderStrategy = new JsonConfigLoaderStrategy(configContent, rootPath);
             }
+        }
+        if (expressionResolver == null) {
+            expressionResolver = ExpressionResolverFactory.getExpressionResolver(scriptingLang);
         }
         StreamParser parser = type.equals(TYPE.JSON) ? new JacksonStreamParser(functionFactory, expressionResolver, objectMapper, resultType, getTypeConverterFactory().clone()) : new StaxParser(functionFactory, expressionResolver, objectMapper, resultType, getTypeConverterFactory().clone());
         FileParsingElementLoader configLoader = new FileParsingElementLoader(configLoaderStrategy, expressionResolver, valueTransformer, functionFactory.getContext(), getTypeAdaptorFactory().clone());
@@ -222,6 +227,16 @@ public class DCMBuilder {
 
     public DCMBuilder setTypeConverterFactory(TypeConverterFactory typeConverterFactory) {
         this.typeConverterFactory = typeConverterFactory;
+        return this;
+    }
+
+    public String getScriptingLang() {
+        return scriptingLang;
+    }
+
+    public DCMBuilder setScriptingLang(String scriptingLang) {
+        this.scriptingLang = scriptingLang;
+        this.setExpressionResolver(null);
         return this;
     }
 

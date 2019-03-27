@@ -4,7 +4,8 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.zip.GZIPInputStream;
 
 
@@ -99,63 +100,7 @@ public class FileSystemResourceAccessor extends AbstractResourceAccessor {
     }
 
 
-    @Override
-    public Set<String> list(String relativeTo, String path, boolean includeFiles, boolean includeDirectories, boolean recursive) {
-        File finalDir;
 
-        if (relativeTo == null) {
-            finalDir = new File(this.baseDirectory, path);
-        } else {
-            finalDir = new File(this.baseDirectory, relativeTo);
-            finalDir = new File(finalDir.getParentFile(), path);
-        }
-
-        if (finalDir.exists() && finalDir.isDirectory()) {
-            Set<String> returnSet = new HashSet<>();
-            getContents(finalDir, recursive, includeFiles, includeDirectories, path, returnSet);
-
-            SortedSet<String> rootPaths = new TreeSet<>(new Comparator<String>() {
-                @Override
-                public int compare(String o1, String o2) {
-                    int i = -1 * ((Integer) o1.length()).compareTo(o2.length());
-                    if (i == 0) {
-                        i = o1.compareTo(o2);
-                    }
-                    return i;
-                }
-            });
-
-            for (String rootPath : getRootPaths()) {
-                if (rootPath.matches("file:/[A-Za-z]:/.*")) {
-                    rootPath = rootPath.replaceFirst("file:/", "");
-                } else {
-                    rootPath = rootPath.replaceFirst("file:", "");
-                }
-                rootPaths.add(rootPath.replace("\\", "/"));
-            }
-
-            Set<String> finalReturnSet = new LinkedHashSet<>();
-            for (String returnPath : returnSet) {
-                returnPath = returnPath.replace("\\", "/");
-                for (String rootPath : rootPaths) {
-                    boolean matches;
-                    if (isCaseSensitive()) {
-                        matches = returnPath.startsWith(rootPath);
-                    } else {
-                        matches = returnPath.toLowerCase().startsWith(rootPath.toLowerCase());
-                    }
-                    if (matches) {
-                        returnPath = returnPath.substring(rootPath.length());
-                        break;
-                    }
-                }
-                finalReturnSet.add(returnPath);
-            }
-            return finalReturnSet;
-        }
-
-        return null;
-    }
 
     @Override
     protected String convertToPath(String string) {

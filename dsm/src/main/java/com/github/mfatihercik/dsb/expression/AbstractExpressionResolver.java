@@ -5,42 +5,39 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-public class JavascriptExpressionResolver implements ExpressionResolver {
-    final ScriptEngine engine;
+public abstract class AbstractExpressionResolver implements ExpressionResolver {
+    private final ScriptEngine engine;
 
 
-    public JavascriptExpressionResolver() {
-        this(new HashMap<>());
-
-    }
-
-    public JavascriptExpressionResolver(Map<String, Object> context) {
+    public AbstractExpressionResolver(String engineName) {
         ScriptEngineManager engineManager = new ScriptEngineManager();
-        this.engine = engineManager.getEngineByName("JavaScript");
-        setContext(context);
-
+        this.engine = engineManager.getEngineByName(engineName);
+        setContext(new HashMap<>());
     }
 
     public Object resolveExpression(String expression) {
         if (expression.startsWith("$"))
             expression = expression.substring(1);
         try {
-            return engine.eval(expression);
+            return getEngine().eval(expression);
         } catch (ScriptException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void setBean(String name, Object value) {
-        engine.put(name, value);
+        getEngine().put(name, value);
     }
 
     public void setContext(Map<String, Object> context) {
-        for (Entry<String, Object> entry : context.entrySet()) {
+        for (Map.Entry<String, Object> entry : context.entrySet()) {
             setBean(entry.getKey(), entry.getValue());
         }
+    }
+
+    public ScriptEngine getEngine() {
+        return engine;
     }
 
 

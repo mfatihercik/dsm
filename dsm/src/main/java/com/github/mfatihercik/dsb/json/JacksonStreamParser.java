@@ -37,7 +37,7 @@ public class JacksonStreamParser extends JsonStreamParser {
         JsonFactory factory = new JsonFactory();
 
 
-        JsonParser parser = null;
+        JsonParser parser;
         try {
             parser = factory.createParser(inputStream);
             processParser(parser);
@@ -60,7 +60,7 @@ public class JacksonStreamParser extends JsonStreamParser {
                         parentTagAdd(qName);
                         break;
                     }
-                    startObject(qName);
+                    startObject(null);
                     break;
                 case START_OBJECT:
                     startObject(parser.currentName());
@@ -72,7 +72,7 @@ public class JacksonStreamParser extends JsonStreamParser {
                         parentTagRemove(qName);
                         break;
                     }
-                    endObject(qName);
+                    endObject(null);
                     break;
                 case END_OBJECT:
                     endObject(parser.currentName());

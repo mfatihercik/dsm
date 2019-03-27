@@ -19,17 +19,5 @@ public interface ResourceAccessor {
      */
     Set<InputStream> getResourcesAsStream(String path) throws IOException;
 
-    /**
-     * Returns the path to all resources contained in the given root.
-     * The passed root is not included in the returned set.
-     *
-     * @param includeFiles       Set to false to exclude files in the returned set. Defaults to true
-     * @param includeDirectories Set to false to exclude directories in the returned set. Defaults to true
-     * @param recursive          Set to true and will return paths to contents in sub directories as well. Defaults to false
-     * @return null if the root does not exist.
-     * @throws IOException if there is an error reading an existing root.
-     */
-    Set<String> list(String relativeTo, String path, boolean includeFiles, boolean includeDirectories, boolean recursive) throws IOException;
-
     ClassLoader toClassLoader();
 }

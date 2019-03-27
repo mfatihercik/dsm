@@ -103,9 +103,9 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         }
         Map<String, Object> importMap = configLoader.readExtendConfiguration(path);
         extendToExternalConfig(new MapWrapper(importMap, mapWrapper.getParent() + "|" + path));
-        /**
-         * if EXTENDS value is list ConcurrentModification exception is thrown.
-         * so we have to delete EXTENDS key
+        /*
+          if EXTENDS value is list ConcurrentModification exception is thrown.
+          so we have to delete EXTENDS key
          */
         importMap.remove(EXTENDS);
         MapUtils.mergeMap(mapWrapper.getMap(), importMap);
@@ -258,7 +258,6 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
             fields = new LinkedHashMap<>();
         }
 
-        List<String> fieldNames = new ArrayList<>();
         int count = 0;
         for (Entry<String, Object> property : fields.entrySet()) {
 
@@ -266,7 +265,6 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
             String propertyName = property.getKey();
 
             count = setAllFields(element, count, property.getValue(), propertyName);
-            fieldNames.add(propertyName);
         }
         element.getTypeAdapter().postProcess(element);
 
@@ -279,7 +277,7 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
         if (parsingConfig instanceof Map<?, ?>) {
             buildParsingElementTree(parsingConfig, propertyName, element, count);
         } else if (parsingConfig instanceof List<?>) {
-            //TODO test muti line extends
+            //TODO test multi line extends
             List<Object> parsingConfigList = (List<Object>) parsingConfig;
             for (Object listConfig : parsingConfigList) {
                 setAllFields(element, count++, listConfig, propertyName);
@@ -295,7 +293,7 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
 
     private void extendsToFragments(MapWrapper valueMap) {
         if (valueMap.isExist(REF)) {
-            //TODO test muti line refe
+            //TODO test multi line ref
             Map<String, Object> map = valueMap.getMap();
             if (valueMap.isList(REF)) {
                 List<Object> list = valueMap.toList(REF);
@@ -314,10 +312,11 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
     private void resolveFragmentExpression(MapWrapper map, String ref) {
         ref = ref.trim();
         Map<String, Object> fragment = (Map<String, Object>) getExpressionResolver().resolveExpression(ref);
-        extendsToFragments(new MapWrapper(fragment, ref + "|" + map.getParent()));
-        fragment.remove(REF);
-        if (fragment != null)
+        if (fragment != null) {
+            extendsToFragments(new MapWrapper(fragment, ref + "|" + map.getParent()));
+            fragment.remove(REF);
             MapUtils.mergeMap(map.getMap(), fragment);
+        }
     }
 
     private void setDataType(MapWrapper elementMap, ParsingElement element) {

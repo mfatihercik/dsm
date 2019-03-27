@@ -2,14 +2,14 @@ package com.github.mfatihercik.dsb.model;
 
 import com.github.mfatihercik.dsb.PathInfo;
 
-public class DeferAssigment {
+public class DeferAssignment {
     private ParsingElement currentParsingElement;
     private PathInfo pathInfo;
     private Object value;
     private boolean isDefault;
 
 
-    public DeferAssigment(ParsingElement currentParsingElement, PathInfo pathInfo, Object value, boolean isDefault) {
+    public DeferAssignment(ParsingElement currentParsingElement, PathInfo pathInfo, Object value, boolean isDefault) {
         this.currentParsingElement = currentParsingElement;
         this.pathInfo = pathInfo;
         this.value = value;
@@ -21,10 +21,10 @@ public class DeferAssigment {
     }
 
 
-    public DeferAssigment() {
+    public DeferAssignment() {
     }
 
-    public DeferAssigment(ParsingElement currentParsingElement, PathInfo pathInfo, Object value) {
+    public DeferAssignment(ParsingElement currentParsingElement, PathInfo pathInfo, Object value) {
         this.currentParsingElement = currentParsingElement;
         this.value = value;
         this.pathInfo = pathInfo;

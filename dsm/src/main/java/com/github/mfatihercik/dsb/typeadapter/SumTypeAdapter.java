@@ -4,6 +4,7 @@ import com.github.mfatihercik.dsb.Node;
 import com.github.mfatihercik.dsb.ParsingContext;
 import com.github.mfatihercik.dsb.PathInfo;
 import com.github.mfatihercik.dsb.model.ParsingElement;
+import com.github.mfatihercik.dsb.utils.ValidationUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,10 +29,11 @@ public class SumTypeAdapter extends BaseSimpleAdapter {
     @Override
     public String getValue(ParsingContext parsingContext, Node node, ParsingElement parsingElement, PathInfo pathInfo, String tagValue) {
         Map<String, Object> parameters = getParameters();
-        assert parameters != null : "Sum tagType must have params";
-        assert parameters.containsKey(FIELDS) : "Sum tagType must have \"fields\" in params";
+
+        ValidationUtils.assertTrue(parameters == null, "Sum type must have params");
+        ValidationUtils.assertTrue(!parameters.containsKey(FIELDS), "Sum type must have \"fields\" in params");
         Object object = parameters.get(FIELDS);
-        assert object instanceof List : "\"fields\" must be List";
+        ValidationUtils.assertTrue(!(object instanceof List), "\"fields\" must be List");
         @SuppressWarnings("unchecked")
         List<Object> fields = (List<Object>) object;
         BigDecimal total = BigDecimal.ZERO;

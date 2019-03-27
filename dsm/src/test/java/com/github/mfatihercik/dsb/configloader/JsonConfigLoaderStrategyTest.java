@@ -24,13 +24,6 @@ public class JsonConfigLoaderStrategyTest {
         configLoaderAssert(map);
     }
 
-    @Test
-    public void gsonConfigClassLoader() throws IOException {
-        Path filePath = Paths.get(TestUtils.getTestResourcePath(), "configs/loader", "yamlConfigLoaderTest.json");
-        GsonConfigLoaderStrategy jsonConfigLoaderStrategy = new GsonConfigLoaderStrategy(new FileInputStream(filePath.toString()), TestUtils.getTestResourcePath());
-        Map<String, Object> map = jsonConfigLoaderStrategy.readConfiguration();
-        configLoaderAssert(map);
-    }
 
     @Test
     public void yamlConfigClassLoader() throws IOException {

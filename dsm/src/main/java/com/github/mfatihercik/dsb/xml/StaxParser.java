@@ -157,7 +157,7 @@ public class StaxParser extends StreamParser {
             if (typeAdapter.isObject()) {
                 registerNewNode(parsingElement, path);
             } else {
-                String value = null;
+                String value;
                 if (parsingElement.isAttribute()) {
                     if (attributes == null) {
                         attributes = new HashMap<>();

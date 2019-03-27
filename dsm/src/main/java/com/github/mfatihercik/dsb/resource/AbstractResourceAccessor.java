@@ -1,7 +1,6 @@
 package com.github.mfatihercik.dsb.resource;
 
 import com.github.mfatihercik.dsb.utils.StringUtils;
-import com.github.mfatihercik.dsb.utils.SystemUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +13,8 @@ public abstract class AbstractResourceAccessor implements ResourceAccessor {
 
     //We don't use an HashSet otherwise iteration order is not deterministic
     private final List<String> rootStrings = new ArrayList<>();
+    private static final boolean IS_OS_WINDOWS = isOsWindows();
+
 
     protected AbstractResourceAccessor() {
         init();
@@ -43,8 +44,12 @@ public abstract class AbstractResourceAccessor implements ResourceAccessor {
         }
     }
 
-    protected boolean isCaseSensitive() {
-        return !SystemUtils.IS_OS_WINDOWS;
+    private static String getSystemProperty(String property) {
+        try {
+            return System.getProperty(property);
+        } catch (SecurityException ex) {
+            return null;
+        }
     }
 
     protected void addRootPath(URL path) {
@@ -71,26 +76,6 @@ public abstract class AbstractResourceAccessor implements ResourceAccessor {
         return rootStrings;
     }
 
-    protected void getContents(File rootFile, boolean recursive, boolean includeFiles, boolean includeDirectories, String basePath, Set<String> returnSet) {
-        File[] files = rootFile.listFiles();
-        if (files == null) {
-            return;
-        }
-        for (File file : files) {
-            if (file.isDirectory()) {
-                if (includeDirectories) {
-                    returnSet.add(convertToPath(file.getAbsolutePath()));
-                }
-                if (recursive) {
-                    getContents(file, recursive, includeFiles, includeDirectories, basePath, returnSet);
-                }
-            } else {
-                if (includeFiles) {
-                    returnSet.add(convertToPath(file.getAbsolutePath()));
-                }
-            }
-        }
-    }
 
     protected String convertToPath(String string) {
         string = string.replace("\\", "/");
@@ -128,7 +113,6 @@ public abstract class AbstractResourceAccessor implements ResourceAccessor {
             string = string.replaceAll("/[^/]+/\\.\\./", "/");
         }
 
-        string = string.replaceFirst(".*liquibase-unzip\\d+\\.dir/", ""); //
         return string;
     }
 
@@ -164,6 +148,19 @@ public abstract class AbstractResourceAccessor implements ResourceAccessor {
         }
         return convertToPath(base + separator + path);
     }
+
+    private static boolean isOsWindows() {
+        String OS_NAME = getSystemProperty("os.name");
+        if (OS_NAME == null) {
+            return false;
+        }
+        return OS_NAME.startsWith("Windows");
+    }
+
+    protected boolean isCaseSensitive() {
+        return !IS_OS_WINDOWS;
+    }
+
 
 
 }

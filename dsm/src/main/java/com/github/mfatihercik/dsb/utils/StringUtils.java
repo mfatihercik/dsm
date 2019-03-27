@@ -248,7 +248,7 @@ public class StringUtils {
     }
 
     /**
-     * From commonslang3 -> StringUtils
+     * From commons-lang3 -> StringUtils
      * <p>
      * Gets a substring from the specified String avoiding exceptions.
      * </p>

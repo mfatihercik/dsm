@@ -22,6 +22,7 @@ public class ArrayTypeAdapter extends BaseObjectAdapter {
             ((List) currentNode.getParent().get(parsingElement.getFieldName())).add(value);
         } else {
             List list = (List) currentNode.getParent().getParent().get(parsingElement.getFieldName());
+
             if (parsingElement.isRoot() && parsingContext.getResultType() != null) {
                 currentNode.getParent().add(currentNode.getData());
                 list.add(currentNode.toObject(parsingContext.getResultType()));
@@ -50,20 +51,13 @@ public class ArrayTypeAdapter extends BaseObjectAdapter {
 
         if (parentData == null) {
             parentData = typeAdapter.getInitialObject();
+            parentElementNode.set(fieldName, parentData);
             parsingContext.addMainNodeMap(parentElementNode.addChild(parentData, parsingElement));
+            parentNode = null;
         }
 
-
-//        if (parentNode != null && parsingElement.getIndex() != parentNode.getParsingElement().getIndex()) {
-//
-//            parentNode = null;
-//        }
-
-        parentElementNode.set(fieldName, parentData);
         if (parentNode == null) {
             parentNode = parentElementNode.addChild(typeAdapter.getInitialObject(), parsingElement);
-
-
         } else {
             parentNode.incrementIndex();
         }

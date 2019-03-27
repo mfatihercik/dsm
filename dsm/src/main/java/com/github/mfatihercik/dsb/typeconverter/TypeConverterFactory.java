@@ -21,7 +21,7 @@ public class TypeConverterFactory implements Cloneable {
 
     /**
      * initialize {@link TypeConverterFactory} with given map.
-     * this constructure used for cloning.
+     * this constructor used for cloning.
      *
      * @param converterMap *
      */

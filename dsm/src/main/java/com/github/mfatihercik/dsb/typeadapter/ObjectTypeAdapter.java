@@ -58,7 +58,7 @@ public class ObjectTypeAdapter extends BaseObjectAdapter {
         } else {
             Node child = parsingElement.getTypeAdapter().getParentNode(parsingContext, parsingElement).getChild(parsingElement);
             if (child == null)
-                parsingContext.getRootNode();
+                return parsingContext.getRootNode();
             return child;
         }
     }

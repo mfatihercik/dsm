@@ -5,12 +5,13 @@ import com.github.mfatihercik.dsb.configloader.ConfigConstants;
 import com.github.mfatihercik.dsb.expression.ExpressionResolver;
 import com.github.mfatihercik.dsb.function.FunctionFactory;
 import com.github.mfatihercik.dsb.function.Params;
-import com.github.mfatihercik.dsb.model.DeferAssigment;
+import com.github.mfatihercik.dsb.model.DeferAssignment;
 import com.github.mfatihercik.dsb.model.Function;
 import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.transformation.ValueTransformer;
 import com.github.mfatihercik.dsb.typeadapter.TypeAdaptor;
 import com.github.mfatihercik.dsb.typeconverter.TypeConverterFactory;
+import com.github.mfatihercik.dsb.utils.ValidationUtils;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -204,26 +205,26 @@ public abstract class StreamParser {
     protected Node registerNewNode(ParsingElement parsingElement, PathInfo pathInfo) {
         Node node = parsingElement.getTypeAdapter().registerNode(parsingContext, parsingElement, pathInfo);
         Node parentNode = parsingElement.getTypeAdapter().getParentNode(parsingContext, parsingElement);
-        if (isDefferedAssigment(parsingElement, parentNode)) {
+        if (isDeferredAssignment(parsingElement, parentNode)) {
             parsingContext.addDeferAssignment(parsingElement, pathInfo, null);
         }
-        evaluateDefferedAssigment(parsingElement, pathInfo, node);
+        evaluateDeferredAssignment(parsingElement, pathInfo, node);
         return node;
 
     }
 
-    private void evaluateDefferedAssigment(ParsingElement parsingElement, PathInfo pathInfo, Node node) {
-        List<DeferAssigment> deferAssigment = parsingContext.getDeferAssigment(parsingElement);
-        if (deferAssigment != null) {
-            for (DeferAssigment assigment : deferAssigment) {
-                ParsingElement currentParsingElement = assigment.getCurrentParsingElement();
+    private void evaluateDeferredAssignment(ParsingElement parsingElement, PathInfo pathInfo, Node node) {
+        List<DeferAssignment> deferAssignment = parsingContext.getDeferredAssignment(parsingElement);
+        if (deferAssignment != null) {
+            for (DeferAssignment assignment : deferAssignment) {
+                ParsingElement currentParsingElement = assignment.getCurrentParsingElement();
                 if (currentParsingElement.getTypeAdapter().isObject()) {
                     node.set(currentParsingElement.getFieldName(), parsingContext.get(currentParsingElement).getData());
-                } else if (assigment.isDefault()) {
-                    setDefaultValueOnNode(currentParsingElement, currentParsingElement.getDefault().getValue(), assigment.getPathInfo());
+                } else if (assignment.isDefault()) {
+                    setDefaultValueOnNode(currentParsingElement, currentParsingElement.getDefault().getValue(), assignment.getPathInfo());
                 } else {
 
-                    setValueOnNode(currentParsingElement, assigment.getPathInfo(), (String) assigment.getValue());
+                    setValueOnNode(currentParsingElement, assignment.getPathInfo(), (String) assignment.getValue());
                 }
             }
         }
@@ -234,9 +235,11 @@ public abstract class StreamParser {
         TypeAdaptor typeAdapter = parsingElement.getTypeAdapter();
 
         Node node = getCurrentNode(parsingElement);
-        if (node == null)
-            return;
-        if (isDefferedAssigment(parsingElement, node)) {
+        if (node == null) {
+            //noinspection ConstantConditions
+            ValidationUtils.assertTrue(true, String.format("Node for %s/%s parsing element is not registered.", parsingElement.getFieldName(), parsingElement.getPath()));
+        }
+        if (isDeferredAssignment(parsingElement, node)) {
             parsingContext.addDeferAssignment(parsingElement, pathInfo, value);
             return;
         }
@@ -264,7 +267,7 @@ public abstract class StreamParser {
 
     }
 
-    private boolean isDefferedAssigment(ParsingElement parsingElement, Node node) {
+    private boolean isDeferredAssignment(ParsingElement parsingElement, Node node) {
         return node.isRoot() && !parsingElement.isRoot();
     }
 
@@ -316,9 +319,9 @@ public abstract class StreamParser {
         if (node == null)
             return;
 
-        if (isDefferedAssigment(parsingElement, node)) {
+        if (isDeferredAssignment(parsingElement, node)) {
             parsingContext.addDeferAssignment(parsingElement, pathInfo, value, true);
-            //TODO wirte test for default defered assigment
+            //TODO write test for default deferred assignment
             return;
         }
         boolean overwrite = parsingElement.getDefault().isForce() || !node.containsKey(parsingElement.getFieldName());
