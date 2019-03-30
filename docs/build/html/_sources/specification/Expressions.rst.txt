@@ -1,15 +1,28 @@
 .. _expression:
 
 *********************
-_`Expressions`
+_`Expressions` and Scripting
 *********************
 
 -------------------------
 
-Expressions make DSM very flexible. Expression allows a value to be filtered, manipulated, modified etc. 
+
+Expressions makes DSM very flexible. Expression allows a value to be filtered, manipulated, modified etc. 
 Expressions can access objects in the expression context and do operations by using these objects.
 
 Expressions can be used at both `source document`_ parsing time and `DSM document`_ loading time.
+
+Expressions are resolved by one of Scripting language such a Javascript, 
+Groovy, Apache JEXL or other JSR223 implementations.
+Expressions must be written with scripting language syntax.
+**Default scripting language is Apache JEXL** 
+
+.. seealso::
+
+    `Apache JEXL <https://commons.apache.org/proper/commons-jexl/reference/syntax.html>`_
+
+
+
 
 There are two type of expression, **Loading Time** and **Parsing Time** expressions.
 

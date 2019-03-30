@@ -112,7 +112,7 @@
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#schema">Schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#absolute-path">Absolute  Path</a></li>
-<li class="toctree-l1"><a class="reference internal" href="specification/main.html#expression">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/main.html#expressions-and-scripting">Expressions and Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="specification/main.html#property-assignment-order">Property Assignment Order</a></li>
 </ul>
@@ -181,7 +181,13 @@
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>Declarative Stream Mapping(DSM) is a stream deserializer library that works for both XML and JSON. DSM allows you to make custom parsing, filtering, transforming, aggregating, grouping on any JSON or XML document at stream time(read only once). There is no need to writing custom parser. DSM use yaml or json configuration file to parse data. Processed data can be deserialized to java classes.</p>
+<p>Declarative Stream Mapping(DSM) is a <em>stream</em> deserializer library that makes parsing of <strong>XML and JSON</strong> easy.
+DSM allows you to make custom parsing, filtering,
+transforming, aggregating, grouping on any
+JSON or XML document at stream time(read only once).
+DSM uses yaml or json for configuration definitions</p>
+<p><strong>If you parsing a complex, huge  file and
+want to have high performance and low memory usage then DSM is for you.</strong></p>
 </div>
 <div class="section" id="simple-example">
 <h1>Simple Example<a class="headerlink" href="#simple-example" title="Permalink to this headline">¶</a></h1>
@@ -305,7 +311,7 @@
 <li>Flexible value <strong>transformation</strong>.</li>
 <li><strong>Default value assignment</strong></li>
 <li>Custom <strong>function calling</strong> during parsing</li>
-<li><strong>Powerful expression</strong> support(EL and JXEL is supported)</li>
+<li><a href="#id1"><span class="problematic" id="id2">**</span></a>Powerful Scripting**(<a class="reference external" href="https://commons.apache.org/proper/commons-jexl/reference/syntax.html">Apache JEXL</a>, Groovy, Javascript and other jsr223 implementations are supported)</li>
 <li><strong>Multiple inheritance</strong> between  DSM config file (DSM file can <strong>extends to another config file</strong>)</li>
 <li><strong>Reusable fragments support</strong></li>
 <li>Very <strong>short learning curve</strong></li>
@@ -316,23 +322,14 @@
 </div>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>DSM can work both with GSON and JSON. you must add CORE and one of GSON or JSON dependency.</p>
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-tab1">
 <p class="tab-title">Maven</p>
 <p><strong>Jackson</strong></p>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>test<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>test<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</pre></div>
-</div>
-<p><strong>GSON</strong></p>
-<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>test<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>test<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.github.mfatihercik<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>dsm<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.0.1<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 </div>
@@ -340,11 +337,7 @@
 <div class="tab-content docutils container" id="tab-tab2">
 <p class="tab-title">Gradle</p>
 <p><strong>Jackson</strong></p>
-<div class="highlight-xml"><div class="highlight"><pre><span></span>compile group: &#39;test&#39;, name: &#39;test&#39;, version: &#39;1&#39;
-</pre></div>
-</div>
-<p><strong>GSON</strong></p>
-<div class="highlight-xml"><div class="highlight"><pre><span></span>compile group: &#39;test&#39;, name: &#39;test&#39;, version: &#39;1&#39;
+<div class="highlight-xml"><div class="highlight"><pre><span></span>compile (&#39;com.github.mfatihercik:dsm:1.0.1&#39;)
 </pre></div>
 </div>
 </div>
@@ -467,6 +460,18 @@
 
   
   
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-137372236-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
     
    
 

@@ -32,9 +32,9 @@
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.intersphinx',
-    'sphinx.ext.todo',
-    'sphinx.ext.ifconfig','sphinxcontrib.contentui']
-    #'sphinx.ext.githubpages']
+              'sphinx.ext.todo',
+              'sphinx.ext.ifconfig', 'sphinxcontrib.contentui']
+# 'sphinx.ext.githubpages']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['templates']
@@ -72,7 +72,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['build','_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['build', '_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'fruity'
@@ -93,7 +93,10 @@ html_theme_path = ["themes", ]
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'analytics_id': 'UA-137372236-1',  # Provided by Google in your dashboard
+
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -144,7 +147,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'DeclarativeStreamBindingDSB.tex', 'Declarative Stream Mapping (DSM) Documentation',
-     'M.Fatih Ercik', 'manual'),
+     'Mehmet Fatih Ercik', 'manual'),
 ]
 
 
@@ -168,8 +171,6 @@ texinfo_documents = [
      author, 'DeclarativeStreamBindingDSB', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
 
 
 # Example configuration for intersphinx: refer to the Python standard library.

@@ -28,6 +28,7 @@ configure (allprojects) {
     apply plugin: 'java'
     apply plugin: 'java-library'
     apply plugin: 'groovy'
+    apply plugin: 'groovy'
 }
 
 task sourcesJar(type: Jar) {
@@ -67,12 +68,18 @@ publishing {
                     }
                 }
                 scm {
+                    connection = 'scm:git:git://github.com/mfatihercik/dsm.git'
+                    developerConnection = 'scm:git:ssh://github.com/mfatihercik/dsm.git'
                     url = 'https://github.com/mfatihercik/dsm'
                 }
             }
         }
     }
 }
+
+
+
+
 
 
 repositories {
@@ -82,7 +89,7 @@ repositories {
 
 bintray {
     user = 'mfatihercik'
-
+    
     publications = ['DSMPublication']
     pkg {
         repo = 'github'
@@ -97,6 +104,10 @@ bintray {
         version {
             name = '1.0.1'
             desc = 'Declarative Stream Mapping (DSM)'
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = 'DSMLibrary13' //Optional. The passphrase for GPG signing'
+            }
             released = new Date ()
             vcsTag = '1.0.0'
         }

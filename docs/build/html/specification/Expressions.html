@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Expressions &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
+  <title>Expressions and Scripting &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
   
 
   
@@ -110,7 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#absolute-path">Absolute  Path</a></li>
-<li class="toctree-l1"><a class="reference internal" href="main.html#expression">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#expressions-and-scripting">Expressions and Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
 </ul>
@@ -158,7 +158,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Expressions</li>
+      <li>Expressions and Scripting</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -177,23 +177,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="expression">
-<span id="id1"></span><h1><span class="target" id="expressions">Expressions</span><a class="headerlink" href="#expression" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="expressions-and-scripting">
+<span id="expression"></span><h1><span class="target" id="expressions">Expressions</span> and Scripting<a class="headerlink" href="#expressions-and-scripting" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Expressions make DSM very flexible. Expression allows a value to be filtered, manipulated, modified etc.
+<p>Expressions makes DSM very flexible. Expression allows a value to be filtered, manipulated, modified etc.
 Expressions can access objects in the expression context and do operations by using these objects.</p>
-<p>Expressions can be used at both <a href="#id5"><span class="problematic" id="id6">`source document`_</span></a> parsing time and <a href="#id7"><span class="problematic" id="id8">`DSM document`_</span></a> loading time.</p>
+<p>Expressions can be used at both <a href="#id4"><span class="problematic" id="id5">`source document`_</span></a> parsing time and <a href="#id6"><span class="problematic" id="id7">`DSM document`_</span></a> loading time.</p>
+<p>Expressions are resolved by one of Scripting language such a Javascript,
+Groovy, Apache JEXL or other JSR223 implementations.
+Expressions must be written with scripting language syntax.
+<strong>Default scripting language is Apache JEXL</strong></p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://commons.apache.org/proper/commons-jexl/reference/syntax.html">Apache JEXL</a></p>
+</div>
 <p>There are two type of expression, <strong>Loading Time</strong> and <strong>Parsing Time</strong> expressions.</p>
 <div class="section" id="loading-time-expression">
 <h2>Loading Time Expression<a class="headerlink" href="#loading-time-expression" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
 <p>Loading Time Expression is expressions that is <strong>only used during loading of `DSM document`.</strong>
 It allows you to <strong>modify structure of  DSM document.</strong></p>
-<p>Loading Time Expressions are defined in the <a href="#id9"><span class="problematic" id="id10">`$extends`_</span></a> and or <a href="#id11"><span class="problematic" id="id12">`$ref`_</span></a> fields. For more detail check <a href="#id13"><span class="problematic" id="id14">`$extends`_</span></a> and or <a href="#id15"><span class="problematic" id="id16">`$ref`_</span></a> field.</p>
+<p>Loading Time Expressions are defined in the <a href="#id8"><span class="problematic" id="id9">`$extends`_</span></a> and or <a href="#id10"><span class="problematic" id="id11">`$ref`_</span></a> fields. For more detail check <a href="#id12"><span class="problematic" id="id13">`$extends`_</span></a> and or <a href="#id14"><span class="problematic" id="id15">`$ref`_</span></a> field.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p><a href="#id17"><span class="problematic" id="id18">`$extends`_</span></a></p>
-<p class="last"><a href="#id19"><span class="problematic" id="id20">`$ref`_</span></a></p>
+<p><a href="#id16"><span class="problematic" id="id17">`$extends`_</span></a></p>
+<p class="last"><a href="#id18"><span class="problematic" id="id19">`$ref`_</span></a></p>
 </div>
 <p>The following fields are available in the expression context.</p>
 <table border="1" class="docutils">
@@ -211,9 +219,9 @@ It allows you to <strong>modify structure of  DSM document.</strong></p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><th class="stub"><a href="#id21"><span class="problematic" id="id22">params_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id20"><span class="problematic" id="id21">params_</span></a></th>
 <td>Map&lt;string,Object&gt;</td>
-<td><a href="#id23"><span class="problematic" id="id24">params_</span></a> object.</td>
+<td><a href="#id22"><span class="problematic" id="id23">params_</span></a> object.</td>
 <td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
 </tr>
 </tbody>
@@ -252,8 +260,8 @@ It allows you to <strong>modify structure of  DSM document.</strong></p>
 <h2>Parsing Time Expression<a class="headerlink" href="#parsing-time-expression" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
 <p>Parsing Time Expression is expressions that is <strong>only used during parsing of `source document`.</strong>
-It allows you to change the structure of the output, change the property value, import a specific part of the <a href="#id25"><span class="problematic" id="id26">`source document`_</span></a>, filter by property , transform a property, and almost  all operations that can be done with custom coding.</p>
-<p>The Parsing Time Expressions can be defined in the <a href="#id27"><span class="problematic" id="id28">filter_</span></a>, <a href="#id29"><span class="problematic" id="id30">default_</span></a>, and <a href="#id31"><span class="problematic" id="id32">normalize_</span></a> fields.</p>
+It allows you to change the structure of the output, change the property value, import a specific part of the <a href="#id24"><span class="problematic" id="id25">`source document`_</span></a>, filter by property , transform a property, and almost  all operations that can be done with custom coding.</p>
+<p>The Parsing Time Expressions can be defined in the <a href="#id26"><span class="problematic" id="id27">filter_</span></a>, <a href="#id28"><span class="problematic" id="id29">default_</span></a>, and <a href="#id30"><span class="problematic" id="id31">normalize_</span></a> fields.</p>
 <p>The following objects are available in the expression context.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -270,37 +278,37 @@ It allows you to change the structure of the output, change the property value, 
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><th class="stub"><a href="#id33"><span class="problematic" id="id34">params_</span></a></th>
+<tr class="row-even"><th class="stub"><a href="#id32"><span class="problematic" id="id33">params_</span></a></th>
 <td>Map&lt;string,any&gt;</td>
-<td><a href="#id35"><span class="problematic" id="id36">params_</span></a> object.</td>
+<td><a href="#id34"><span class="problematic" id="id35">params_</span></a> object.</td>
 <td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
 </tr>
 <tr class="row-odd"><th class="stub"><a class="reference internal" href="#all">all</a></th>
 <td>Map&lt;string,Node_&gt;</td>
-<td>A map that stores all nodes by the “<a href="#id37"><span class="problematic" id="id38">uniqueName_</span></a>” of <a href="#id39"><span class="problematic" id="id40">`Parsing Element Object`_</span></a></td>
+<td>A map that stores all nodes by the “<a href="#id36"><span class="problematic" id="id37">uniqueName_</span></a>” of <a href="#id38"><span class="problematic" id="id39">`Parsing Element Object`_</span></a></td>
 <td><strong>all.bar.data.foo</strong> =&gt; foo field of <strong>bar</strong> node,  <strong>all.barList.data[0].foo</strong> =&gt; <em>foo</em> field of first item of <em>barList</em> node</td>
 </tr>
 <tr class="row-even"><th class="stub"><a class="reference internal" href="#self">self</a></th>
-<td><a href="#id41"><span class="problematic" id="id42">Node_</span></a></td>
-<td>current node object that hold data of current complex <a href="#id43"><span class="problematic" id="id44">type_</span></a></td>
+<td><a href="#id40"><span class="problematic" id="id41">Node_</span></a></td>
+<td>current node object that hold data of current complex <a href="#id42"><span class="problematic" id="id43">type_</span></a></td>
 <td><strong>self.data.foo</strong> =&gt; foo field of current node,     <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
 </tr>
 <tr class="row-odd"><th class="stub">value</th>
 <td>string</td>
-<td>(not available in <a href="#id45"><span class="problematic" id="id46">default_</span></a> field) The raw string value of the current tag in <a href="#id47"><span class="problematic" id="id48">`source document`_</span></a></td>
+<td>(not available in <a href="#id44"><span class="problematic" id="id45">default_</span></a> field) The raw string value of the current tag in <a href="#id46"><span class="problematic" id="id47">`source document`_</span></a></td>
 <td><strong>value==’Computer’</strong>,**value.startWith(‘bar’)**</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a href="#id49"><span class="problematic" id="id50">Node_</span></a>  ,  <a href="#id51"><span class="problematic" id="id52">default_</span></a>,  <a href="#id53"><span class="problematic" id="id54">filter_</span></a>,   <a href="#id55"><span class="problematic" id="id56">normalize_</span></a>,  <a href="#id57"><span class="problematic" id="id58">`$extends`_</span></a>,  <a href="#id59"><span class="problematic" id="id60">`$ref`_</span></a></p>
+<p class="last"><a href="#id48"><span class="problematic" id="id49">Node_</span></a>  ,  <a href="#id50"><span class="problematic" id="id51">default_</span></a>,  <a href="#id52"><span class="problematic" id="id53">filter_</span></a>,   <a href="#id54"><span class="problematic" id="id55">normalize_</span></a>,  <a href="#id56"><span class="problematic" id="id57">`$extends`_</span></a>,  <a href="#id58"><span class="problematic" id="id59">`$ref`_</span></a></p>
 </div>
-<div class="section" id="id2">
-<h3><span class="target" id="all">all</span><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3><span class="target" id="all">all</span><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <hr class="docutils" />
-<p>Each complex <a href="#id61"><span class="problematic" id="id62">type_</span></a> creates a <a href="#id63"><span class="problematic" id="id64">node_</span></a>. The created nodes can be accessed using the “all” object in the expressions.
-Each node is stored in <a class="reference internal" href="#all">all</a> map with the <a href="#id65"><span class="problematic" id="id66">uniqueName_</span></a> of the <a href="#id67"><span class="problematic" id="id68">`Parsing Element`_</span></a> that creates the node.</p>
+<p>Each complex <a href="#id60"><span class="problematic" id="id61">type_</span></a> creates a <a href="#id62"><span class="problematic" id="id63">node_</span></a>. The created nodes can be accessed using the “all” object in the expressions.
+Each node is stored in <a class="reference internal" href="#all">all</a> map with the <a href="#id64"><span class="problematic" id="id65">uniqueName_</span></a> of the <a href="#id66"><span class="problematic" id="id67">`Parsing Element`_</span></a> that creates the node.</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
      <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
@@ -378,10 +386,10 @@ Each node is stored in <a class="reference internal" href="#all">all</a> map wit
 </tbody>
 </table>
 </div>
-<div class="section" id="id3">
-<h3><span class="target" id="self">self</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3><span class="target" id="self">self</span><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <hr class="docutils" />
-<p>current node object that hold data of current complex <a href="#id69"><span class="problematic" id="id70">type_</span></a>.</p>
+<p>current node object that hold data of current complex <a href="#id68"><span class="problematic" id="id69">type_</span></a>.</p>
 <p>Example usages:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -396,8 +404,8 @@ Each node is stored in <a class="reference internal" href="#all">all</a> map wit
 </tbody>
 </table>
 </div>
-<div class="section" id="id4">
-<h3><strong>Example</strong><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3><strong>Example</strong><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <hr class="docutils" />
 <div class="content-tabs docutils container">
 <div class="tab-content docutils container" id="tab-yaml">
@@ -501,6 +509,18 @@ Each node is stored in <a class="reference internal" href="#all">all</a> map wit
 
   
   
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-137372236-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
     
    
 

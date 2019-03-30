@@ -3,7 +3,14 @@
 Introduction  
 ============
 
-Declarative Stream Mapping(DSM) is a stream deserializer library that works for both XML and JSON. DSM allows you to make custom parsing, filtering, transforming, aggregating, grouping on any JSON or XML document at stream time(read only once). There is no need to writing custom parser. DSM use yaml or json configuration file to parse data. Processed data can be deserialized to java classes.
+Declarative Stream Mapping(DSM) is a *stream* deserializer library that makes parsing of **XML and JSON** easy. 
+DSM allows you to make custom parsing, filtering, 
+transforming, aggregating, grouping on any 
+JSON or XML document at stream time(read only once). 
+DSM uses yaml or json for configuration definitions 
+
+**If you parsing a complex, huge  file and 
+want to have high performance and low memory usage then DSM is for you.**
 
 
 Simple Example  
@@ -149,13 +156,14 @@ File contents are taken from `Swagger Petstore example <https://editor.swagger.i
 Features
 ==============
 
+
 - **Work** for both **XML** and **JSON** 
 - **Custom stream parsing**
 - **Filtering** by value on any field with very **low cognitive complexity**
 - Flexible value **transformation**. 
 - **Default value assignment**
 - Custom **function calling** during parsing
-- **Powerful expression** support(EL and JXEL is supported)
+- **Powerful Scripting**(`Apache JEXL <https://commons.apache.org/proper/commons-jexl/reference/syntax.html>`_, Groovy, Javascript and other jsr223 implementations are supported)
 - **Multiple inheritance** between  DSM config file (DSM file can **extends to another config file**) 
 - **Reusable fragments support** 
 - Very **short learning curve**
@@ -169,9 +177,6 @@ Features
 Installation
 ==============
 
-DSM can work both with GSON and JSON. you must add CORE and one of GSON or JSON dependency. 
-
-
 ..  content-tabs::
 
     .. tab-container:: tab1
@@ -182,19 +187,9 @@ DSM can work both with GSON and JSON. you must add CORE and one of GSON or JSON 
         .. code-block:: xml
 
             <dependency>
-                <groupId>test</groupId>
-                <artifactId>test</artifactId>
-                <version>1.</version>
-            </dependency>
-
-        **GSON**
-        
-        .. code-block:: xml
-
-            <dependency>
-                <groupId>test</groupId>
-                <artifactId>test</artifactId>
-                <version>1.</version>
+              <groupId>com.github.mfatihercik</groupId>
+              <artifactId>dsm</artifactId>
+              <version>1.0.1</version>
             </dependency>
     
     .. tab-container:: tab2
@@ -204,13 +199,9 @@ DSM can work both with GSON and JSON. you must add CORE and one of GSON or JSON 
         
         .. code-block:: xml
 
-            compile group: 'test', name: 'test', version: '1'
+            compile ('com.github.mfatihercik:dsm:1.0.1')
+            
 
-        **GSON**
-        
-        .. code-block:: xml
-
-           compile group: 'test', name: 'test', version: '1'
 
 
 
