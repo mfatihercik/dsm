@@ -31,6 +31,26 @@ Features
 - **Partial data extraction** from JSON or XML
 - **String manipulation** with expression
 
+==============
+Installation
+==============
+
+**Jackson**
+
+.. code-block:: xml
+
+    <dependency>
+      <groupId>com.github.mfatihercik</groupId>
+      <artifactId>dsm</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+
+
+**Gradle**
+      
+.. code-block:: xml
+
+   compile ('com.github.mfatihercik:dsm:1.0.1')
 
 =============================================================
 `Documentation <https://mfatihercik.github.io/dsm/>`_.
