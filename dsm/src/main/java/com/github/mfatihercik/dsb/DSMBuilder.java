@@ -23,6 +23,8 @@ import com.github.mfatihercik.dsb.xml.StaxParser;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DSMBuilder {
 
@@ -37,6 +39,19 @@ public class DSMBuilder {
     private InputStream configContent = null;
     private String rootPath;
     private ConfigFormat configFormat = ConfigFormat.YAML;
+
+    private Map<String, Object> extParamsMap = new HashMap<>();
+
+    public Map<String, Object> getParams() {
+        return extParamsMap;
+    }
+
+    public DSMBuilder setParams(Map<String, Object> params) {
+        if (extParamsMap == null)
+            throw new IllegalArgumentException("params can not be null");
+        this.extParamsMap.putAll(extParamsMap);
+        return this;
+    }
 
     private String scriptingLang = "jexl3";
 
@@ -90,14 +105,14 @@ public class DSMBuilder {
             expressionResolver = ExpressionResolverFactory.getExpressionResolver(scriptingLang);
         }
         StreamParser parser = type.equals(TYPE.JSON) ? new JacksonStreamParser(functionFactory, expressionResolver, objectMapper, resultType, getTypeConverterFactory().clone()) : new StaxParser(functionFactory, expressionResolver, objectMapper, resultType, getTypeConverterFactory().clone());
-        FileParsingElementLoader configLoader = new FileParsingElementLoader(configLoaderStrategy, expressionResolver, valueTransformer, functionFactory.getContext(), getTypeAdaptorFactory().clone());
+        FileParsingElementLoader configLoader = new FileParsingElementLoader(configLoaderStrategy, expressionResolver, valueTransformer, functionFactory.getContext(), getTypeAdaptorFactory().clone(), extParamsMap);
         return new DSM(parser, configLoader, objectMapper);
     }
 
     /**
      * register new function with given name.
      *
-     * @param functionName name of function to register
+     * @param functionName     name of function to register
      * @param functionExecutor {@link FunctionExecutor} instance to register
      * @return DSMBuilder
      */
@@ -109,7 +124,7 @@ public class DSMBuilder {
     /**
      * Register new type adapter with name.
      *
-     * @param name name of the type adapter to register
+     * @param name         name of the type adapter to register
      * @param adapterClass {@link Class} of the {@link TypeAdaptor}
      * @return self
      */
@@ -121,7 +136,7 @@ public class DSMBuilder {
     /**
      * Register new type converter with name
      *
-     * @param name name of {@link TypeConverter} to register. name can be referenced "dataType" field in DSM document
+     * @param name          name of {@link TypeConverter} to register. name can be referenced "dataType" field in DSM document
      * @param typeConverter {@link TypeConverter} instance
      * @return self
      */

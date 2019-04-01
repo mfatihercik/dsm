@@ -28,7 +28,7 @@ public class Params {
         this.currentNode = currentNode;
         this.pathInfo = pathInfo;
         this.value = value;
-        this.extParams = extParams == null ? new HashMap<>() : extParams;
+        this.extParams = extParams == null ? new HashMap<String, Object>() : extParams;
     }
 
     public ParsingContext getParsingContext() {

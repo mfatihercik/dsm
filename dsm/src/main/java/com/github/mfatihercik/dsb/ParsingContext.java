@@ -6,14 +6,11 @@ import com.github.mfatihercik.dsb.model.DeferAssignment;
 import com.github.mfatihercik.dsb.model.ParsingElement;
 import com.github.mfatihercik.dsb.transformation.ValueTransformer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ParsingContext {
     private int nodeMapSize = 0;
-    private Map<String, Node> mainNodeMap = new HashMap<>();
+    private Map<String, Node> mainNodeMap = new WeakHashMap<>();
     private final Map<ParsingElement, Node> parsingElementToNode = new HashMap<>();
     private final Map<ParsingElement, List<DeferAssignment>> deferAssignmentMap = new HashMap<>();
     private Class<?> resultType;

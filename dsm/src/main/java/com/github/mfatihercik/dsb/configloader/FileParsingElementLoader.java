@@ -34,15 +34,18 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
     private TypeAdaptorFactory typeAdaptorFactory;
 
     public FileParsingElementLoader(ConfigLoaderStrategy configLoader) {
-        this(configLoader, ExpressionResolverFactory.getExpressionResolver(null), new FileValueTransformer(), new FunctionContext(), new TypeAdaptorFactory());
+        this(configLoader, ExpressionResolverFactory.getExpressionResolver(null), new FileValueTransformer(), new FunctionContext(), new TypeAdaptorFactory(), null);
     }
 
-    public FileParsingElementLoader(ConfigLoaderStrategy configLoader, ExpressionResolver expressionResolver, ValueTransformer valueTransformer, FunctionContext functionContext, TypeAdaptorFactory typeAdaptorFactory) {
+    public FileParsingElementLoader(ConfigLoaderStrategy configLoader, ExpressionResolver expressionResolver, ValueTransformer valueTransformer, FunctionContext functionContext, TypeAdaptorFactory typeAdaptorFactory, Map<String, Object> params) {
         this.expressionResolver = expressionResolver;
         this.configLoader = configLoader;
         this.valueTransformer = valueTransformer;
         this.functionContext = functionContext;
         this.typeAdaptorFactory = typeAdaptorFactory;
+        if (params != null) {
+            this.params.putAll(params);
+        }
 
         this.getExpressionResolver().setBean(PARAMS, getParams());
         this.getExpressionResolver().setBean(FRAGMENTS, fragments);
@@ -148,9 +151,16 @@ public class FileParsingElementLoader implements ConfigLoader, ConfigConstants {
     private void fillRoot(Map<String, Object> map) {
         if (map.containsKey(RESULT)) {
             Object value = map.get(RESULT);
-            boolean isInstanceOfMap = value instanceof Map<?, ?>;
-            if (isInstanceOfMap) {
+
+
+            if (value instanceof Map) {
                 buildParsingElementTree(value, RESULT, null, 0);
+            } else if (value instanceof List) {
+                int i = 0;
+                List<Object> list = (List<Object>) value;
+                for (Object o : list) {
+                    buildParsingElementTree(o, RESULT, null, i++);
+                }
             }
         }
     }

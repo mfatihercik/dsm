@@ -1,0 +1,23 @@
+fragments:
+  SNOSNE:
+    fields:
+      cimname:
+        xml:
+          attribute: true
+      snoshostip:
+        xml:
+          attribute: true
+      snostype:
+        xml:
+          attribute: true
+
+result:
+  - type: array
+    path: /SNOSNE
+    $ref: fragments.SNOSNE
+  - type: array
+    path: /SNOSNE/SNOSNE
+
+    $ref: fragments.SNOSNE
+
+

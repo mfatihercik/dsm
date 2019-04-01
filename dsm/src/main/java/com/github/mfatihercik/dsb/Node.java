@@ -4,10 +4,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mfatihercik.dsb.model.ParsingElement;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 public class Node {
 
@@ -111,7 +111,7 @@ public class Node {
         this.parent = parent;
         if (addToChild && parent != null) {
             if (parent.childNodes == null) {
-                parent.childNodes = new HashMap<>();
+                parent.childNodes = new WeakHashMap<>();
             }
             parent.childNodes.put(this.parsingElement, this);
             parent.setChild(this);

@@ -13,7 +13,7 @@ public abstract class AbstractExpressionResolver implements ExpressionResolver {
     public AbstractExpressionResolver(String engineName) {
         ScriptEngineManager engineManager = new ScriptEngineManager();
         this.engine = engineManager.getEngineByName(engineName);
-        setContext(new HashMap<>());
+        setContext(new HashMap<String, Object>());
     }
 
     public Object resolveExpression(String expression) {

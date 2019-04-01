@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<SNOSNE cimname="EDA_01" snoshostip="1.1.1.1" snostype="EDA">
+    <SNOSNE cimname="Resources" snoshostip="1.1.1.1" snostype="EDA">
+    </SNOSNE>
+    <SNOSNE cimname="CPU" snoshostip="1.1.1.1" snostype="EDA">
+    </SNOSNE>
+</SNOSNE>

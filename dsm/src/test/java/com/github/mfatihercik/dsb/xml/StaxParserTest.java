@@ -182,6 +182,16 @@ public class StaxParserTest {
     }
 
     @Test
+    public void multipleResultTest() throws IOException {
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("multiple-result.yaml").toFile(), rootPath.toString());
+        String resultString = "[{cimname=Resources, snoshostip=1.1.1.1, snostype=EDA}, {cimname=CPU, snoshostip=1.1.1.1, snostype=EDA}, {cimname=EDA_01, snoshostip=1.1.1.1, snostype=EDA}]";
+
+        builder.setType(DSMBuilder.TYPE.XML);
+        DSM dsm = builder.create();
+        Object object = dsm.toObject(rootPath.resolve("multiple-result.xml").toFile());
+        assertEquals(resultString, object.toString());
+    }
+    @Test
     public void petStoreJaksonXml() throws IOException {
         for (int i = 0; i < 1; i++) {
             ObjectMapper mapper = new ObjectMapper(new XmlFactory());
