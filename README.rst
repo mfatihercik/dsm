@@ -42,7 +42,7 @@ Installation
     <dependency>
       <groupId>com.github.mfatihercik</groupId>
       <artifactId>dsm</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
 
 
@@ -50,7 +50,7 @@ Installation
       
 .. code-block:: xml
 
-   compile ('com.github.mfatihercik:dsm:1.0.1')
+   compile ('com.github.mfatihercik:dsm:1.0.2')
 
 =============================================================
 `Documentation <https://mfatihercik.github.io/dsm/>`_.
