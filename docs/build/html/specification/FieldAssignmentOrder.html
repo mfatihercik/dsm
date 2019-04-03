@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Property Assignment Order &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Declarative Stream Mapping (DSM)
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#simple-example">Simple Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#sample-config-file">Sample Config File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Specification:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#definitions">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-path">Absolute  Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#expressions-and-scripting">Expressions and Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Declarative Stream Mapping (DSM)</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Property Assignment Order</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/specification/FieldAssignmentOrder.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="property-assignment-order">
+<span id="assignment-order"></span><h1>Property Assignment Order<a class="headerlink" href="#property-assignment-order" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>The property assignment order is very important for the correct operation of the expressions in the filter field and in the default field
+Referencing a not existing field in “self.data” can cause NullPointerException.</p>
+<p>DSM reads <cite>source document</cite> top to bottom in one pass as a stream.
+Once it reads a tag <cite>source document</cite>, it checks whether <a href="#id3"><span class="problematic" id="id4">absolute_</span></a> path of the tag match with <a href="#id5"><span class="problematic" id="id6">tagAbsolutePath_</span></a> or <a href="#id7"><span class="problematic" id="id8">taParentAbsolutePath_</span></a> of any of <a href="#id9"><span class="problematic" id="id10">`Parsing Element`_</span></a>
+if Parsing Element founds, value of tag is assigned according to <a href="#id11"><span class="problematic" id="id12">`Parsing Element`_</span></a> definitions.</p>
+<p>The Property assignment work as follows:</p>
+<p>let’s name the tag that is pointed by <a href="#id13"><span class="problematic" id="id14">path_</span></a>  as <strong>current tag</strong> and the tag that is pointed by parentPath  as <strong>parent tag</strong></p>
+<p>The property is assigned when <strong>current tag</strong> is closed except <a href="#id15"><span class="problematic" id="id16">attribute_</span></a> properties for the XML document.
+The <a href="#id17"><span class="problematic" id="id18">attribute_</span></a> properties is assigned at start of <strong>parent tag</strong> by reading attribute value of <strong>parent tag</strong></p>
+<dl class="docutils">
+<dt>Order of the property assignment as follows:</dt>
+<dd><ul class="first last simple">
+<li>the closing of  <a href="#id19"><span class="problematic" id="id20">`current tag`_</span></a>  is near to the document header(starting of <span class="target" id="parent-tag">parent tag</span>” for attribute )</li>
+<li>deeper <a href="#id21"><span class="problematic" id="id22">`current tag`_</span></a></li>
+<li>Parsing Element definition close to the document header.(<strong>assignment start from top to bottom</strong> )</li>
+</ul>
+</dd>
+</dl>
+<p>The <a href="#id23"><span class="problematic" id="id24">default_</span></a> value of a property is assigned when current tag not exist in source document and  <strong>parent tag”</strong> is closed(for all property, include <a href="#id25"><span class="problematic" id="id26">attribute_</span></a>).</p>
+<p><a href="#id27"><span class="problematic" id="id28">default_</span></a> value is assigned only once except <a href="#id29"><span class="problematic" id="id30">force_</span></a> field is true. if <a href="#id31"><span class="problematic" id="id32">force_</span></a> field is true default value is assigned at both start and close of <strong>parent tag</strong></p>
+<dl class="docutils">
+<dt>Order of the default value of property assignment as follows:</dt>
+<dd><ul class="first last simple">
+<li>assure  the property is not assigned  or  force field is  true</li>
+<li>the closing of <a href="#id1"><span class="problematic" id="id2">`</span></a>parent tag`_is near to the document header.</li>
+<li>deeper <a class="reference internal" href="#parent-tag">parent tag</a></li>
+<li>Parsing Element definition far to the document header.(<strong>assignment start bottom to top</strong> )</li>
+</ul>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;Pets&gt;</span>
+   <span class="nt">&lt;Pet&gt;</span>
+      <span class="nt">&lt;category&gt;</span>
+        <span class="nt">&lt;id&gt;</span>1<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;name&gt;</span>Cats<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;/category&gt;</span>
+      <span class="nt">&lt;id&gt;</span>6598053714149410844<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;name&gt;</span>Van Kedisi<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;photoUrls&gt;</span>
+        <span class="nt">&lt;photoUrl&gt;</span>url1<span class="nt">&lt;/photoUrl&gt;</span>
+        <span class="nt">&lt;photoUrl&gt;</span>url2<span class="nt">&lt;/photoUrl&gt;</span>
+        <span class="nt">&lt;photoUrl&gt;</span>url3<span class="nt">&lt;/photoUrl&gt;</span>
+      <span class="nt">&lt;/photoUrls&gt;</span>
+      <span class="nt">&lt;status&gt;</span>sold<span class="nt">&lt;/status&gt;</span>
+      <span class="nt">&lt;tags&gt;</span>
+        <span class="nt">&lt;tag&gt;</span>
+          <span class="nt">&lt;id&gt;</span>1<span class="nt">&lt;/id&gt;</span>
+          <span class="nt">&lt;name&gt;</span>New<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;/tag&gt;</span>
+        <span class="nt">&lt;tag&gt;</span>
+          <span class="nt">&lt;id&gt;</span>2<span class="nt">&lt;/id&gt;</span>
+          <span class="nt">&lt;name&gt;</span>Cute<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;/tag&gt;</span>
+        <span class="nt">&lt;tag&gt;</span>
+          <span class="nt">&lt;id&gt;</span>3<span class="nt">&lt;/id&gt;</span>
+          <span class="nt">&lt;name&gt;</span>Popular<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;/tag&gt;</span>
+      <span class="nt">&lt;/tags&gt;</span>
+    <span class="nt">&lt;/Pet&gt;</span>
+<span class="nt">&lt;/Pets&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="s">&quot;/Pets/Pet&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">id:long</span>
+   <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">status</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">isPopular</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">default $self.data.tags.stream().anyMatch(s-&gt;s.name==&#39;Popular&#39;)</span>
+   <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+       <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+       <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>
+   <span class="l l-Scalar l-Scalar-Plain">photoUrls</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+        <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls</span>
+        <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+           <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls/photoUrls</span>
+   <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>
+       <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+       <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags</span>
+       <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/tag</span>
+       <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+           <span class="l l-Scalar l-Scalar-Plain">id:int</span>
+           <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+</pre></div>
+</div>
+<p>DSM read document  top to bottom.</p>
+<ul class="simple">
+<li>it founds <strong>/Pets/Pet</strong> <a href="#id33"><span class="problematic" id="id34">absolute_</span></a> path that match with <strong>result</strong> Parsing Element. Then create a <strong>array</strong> and put first item into the array.</li>
+</ul>
+<div class="highlight-json"><div class="highlight"><pre><span></span>result=[{}]
+</pre></div>
+</div>
+<ul class="simple">
+<li>it founds <strong>/Pets/Pet/category</strong> match with <strong>category</strong> Parsing Element. then it create a <strong>object</strong> and assign it to <strong>category</strong> property</li>
+</ul>
+<div class="highlight-json"><div class="highlight"><pre><span></span>result=[{
+ &quot;category&quot;:{}
+ }]
+</pre></div>
+</div>
+<ul class="simple">
+<li>it founds   <strong>/Pets/Pet/category/id</strong> match with <strong>category.id</strong> Parsing Element. then it assign it to <strong>id</strong> property of <strong>category object</strong>.</li>
+</ul>
+<div class="highlight-json"><div class="highlight"><pre><span></span>result=[{
+ &quot;category&quot;:{
+   &quot;id&quot;: 3
+ }
+ }]
+</pre></div>
+</div>
+<ul class="simple">
+<li>it founds   <strong>/Pets/Pet/category/name</strong> match with <strong>category.name</strong> Parsing Element. then the value is assigned</li>
+</ul>
+<div class="highlight-json"><div class="highlight"><pre><span></span>result=[{
+ &quot;category&quot;:{
+   &quot;id&quot;: 3,
+   &quot;name&quot;: &quot;Cats&quot;
+ }
+ }]
+</pre></div>
+</div>
+<ul class="simple">
+<li>it founds <strong>/Pets/Pet/id</strong> match with <strong>id</strong> then the value is assigned</li>
+</ul>
+<div class="highlight-json"><div class="highlight"><pre><span></span>result=[{
+ &quot;category&quot;:{
+   &quot;id&quot;: 3,
+   &quot;name&quot;: &quot;Cats&quot;
+ }
+ &quot;id&quot;:1
+ }]
+</pre></div>
+</div>
+<ul class="simple">
+<li>it founds <strong>/Pets/Pet/name</strong> match with <strong>name</strong> then the value is assigned</li>
+</ul>
+<div class="highlight-json"><div class="highlight"><pre><span></span>result=[{
+ &quot;category&quot;:{
+   &quot;id&quot;: 3,
+   &quot;name&quot;: &quot;Cats&quot;
+ },
+ &quot;id&quot;:1,
+ &quot;name&quot;:&quot;Van Kedisi&quot;,
+ }]
+</pre></div>
+</div>
+<ul class="simple">
+<li>it founds <strong>/Pets/Pet/photoUrls/photoUrl</strong> match with <strong>photoUrls</strong> Parsing Element then the new array is created and assigned</li>
+</ul>
+<div class="highlight-json"><div class="highlight"><pre><span></span>result=[{
+ &quot;category&quot;:{
+   &quot;id&quot;: 3,
+   &quot;name&quot;: &quot;Cats&quot;
+ },
+ &quot;id&quot;:1,
+ &quot;name&quot;:&quot;Van Kedisi&quot;,
+ &quot;photoUrls&quot;:[]
+ }]
+</pre></div>
+</div>
+<ul class="simple">
+<li>it founds <strong>/Pets/Pet/photoUrls/photoUrl</strong> match with <strong>photoUrls</strong> then  the value of <strong>photoUrls</strong> is assigned</li>
+</ul>
+<div class="highlight-json"><div class="highlight"><pre><span></span>result=[{
+ &quot;category&quot;:{
+   &quot;id&quot;: 3,
+   &quot;name&quot;: &quot;Cats&quot;
+ },
+ &quot;id&quot;:1,
+ &quot;name&quot;:&quot;Van Kedisi&quot;,
+ &quot;photoUrls&quot;:[&quot;url1&quot;,&quot;url2&quot;,&quot;url3&quot;]
+ }]
+</pre></div>
+</div>
+<p>after reading all fields under <strong>/Pets/Pet</strong> path following result generated.</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span>result=[{
+ &quot;category&quot;:{
+   &quot;id&quot;: 3,
+   &quot;name&quot;: &quot;Cats&quot;
+ },
+ &quot;id&quot;:1,
+ &quot;name&quot;:&quot;Van Kedisi&quot;,
+ &quot;photoUrls&quot;:[&quot;url1&quot;,&quot;url2&quot;,&quot;url3&quot;],
+ &quot;status&quot;:&quot;sold&quot;,
+ &quot;tags&quot;:[
+       {
+          &quot;id&quot;:1,
+          &quot;name&quot;: &quot;New&quot;
+       },
+       {
+          &quot;id&quot;:1,
+          &quot;name&quot;: &quot;Cute&quot;
+       },
+       {
+          &quot;id&quot;:1,
+          &quot;name&quot;: &quot;Popular&quot;
+       }
+ ]
+
+ }]
+</pre></div>
+</div>
+<ul class="simple">
+<li>it can’t find <strong>/Pets/Pet/isPopular</strong> but <strong>isPopular</strong> property has <strong>default</strong> value. When <strong>/Pets/Pet</strong> (<strong>parent tag</strong>) tag is closed then it’s expression is evaluated. The result of expression is assigned to <strong>isPopular</strong> property.</li>
+</ul>
+<div class="highlight-json"><div class="highlight"><pre><span></span>result=[{
+  &quot;category&quot;:{
+    &quot;id&quot;: 3,
+    &quot;name&quot;: &quot;Cats&quot;
+  },
+  &quot;id&quot;:1,
+  &quot;name&quot;:&quot;Van Kedisi&quot;,
+  &quot;photoUrls&quot;:[&quot;url1&quot;,&quot;url2&quot;,url3&quot;],
+  &quot;status&quot;:&quot;sold&quot;,
+  &quot;tags&quot;:[
+        {
+           &quot;id&quot;:1,
+           &quot;name&quot;: &quot;New&quot;
+        },
+        {
+           &quot;id&quot;:1,
+           &quot;name&quot;: &quot;Cute&quot;
+        },
+        {
+           &quot;id&quot;:1,
+           &quot;name&quot;: &quot;Popular&quot;
+        }
+  ],
+  &quot;isPopular&quot;: true
+  }]
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, M.Fatih Ercik
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-137372236-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+   
+
+</body>
+</html>

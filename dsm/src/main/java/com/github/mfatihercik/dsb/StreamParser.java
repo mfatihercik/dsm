@@ -340,8 +340,13 @@ public abstract class StreamParser {
                 return;
             }
         }
-        if (resolvedValue instanceof String)
-            resolvedValue = convertValue(parsingElement, (String) resolvedValue);
+        if (resolvedValue instanceof String) {
+            String resolvedValueString = (String) resolvedValue;
+            if (parsingElement.isTransformEnabled()) {
+                resolvedValueString = transformValue(parsingElement, resolvedValueString);
+            }
+            resolvedValue = convertValue(parsingElement, resolvedValueString);
+        }
         typeAdapter.setValue(parsingContext, node, parsingElement, pathInfo, resolvedValue);
         if (parsingElement.isUseFunction()) {
             Function function = parsingElement.getFunction();

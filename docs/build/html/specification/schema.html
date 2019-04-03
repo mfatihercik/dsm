@@ -1,0 +1,2479 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Schema &mdash; Declarative Stream Mapping (DSM) 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/contentui.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/contentui.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Declarative Stream Mapping (DSM)
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Start Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#simple-example">Simple Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start-guide.html#sample-config-file">Sample Config File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Specification:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#definitions">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#format">Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#document-structure">Document Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#schema">Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#absolute-path">Absolute  Path</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#expressions-and-scripting">Expressions and Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#merge-of-dsm-document">Merge of DSM Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#property-assignment-order">Property Assignment Order</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Declarative Stream Mapping (DSM)</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Schema</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/specification/schema.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="schema">
+<h1>Schema<a class="headerlink" href="#schema" title="Permalink to this headline">¶</a></h1>
+<p>In the following description, if a field is not explicitly REQUIRED or described with a MUST or SHALL, it can be considered OPTIONAL.</p>
+<div class="section" id="dsm-object">
+<h2>DSM Object<a class="headerlink" href="#dsm-object" title="Permalink to this headline">¶</a></h2>
+<p>This is the root document object of the DSM document.</p>
+<dl class="docutils">
+<dt>Fields:</dt>
+<dd><table border="1" class="first last docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Field Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">version</th>
+<td>string</td>
+<td><strong>REQUIRED</strong>. This string MUST be the semantic version number of the DSM Specification version that the DSM document uses. The DSM field SHOULD be used by tooling specifications and clients to interpret the DSM document</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#params">params</a></th>
+<td>Map[string,any]</td>
+<td><strong>params_</strong> field is a map that contains parameter definition to configure DSM document and <a href="#id1"><span class="problematic" id="id2">`</span></a>Parsing Element`_s.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#transformations">transformations</a></th>
+<td>Map[string,`Transformation Element`_]</td>
+<td>Deceleration of Map contains  <a class="reference internal" href="#transformationcode">transformationCode</a> as key, and <a class="reference internal" href="#transformation-element">Transformation Element</a> as value. <a class="reference internal" href="#transformation-element">Transformation Element</a> holds lookup table to transform value from <a href="#id40"><span class="problematic" id="id41">`Source Document`_</span></a> to destination document.</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#functions">functions</a></th>
+<td>Map[string,Function_]</td>
+<td>Deceleration of Map contains <a class="reference internal" href="#function">function</a> name  as key, and  <a class="reference internal" href="#functions">function deceleration</a> as value.  functions are  used for custom parsing or calling services with parsed data. Functions implements FunctionExecutor interface.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#fragments">fragments</a></th>
+<td>Map [String, <a class="reference internal" href="#parsing-element">Parsing Element</a> ]</td>
+<td>A map contains declaration of reusable <a class="reference internal" href="#parsing-element">Parsing Element</a>. The fragment definition can be referenced with $ref_ field while defining <a class="reference internal" href="#parsing-element">Parsing Element</a>.</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#result">result</a></th>
+<td><a class="reference internal" href="#parsing-element">Parsing Element</a></td>
+<td><strong>REQUIRED</strong>. The entry point of <a class="reference internal" href="#parsing-element">Parsing Element</a> declarations. The result field defines structure of the output.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#extends">$extends</a></th>
+<td>string</td>
+<td><strong>`$extends`_</strong> field is used for import external DSM document.</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<div class="section" id="id3">
+<h3><span class="target" id="params">params</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p><a class="reference internal" href="#params">params</a> field is a map that contains parameter definition to configure DSM document and <a class="reference internal" href="#parsing-element">Parsing Element</a>. The key of params map is string and case sensitive. The value of params map can be any type of json object(int, boolean, object, array) accepted by JSON and YAML specification.</p>
+<p>Example DSM document that contains params.</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">dd.MM.yyyy</span>
+    <span class="l l-Scalar l-Scalar-Plain">rootPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">fooBar/foo</span>
+    <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">bar</span>
+    <span class="l l-Scalar l-Scalar-Plain">acceptedCountryCode</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">TR</span><span class="p p-Indicator">,</span><span class="nv">US</span><span class="p p-Indicator">,</span><span class="nv">FR</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="nt">&quot;params&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;dateFormat&quot;</span><span class="p">:</span><span class="s2">&quot;dd.MM.yyyy&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;rootPath&quot;</span><span class="p">:</span><span class="s2">&quot;fooBar/foo&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;category&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;bar&quot;</span>
+          <span class="p">},</span>
+          <span class="nt">&quot;acceptedCountryCode&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;TR&quot;</span><span class="p">,</span><span class="s2">&quot;US&quot;</span><span class="p">,</span><span class="s2">&quot;FR&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3><span class="target" id="transformations">transformations</span><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>Deceleration of Map contains  <a class="reference internal" href="#transformationcode">transformationCode</a> as key, and <a class="reference internal" href="#transformation-element">Transformation Element</a> as value. <a class="reference internal" href="#transformation-element">Transformation Element</a> holds lookup table to transform value from <a href="#id42"><span class="problematic" id="id43">`Source Document`_</span></a> to destination document.</p>
+<p>Example CF document that contains transformations</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<blockquote>
+<div><div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">transformations</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">COUNTRY_CODE_TO_NAME</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">map</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">DEFAULT</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Other</span>
+          <span class="l l-Scalar l-Scalar-Plain">TR</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Turkey</span>
+          <span class="l l-Scalar l-Scalar-Plain">US</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">United States</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;transformations&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;COUNTRY_CODE_TO_NAME&quot;</span><span class="p">:{</span>
+       <span class="nt">&quot;map&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;TR&quot;</span><span class="p">:</span><span class="s2">&quot;Turkey&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;US&quot;</span><span class="p">:</span><span class="s2">&quot;United States&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;DEFAULT&quot;</span><span class="p">:</span><span class="s2">&quot;Other&quot;</span>
+       <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3><span class="target" id="functions">functions</span><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>Deceleration of Map contains <a class="reference internal" href="#function">function</a> name  as key, and  <a class="reference internal" href="#functions">function deceleration</a> as value.  functions are  used for custom parsing or calling services with parsed data. Functions implements FunctionExecutor interface.</p>
+<p>Example CF document that contains functions</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<blockquote>
+<div><div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">functions</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">insertProduct</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">com.example.InsertProduct</span>
+   <span class="l l-Scalar l-Scalar-Plain">approveOrder</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">com.example.ApproveOrder</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;functions&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;insertProduct&quot;</span><span class="p">:</span><span class="s2">&quot;com.example.InsertProduct&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;approveOrder&quot;</span><span class="p">:</span><span class="s2">&quot;com.example.ApproveOrder&quot;</span>
+   <span class="p">}</span>
+
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3><span class="target" id="fragments">fragments</span><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>A map contains declaration of reusable <a class="reference internal" href="#parsing-element">Parsing Element</a>. The fragment definition can be referenced with <a class="reference internal" href="#ref">$ref</a> field while defining <a class="reference internal" href="#parsing-element">Parsing Element</a>.</p>
+<p>Example CF document that contains functions</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">fragments</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">product</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+        <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<blockquote>
+<div><div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;fragments&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;product&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3><span class="target" id="result">result</span><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p><strong>REQUIRED</strong>. The entry point of <a class="reference internal" href="#parsing-element">Parsing Element</a> declarations. The result field defines structure of the output.</p>
+<p>Example CF document that contains result</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<blockquote>
+<div><div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>
+      <span class="s2">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3><span class="target" id="extends">$extends</span><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>$extends field is used for import external DSM document to current DSM document. it’s value is basically relative path  or URI definition of  external DSM document.   if it’s value start with “$” sing, it is accepted as an <a href="#id44"><span class="problematic" id="id45">expression_</span></a> and resolved by expression resolver. External DSM document will <a href="#id46"><span class="problematic" id="id47">merged_</span></a> into current DSM document. $extends can also be list of path or URI.  <a href="#id48"><span class="problematic" id="id49">Merge_</span></a> process start from first element to last element. Firstly current DSM document <a href="#id50"><span class="problematic" id="id51">merged_</span></a> with first element then result of <a href="#id52"><span class="problematic" id="id53">merge_</span></a> process extended to second element etc..</p>
+<p>Example CF document that contains extends</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">$extends</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/foo/bar/external.yaml</span>
+</pre></div>
+</div>
+<p><strong>or</strong></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">rootPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/bar/foo/</span>
+<span class="l l-Scalar l-Scalar-Plain">$extends</span><span class="p p-Indicator">:</span>
+   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/foo/bar/external.yaml</span>
+   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">$params.rootPath.concat(&quot;externalWithExpression.yaml&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;$extends&quot;</span><span class="p">:</span> <span class="s2">&quot;/foo/bar/external.json&quot;</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;params&quot;</span><span class="p">:{</span>
+   <span class="nt">&quot;rootPath&quot;</span><span class="p">:</span><span class="s2">&quot;/bar/foo/&quot;</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;$extends&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;/foo/bar/external.json&quot;</span><span class="p">,</span><span class="s2">&quot;$params.rootPath.concat(&#39;externalWithExpression.json&#39;)&quot;</span><span class="p">]</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="parsing-element">
+<span id="id9"></span><h2><span class="target" id="parsing-element-object">Parsing Element Object</span><a class="headerlink" href="#parsing-element" title="Permalink to this headline">¶</a></h2>
+<p>Parsing Element is basic object of DSM. Parsing Element  contains set of rules for parsing specific tag of <a href="#id54"><span class="problematic" id="id55">`Source Document`_</span></a></p>
+<dl class="docutils">
+<dt>Fields:</dt>
+<dd><table border="1" class="first last docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Field Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#fieldname">fieldName</a></th>
+<td>string</td>
+<td><strong>REQUIRED</strong>  <a class="reference internal" href="#fieldname">fieldName</a> define the name of the property to expose by current object. the fieldName is unique in object.</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#datatype">dataType</a></th>
+<td>string</td>
+<td><strong>REQUIRED</strong>. The data type of exposed field. it may have extra parameter provided with <a class="reference internal" href="#datatypeparams">dataTypeParams</a></td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#datatypeparams">dataTypeParams</a></th>
+<td>Map[string,any]</td>
+<td>extra parameters for dataType field need to convert. for example. dateFormat for dataType</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#type">type</a></th>
+<td>string</td>
+<td>the name of the parsing strategy for the current field. the default is STD.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#typeparams">typeParams</a></th>
+<td>Map[string,any]</td>
+<td>it is used for passing extra parameter to <a class="reference internal" href="#datatype">dataType</a> converter. <a class="reference internal" href="#typeparams">typeParams</a> field <a href="#id56"><span class="problematic" id="id57">extended_</span></a> to <a class="reference internal" href="#params">params</a> field.</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#path">path</a></th>
+<td>string</td>
+<td>The path field specifies the location of a tag in the <a href="#id58"><span class="problematic" id="id59">`source document`_</span></a> relative to the path field of the higher-level Parsing Element definition. The default value is the value in the fieldName field.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#parentpath">parentPath</a></th>
+<td>string</td>
+<td>The <a class="reference internal" href="#parentpath">parentPath</a> field is used in a slightly more complex parsing definitions. it holds path to parent tag of the tag specified in the “<a class="reference internal" href="#path">path</a>” field.</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#default">default</a></th>
+<td>string,`Default Object`_</td>
+<td>default value of the field if <a class="reference internal" href="#path">path</a> not exist in the source document. if default value starts with “$” character it is accepted as <a href="#id60"><span class="problematic" id="id61">expression_</span></a> and it is resolved by expression resolver.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#filter">filter</a></th>
+<td>string</td>
+<td>The Filter field determines whether the value of a <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a> (complex or simple <a class="reference internal" href="#type">type</a> does not matter) is added to the object tree. The filter field is an <a href="#id62"><span class="problematic" id="id63">expression_</span></a> that returns true or false.</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#transformationcode">transformationCode</a></th>
+<td>string</td>
+<td>this field refers to the definition of the <a href="#id64"><span class="problematic" id="id65">transformation_</span></a> to be used to transform the tag value.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#function">function</a></th>
+<td>string</td>
+<td>name of the function in <a class="reference internal" href="#functions">functions</a> map.</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#normalize">normalize</a></th>
+<td>string</td>
+<td>this field is used to normalize the value of <a href="#id66"><span class="problematic" id="id67">tag_</span></a>. İt is an expression.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#uniquename">uniqueName</a></th>
+<td>string</td>
+<td>When “fieldName” fields of complex <a class="reference internal" href="#parsing-element">Parsing Element</a> definitions are the same in the DSM document, these definitions are differentiated by using the “uniqueKey” field.</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#xml">xml</a></th>
+<td>Map[string,any]</td>
+<td>XML related configuration goes under this tag.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#attribute">attribute</a></th>
+<td>boolean</td>
+<td>it is indicates that the current <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a> is an attribute on the tag pointed to by the parentPath field in the xml.</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a href="#id68"><span class="problematic" id="id69">overwriteByDefault_</span></a></th>
+<td>boolean</td>
+<td>force using <a class="reference internal" href="#default">default</a> field. Mostly used with filter field.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#fields">fields</a></th>
+<td>Map[string,String - Parsing Element Object - [Parsing Element Object] ]</td>
+<td>fields  of the current object. its only valid for object and array <a class="reference internal" href="#type">type</a></td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#ref">$ref</a></th>
+<td>string</td>
+<td>$ref_ field is used to <a href="#id70"><span class="problematic" id="id71">extends_</span></a> current config to given <a href="#id72"><span class="problematic" id="id73">fragment_</span></a>. it’s value is an expression.</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<div class="section" id="id10">
+<h3><span class="target" id="fieldname">fieldName</span><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p><strong>REQUIRED</strong> The <a class="reference internal" href="#fieldname">fieldName</a> define the name of the property to expose by current object. the fieldName is unique in object.. However, a fieldName may have multiple <cite>Parsing Element</cite>. The fieldName is not explicitly defined. it is defined with <a class="reference internal" href="#fields">fields</a> property.  The keys of <a class="reference internal" href="#fields">fields</a> map are the fieldName of the Parsing Element.</p>
+<p>In blow DSM document, id, name, and price are <a class="reference internal" href="#fieldname">fieldName</a> of the result object. The <a class="reference internal" href="#result">result</a> object exposes id, name and price property</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>             <span class="c1"># fieldName is result</span>
+<span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">type:object</span>
+     <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>    <span class="c1"># fieldName is id</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>  <span class="c1"># fieldName is name</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>
+      <span class="s2">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h3><span class="target" id="datatype">dataType</span><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>The dataType field defines data type (string, int, boolean etc.) of the exposed property. it is basicity a converter from string to given dataType type.
+it may need extra parameters to convert a string to given data dataType. Extra parameters may be provided with <a class="reference internal" href="#params">params</a> or <a class="reference internal" href="#datatypeparams">dataTypeParams</a>.</p>
+<p>Supported dataType name and their corresponding java class:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Type Name</th>
+<th class="head">Java Type</th>
+<th class="head">Extra Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">int</th>
+<td>int</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">float</th>
+<td>float</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">short</th>
+<td>short</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">double</th>
+<td>double</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">long</th>
+<td>long</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><span class="target" id="date">date</span></th>
+<td>date</td>
+<td>dateFormat(required)</td>
+</tr>
+<tr class="row-even"><th class="stub">boolean</th>
+<td>boolean</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">char</th>
+<td>char</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">BigDecimal</th>
+<td>BigDecimal</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">BigInteger</th>
+<td>BigInteger</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="content-tabs docutils container" id="typeparamsexample">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">params</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">dd.MM.yyyy</span>  <span class="c1"># default &#39;dateFormat&#39; for all &#39;date&#39; dataType</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type:object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>       <span class="c1"># implicitly defined dataType. dataType is string</span>
+     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>    <span class="c1"># explicitly defined dataType dataType. type is double</span>
+     <span class="l l-Scalar l-Scalar-Plain">createDate</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>   <span class="c1"># implicitly defined the date dataType. and &#39;dateFormat&#39; is defined in params field.</span>
+     <span class="l l-Scalar l-Scalar-Plain">modifiedTime</span><span class="p p-Indicator">:</span>
+       <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">date</span>       <span class="c1"># explicitly defined the date dataType. and &#39;dateFormat&#39; is defined in dataTypeParams field.</span>
+       <span class="l l-Scalar l-Scalar-Plain">dataTypeParams</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">dateFormat</span><span class="p p-Indicator">:</span> <span class="s">&quot;yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;params&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;dateFormat&quot;</span><span class="p">:</span> <span class="s2">&quot;dd.MM.yyyy&quot;</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;price&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;double&quot;</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;createDate&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;modifiedTime&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;dataTypeParams&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;dateFormat&quot;</span><span class="p">:</span><span class="s2">&quot;yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;&quot;</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3><span class="target" id="datatypeparams">dataTypeParams</span><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>dataTypeParams is used for passing extra parameters to a <a class="reference internal" href="#datatype">dataType</a> convert.  dataTypeParams field <a href="#id74"><span class="problematic" id="id75">extended_</span></a> to <a class="reference internal" href="#params">params</a> field.</p>
+<p>Check <a class="reference internal" href="#typeparamsexample">example</a> here.</p>
+</div>
+<div class="section" id="id13">
+<h3><span class="target" id="type">type</span><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p><a class="reference internal" href="#type">type</a> defines how tags in the source document are parsed. it also defines the structure of the output object and hierarchy of the object tree. it may need extra parameters. Extra parameters are provided with <a class="reference internal" href="#typeparams">typeParams</a> field that <a href="#id76"><span class="problematic" id="id77">extended_</span></a> to <a class="reference internal" href="#params">params</a> field.
+Basically, there are two main “type” categories which are “complex”, and “simple”. The complex category includes “tagTypes” which exposes complex data dataType such as object or arrays. the simple category includes tagTypes which expose data type in the <a class="reference internal" href="#datatype">dataType</a> field.</p>
+<p>Supported <a class="reference internal" href="#type">type</a>’s:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Type Name</th>
+<th class="head">Category</th>
+<th class="head">Java Type</th>
+<th class="head">Extra Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#std">std</a></th>
+<td>Simple</td>
+<td><a class="reference internal" href="#datatype">dataType</a></td>
+<td>default <a class="reference internal" href="#type">type</a> if not defined explicitly</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#object">object</a></th>
+<td>Complex</td>
+<td>Map</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#array">array</a></th>
+<td>Complex</td>
+<td>List&lt;Map&gt; - List&lt;<a class="reference internal" href="#datatype">dataType</a>&gt;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#sum">sum</a></th>
+<td>Simple</td>
+<td><a class="reference internal" href="#datatype">dataType</a></td>
+<td>fields: array of fieldName of current object.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#multiply">multiply</a></th>
+<td>Simple</td>
+<td><a class="reference internal" href="#datatype">dataType</a></td>
+<td><strong>fields</strong>: array of fieldName of current object.</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#divide">divide</a></th>
+<td>Simple</td>
+<td><a class="reference internal" href="#datatype">dataType</a></td>
+<td><strong>fields</strong>: array of fieldName of current object.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#join">join</a></th>
+<td>Simple</td>
+<td><a class="reference internal" href="#datatype">dataType</a></td>
+<td><strong>fields</strong>: array of fieldName of current object, <strong>separator</strong>: separator string. default is comma(,)</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id14">
+<h4><span class="target" id="std">std</span><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<hr class="docutils" />
+<p>std is basic <a class="reference internal" href="#type">type</a> which copy the value of the tag in the source document to the current object. std is the default value of the <a class="reference internal" href="#type">type</a> field.  Data <a class="reference internal" href="#datatype">dataType</a> is defined in <a href="#id78"><span class="problematic" id="id79">dataType_ype_</span></a> field.</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>   <span class="c1"># tag type is STD</span>
+     <span class="l l-Scalar l-Scalar-Plain">bar</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>      <span class="c1"># tag type is STD</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h4><span class="target" id="object">object</span><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<hr class="docutils" />
+<p>object <a class="reference internal" href="#type">type</a> is used to expose an object. <a class="reference internal" href="#parsing-element">Parsing Element</a> which has “object” <a class="reference internal" href="#type">type</a> must have ‘<a class="reference internal" href="#fields">fields</a>’ field.</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Above DSM document generate following output(values are only example) :</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;11111&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="mf">1111.111</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id16">
+<h4><span class="target" id="array">array</span><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<hr class="docutils" />
+<p>array <a class="reference internal" href="#type">type</a> is used to expose an array. Items of the array may be a object or simple <a class="reference internal" href="#datatype">dataType</a>. if <a class="reference internal" href="#parsing-element">Parsing Element</a>  has “<a class="reference internal" href="#fields">fields</a>” field then the array <a class="reference internal" href="#type">type</a> exposes List&lt;Object&gt;.  if <a class="reference internal" href="#fields">fields</a> field is not defined, the data type of array item decided <a class="reference internal" href="#datatype">dataType</a> field.</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>  <span class="c1"># EXPOSE [Object] array of Object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">double</span>
+     <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>                 <span class="c1"># EXPOSE [string] array of string</span>
+       <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+       <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tag</span>
+       <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;double&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;tags&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;tag&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Above DSM document generate following output(values are only example) :</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">[{</span>
+   <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;11111&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="mf">1111.111</span><span class="p">,</span>
+   <span class="nt">&quot;tags&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
+<span class="p">}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id17">
+<h4><span class="target" id="sum">sum</span><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<hr class="docutils" />
+<p><em>sum</em> <a class="reference internal" href="#type">type</a> is used to sum  properties defined with “fields” in <strong>typeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object,   it is accepted as ZERO.</p>
+<p>if current property(<a class="reference internal" href="#parsing-element">Parsing Element</a> that “<em>sum</em>” <a class="reference internal" href="#type">type</a> is defined on) is defined in “fields” in <strong>typeParams_</strong>,   current property value is added to total result.(sum with self)</p>
+<p><strong>(Explained with example below)</strong></p>
+<p><strong>typeParams</strong>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">fields</th>
+<td>array</td>
+<td><strong>REQUIRED</strong> list of <a class="reference internal" href="#fieldname">fieldName</a> of the properties in parent <a class="reference internal" href="#parsing-element">Parsing Element</a> to sum.</td>
+</tr>
+</tbody>
+</table>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+     <span class="l l-Scalar l-Scalar-Plain">bar</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">bar</span>
+     <span class="l l-Scalar l-Scalar-Plain">fooAndBar</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>    <span class="c1"># declare sum type to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">type:int</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar]</span>  <span class="c1"># sum foo,and bar fields then set to fooAndBar property of current object.</span>
+     <span class="l l-Scalar l-Scalar-Plain">sumWithSelf</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>    <span class="c1"># declare sum type to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">type:int</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar,sumWithSelf]</span>  <span class="c1"># sum foo, bar and sumWithSelf(current field) fields then set sumWithSelf to total property of current object.</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;fooAndBar&quot;</span><span class="p">:{</span>
+             <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
+                  <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
+             <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;sumWithSelf&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
+               <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span><span class="s2">&quot;sumWithSelf&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id18">
+<h4><span class="target" id="multiply">multiply</span><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<hr class="docutils" />
+<p><em>multiply</em> <a class="reference internal" href="#type">type</a> is used to multiply  properties defined with “fields” in <strong>typeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object,   it is accepted as ONE.</p>
+<p>if current property(<a class="reference internal" href="#parsing-element">Parsing Element</a> that “<em>multiply</em>” <a class="reference internal" href="#type">type</a> is defined on) is defined in “fields” in <strong>typeParams_</strong>,   current property value is multiplied with total result. (multiply with self)</p>
+<p><strong>(Explained with example below)</strong></p>
+<p><a class="reference internal" href="#typeparams">typeParams</a>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">fields</th>
+<td>array</td>
+<td><strong>REQUIRED</strong> list of field name of the properties in <strong>current object</strong> to multiply.</td>
+</tr>
+</tbody>
+</table>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+     <span class="l l-Scalar l-Scalar-Plain">bar</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+     <span class="l l-Scalar l-Scalar-Plain">fooAndBar</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiply</span>    <span class="c1"># declare multiply type to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">type:int</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar]</span>  <span class="c1"># multiply foo,and bar fields then set it to fooAndBar property of current object.</span>
+     <span class="l l-Scalar l-Scalar-Plain">multiplyWithSelf</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">multiply</span>    <span class="c1"># declare multiply type to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">type:int</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar,multiplyWithSelf]</span>  <span class="c1"># multiply foo, bar and multiplyWithSelf(current field) fields then set it to multiplyWithSelf property of current object.</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;fooAndBar&quot;</span><span class="p">:{</span>
+             <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;multiply&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
+                  <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
+             <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;multiplyWithSelf&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;multiply&quot;</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
+               <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span><span class="s2">&quot;multiplyWithSelf&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id19">
+<h4><span class="target" id="divide">divide</span><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+<hr class="docutils" />
+<p><em>divide</em> <a class="reference internal" href="#type">type</a> is used to divide  properties defined with “fields” in <strong>typeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object,   it is accepted as ONE.</p>
+<p>if current property(<a class="reference internal" href="#parsing-element">Parsing Element</a> that “<em>divide</em>” <a class="reference internal" href="#type">type</a> is defined on) is defined in “fields” in <strong>typeParams_</strong>,   current property value is divided with total result. (divide with self)</p>
+<p><strong>(Explained with example below)</strong></p>
+<p><a class="reference internal" href="#typeparams">typeParams</a>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">fields</th>
+<td>array</td>
+<td><strong>REQUIRED</strong> list of field name of the properties in <strong>current object</strong> to divide.</td>
+</tr>
+</tbody>
+</table>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+     <span class="l l-Scalar l-Scalar-Plain">bar</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+     <span class="l l-Scalar l-Scalar-Plain">fooAndBar</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">divide</span>    <span class="c1"># declare divide type to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">type:int</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar]</span>  <span class="c1"># divide foo with bar (foo/bar) fields then set it to fooAndBar property of current object.</span>
+     <span class="l l-Scalar l-Scalar-Plain">divideWithSelf</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">divide</span>    <span class="c1"># declare divide type to sum foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">type:int</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar,divideWithSelf]</span>  <span class="c1"># divide foo with bar then divide with divideWithSelf(current field) (foo/bar/divideWithSelf) fields then set it to sumWithSelf property of current object.</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;fooAndBar&quot;</span><span class="p">:{</span>
+             <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;divide&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
+                  <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
+             <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;divideWithSelf&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;divide&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
+               <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span><span class="s2">&quot;divideWithSelf&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id20">
+<h4><span class="target" id="join">join</span><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<hr class="docutils" />
+<p><em>join</em> <a class="reference internal" href="#type">type</a> is used to join properties defined with “fields” in <strong>typeParams_</strong>. if one of the properties that defined in <em>fields</em> does not exist in the current object, it is skipped.</p>
+<p>if current property(<a class="reference internal" href="#parsing-element">Parsing Element</a> that “<em>join</em>” <a class="reference internal" href="#type">type</a> is defined on) is defined in
+“fields” in <strong>typeParams_</strong>, current property value is included in to joining  (join with self)
+Values are  separated by <em>separator</em> defined in  “<a class="reference internal" href="#typeparams">typeParams</a>”. The default separator  is a comma(,)</p>
+<p><a class="reference internal" href="#typeparams">typeParams</a>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">fields</th>
+<td>array</td>
+<td><strong>REQUIRED</strong> list of field name of the properties in <strong>current object</strong> to join.</td>
+</tr>
+<tr class="row-odd"><th class="stub">separator</th>
+<td>string</td>
+<td>separator string. default is comma(i)</td>
+</tr>
+</tbody>
+</table>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span>version: 1.0
+result:
+  type: object
+  path: /
+  fields:
+     foo: string
+     bar: string
+     fooAndBar:
+         path: \.  # when current object closed
+         type: join    # declare join type to sum foo and bar field
+         type:int
+         typeParams:
+            fields:[foo,bar]  # join foo and bar (foo,bar) fields then set it to fooAndBar property of current object.
+     joinWithSelf:
+         type: join    # declare join type to sum foo and bar field
+         type:int
+         typeParams:
+            separator: &amp;
+            fields:[foo,bar,sumWithSelf]  # join foo,bar, and joinWithSelf(current field) (foo&amp;bar&amp;joinWithSelf) fields then set it to joinWithSelf property of current object.
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;fooAndBar&quot;</span><span class="p">:{</span>
+             <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;join&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
+                  <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
+             <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;joinWithSelf&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;join&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
+               <span class="nt">&quot;separator&quot;</span><span class="p">:</span> <span class="s2">&quot;&amp;&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span><span class="s2">&quot;joinWithSelf&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id21">
+<h3><span class="target" id="typeparams">typeParams</span><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>typeParams is used for passing extra parameters to <a class="reference internal" href="#type">type</a> field. The typeParams field is  <a href="#id80"><span class="problematic" id="id81">extended_</span></a> to <a class="reference internal" href="#params">params</a> field.</p>
+<p>Examples:</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">foo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">bar</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">fooAndBar</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">\.</span>  <span class="c1"># when current object closed</span>
+         <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">join</span>    <span class="c1"># declare join type to concat foo and bar field</span>
+         <span class="l l-Scalar l-Scalar-Plain">type:int</span>
+         <span class="l l-Scalar l-Scalar-Plain">typeParams</span><span class="p p-Indicator">:</span>       <span class="c1"># typeParams is used to pass fields parameter to type</span>
+            <span class="l l-Scalar l-Scalar-Plain">fields:[foo,bar]</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;foo&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;fooAndBar&quot;</span><span class="p">:{</span>
+             <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;join&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;typeParams&quot;</span><span class="p">:{</span>
+                  <span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
+             <span class="p">}</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="path-and-parentpath">
+<h3><span class="target" id="path">path</span> and <span class="target" id="parentpath">parentPath</span><a class="headerlink" href="#path-and-parentpath" title="Permalink to this headline">¶</a></h3>
+<p>The path and parentPath fields indicate which tags are used in the <a href="#id82"><span class="problematic" id="id83">`source document`_</span></a>
+during parsing. The value of those fields are regular expressions.</p>
+<p>The <strong>path</strong> field specifies the location of a tag in the <a href="#id84"><span class="problematic" id="id85">`source document`_</span></a>
+relative to the path field of the higher-level <a class="reference internal" href="#parsing-element">Parsing Element</a> definition.
+The default value is the value in the <a class="reference internal" href="#fieldname">fieldName</a> field.</p>
+<p>The <strong>parentPath</strong> field is used in a slightly more complex parsing definitions.
+it holds path to parent tag of the tag specified in the “path” field.</p>
+<p>The <a class="reference internal" href="#path">path</a> and <a class="reference internal" href="#parentpath">parentPath</a> fields can be defined as the relative path as in unix.
+Relative paths are resolved according to the structure in the DSM document,
+not by the structure in the source file.</p>
+<p>Some example of relative path:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">current:</th><td class="field-body">./</td>
+</tr>
+<tr class="field-even field"><th class="field-name">parent:</th><td class="field-body">../</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">parentOfParent:</th><td class="field-body">../../</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">categoryInParent:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">../category</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">categoryInCurrent:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">./category</td>
+</tr>
+</tbody>
+</table>
+<p>To find the exact tag path for the current <a class="reference internal" href="#parsing-element">Parsing Element</a>, starting from the result field,
+all the <em>parentPath</em> and <em>path</em> fields from top to bottom are merged with the “/” character.</p>
+<p><strong>tagParentAbsolutePath</strong> and <strong>tagAbsolutePath</strong>  evaluated as follow:</p>
+<blockquote>
+<div><p><strong>currentObject</strong> mean is <a class="reference internal" href="#parsing-element">Parsing Element</a> that current path and parentPath is defined
+<strong>parentObject</strong> mean is parent <a class="reference internal" href="#parsing-element">Parsing Element</a> of currentObject</p>
+<ul class="simple">
+<li>parentObject = if (<strong>parentPath+path</strong>) is relative path then find  parentObject by resolving relative path else currentObject.parent</li>
+<li><strong>tagParentAbsolutePath</strong> = parentObject.path+”/”+currentObject.parentPath</li>
+<li><strong>tagAbsolutePath</strong> = absoluteParentPath+”/”+currentObject.path</li>
+</ul>
+</div></blockquote>
+<p>if <strong>tagAbsolutePath</strong>  regex match any  <a href="#id86"><span class="problematic" id="id87">absolute_</span></a> path of tag, value of this tag evaluated by <a class="reference internal" href="#type">type</a></p>
+<p>To explain with example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/orders/order</span>                              <span class="c1">#path = orders/order</span>
+                                                       <span class="c1">#parentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagAbsolutePath= /orders/order</span>
+                                                       <span class="c1">#tagParentAbsolutePath= /</span>
+   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">defaultName</span><span class="p p-Indicator">:</span>                                     <span class="c1">#path =defaultName (default value is fieldName)</span>
+                                                       <span class="c1">#parentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order (parent(result) absoluteTagPath))</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/defaultName</span>
+      <span class="l l-Scalar l-Scalar-Plain">tagPathDefined</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">status</span>                               <span class="c1">#path =status</span>
+                                                       <span class="c1">#parentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order (parent(result) absoluteTagPath))</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/status</span>
+      <span class="l l-Scalar l-Scalar-Plain">tagPathAndParentPath</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>                              <span class="c1">#path = name</span>
+            <span class="l l-Scalar l-Scalar-Plain">parentPath</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>                    <span class="c1">#parentPath  = category</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order/category</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/category/name</span>
+
+      <span class="l l-Scalar l-Scalar-Plain">innerObject</span><span class="p p-Indicator">:</span>
+           <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+           <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">foo</span>                                <span class="c1">#path = &quot;innerObject&quot;</span>
+                                                       <span class="c1">#parentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/innerObject</span>
+           <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+              <span class="l l-Scalar l-Scalar-Plain">normalPathInInnerObject</span><span class="p p-Indicator">:</span>                 <span class="c1">#path = &quot;normalPathInInnerObject&quot;</span>
+                                                       <span class="c1">#parentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order/innerObject</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/innerObjcet/normalPathInInnerObject</span>
+              <span class="l l-Scalar l-Scalar-Plain">relativeTagPath</span><span class="p p-Indicator">:</span>
+                    <span class="l l-Scalar l-Scalar-Plain">path:./defaultName</span>              <span class="c1">#path = ../defaultName    (only level up)</span>
+                                                       <span class="c1">#parentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/defaultName</span>
+              <span class="l l-Scalar l-Scalar-Plain">relativeParentPath</span><span class="p p-Indicator">:</span>
+                    <span class="l l-Scalar l-Scalar-Plain">path:defaultName</span>                <span class="c1">#path = defaultName</span>
+                    <span class="l l-Scalar l-Scalar-Plain">parentPath:../</span>                  <span class="c1">#parentPath = &quot;../&quot; (only level up)</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/defaultName                                          relativeTagPathAndParentPath:</span>
+                    <span class="l l-Scalar l-Scalar-Plain">path:../defaultName</span>             <span class="c1">#path = defaultName</span>
+                    <span class="l l-Scalar l-Scalar-Plain">parentPath:../</span>                  <span class="c1">#parentPath = &quot;../&quot; (only level up)</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order/../defaultName (relative path of parentPath important. path considered as regex)</span>
+
+              <span class="l l-Scalar l-Scalar-Plain">relativePathFromResult</span><span class="p p-Indicator">:</span>
+                <span class="l l-Scalar l-Scalar-Plain">path:/orders/order/defaultName</span>      <span class="c1">#path = /orders/order/defaultName</span>
+                                                       <span class="c1">#parentPath = &quot;&quot;</span>
+                                                       <span class="c1">#tagParentAbsolutePath =/orders/order/defaultName</span>
+                                                       <span class="c1">#tagAbsolutePath =/orders/order</span>
+</pre></div>
+</div>
+<p><strong>tagAbsolutePath and tagParentAbsolutePath</strong>:</p>
+<table border="1" class="docutils align-left">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">fieldName</th>
+<th class="head">path</th>
+<th class="head">parentPath</th>
+<th class="head">tagAbsolutePath</th>
+<th class="head">tagParentAbsolutePath</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">result</th>
+<td>orders/order</td>
+<td>&#160;</td>
+<td>order/simpleOrder</td>
+<td>/</td>
+</tr>
+<tr class="row-odd"><th class="stub">result</th>
+<td>orders/order</td>
+<td>&#160;</td>
+<td>order/simpleOrder</td>
+<td>/</td>
+</tr>
+<tr class="row-even"><th class="stub">defaultName</th>
+<td>defaultName(default value is fieldName)</td>
+<td>order/simpleOrder/defaultName</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">tagPathDefined</th>
+<td>status</td>
+<td>order/simpleOrder/status</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">tagPathAndParentPath</th>
+<td>status</td>
+<td>order/simpleOrder/category/name</td>
+<td>order/simpleOrder/category</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">innerObject</th>
+<td>innerObject</td>
+<td>order/simpleOrder/innerObject</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">normalPathInInnerObject</th>
+<td>normalPathInInnerObject</td>
+<td>order/simpleOrder/innerObject/normalPathInInnerObject</td>
+<td>order/simpleOrder/innerObject</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">relativeTagPath</th>
+<td>defaultName</td>
+<td>order/simpleOrder/defaultName</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">relativeParentPath</th>
+<td>defaultName</td>
+<td>order/simpleOrder/defaultName</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><th class="stub">relativeTagPathAndParentPath</th>
+<td>defaultName</td>
+<td>order/simpleOrder/..defaultName (relative path of parentPath important. path considered as regex)</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><th class="stub">relativePathFromResult</th>
+<td>/orders/order/defaultName</td>
+<td>order/simpleOrder/defaultName</td>
+<td>order/simpleOrder</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="fields">
+<span id="id22"></span><h3>fields<a class="headerlink" href="#fields" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>The fields field is used to define the properties of complex objects. Only <a class="reference internal" href="#parsing-element">Parsing Element</a> that has complex <a class="reference internal" href="#type">type</a>  can have the “fields” field.</p>
+<p>The fields field is  a map that keys are fieldName of  <a class="reference internal" href="#parsing-element">Parsing Element</a> , values are string, <a class="reference internal" href="#parsing-element">Parsing Element</a> or list of <a class="reference internal" href="#parsing-element">Parsing Element</a></p>
+<div class="section" id="type-of-value-definition">
+<h4>Type of Value Definition<a class="headerlink" href="#type-of-value-definition" title="Permalink to this headline">¶</a></h4>
+<p>The value of the map can be empty, string, <a class="reference internal" href="#parsing-element">Parsing Element</a> or array of <a class="reference internal" href="#parsing-element">Parsing Element</a>.</p>
+<p>Different value definitions create <a class="reference internal" href="#parsing-element">Parsing Element</a> with some default values.</p>
+<p>Below explain type of value definition and the default values of the <a class="reference internal" href="#parsing-element">Parsing Element</a> that it creates.</p>
+<dl class="docutils">
+<dt>empty:</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name"><a class="reference internal" href="#fieldname">fieldName</a>:</th><td class="field-body">key of the map.</td>
+</tr>
+<tr class="field-even field"><th class="field-name"><a class="reference internal" href="#datatype">dataType</a>:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name"><a class="reference internal" href="#path">path</a>:</th><td class="field-body">key of the map (fieldName)</td>
+</tr>
+<tr class="field-even field"><th class="field-name"><a class="reference internal" href="#parentpath">parentPath</a>:</th><td class="field-body">null</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt>string:</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name"><a class="reference internal" href="#fieldname">fieldName</a>:</th><td class="field-body">key of the map.</td>
+</tr>
+<tr class="field-even field"><th class="field-name"><a class="reference internal" href="#datatype">dataType</a>:</th><td class="field-body">value of the map</td>
+</tr>
+<tr class="field-odd field"><th class="field-name"><a class="reference internal" href="#path">path</a>:</th><td class="field-body">key of the map (fieldName)</td>
+</tr>
+<tr class="field-even field"><th class="field-name"><a class="reference internal" href="#parentpath">parentPath</a>:</th><td class="field-body">null</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt><a class="reference internal" href="#parsing-element">Parsing Element</a>:</dt>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name"><a class="reference internal" href="#fieldname">fieldName</a>:</th><td class="field-body">key of the map.</td>
+</tr>
+</tbody>
+</table>
+<p class="last">other fields are can be defined or initialized with default values.</p>
+</dd>
+<dt>Array of <a class="reference internal" href="#parsing-element">Parsing Element</a>:</dt>
+<dd>some fields of objects can be read from the different tag in the source document.  By making multiple definitions for one field, the value of different tags can be read.</dd>
+</dl>
+<p>Example of different type of value definition:</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>     <span class="c1"># fieldName is &quot;name&quot; and dataType is  string and the path is &quot;/name&quot;</span>
+     <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>      <span class="c1"># fieldName is &quot;price&quot; and dataType is  &quot;long&quot;  and the path is &quot;/price&quot;</span>
+     <span class="l l-Scalar l-Scalar-Plain">categoryType</span><span class="p p-Indicator">:</span>   <span class="c1"># fieldName is &quot;categoryType&quot; and it is  &quot;string&quot; value and the path is &quot;/categoryType&quot; it has extra definition (default)</span>
+            <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="s">&quot;foo&quot;</span>   <span class="c1"># default value a is a string.</span>
+     <span class="l l-Scalar l-Scalar-Plain">productUnit</span><span class="p p-Indicator">:</span>  <span class="c1"># this field contains two definition. one  of that  will win depending on the structure of source document.</span>
+           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">unit/unit_name</span>      <span class="c1"># fieldName is &quot;productUnit&quot; and dataType is  &quot;long&quot;  and the path is &quot;/unit/unit_name&quot;</span>
+             <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$ self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;</span><span class="p p-Indicator">:</span> <span class="s">&#39;KG&#39;</span>
+
+           <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">mainUnit/unit_name</span>  <span class="c1"># fieldName is &quot;productUnit&quot; and dataType is  &quot;long&quot;  and the path is &quot;/mainUnit/unit_name&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span>{
+   &quot;version&quot;: 1.0,
+   &quot;result&quot;:{
+      &quot;type&quot;object&quot;,
+      &quot;path&quot;:&quot;/&quot;  ,
+      &quot;fields&quot;:{
+         &quot;name&quot;:&quot;&quot;,
+         &quot;category&quot;:&quot;&quot;,
+         &quot;price&quot;:&quot;long&quot;,
+         &quot;categoryType&quot;:{
+            &quot;default&quot;: &quot;foo&quot;
+         },
+         &quot;productUnit&quot;:[
+         {  &quot;path&quot;: &quot;unit/unit_name&quot;,
+            &quot;default&quot;: &quot; $self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;: &#39;KG&#39;&quot;
+         },
+         {
+            &quot;path&quot;: &quot;mainUnit/unit_name&quot;,
+         },
+         ],
+       }
+   }
+ }
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id23">
+<h3><span class="target" id="filter">filter</span><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p>The filter field determines whether the value of a <a class="reference internal" href="#parsing-element">Parsing Element</a>
+(complex or simple <a class="reference internal" href="#type">type</a> does not matter) is added to the object tree.
+The filter field is an <a href="#id88"><span class="problematic" id="id89">expression_</span></a> that returns true or false.</p>
+<p>The following objects are available in Expression Context.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a href="#id90"><span class="problematic" id="id91">expression_</span></a></p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#params">params</a></th>
+<td>Map&lt;string,any&gt;</td>
+<td><a class="reference internal" href="#params">params</a> object.</td>
+<td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a href="#id92"><span class="problematic" id="id93">self_</span></a></th>
+<td><a href="#id94"><span class="problematic" id="id95">Node_</span></a></td>
+<td>current node object that hold data of current complex <a class="reference internal" href="#type">type</a></td>
+<td><strong>self.data.foo</strong> =&gt; foo field of current node,  <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a href="#id96"><span class="problematic" id="id97">all_</span></a></th>
+<td>Map&lt;string,Node_&gt;</td>
+<td>A map that stores all nodes by the “<a class="reference internal" href="#uniquename">uniqueName</a>” of <a class="reference internal" href="#parsing-element">Parsing Element</a></td>
+<td><strong>all.bar.data.foo</strong> =&gt; foo field of <strong>bar</strong> node,  <strong>all.barList.data[0].foo</strong> =&gt; <em>foo</em> field of first item of <em>barList</em> node</td>
+</tr>
+<tr class="row-odd"><th class="stub">value</th>
+<td>string</td>
+<td>value of the current tag in <a href="#id98"><span class="problematic" id="id99">`source document`_</span></a></td>
+<td><strong>value==’Computer’</strong>,**value.startWith(‘bar’)**</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong>:</p>
+<p><strong>Example 1</strong></p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span>
+    <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+    <span class="l l-Scalar l-Scalar-Plain">path:/</span>
+    <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$self.data.category==&#39;Computer&#39;</span>  <span class="c1"># collect all data that category field is &#39;Computer&#39;</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;array&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;filter&quot;</span><span class="p">:</span> <span class="s2">&quot;$self.data.category==&#39;Computer&#39;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example 2</strong></p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span>
+    <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+    <span class="l l-Scalar l-Scalar-Plain">path:/</span>
+    <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+       <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$value==&#39;Computer&#39;</span> <span class="c1"># only assign &quot;category&quot; if &quot;category&quot; is &quot;computer&quot;.</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;array&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;category&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;filter&quot;</span><span class="p">:</span> <span class="s2">&quot;$value==&#39;Computer&#39;&quot;</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Possible Output Of Example 2</strong></p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">[{</span>
+   <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="s2">&quot;Computer&quot;</span>
+ <span class="p">},</span>
+<span class="p">{</span>
+   <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;foo&quot;</span>
+<span class="p">}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id24">
+<h3><span class="target" id="default">default</span><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>The <em>default</em> field holds the value to be assigned to a property  by default. The default value is assigned  when the <a class="reference internal" href="#path">path</a>  does not match the <a href="#id100"><span class="problematic" id="id101">absolute_</span></a> path of any tag in the <a href="#id102"><span class="problematic" id="id103">`source document`_</span></a>.
+If the value of the default field is a string,
+this value is accepted as the <a class="reference internal" href="#value">value</a> field of the <a class="reference internal" href="#default-object">Default Object</a>.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a class="reference internal" href="#default-object">Default Object</a></p>
+<p class="last"><a href="#id104"><span class="problematic" id="id105">Expression_</span></a></p>
+</div>
+<p><a href="#id106"><span class="problematic" id="id107">`assignment order`_</span></a> of the default  is from the bottom to up in an object.</p>
+<p>Examples</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span>
+         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">filter</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$ self.data.categoryType==&#39;foo&#39;</span>
+           <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+              <span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">foo</span>  <span class="c1"># force set name to foo with filter</span>
+              <span class="l l-Scalar l-Scalar-Plain">force</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
+     <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+     <span class="l l-Scalar l-Scalar-Plain">productUnit</span><span class="p p-Indicator">:</span>
+           <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$ self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;</span><span class="p p-Indicator">:</span> <span class="s">&#39;KG&#39;</span>    <span class="c1"># default value is expression.  this default value is assigned after &quot;categoryType&quot; field assigned.</span>
+     <span class="l l-Scalar l-Scalar-Plain">categoryType</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span> <span class="s">&quot;foo&quot;</span>   <span class="c1"># default value a is a string.</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<blockquote>
+<div><div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/&quot;</span>  <span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;productUnit&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot; $self.data.categoryType==&#39;foo&#39;? &#39;LT&#39;: &#39;KG&#39;&quot;</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;categoryType&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
+         <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="id25">
+<h3><span class="target" id="transformationcode">transformationCode</span><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p><em>transformationCode</em> field refers to the definition of the <a href="#id108"><span class="problematic" id="id109">transformation_</span></a> to be used to transform the tag value.</p>
+<p>Below definition work as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li>value of tag “/country_code”  is read from <a href="#id110"><span class="problematic" id="id111">`source document`_</span></a></li>
+<li>if this value exist in “COUNTRY_CODE_TO_NAME” <a href="#id112"><span class="problematic" id="id113">transformation_</span></a> definition, get value that match.</li>
+<li>if not exist, get “DEFAULT” value of “COUNTRY_CODE_TO_NAME” <a href="#id114"><span class="problematic" id="id115">transformation_</span></a> definition</li>
+</ul>
+</div></blockquote>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">transformations</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">COUNTRY_CODE_TO_NAME</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">map</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">DEFAULT</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Other</span>
+          <span class="l l-Scalar l-Scalar-Plain">TR</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Turkey</span>
+          <span class="l l-Scalar l-Scalar-Plain">US</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">United States</span>
+
+<span class=" -Error"> </span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">country</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">country_code</span>
+            <span class="l l-Scalar l-Scalar-Plain">transformationCode</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">COUNTRY_CODE_TO_NAME</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;transformations&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;COUNTRY_CODE_TO_NAME&quot;</span><span class="p">:{</span>
+       <span class="nt">&quot;map&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;TR&quot;</span><span class="p">:</span><span class="s2">&quot;Turkey&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;US&quot;</span><span class="p">:</span><span class="s2">&quot;United States&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;DEFAULT&quot;</span><span class="p">:</span><span class="s2">&quot;Other&quot;</span>
+       <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+ <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;fields&quot;</span><span class="p">{</span>
+        <span class="nt">&quot;country&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;country_code&quot;</span>
+            <span class="s2">&quot;transformationCode&quot;</span><span class="p">:</span> <span class="s2">&quot;COUNTRY_CODE_TO_NAME&quot;</span>
+        <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#transformations">Transformations</a></p>
+</div>
+</div>
+<div class="section" id="id26">
+<h3><span class="target" id="function">function</span><a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>The <em>function</em> field refers to the definition of <a class="reference internal" href="#functions">functions</a> field to be used for the custom operation.
+For more detail about how <a class="reference internal" href="#functions">functions</a> works, look at <a class="reference internal" href="#functions">functions</a> sections.</p>
+<p>Below definition work as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li>all fields of product   are read from <a href="#id116"><span class="problematic" id="id117">`source document`_</span></a></li>
+<li>When the “/product” tag is closed, the “com.example.InsertProduct” function in the “insertProduct” definition is called.</li>
+</ul>
+</div></blockquote>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">functions</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">insertProduct</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">com.example.InsertProduct</span>
+
+<span class=" -Error"> </span><span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/product</span>
+   <span class="l l-Scalar l-Scalar-Plain">function</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">insertProduct</span>
+   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+        <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>
+        <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;functions&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;insertProduct&quot;</span><span class="p">:</span><span class="s2">&quot;com.example.InsertProduct&quot;</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;insertProduct&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+           <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+           <span class="nt">&quot;price&quot;</span><span class="p">:</span> <span class="s2">&quot;long&quot;</span><span class="p">,</span>
+           <span class="nt">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#functions">functions</a></p>
+</div>
+</div>
+<div class="section" id="id27">
+<h3><span class="target" id="uniquename">uniqueName</span><a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>When “fieldName” fields of complex <a class="reference internal" href="#parsing-element">Parsing Element</a> definitions are the same in the DSM document,
+these definitions are differentiated by using the “uniqueKey” field.
+This field is optional. The default value  is the value of the “fieldName” field.
+The uniqueName field may need in very complex document parsing.</p>
+<p>Example Case:</p>
+<p>In the following DSM document, both the users and the orders objects have a category field and the category field is an object.
+The <a class="reference internal" href="#uniquename">uniqueName</a> field is used to differentiate the category objects.</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">users</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+            <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+                <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                <span class="l l-Scalar l-Scalar-Plain">email</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+                     <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+                     <span class="l l-Scalar l-Scalar-Plain">uniqueName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">userCategory</span>
+                     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+                        <span class="l l-Scalar l-Scalar-Plain">categoryName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+        <span class="l l-Scalar l-Scalar-Plain">order</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+            <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+                <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+                  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+                  <span class="l l-Scalar l-Scalar-Plain">uniqueName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">orderCategory</span>
+                  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+                        <span class="l l-Scalar l-Scalar-Plain">categoryName</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;users&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;uniqueName&quot;</span><span class="p">:</span> <span class="s2">&quot;userCategory&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+                     <span class="nt">&quot;categoryName&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+                  <span class="p">}</span>
+               <span class="p">}</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="nt">&quot;order&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;uniqueName&quot;</span><span class="p">:</span> <span class="s2">&quot;orderCategory&quot;</span><span class="p">,</span>
+                  <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+                     <span class="nt">&quot;categoryName&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+                  <span class="p">}</span>
+               <span class="p">}</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id28">
+<h3><span class="target" id="normalize">normalize</span><a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>The normalize is used to normalize the value of the tag being read.
+Changes can be made to the raw string value of the tag by using normalize field.
+The value of this field is an expression.</p>
+<p>The following objects are available in Expression Context.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#params">params</a></th>
+<td>Map&lt;string,any&gt;</td>
+<td><a class="reference internal" href="#params">params</a> object.</td>
+<td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a href="#id118"><span class="problematic" id="id119">self_</span></a></th>
+<td><a href="#id120"><span class="problematic" id="id121">Node_</span></a></td>
+<td>current node object that hold data of current complex <a class="reference internal" href="#type">type</a></td>
+<td><strong>self.data.foo</strong> =&gt; foo field of current node,  <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a href="#id122"><span class="problematic" id="id123">all_</span></a></th>
+<td>Map&lt;string,Node_&gt;</td>
+<td>A map that stores all nodes by the “<a class="reference internal" href="#uniquename">uniqueName</a>” of <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a></td>
+<td><strong>all.bar.data.foo</strong> =&gt; foo field of <strong>bar</strong> node,  <strong>all.barList.data[0].foo</strong> =&gt; <em>foo</em> field of first item of <em>barList</em> node</td>
+</tr>
+<tr class="row-odd"><th class="stub">value</th>
+<td>string</td>
+<td>raw string value of the current tag in <a href="#id124"><span class="problematic" id="id125">`source document`_</span></a></td>
+<td><strong>value==’Computer’</strong>,**value.startWith(‘bar’)**</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a href="#id126"><span class="problematic" id="id127">`Expression`_</span></a></p>
+</div>
+</div>
+<div class="section" id="id29">
+<h3><span class="target" id="xml">xml</span><a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>The xml field is used to make extra definitions and to change “path” and “type” fields for XML format.</p>
+<p>check <a class="reference internal" href="#xml-object">XML Object</a> for more detail</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#xml-object">XML Object</a></p>
+</div>
+</div>
+<div class="section" id="id30">
+<h3><span class="target" id="ref">$ref</span><a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>$ref field is used to <a href="#id128"><span class="problematic" id="id129">extends_</span></a> <a class="reference internal" href="#parsing-element">Parsing Element</a> to given <a class="reference internal" href="#fragments">fragments</a>. it’s value is a Load Time Expression.
+<a class="reference internal" href="#fragments">fragments</a> can be <a href="#id130"><span class="problematic" id="id131">extends_</span></a> another <a class="reference internal" href="#fragments">fragments</a> but can not extends itself.
+Sometimes we don’t need parent properties. To exclude parent properties, define <a class="reference internal" href="#datatype">dataType</a> as “exclude”.  In example bellow category property is excluded.</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+  <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="s">&quot;/Pets/Pet&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">$ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$fragments.pet</span>
+  <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">exclude</span>     <span class="c1"># import all properties of  fragments.pet except category property.</span>
+      <span class="l l-Scalar l-Scalar-Plain">isPopular</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">default $self.data.tags.stream().anyMatch(s-&gt;s.name==&#39;Popular&#39;)</span>
+<span class="l l-Scalar l-Scalar-Plain">fragments</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">tag</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+      <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+         <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+   <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+      <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">int</span>
+         <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+   <span class="l l-Scalar l-Scalar-Plain">pet</span><span class="p p-Indicator">:</span>
+     <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+     <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>
+         <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+         <span class="l l-Scalar l-Scalar-Plain">status</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+         <span class="l l-Scalar l-Scalar-Plain">category</span><span class="p p-Indicator">:</span>
+            <span class="l l-Scalar l-Scalar-Plain">$ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$fragments.category</span>
+         <span class="l l-Scalar l-Scalar-Plain">photoUrls</span><span class="p p-Indicator">:</span>
+              <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+              <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls</span>
+              <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+                 <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">photoUrls/photoUrls</span>
+         <span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span>
+             <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+             <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags</span>
+             <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+               <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">tags/tag</span>
+             <span class="l l-Scalar l-Scalar-Plain">$ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$fragments.tag</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;xml&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Pets/Pet&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;$fragments.pet&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;exclude&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;isPopular&quot;</span><span class="p">:</span> <span class="s2">&quot;default $self.data.tags.stream().anyMatch(s-&gt;s.name==&#39;Popular&#39;)&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;fragments&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;tag&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;pet&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;long&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;$fragments.category&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;photoUrls&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;photoUrls&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;xml&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;photoUrls/photoUrls&quot;</span>
+               <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;xml&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;tags/tag&quot;</span>
+               <span class="p">},</span>
+               <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;$fragments.tag&quot;</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="transformation-element">
+<span id="id31"></span><h2><span class="target" id="transformation-element-object">Transformation Element Object</span><a class="headerlink" href="#transformation-element" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<p>Transformation is a very powerful feature that used to map value of a tag from the <a href="#id132"><span class="problematic" id="id133">`source document`_</span></a> to destination document.
+Transformation Element holds the mapping and how the mapping will be used with <a href="#id32"><span class="problematic" id="id33">`</span></a>Parsing Element`_s.
+We can consider, transformation as switch-case in programing language.
+Every record in the mapping table is a case and DEFAULT record is a default case fo switch-case statement.</p>
+<dl class="docutils">
+<dt>Fields:</dt>
+<dd><table border="1" class="first last docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Field Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub">map</th>
+<td>Map&lt;String,Object&gt;</td>
+<td><strong>REQUIRED</strong> mapping table from source to destination</td>
+</tr>
+<tr class="row-odd"><th class="stub">onlyIfExist</th>
+<td>boolean</td>
+<td>transform source value only if exist in mapping table. if not exist use as is.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#ref">$ref</a></th>
+<td>string</td>
+<td>ref field is used to <a href="#id134"><span class="problematic" id="id135">extends_</span></a> current Transformation Element to another Transformation Element. it is an expression.</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">transformations</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">COUNTRY_CODE_TO_NAME</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">map</span><span class="p p-Indicator">:</span>
+          <span class="l l-Scalar l-Scalar-Plain">DEFAULT</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Other</span>
+          <span class="l l-Scalar l-Scalar-Plain">TR</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Turkey</span>
+          <span class="l l-Scalar l-Scalar-Plain">US</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">United States</span>
+    <span class="l l-Scalar l-Scalar-Plain">COUNTRY_CODe_TO_NAME_IF_EXIST</span><span class="p p-Indicator">:</span>
+         <span class="l l-Scalar l-Scalar-Plain">$ref</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$transformations.COUNTRY_CODE_TO_NAME</span>
+         <span class="l l-Scalar l-Scalar-Plain">onlyIfExist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+         <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;transformations&quot;</span><span class="p">:</span> <span class="p">{</span>
+             <span class="nt">&quot;COUNTRY_CODE_TO_NAME&quot;</span><span class="p">:</span> <span class="p">{</span>
+                     <span class="nt">&quot;map&quot;</span><span class="p">:</span> <span class="p">{</span>
+                             <span class="nt">&quot;DEFAULT&quot;</span><span class="p">:</span> <span class="s2">&quot;Other&quot;</span><span class="p">,</span>
+                             <span class="nt">&quot;TR&quot;</span><span class="p">:</span> <span class="s2">&quot;Turkey&quot;</span><span class="p">,</span>
+                             <span class="nt">&quot;US&quot;</span><span class="p">:</span> <span class="s2">&quot;United States&quot;</span>
+                     <span class="p">}</span>
+             <span class="p">},</span>
+             <span class="nt">&quot;COUNTRY_CODe_TO_NAME_IF_EXIST&quot;</span><span class="p">:</span> <span class="p">{</span>
+                     <span class="nt">&quot;$ref&quot;</span><span class="p">:</span> <span class="s2">&quot;$transformations.COUNTRY_CODE_TO_NAME&quot;</span><span class="p">,</span>
+                     <span class="nt">&quot;onlyIfExist&quot;</span><span class="p">:</span> <span class="kc">true</span>
+             <span class="p">}</span>
+         <span class="p">}</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id34">
+<h2><span class="target" id="default-object">Default Object</span><a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<p>Default Object determines how the <a class="reference internal" href="#default">default</a> field is assigned.</p>
+<dl class="docutils">
+<dt>Fields:</dt>
+<dd><table border="1" class="first last docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Field Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#value">value</a></th>
+<td>string</td>
+<td><strong>REQUIRED</strong> default value that is assigned to current field</td>
+</tr>
+<tr class="row-odd"><th class="stub">force</th>
+<td>string</td>
+<td>Use the default value, even if the tag specified in the “<a class="reference internal" href="#path">path</a>” field is in the source file.</td>
+</tr>
+<tr class="row-even"><th class="stub">atStart</th>
+<td>string</td>
+<td>assign default value at start of tag.</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<div class="section" id="id35">
+<h3><span class="target" id="value">value</span><a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<p><strong>REQUIRED</strong>
+it  holds default value that is assigned to current field</p>
+<p>if the value starts with the “$” character, it is treated as “expression” and is resolved by expression resolver.</p>
+<p>The following objects are available in Expression Context.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#params">params</a></th>
+<td>Map&lt;string,any&gt;</td>
+<td><a class="reference internal" href="#params">params</a> object.</td>
+<td><strong>params.dateFormat</strong> ==’dd.MM.yyyy’</td>
+</tr>
+<tr class="row-odd"><th class="stub"><a href="#id136"><span class="problematic" id="id137">self_</span></a></th>
+<td><a href="#id138"><span class="problematic" id="id139">Node_</span></a></td>
+<td>current node object that hold data of current complex <a class="reference internal" href="#type">type</a></td>
+<td><strong>self.data.foo</strong> =&gt; foo field of current node,  <strong>self.parent.data.foo</strong> =&gt; foo field of parent node, <strong>self.data.bar.foo</strong> =&gt; foo field of bar object in current node.</td>
+</tr>
+<tr class="row-even"><th class="stub"><a href="#id140"><span class="problematic" id="id141">all_</span></a></th>
+<td>Map&lt;string,Node_&gt;</td>
+<td>A map that stores all nodes by the “fieldName” of <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a></td>
+<td><strong>all.bar.data.foo</strong> =&gt; foo field of <strong>bar</strong> node,  <strong>all.barList.data[0].foo</strong> =&gt; <em>foo</em> field of first item of <em>barList</em> node</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id36">
+<h3><span class="target" id="force">force</span><a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+<p>if it’s value is true, it means Use the default value,
+even if the tag specified in the “<a class="reference internal" href="#path">path</a>” field is in the source file.
+if force value is true, default value is assigned both start and end of <a class="reference internal" href="#parentpath">parentPath</a>.
+It is mostly used with filter field or with value in <a class="reference internal" href="#params">params</a>.
+The default value is false.</p>
+</div>
+<div class="section" id="id37">
+<h3><span class="target" id="atstart">atStart</span><a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<p>if <a class="reference internal" href="#atstart">atStart</a> filed is true, default value is assigned at start of the tag. other wise default value is assigned at the end of the tag.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#default">default</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="id38">
+<h2><span class="target" id="xml-object">XML Object</span><a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<p>XML Object is used to make extra definitions and to change “<a class="reference internal" href="#path">path</a>” and “<a class="reference internal" href="#parentpath">parentPath</a>” fields for xml format</p>
+<dl class="docutils">
+<dt>Fields:</dt>
+<dd><table border="1" class="first last docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head stub">Field Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#path">path</a></th>
+<td>string</td>
+<td>xml specific <a class="reference internal" href="#path">path</a> definition default value is <a class="reference internal" href="#path">path</a> field of <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a></td>
+</tr>
+<tr class="row-odd"><th class="stub"><a class="reference internal" href="#parentpath">parentPath</a></th>
+<td>string</td>
+<td>xml specific <a class="reference internal" href="#parentpath">parentPath</a> definition. default value is <a class="reference internal" href="#parentpath">parentPath</a> field of <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a></td>
+</tr>
+<tr class="row-even"><th class="stub"><a class="reference internal" href="#attribute">attribute</a></th>
+<td>boolean</td>
+<td>attribute field is indicates that the current <a class="reference internal" href="#parsing-element-object">Parsing Element Object</a> is an attribute on the tag pointed to by the parentPath field in the xml.</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<div class="section" id="id39">
+<h3><span class="target" id="attribute">attribute</span><a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
+<p>The attribute field is indicates that the current <a class="reference internal" href="#parsing-element">Parsing Element</a> is an attribute on the tag pointed to by the <a class="reference internal" href="#parentpath">parentPath</a> field in the xml.</p>
+<p>Examples:</p>
+<div class="content-tabs docutils container">
+<div class="tab-content docutils container" id="tab-yaml">
+<p class="tab-title">YAML</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="l l-Scalar l-Scalar-Plain">result</span><span class="p p-Indicator">:</span>
+   <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+   <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+   <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/Pets/Pet</span>    <span class="c1"># xml specific path definition</span>
+   <span class="l l-Scalar l-Scalar-Plain">fields</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">id</span><span class="p p-Indicator">:</span>
+           <span class="l l-Scalar l-Scalar-Plain">dataType</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>
+           <span class="l l-Scalar l-Scalar-Plain">xml</span><span class="p p-Indicator">:</span>
+             <span class="l l-Scalar l-Scalar-Plain">attribute</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>   <span class="c1"># id field is an attribute that is located at /Pets/Pet tag.</span>
+        <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+        <span class="l l-Scalar l-Scalar-Plain">price</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">long</span>
+        <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</pre></div>
+</div>
+</div>
+<div class="tab-content docutils container" id="tab-json">
+<p class="tab-title">JSON</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+
+   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="nt">&quot;result&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span> <span class="p">,</span>
+      <span class="nt">&quot;xml&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Pets/Pet&quot;</span>
+       <span class="p">}</span>
+      <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+           <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="nt">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;long&quot;</span><span class="p">,</span>
+               <span class="nt">&quot;xml&quot;</span><span class="p">:{</span>
+                  <span class="nt">&quot;attribute&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span>
+               <span class="p">}</span>
+           <span class="p">},</span>
+           <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+           <span class="nt">&quot;price&quot;</span><span class="p">:</span> <span class="s2">&quot;long&quot;</span><span class="p">,</span>
+           <span class="nt">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#xml">xml</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, M.Fatih Ercik
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-137372236-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+   
+
+</body>
+</html>

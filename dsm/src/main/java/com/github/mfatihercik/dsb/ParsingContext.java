@@ -47,7 +47,7 @@ public class ParsingContext {
                 deferAssignments = new ArrayList<>();
                 deferAssignmentMap.put(parentElement, deferAssignments);
             }
-            deferAssignments.add(new DeferAssignment(currentParsingElement, pathInfo, value));
+            deferAssignments.add(new DeferAssignment(currentParsingElement, pathInfo, value, isDefault));
         }
     }
 

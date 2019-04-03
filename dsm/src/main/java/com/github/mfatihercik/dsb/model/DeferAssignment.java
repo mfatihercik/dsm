@@ -24,12 +24,6 @@ public class DeferAssignment {
     public DeferAssignment() {
     }
 
-    public DeferAssignment(ParsingElement currentParsingElement, PathInfo pathInfo, Object value) {
-        this.currentParsingElement = currentParsingElement;
-        this.value = value;
-        this.pathInfo = pathInfo;
-    }
-
     public void setDefault(boolean aDefault) {
         isDefault = aDefault;
     }
