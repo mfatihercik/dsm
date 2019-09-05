@@ -3,6 +3,7 @@ package com.github.mfatihercik.dsb.resource;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URI;
 import java.net.URLClassLoader;
 import java.util.HashSet;
 import java.util.Set;
@@ -51,7 +52,11 @@ public class FileSystemResourceAccessor extends AbstractResourceAccessor {
     @Override
     protected void addRootPath(URL path) {
         try {
-            File pathAsFile = new File(path.toURI());
+            URI uri = path.toURI();
+            if(uri.isOpaque()) {
+                return;
+            }
+            File pathAsFile = new File(uri);
 
             for (File fileSystemRoot : File.listRoots()) {
                 if (pathAsFile.equals(fileSystemRoot)) { //don't include root
