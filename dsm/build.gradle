@@ -27,7 +27,7 @@ gradle.startParameter.showStacktrace = org.gradle.api.logging.configuration.Show
 
 
 group = 'com.github.mfatihercik'
-version = '1.0.3'
+version = '1.0.4'
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
 
@@ -90,7 +90,6 @@ repositories {
 
 bintray {
     user = 'mfatihercik'
-
     publications = ['DSMPublication']
     pkg {
         repo = 'github'
@@ -103,7 +102,7 @@ bintray {
         githubRepo = 'mfatihercik/dsm' //Optional Github repository
         githubReleaseNotesFile = 'README.md' //Optional Github readme file
         version {
-            name = '1.0.3'
+            name = '1.0.4'
             desc = 'Declarative Stream Mapping (DSM)'
             gpg {
                 sign = true //Determines whether to GPG sign the files. The default is false
