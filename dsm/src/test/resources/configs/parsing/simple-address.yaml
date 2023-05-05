@@ -1,0 +1,15 @@
+---
+result:
+  path: "/"
+  type: array
+  fields:
+    address:
+      type: object
+      path: "/address"
+      fields:
+        street:
+          path: "/address/street"
+          dataType: string
+        city:
+          path: "/address/city"
+          dataType: string
