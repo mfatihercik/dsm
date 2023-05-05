@@ -1,33 +1,29 @@
 buildscript {
     repositories {
         maven { url "https://repo.spring.io/plugins-release" }
-        jcenter ()
+        jcenter()
     }
     dependencies {
-        classpath ("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
+        classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
     }
 }
-plugins {
-    id "com.jfrog.bintray" version "1.8.4"
-}
 
 
-apply plugin: 'propdeps-maven'
+apply plugin: 'signing'
 apply plugin: 'propdeps'
 apply plugin: 'propdeps-idea'
 apply plugin: 'propdeps-eclipse'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
 apply plugin: 'java-library'
 apply plugin: 'groovy'
 
 
-gradle.startParameter.showStacktrace = org.gradle.api.logging.configuration.ShowStacktrace.ALWAYS
+gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS
 
 
 group = 'com.github.mfatihercik'
-version = '1.0.4'
+version = '1.0.5'
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
 
@@ -41,16 +37,18 @@ task javadocJar(type: Jar) {
     from javadoc
     archiveClassifier = 'javadoc'
 }
-tasks.withType (Javadoc){
+tasks.withType(Javadoc) {
     options.addStringOption('Xdoclint:none', '-quiet')
 }
 publishing {
     publications {
-        DSMPublication (MavenPublication) {
-            from components.java
-            artifactId='dsm'
+        maven(MavenPublication) {
+            group = 'com.github.mfatihercik'
+            artifactId = 'dsm'
+            version = '1.0.5'
             artifact sourcesJar
             artifact javadocJar
+            from components.java
             pom {
                 name = 'Declarative Stream Mapping (DSM)'
                 description = 'Declarative way to parse JSON and XML format'
@@ -75,68 +73,50 @@ publishing {
                 }
             }
         }
+
     }
-}
-
-
-
-
-
-
-repositories {
-    jcenter ()
-    mavenCentral ()
-}
-
-bintray {
-    user = 'mfatihercik'
-    publications = ['DSMPublication']
-    pkg {
-        repo = 'github'
-        name = 'dsm'
-        vcsUrl='https://github.com/mfatihercik/dsm'
-        websiteUrl = 'https://mfatihercik.github.io/dsm'
-        issueTrackerUrl = 'https://github.com/mfatihercik/dsm/issues'
-        licenses=['MIT']
-        publicDownloadNumbers = true
-        githubRepo = 'mfatihercik/dsm' //Optional Github repository
-        githubReleaseNotesFile = 'README.md' //Optional Github readme file
-        version {
-            name = '1.0.4'
-            desc = 'Declarative Stream Mapping (DSM)'
-            gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = 'DSMLibrary13' //Optional. The passphrase for GPG signing'
+    repositories {
+        maven {
+            credentials {
+                username = "$usr"
+                password = "$pwd"
             }
-            released = new Date ()
-            vcsTag = '1.0.0'
+
+            url = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+//            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
         }
     }
 }
 
+signing {
+    sign publishing.publications
+}
 
+repositories {
+    mavenCentral()
+}
 
 dependencies {
 
-    compile ("org.apache.commons:commons-jexl3:3.1")
-    compile ("org.yaml:snakeyaml:1.23")
-    compile ("com.fasterxml.jackson.core:jackson-databind:2.9.7")
+    compile('org.apache.commons:commons-jexl3:3.2.1')
+    compile('org.yaml:snakeyaml:2.0')
+    compile('com.fasterxml.jackson.core:jackson-databind:2.15.1')
 
     optional group: 'org.codehaus.groovy', name: 'groovy-jsr223', version: '2.5.6'
 
-    testCompile ("junit:junit:4.12")
-    testCompile ("org.mockito:mockito-core:2.23.0")
+    testCompile('junit:junit:4.13.1')
+    testCompile("org.mockito:mockito-core:2.23.0")
 
-    testCompile "cglib:cglib:3.2.10"
-    testCompile "org.codehaus.groovy:groovy-all:2.5.6"
-    testCompile 'org.spockframework:spock-core:1.2-groovy-2.5'
-    testCompile("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.4")
+    testCompile 'cglib:cglib:3.3.0'
+    testCompile 'org.codehaus.groovy:groovy-all:2.5.6'
+    testCompile 'org.spockframework:spock-core:2.3-groovy-2.5'
+    testCompile('com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.2')
 
     // Use JUnit test framework
-    testImplementation ('junit:junit:4.12')
+    testImplementation('junit:junit:4.13.1')
 }
 test {
-    useJUnit ()
+    useJUnit()
     testLogging {
         showStandardStreams = true
     }

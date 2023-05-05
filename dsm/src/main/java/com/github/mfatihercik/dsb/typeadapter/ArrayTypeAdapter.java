@@ -27,9 +27,13 @@ public class ArrayTypeAdapter extends BaseObjectAdapter {
                 currentNode.getParent().add(currentNode.getData());
                 list.add(currentNode.toObject(parsingContext.getResultType()));
             } else {
-                currentNode.getParent().add(currentNode.getData());
-                list.add(currentNode.getData());
-                currentNode.setClose(true);
+                // it is already added to the list
+                if (!currentNode.isClose()) {
+                    currentNode.getParent().add(currentNode.getData());
+                    list.add(currentNode.getData());
+                    currentNode.setClose(true);
+                }
+
             }
         }
     }

@@ -1,0 +1,15 @@
+[
+  {
+    "address": {
+      "street": "Street 1",
+      "city": "Istanbul"
+    }
+  },
+  {
+    "address": {
+
+      "street": "Street 2",
+      "city": "Ankara"
+    }
+  }
+]

@@ -18,52 +18,82 @@ import java.nio.file.Paths
 class JsonParserSpec extends Specification {
 
     private static final String pathPlace = "/configs/parsing"
-    private static final Path rootPath = Paths.get (TestUtils.getTestResourcePath (), pathPlace)
+    private static final Path rootPath = Paths.get(TestUtils.getTestResourcePath(), pathPlace)
 
     def "pet Store Json parsing"() throws IOException {
 
-        TestMemoryLog memoryLog = new TestMemoryLog ()
-        memoryLog.logBefore ()
+        TestMemoryLog memoryLog = new TestMemoryLog()
+        memoryLog.logBefore()
 
-        Path rootPath = Paths.get (TestUtils.getTestResourcePath (), pathPlace)
+        Path rootPath = Paths.get(TestUtils.getTestResourcePath(), pathPlace)
 
-        DSMBuilder builder = new DSMBuilder (rootPath.resolve ("pet-store.yaml").toFile (), rootPath.toString ())
-        DSM dsm = builder.create ()
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("pet-store.yaml").toFile(), rootPath.toString())
+        DSM dsm = builder.create()
 
 
         when:
-        def object = dsm.toObject (rootPath.resolve ("swagger-pet-store.json").toFile ())
+        def object = dsm.toObject(rootPath.resolve("swagger-pet-store.json").toFile())
 //
-        memoryLog.logAfter ()
-        memoryLog.print ()
-        memoryLog.gc ()
+        memoryLog.logAfter()
+        memoryLog.print()
+        memoryLog.gc()
 
         then:
-        StaxParserSpec.petStoreTest (object)
+        StaxParserSpec.petStoreTest(object)
+
+    }
+
+    def "array root should add object once"() throws IOException {
+
+        TestMemoryLog memoryLog = new TestMemoryLog()
+        memoryLog.logBefore()
+
+        Path rootPath = Paths.get(TestUtils.getTestResourcePath(), pathPlace)
+
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("simple-address.yaml").toFile(), rootPath.toString())
+        DSM dsm = builder.create()
+
+
+        when:
+        def object = dsm.toObject(rootPath.resolve("simple-address.json").toFile())
+//
+        memoryLog.logAfter()
+        memoryLog.print()
+        memoryLog.gc()
+
+        then:
+        assert object instanceof List
+        List<Map<String, Object>> list = (List<Map<String, Object>>) object
+        assert 2==list.size()
+        Map<String, Object> item1 = list.get(0)
+        def address = item1['address']
+        assert address instanceof Map
+        assert address['street']=='Street 1'
+        assert address['city']=='Istanbul'
 
     }
 
     @Test
     void test() throws IOException {
 
-        DSMBuilder builder = new DSMBuilder (rootPath.resolve ("SaxParsingHandlerTest.yaml").toFile (), rootPath.toString ())
+        DSMBuilder builder = new DSMBuilder(rootPath.resolve("SaxParsingHandlerTest.yaml").toFile(), rootPath.toString())
 
-        builder.setType (DSMBuilder.TYPE.JSON)
-        DSM dsm = builder.create ()
-        Object data = dsm.toObject (rootPath.resolve ("google-merchant-review.json").toFile ())
+        builder.setType(DSMBuilder.TYPE.JSON)
+        DSM dsm = builder.create()
+        Object data = dsm.toObject(rootPath.resolve("google-merchant-review.json").toFile())
 
 
-        StaxParserTest.googleMerchantTEst (data)
+        StaxParserTest.googleMerchantTEst(data)
     }
 
     @Test
     void petStoreJaksonJson() throws IOException {
-        TestMemoryLog memoryLog = new TestMemoryLog ()
-        memoryLog.logBefore ()
-        long strat = System.currentTimeMillis ()
+        TestMemoryLog memoryLog = new TestMemoryLog()
+        memoryLog.logBefore()
+        long strat = System.currentTimeMillis()
         // for (int i = 0; i < 1; i++) {
-        ObjectMapper mapper = new ObjectMapper ()
-        List<Pet> value = mapper.readValue (new File (TestUtils.getTestResourcePath () + pathPlace + "/" + "swagger-pet-store.json"), new TypeReference<List<Pet>> () {
+        ObjectMapper mapper = new ObjectMapper()
+        List<Pet> value = mapper.readValue(new File(TestUtils.getTestResourcePath() + pathPlace + "/" + "swagger-pet-store.json"), new TypeReference<List<Pet>>() {
         })
         // List value = mapper.readValue(new File(TestUtils.getTestResourcePath() +
         // pathPlace + "/" + "swagger-pet-store.json"), List.class);
@@ -77,8 +107,8 @@ class JsonParserSpec extends Specification {
         //
         // }
         // TestUtils.logMemoryUsage();
-        memoryLog.logAfter ()
-        memoryLog.print ()
+        memoryLog.logAfter()
+        memoryLog.print()
         // }
         // System.out.println("parse jackson end:" + (System.currentTimeMillis() -
         // strat));

@@ -42,6 +42,7 @@ public class TypeConverterFactory implements Cloneable {
         typeConverter.put("bigdecimal", new BigDecimalTypeConverter());
         typeConverter.put("biginteger", new BigIntegerTypeConverter());
         typeConverter.put("default", new DefaultTypeConverter());
+        typeConverter.put("string", new DefaultTypeConverter());
     }
 
     /**
